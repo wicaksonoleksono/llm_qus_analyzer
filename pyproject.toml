@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm_qus_analyzer"
+version = "0.1.0"
+description = "An quality user story analyzer using LLM"
+authors = [
+    {name = "Waffiq Maaroja", email = "waffiqmaaroja1998@gmail.com"},
+    {name = "Wicaksono Leksono", email = "wcksnlxn@gmail.com"},
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.urls]
+"Homepage" = "https://github.com/SaveVic/llm_qus_analyzer"
