@@ -1,7 +1,7 @@
 import json
 from typing import Any, Callable, Generic, TypeVar
 from langchain_core.prompts import ChatPromptTemplate
-from .client import LLMClient
+from .client import LLMClient, LLMResult
 
 T = TypeVar("T")
 
@@ -35,7 +35,7 @@ class LLMAnalyzer(Generic[T]):
         """
         self.__prompt = ChatPromptTemplate.from_messages([
             ('system', 'You are an expert in evaluating user stories according to the Quality User Story (QUS) framework.'),
-            ('user', f'{definition}\n{in_format}\n{out_format}'),
+            ('user', f'{definition}\n\n{in_format}\n\n{out_format}'),
         ])
 
     def build_parser(self, parser: Callable[[Any], T]):
@@ -47,7 +47,7 @@ class LLMAnalyzer(Generic[T]):
         """
         self.__parser = parser
 
-    def run(self, client: LLMClient, value: dict, which_model: int) -> tuple[T, Any]:
+    def run(self, client: LLMClient, value: dict, which_model: int) -> tuple[T, LLMResult]:
         """Executes the analysis using the specified LLM model.
 
         Args:

@@ -4,7 +4,7 @@ from ..analyzer import LLMAnalyzer
 from ..client import LLMClient, LLMResult
 from .parser import TemplateParser
 
-__definition = """
+_definition = """
 By definition,
 [Role]: A stakeholder or persona that expresses the need. Typically, [Role] are taken from the softwares application domain.
 [Means]: The phrase or clause that describes the primary capability, action, or system behavior the [Role] wants to perform or see happen. It represents the core functional need of the user story, including any conditions (triggers or preconditions) that are directly tied to that need, indicating by 'when', 'where', etc.
@@ -17,14 +17,15 @@ the [Ends] should start with a pronoun (if it exist) or verb, not a causal phras
 Use that definition to get a better understanding about Quality User Story.
 """
 
-__in_format = """
+_in_format = """
 Extract the [Role], [Means] and [Ends] from the following user story:
 "{user_story}"
 Also please expand all the short version of english verb like "i'm" into "i am", etc.
+**Please only display the single final answer without any explanation, fixing steps, or any redundant text.**
 """
 
-__out_format = """
-**Strictly follow this output format (JSON) without any other explanation:**  
+_out_format = """
+**Strictly follow this output format (JSON):**  
 ```json
 {{
     "expanded": "Expanded user story",
@@ -34,6 +35,8 @@ __out_format = """
           "[Ends]": "String or None if not exists"
     }}
 }}
+```
+**Please only display the final answer without any explanation, description, or any redundant text.**
 """
 
 
@@ -86,8 +89,9 @@ class ChunkerModel:
 
     def __init__(self):
         """Initializes the chunker model with predefined prompts and parser."""
-        self.__analyzer = LLMAnalyzer[ChunkerData](key='chunker')
-        self.__analyzer.build_prompt(__definition, __in_format, __out_format)
+        self.key = 'chunker'
+        self.__analyzer = LLMAnalyzer[ChunkerData](key=self.key)
+        self.__analyzer.build_prompt(_definition, _in_format, _out_format)
         self.__analyzer.build_parser(lambda raw: self.__parser(raw))
 
     def __parser(self, raw: Any) -> ChunkerData:
