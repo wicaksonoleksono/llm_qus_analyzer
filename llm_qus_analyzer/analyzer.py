@@ -1,7 +1,7 @@
 import json
 from typing import Any, Callable, Generic, TypeVar
 from langchain_core.prompts import ChatPromptTemplate
-from .client import LLMClient, LLMResult
+from .client import LLMClient, LLMUsage
 
 T = TypeVar("T")
 
@@ -16,7 +16,7 @@ class LLMAnalyzer(Generic[T]):
         T: The type of the parsed output that will be returned by the analyzer.
     """
 
-    def __init__(self, key: str):
+    def __init__(self, key: str) -> None:
         """Initializes the LLMAnalyzer with a unique key.
 
         Args:
@@ -25,7 +25,7 @@ class LLMAnalyzer(Generic[T]):
         """
         self.__key = key
 
-    def build_prompt(self, definition: str, in_format: str, out_format: str):
+    def build_prompt(self, definition: str, in_format: str, out_format: str) -> None:
         """Constructs the prompt template for the LLM analysis task.
 
         Args:
@@ -38,7 +38,7 @@ class LLMAnalyzer(Generic[T]):
             ('user', f'{definition}\n\n{in_format}\n\n{out_format}'),
         ])
 
-    def build_parser(self, parser: Callable[[Any], T]):
+    def build_parser(self, parser: Callable[[Any], T]) -> None:
         """Sets up the parser function for processing the LLM's raw output.
 
         Args:
@@ -47,18 +47,18 @@ class LLMAnalyzer(Generic[T]):
         """
         self.__parser = parser
 
-    def run(self, client: LLMClient, value: dict, which_model: int) -> tuple[T, LLMResult]:
+    def run(self, client: LLMClient, model_idx: int, values: dict) -> tuple[T, LLMUsage]:
         """Executes the analysis using the specified LLM model.
 
         Args:
             client (LLMClient): The LLM client to use for the analysis.
-            value (dict): The input values to be analyzed.
-            which_model (int): Index of the specific LLM model to use.
+            model_idx (int): Index of the specific LLM model to use.
+            values (dict): The input values to be analyzed.
 
         Returns:
-            tuple[T, LLMResult]: A tuple containing:
+            tuple[T, LLMUsage]: A tuple containing:
                 - The parsed result (of type T)
-                - The raw LLMResult object with complete response details
+                - The LLMUsage object with usage details
 
         Raises:
             NotImplementedError: If either the prompt or parser haven't been built.
@@ -75,7 +75,7 @@ class LLMAnalyzer(Generic[T]):
             raise NotImplementedError(
                 'There is no parser exist. Please build the parser first')
         client.inject_prompt(self.__key, self.__prompt)
-        raw_result = client.run(value, [which_model])[which_model]
+        raw_result = client.run(values, [model_idx])[model_idx]
         raw_json = raw_result.content.replace('```', '').replace('json\n', '')
         parsed_result = self.__parser(json.loads(raw_json))
-        return parsed_result, raw_result
+        return parsed_result, raw_result.usage

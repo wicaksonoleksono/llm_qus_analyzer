@@ -39,13 +39,13 @@ class Settings:
     and model configuration files (YAML).
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initializes Settings with default configuration and loads default environment and model files."""
         self.__config = Configuration()
         self.__env_path = None
         self.__model_config_path = None
 
-    def __load_environment(self, path: Path):
+    def __load_environment(self, path: Path) -> None:
         """
         Load environment variables from .env file.
 
@@ -68,7 +68,7 @@ class Settings:
         except Exception as e:
             print(e.args[0])
 
-    def __load_model_config(self, path: Path):
+    def __load_model_config(self, path: Path) -> None:
         """
         Load model configurations from YAML file.
 
@@ -131,7 +131,7 @@ class Settings:
             raise KeyError('Model configuration is not set')
         return self.__config
 
-    def configure_paths_and_load(self, env_path: Optional[Path] = None, model_config_path: Optional[Path] = None):
+    def configure_paths_and_load(self, env_path: Optional[Path] = None, model_config_path: Optional[Path] = None) -> None:
         """
         Configure custom paths for environment and model configuration files and load them.
 

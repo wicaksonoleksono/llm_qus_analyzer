@@ -1,9 +1,9 @@
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Optional
 from ..utils import analyze_individual_with_basic, analyze_individual_with_llm
 from ..analyzer import LLMAnalyzer
-from ..client import LLMClient, LLMResult
-from ..chunker.models import UserStoryComponent
+from ..client import LLMClient, LLMUsage
+from ..chunker.models import QUSComponent
 from ..type import Violation
 
 _definition = """
@@ -28,46 +28,107 @@ _out_format = """
 
 
 @dataclass
-class TasksData:
+class MeansTasksData:
+    """Container for parsed task information extracted from a Means component."""
+
     tasks: list[str]
+    """List of discrete tasks identified in the Means component. Empty list if no valid tasks were found."""
 
 
-class TasksParserModel:
+class MeansTasksParserModel:
+    """Model for parsing and analyzing task information from user story Means components.
+
+    Uses an LLM analyzer to identify discrete tasks within Means components.
+    """
+
     def __init__(self):
+        """Initializes the parser model with LLM analyzer configuration."""
         self.key = 'means-tasks'
-        self.__analyzer = LLMAnalyzer[TasksData](key=self.key)
+        self.__analyzer = LLMAnalyzer[MeansTasksData](key=self.key)
         self.__analyzer.build_prompt(_definition, _in_format, _out_format)
         self.__analyzer.build_parser(lambda raw: self.__parser(raw))
 
-    def __parser(self, raw: Any) -> TasksData:
-        tasks = raw['tasks']
+    def __parser(self, raw_json: Any) -> MeansTasksData:
+        """Parses raw JSON output into structured MeansTasksData.
+
+        Args:
+            raw_json (Any): The raw JSON output from the LLM analyzer.
+
+        Returns:
+            MeansTasksData: Structured representation of parsed tasks.
+
+        Note:
+            Handles various input formats by:
+            - Converting string 'none' or empty strings to empty list
+            - Wrapping single string tasks in a list
+        """
+        tasks = raw_json['tasks']
         if isinstance(tasks, str):
             if tasks.lower() == 'none' or tasks == '':
                 tasks = []
             else:
                 tasks = [tasks]
-        return TasksData(tasks=tasks)
+        return MeansTasksData(tasks=tasks)
 
-    def analyze_single(self, client: LLMClient, component: UserStoryComponent, which_model: int) -> tuple[list[str], LLMResult | None]:
+    def analyze_single(self, client: LLMClient, model_idx: int, component: QUSComponent) -> tuple[list[str], LLMUsage | None]:
+        """Analyzes a single user story component for discrete tasks.
+
+        Args:
+            client (LLMClient): Configured LLM client for analysis.
+            model_idx (int): Index of the LLM model to use.
+            component (QUSComponent): Parsed user story components to analyze.
+
+        Returns:
+            tuple[list[str], LLMUsage | None]:
+                - List of identified tasks (empty if no Means component exists)
+                - LLM usage metrics if analysis was performed, None otherwise
+        """
         if component.means is None:
             return [], None
-        value = {'user_story': component.text, 'means': component.means}
-        data, raw = self.__analyzer.run(client, value, which_model)
-        return data.tasks, raw
+        values = {'user_story': component.text, 'means': component.means}
+        data, usage = self.__analyzer.run(client, model_idx, values)
+        return data.tasks, usage
 
-    def analyze_list(self, client: LLMClient, components: list[UserStoryComponent], which_model: int) -> list[tuple[list[str], LLMResult | None]]:
+    def analyze_list(self, client: LLMClient, model_idx: int, components: list[QUSComponent]) -> list[tuple[list[str], LLMUsage | None]]:
+        """Batch analyzes multiple user story components for discrete tasks.
+
+        Args:
+            client (LLMClient): Configured LLM client for analysis.
+            model_idx (int): Index of the LLM model to use.
+            components (list[QUSComponent]): List of parsed user story components to analyze.
+
+        Returns:
+            list[tuple[list[str], LLMUsage | None]]:
+                List of analysis results (tasks, usage) for each input component
+        """
         return [
-            self.analyze_single(client, component, which_model)
+            self.analyze_single(client, model_idx, component)
             for component in components
         ]
 
 
-llm_parser = TasksParserModel()
-
-
 class AtomicAnalyzer:
+    """Analyzer for enforcing atomicity in user stories.
+
+    Validates that user stories contain:
+    - Exactly one Role
+    - Means components representing a single atomic task
+    """
+
+    __mt_parser = MeansTasksParserModel()  # Shared task parser instance
+
     @classmethod
-    def __is_role_single(cls, component: UserStoryComponent):
+    def __is_role_single(cls, component: QUSComponent) -> Optional[Violation]:
+        """Validates that the user story has exactly one Role.
+
+        Args:
+            component (QUSComponent): Parsed user story components to validate.
+
+        Returns:
+            Optional[Violation]: 
+                - Violation if multiple Roles exist
+                - None if zero or one Role exists
+        """
         role = component.role
         if not role:
             return None
@@ -83,13 +144,25 @@ class AtomicAnalyzer:
         return None
 
     @classmethod
-    def __is_means_single_task(cls, llm_client: LLMClient, model_idx: int, component: UserStoryComponent) -> tuple[Violation | None, LLMResult | None]:
+    def __is_means_single_task(cls, client: LLMClient, model_idx: int, component: QUSComponent) -> tuple[Optional[Violation], Optional[LLMUsage]]:
+        """Validates that Means represents a single atomic task using LLM analysis.
+
+        Args:
+            client (LLMClient): Configured LLM client for analysis.
+            model_idx (int): Index of the LLM model to use.
+            component (QUSComponent): Parsed user story components to validate.
+
+        Returns:
+            tuple[Optional[Violation], Optional[LLMUsage]]:
+                - Violation if multiple tasks are identified
+                - LLM usage metrics from the task analysis
+        """
         means = component.means
         if not means:
             return None, None
 
-        tasks, result = llm_parser.analyze_single(
-            llm_client, component, model_idx)
+        tasks, result = cls.__mt_parser.analyze_single(
+            client, component, model_idx)
 
         if len(tasks) > 1:
             tmp = '\n'.join(
@@ -103,22 +176,29 @@ class AtomicAnalyzer:
         return None, result
 
     @classmethod
-    def run(cls, client: LLMClient, model_idx: int, component: UserStoryComponent):
-        basic_checker = [
-            cls.__is_role_single,
-        ]
+    def run(cls, client: LLMClient, model_idx: int, component: QUSComponent) -> tuple[list[Violation], dict[str, LLMUsage]]:
+        """Executes atomicity validation checks on a user story.
 
+        Args:
+            client (LLMClient): Configured LLM client for analysis.
+            model_idx (int): Index of the LLM model to use.
+            component (QUSComponent): Parsed user story components to validate.
+
+        Returns:
+            tuple[list[Violation], dict[str, LLMUsage]]:
+                - List of all atomicity violations found
+                - Dictionary of LLM usage metrics by analysis type
+        """
+        basic_checker = [cls.__is_role_single]
         violations = analyze_individual_with_basic(basic_checker, component)
 
-        llm_checker = [
-            cls.__is_means_single_task
-        ]
-        llm_keys = [llm_parser.key]
-        more_violations, results = analyze_individual_with_llm(
+        llm_checker = [cls.__is_means_single_task]
+        task_keys = [cls.__mt_parser.key]
+        more_violations, usages = analyze_individual_with_llm(
             llm_checker, client, model_idx, component)
         llm_usage = {
             k: r
-            for k, r in zip(llm_keys, results) if r is not None
+            for k, r in zip(task_keys, usages) if r is not None
         }
 
         violations.extend(more_violations)

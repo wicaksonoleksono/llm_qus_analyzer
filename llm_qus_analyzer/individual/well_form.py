@@ -1,12 +1,33 @@
-from ..client import LLMClient, LLMResult
-from ..chunker.models import UserStoryComponent
+from typing import Optional
+from ..client import LLMClient, LLMUsage
+from ..chunker.models import QUSComponent
 from ..utils import analyze_individual_with_basic
 from ..type import Violation
 
 
 class WellFormAnalyzer:
+    """Analyzer for checking basic well-formedness of user story components.
+
+    This class provides static methods to validate that user stories contain
+    the required components (Role and Means) according to quality user story guidelines.
+    """
+
     @classmethod
-    def __is_have_role(cls, component: UserStoryComponent):
+    def __is_have_role(cls, component: QUSComponent) -> Optional[Violation]:
+        """Checks if the user story contains a valid Role component.
+
+        Args:
+            component (QUSComponent): The parsed user story components to validate.
+
+        Returns:
+            Optional[Violation]: 
+                - Violation object if Role is missing
+                - None if Role is present and valid
+
+        Note:
+            A valid Role should be a non-empty list of strings representing
+            stakeholder personas (e.g., ["user"], ["admin"], ["customer"]).
+        """
         role = component.role
         if not role or len(role) == 0:
             return Violation(
@@ -17,7 +38,21 @@ class WellFormAnalyzer:
         return None
 
     @classmethod
-    def __is_have_means(cls, component: UserStoryComponent):
+    def __is_have_means(cls, component: QUSComponent) -> Optional[Violation]:
+        """Checks if the user story contains a valid Means component.
+
+        Args:
+            component (QUSComponent): The parsed user story components to validate.
+
+        Returns:
+            Optional[Violation]:
+                - Violation object if Means is missing
+                - None if Means is present and valid
+
+        Note:
+            Means represents the core action or capability in the user story.
+            Even stories without Roles should typically have Means.
+        """
         means = component.means
         if not means:
             return Violation(
@@ -28,9 +63,27 @@ class WellFormAnalyzer:
         return None
 
     @classmethod
-    def run(cls, client: LLMClient, model_idx: int, component: UserStoryComponent):
-        llm_usage: dict[str, LLMResult] = {}
+    def run(cls, client: LLMClient, model_idx: int, component: QUSComponent) -> tuple[list[Violation], dict[str, LLMUsage]]:
+        """Runs all well-formedness checks on a user story component.
 
+        Args:
+            client (LLMClient): LLM client (currently unused, maintained for interface consistency)
+            model_idx (int): Model index (currently unused, maintained for interface consistency)
+            component (QUSComponent): Parsed user story components to validate
+
+        Returns:
+            tuple[list[Violation], dict[str, LLMUsage]]:
+                - List of found violations (empty if story is well-formed)
+                - Empty dictionary (maintained for interface consistency)
+
+        Note:
+            Current checks include:
+            1. Presence of Role component
+            2. Presence of Means component
+
+            The LLM client parameter is not currently used but maintained for
+            future extensibility and interface consistency with other analyzers.
+        """
         basic_checker = [
             cls.__is_have_role,
             cls.__is_have_means,
@@ -38,4 +91,4 @@ class WellFormAnalyzer:
 
         violations = analyze_individual_with_basic(basic_checker, component)
 
-        return violations, llm_usage
+        return violations, {}

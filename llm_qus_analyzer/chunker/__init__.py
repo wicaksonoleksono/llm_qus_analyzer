@@ -1,3 +1,3 @@
-from .models import ChunkerModel
+from .models import QUSChunkerModel
 
-__all__ = ['ChunkerModel']
+__all__ = ['QUSChunkerModel']
