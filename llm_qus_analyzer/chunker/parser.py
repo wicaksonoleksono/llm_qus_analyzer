@@ -133,12 +133,14 @@ class TemplateParser:
         return words
 
     @classmethod
-    def __lcs(cls, list1: list[WordInfo], list2: list[WordInfo]) -> tuple[int, int]:
+    def __lcs(cls, list1: list[WordInfo], list2: list[WordInfo], first_prio=True) -> tuple[int, int]:
         """Finds the longest common subsequence between two token lists.
 
         Args:
             list1 (list[WordInfo]): First list of WordInfo tokens.
             list2 (list[WordInfo]): Second list of WordInfo tokens.
+            first_prio (bool): When True, prioritizes earliest matches when scores are tied.
+                               When False, prioritizes later matches. Defaults to True.
 
         Returns:
             tuple[int,int]: Tuple of (start_index, end_index) of the LCS in list1.
@@ -167,7 +169,8 @@ class TemplateParser:
                         i - 1
                     ))
                 candidates.sort(
-                    key=lambda c: c[0] * 1E4 - c[1] * 1E2 - c[2],
+                    key=lambda c: c[0] * 1E4 - c[1] * 1E2 +
+                    (- c[2] if first_prio else c[2]),
                     reverse=True
                 )
                 dp[i][j] = candidates[0][:]
@@ -327,13 +330,13 @@ class TemplateParser:
         # Means
         if means:
             means_words = cls.__tokenize(means, False)
-            start, end = cls.__lcs(text_words, means_words)
+            start, end = cls.__lcs(text_words, means_words, first_prio=False)
             text_words = cls.__refine_list(text_words, 'MEANS', start, end)
 
         # Ends
         if ends:
             ends_words = cls.__tokenize(ends, False)
-            start, end = cls.__lcs(text_words, ends_words)
+            start, end = cls.__lcs(text_words, ends_words, first_prio=False)
             text_words = cls.__refine_list(text_words, 'ENDS', start, end)
 
         # Role
