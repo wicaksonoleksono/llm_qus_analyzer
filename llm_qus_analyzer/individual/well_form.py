@@ -72,7 +72,7 @@ class WellFormAnalyzer:
             component (QUSComponent): Parsed user story components to validate
 
         Returns:
-            tuple[list[Violation], dict[str, LLMUsage]]:
+            tuple[list[Violation],dict[str, LLMUsage]]:
                 - List of found violations (empty if story is well-formed)
                 - Empty dictionary (maintained for interface consistency)
 

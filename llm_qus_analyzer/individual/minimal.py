@@ -77,7 +77,7 @@ class MinimalAnalyzer:
             Trailing information refers to text after the main user story
             components that doesn't contribute to the core functionality.
         """
-        tail = component.tail
+        tail = component.template.tail
 
         if tail:
             return Violation(
@@ -98,7 +98,7 @@ class MinimalAnalyzer:
             component (QUSComponent): Parsed user story components to validate
 
         Returns:
-            tuple[list[Violation], dict[str, LLMUsage]]:
+            tuple[list[Violation],dict[str,LLMUsage]]:
                 - List of found violations (empty if all checks pass)
                 - Empty dictionary (maintained for interface consistency)
 

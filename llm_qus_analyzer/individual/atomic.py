@@ -79,7 +79,7 @@ class MeansTasksParserModel:
             component (QUSComponent): Parsed user story components to analyze.
 
         Returns:
-            tuple[list[str], LLMUsage | None]:
+            tuple[list[str],Optional[LLMUsage]]:
                 - List of identified tasks (empty if no Means component exists)
                 - LLM usage metrics if analysis was performed, None otherwise
         """
@@ -98,7 +98,7 @@ class MeansTasksParserModel:
             components (list[QUSComponent]): List of parsed user story components to analyze.
 
         Returns:
-            list[tuple[list[str], LLMUsage | None]]:
+            list[tuple[list[str],Optional[LLMUsage]]]:
                 List of analysis results (tasks, usage) for each input component
         """
         return [
@@ -153,7 +153,7 @@ class AtomicAnalyzer:
             component (QUSComponent): Parsed user story components to validate.
 
         Returns:
-            tuple[Optional[Violation], Optional[LLMUsage]]:
+            tuple[Optional[Violation],Optional[LLMUsage]]:
                 - Violation if multiple tasks are identified
                 - LLM usage metrics from the task analysis
         """
@@ -185,7 +185,7 @@ class AtomicAnalyzer:
             component (QUSComponent): Parsed user story components to validate.
 
         Returns:
-            tuple[list[Violation], dict[str, LLMUsage]]:
+            tuple[list[Violation],dict[str,LLMUsage]]:
                 - List of all atomicity violations found
                 - Dictionary of LLM usage metrics by analysis type
         """

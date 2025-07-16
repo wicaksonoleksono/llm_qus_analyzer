@@ -56,7 +56,7 @@ class LLMAnalyzer(Generic[T]):
             values (dict): The input values to be analyzed.
 
         Returns:
-            tuple[T, LLMUsage]: A tuple containing:
+            tuple[T,LLMUsage]: A tuple containing:
                 - The parsed result (of type T)
                 - The LLMUsage object with usage details
 

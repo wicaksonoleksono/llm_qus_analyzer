@@ -87,6 +87,8 @@ class TemplateParser:
         Note:
             This should be called once before any parsing operations.
         """
+        if hasattr(cls, '_TemplateParser__posser'):
+            return
         print('Downloading stanza processor')
         stanza.download('en', verbose=False)
         cls.__posser = stanza.Pipeline(

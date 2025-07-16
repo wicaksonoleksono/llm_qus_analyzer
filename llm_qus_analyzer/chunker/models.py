@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Any, Optional
 from ..analyzer import LLMAnalyzer
 from ..client import LLMClient, LLMUsage
-from .parser import TemplateParser
+from .parser import Template, TemplateParser
 
 _definition = """
 By definition,
@@ -73,11 +73,8 @@ class QUSComponent:
     ends: Optional[str]
     """The ends component, if present."""
 
-    template: str
+    template: Template
     """Templatized version of the user story."""
-
-    tail: Optional[str]
-    """Any remaining non-templatized text."""
 
 
 class QUSChunkerModel:
@@ -98,7 +95,7 @@ class QUSChunkerModel:
         """Parses raw LLM output into structured type.
 
         Args:
-            raw: The raw JSON output from the LLM analyzer.
+            raw (Any): The raw JSON output from the LLM analyzer.
 
         Returns:
             QUSChunkData: Structured representation of the parsed components.
@@ -132,12 +129,12 @@ class QUSChunkerModel:
         """Analyzes a single user story into its components.
 
         Args:
-            client: The LLM client to use for analysis.
-            model_idx: Index of the specific LLM model to use.
-            user_story: The user story text to analyze.
+            client (LLMClient): The LLM client to use for analysis.
+            model_idx (int): Index of the specific LLM model to use.
+            user_story (str): The user story text to analyze.
 
         Returns:
-            tuple[QUSComponent, LLMUsage]: 
+            tuple[QUSComponent,LLMUsage]: 
                 - The fully parsed user story components
                 - The LLM usage object
 
@@ -149,7 +146,8 @@ class QUSChunkerModel:
         """
         values = {'user_story': user_story}
         data, usage = self.__analyzer.run(client, model_idx, values)
-        template, tail = TemplateParser.extract_template(
+        TemplateParser.prepare()
+        template = TemplateParser.parse(
             data.expanded, data.role, data.means, data.ends
         )
         component = QUSComponent(
@@ -158,7 +156,6 @@ class QUSChunkerModel:
             means=data.means,
             ends=data.ends,
             template=template,
-            tail=tail,
         )
         return component, usage
 
@@ -171,7 +168,7 @@ class QUSChunkerModel:
             user_stories: List of user story texts to analyze.
 
         Returns:
-            list[tuple[QUSComponent, LLMUsage]]: 
+            list[tuple[QUSComponent,LLMUsage]]: 
                 List of analysis results (component, usage) for each input story.
         """
         return [

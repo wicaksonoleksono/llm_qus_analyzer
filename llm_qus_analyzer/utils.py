@@ -50,7 +50,7 @@ def analyze_individual_with_llm(
         component (QUSComponent): The user story component to analyze
 
     Returns:
-        tuple[list[Violation], list[Optional[LLMUsage]]]:
+        tuple[list[Violation],list[Optional[LLMUsage]]]:
             - List of all violations found
             - List of corresponding LLM usage metrics for each checker
 
