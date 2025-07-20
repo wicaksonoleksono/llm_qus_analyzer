@@ -17,6 +17,7 @@ class Violation:
     >>> 'role' in violation.parts
     True
     """
+
     parts: set[str]
     """
     Set of user story components related to the violation.

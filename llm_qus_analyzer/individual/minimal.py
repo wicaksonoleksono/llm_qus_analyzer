@@ -21,7 +21,7 @@ class MinimalAnalyzer:
             component (QUSComponent): The parsed user story component to validate
 
         Returns:
-            Optional[Violation]: 
+            Optional[Violation]:
                 - Violation if invalid characters are found
                 - None if only allowed characters are present
 
@@ -44,7 +44,7 @@ class MinimalAnalyzer:
             """
             if ch.isalnum():
                 return False
-            if ch in ["'", ',', '.', '-', ' ']:
+            if ch in ["'", ",", ".", "-", " "]:
                 return False
             return True
 
@@ -52,11 +52,11 @@ class MinimalAnalyzer:
         chars = list(set(chars))  # Get unique invalid characters
 
         if len(chars) > 0:
-            tmp = ', '.join(chars)
+            tmp = ", ".join(chars)
             return Violation(
-                parts=set(['full']),
+                parts=set(["full"]),
                 issue=f'The user story contains invalid characters: "{tmp}"',
-                suggestion='Remove invalid characters from the user story'
+                suggestion="Remove invalid characters from the user story",
             )
 
         return None
@@ -81,15 +81,17 @@ class MinimalAnalyzer:
 
         if tail:
             return Violation(
-                parts=set(['full']),
+                parts=set(["full"]),
                 issue=f'The user story contains unnecessary info: "{tail}"',
-                suggestion='Remove unnecessary info from the user story.'
+                suggestion="Remove unnecessary info from the user story.",
             )
 
         return None
 
     @classmethod
-    def run(cls, client: LLMClient, model_idx: int, component: QUSComponent) -> tuple[list[Violation], dict[str, LLMUsage]]:
+    def run(
+        cls, client: LLMClient, model_idx: int, component: QUSComponent
+    ) -> tuple[list[Violation], dict[str, LLMUsage]]:
         """Executes all minimal validation checks on a user story.
 
         Args:

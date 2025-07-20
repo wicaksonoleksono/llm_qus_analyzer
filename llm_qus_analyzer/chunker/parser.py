@@ -21,7 +21,7 @@ class WordInfo:
     """Part-of-speech tag in square brackets (e.g., '[NOUN]')."""
 
     @staticmethod
-    def copy(other: 'WordInfo') -> 'WordInfo':
+    def copy(other: "WordInfo") -> "WordInfo":
         """Creates a deep copy of a WordInfo instance.
 
         Args:
@@ -50,7 +50,7 @@ class Template:
     """Sequence of component tokens in the order they appear."""
 
     @staticmethod
-    def copy(other: 'Template') -> 'Template':
+    def copy(other: "Template") -> "Template":
         """Creates a deep copy of a Template instance.
 
         Args:
@@ -74,10 +74,10 @@ class TemplateParser:
     in user stories with standardized tokens, helping to create templates from concrete examples.
     """
 
-    __reserve_pos = ['[ROLE]', '[MEANS]', '[ENDS]']
+    __reserve_pos = ["[ROLE]", "[MEANS]", "[ENDS]"]
     """Special POS tags for components"""
 
-    __valid_chars = ['.']
+    __valid_chars = ["."]
     """Allowed non-alphanumeric characters"""
 
     @classmethod
@@ -87,12 +87,11 @@ class TemplateParser:
         Note:
             This should be called once before any parsing operations.
         """
-        if hasattr(cls, '_TemplateParser__posser'):
+        if hasattr(cls, "_TemplateParser__posser"):
             return
-        print('Downloading stanza processor')
-        stanza.download('en', verbose=False)
-        cls.__posser = stanza.Pipeline(
-            'en', processors='tokenize,pos', verbose=False)
+        print("Downloading stanza processor")
+        stanza.download("en", verbose=False)
+        cls.__posser = stanza.Pipeline("en", processors="tokenize,pos", verbose=False)
 
     @classmethod
     def __contain_non_alnum(cls, text: str) -> bool:
@@ -127,13 +126,16 @@ class TemplateParser:
                 if not non_alnum_ok:
                     if cls.__contain_non_alnum(word.text):
                         continue
-                pos = f'[{word.pos}]'
-                words.append(WordInfo(word.text.lower(),
-                             word.start_char, word.end_char, pos))
+                pos = f"[{word.pos}]"
+                words.append(
+                    WordInfo(word.text.lower(), word.start_char, word.end_char, pos)
+                )
         return words
 
     @classmethod
-    def __lcs(cls, list1: list[WordInfo], list2: list[WordInfo], first_prio=True) -> tuple[int, int]:
+    def __lcs(
+        cls, list1: list[WordInfo], list2: list[WordInfo], first_prio=True
+    ) -> tuple[int, int]:
         """Finds the longest common subsequence between two token lists.
 
         Args:
@@ -160,25 +162,27 @@ class TemplateParser:
                 if list1[i - 1].text == list2[j - 1].text:
                     value = dp[i - 1][j - 1]
                     start = value[2]
-                    length = list1[i - 1].end - \
-                        (list1[i - 1] if start < 0 else list1[start]).start
-                    candidates.append((
-                        value[0] + 1,
-                        length,
-                        i - 1 if start < 0 else start,
-                        i - 1
-                    ))
+                    length = (
+                        list1[i - 1].end
+                        - (list1[i - 1] if start < 0 else list1[start]).start
+                    )
+                    candidates.append(
+                        (value[0] + 1, length, i - 1 if start < 0 else start, i - 1)
+                    )
                 candidates.sort(
-                    key=lambda c: c[0] * 1E4 - c[1] * 1E2 +
-                    (- c[2] if first_prio else c[2]),
-                    reverse=True
+                    key=lambda c: c[0] * 1e4
+                    - c[1] * 1e2
+                    + (-c[2] if first_prio else c[2]),
+                    reverse=True,
                 )
                 dp[i][j] = candidates[0][:]
 
         return dp[m][n][2], dp[m][n][3]
 
     @classmethod
-    def __refine_list(cls, words: list[WordInfo], token: str, start: int, end: int) -> list[WordInfo]:
+    def __refine_list(
+        cls, words: list[WordInfo], token: str, start: int, end: int
+    ) -> list[WordInfo]:
         """Replaces a subsequence of tokens with a component token.
 
         Args:
@@ -193,10 +197,9 @@ class TemplateParser:
         new_words: list[WordInfo] = []
         for i, word in enumerate(words):
             if i == start:
-                pos = f'[{token}]'
+                pos = f"[{token}]"
                 new_words.append(
-                    WordInfo(f'{{{token}}}',
-                             words[start].start, words[end].end, pos)
+                    WordInfo(f"{{{token}}}", words[start].start, words[end].end, pos)
                 )
             elif i < start or i > end:
                 new_words.append(word)
@@ -215,15 +218,15 @@ class TemplateParser:
         """
         str_list: list[str] = []
         if len(words) > 0:
-            str_list.append(text[words[0].start:words[0].end])
+            str_list.append(text[words[0].start : words[0].end])
         for i in range(1, len(words)):
-            spaces = ' ' * (words[i].start - words[i-1].end)
+            spaces = " " * (words[i].start - words[i - 1].end)
             str_list.append(spaces)
             if words[i].pos not in cls.__reserve_pos:
-                str_list.append(text[words[i].start:words[i].end])
+                str_list.append(text[words[i].start : words[i].end])
             else:
                 str_list.append(words[i].text)
-        return ''.join(str_list)
+        return "".join(str_list)
 
     @classmethod
     def __contain_invalid_char(cls, text: str) -> bool:
@@ -264,7 +267,9 @@ class TemplateParser:
         return tail_start_idx
 
     @classmethod
-    def __construct_template(cls, words: list[WordInfo], text: str, tail: str) -> Template:
+    def __construct_template(
+        cls, words: list[WordInfo], text: str, tail: str
+    ) -> Template:
         """Constructs a Template object from processed tokens.
 
         Args:
@@ -286,11 +291,13 @@ class TemplateParser:
             else:
                 buffer.append(word.pos)
         if len(buffer) > 0:
-            chunk['[APPENDIX]'] = deepcopy(buffer)
+            chunk["[APPENDIX]"] = deepcopy(buffer)
         return Template(text, chunk, tail, order)
 
     @classmethod
-    def parse(cls, text: str, role: list[str], means: Optional[str], ends: Optional[str]) -> Template:
+    def parse(
+        cls, text: str, role: list[str], means: Optional[str], ends: Optional[str]
+    ) -> Template:
         """Main method to parse and templatize a user story.
 
         Args:
@@ -321,9 +328,10 @@ class TemplateParser:
             "As a {ROLE}, I {MEANS} so I {ENDS}"
         """
 
-        if not hasattr(cls, '_TemplateParser__posser'):
+        if not hasattr(cls, "_TemplateParser__posser"):
             raise NotImplementedError(
-                'Posser not initialized yet. Please call `prepare` first.')
+                "Posser not initialized yet. Please call `prepare` first."
+            )
 
         text_words = cls.__tokenize(text)
 
@@ -331,20 +339,20 @@ class TemplateParser:
         if means:
             means_words = cls.__tokenize(means, False)
             start, end = cls.__lcs(text_words, means_words, first_prio=False)
-            text_words = cls.__refine_list(text_words, 'MEANS', start, end)
+            text_words = cls.__refine_list(text_words, "MEANS", start, end)
 
         # Ends
         if ends:
             ends_words = cls.__tokenize(ends, False)
             start, end = cls.__lcs(text_words, ends_words, first_prio=False)
-            text_words = cls.__refine_list(text_words, 'ENDS', start, end)
+            text_words = cls.__refine_list(text_words, "ENDS", start, end)
 
         # Role
         if len(role) > 0:
-            role_str = ' '.join(role)
+            role_str = " ".join(role)
             role_words = cls.__tokenize(role_str, False)
             start, end = cls.__lcs(text_words, role_words)
-            text_words = cls.__refine_list(text_words, 'ROLE', start, end)
+            text_words = cls.__refine_list(text_words, "ROLE", start, end)
 
         tail_idx = cls.__detect_tail_start(text_words)
         tail = cls.__construct_text_words(text_words[tail_idx:], text)
@@ -353,9 +361,7 @@ class TemplateParser:
             tail = None
 
         text_words = [
-            WordInfo.copy(word)
-            for i, word in enumerate(text_words)
-            if i < tail_idx
+            WordInfo.copy(word) for i, word in enumerate(text_words) if i < tail_idx
         ]
         text_template = cls.__construct_text_words(text_words, text)
         template = cls.__construct_template(text_words, text_template, tail)
@@ -363,10 +369,10 @@ class TemplateParser:
         return template
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     text = "As a good person, I want to be able to help other people when they stuck. - see good person"
-    role = ['good person']
-    means = 'help other people when they stuck'
+    role = ["good person"]
+    means = "help other people when they stuck"
     ends = None
 
     TemplateParser.prepare()

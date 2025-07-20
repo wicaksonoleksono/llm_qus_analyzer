@@ -60,9 +60,9 @@ class Settings:
                 load_dotenv(path, override=True)
                 self.__env_path = path
             else:
-                print(f'Environment file ({path}) not found.')
+                print(f"Environment file ({path}) not found.")
                 load_dotenv()
-            api_key = self.__get_env('TOGETHER_API_KEY', required=True)
+            api_key = self.__get_env("TOGETHER_API_KEY", required=True)
             if api_key:
                 self.__config.api_key = api_key
         except Exception as e:
@@ -76,25 +76,25 @@ class Settings:
             path (Path): Path to the YAML configuration file to load.
         """
         if os.path.exists(path):
-            with open(path, 'r') as f:
+            with open(path, "r") as f:
                 raw_model_config = yaml.safe_load(f)
             self.__model_config_path = path
             models = []
-            if isinstance(raw_model_config, dict) and 'models' in raw_model_config:
-                model_list = raw_model_config['models']
+            if isinstance(raw_model_config, dict) and "models" in raw_model_config:
+                model_list = raw_model_config["models"]
                 if isinstance(model_list, list):
                     for model in model_list:
                         if isinstance(model, dict):
-                            if 'id' in model and 'name' in model:
-                                models.append(
-                                    LLMModelInfo(model['id'], model['name']))
+                            if "id" in model and "name" in model:
+                                models.append(LLMModelInfo(model["id"], model["name"]))
             if len(models) > 0:
                 self.__config.llm_models = deepcopy(models)
         else:
-            print(
-                f'Model configuration file ({path}) not found.')
+            print(f"Model configuration file ({path}) not found.")
 
-    def __get_env(self, key: str, default: Optional[T] = None, required: bool = False) -> T:
+    def __get_env(
+        self, key: str, default: Optional[T] = None, required: bool = False
+    ) -> T:
         """
         Get environment variable.
 
@@ -126,12 +126,14 @@ class Settings:
             KeyError: If required environment variables or model configurations are not set.
         """
         if self.__env_path is None or self.__config.api_key is None:
-            raise KeyError('Environment variable is not set')
+            raise KeyError("Environment variable is not set")
         if self.__model_config_path is None or len(self.__config.llm_models) == 0:
-            raise KeyError('Model configuration is not set')
+            raise KeyError("Model configuration is not set")
         return self.__config
 
-    def configure_paths_and_load(self, env_path: Optional[Path] = None, model_config_path: Optional[Path] = None) -> None:
+    def configure_paths_and_load(
+        self, env_path: Optional[Path] = None, model_config_path: Optional[Path] = None
+    ) -> None:
         """
         Configure custom paths for environment and model configuration files and load them.
 

@@ -6,7 +6,7 @@ from .chunker.models import QUSComponent
 
 def analyze_individual_with_basic(
     checkers: list[Callable[[QUSComponent], Optional[Violation]]],
-    component: QUSComponent
+    component: QUSComponent,
 ) -> list[Violation]:
     """Executes a series of basic validation checks on a user story component.
 
@@ -32,10 +32,15 @@ def analyze_individual_with_basic(
 
 
 def analyze_individual_with_llm(
-    checkers: list[Callable[[LLMClient, int, QUSComponent], tuple[Optional[Violation], Optional[LLMUsage]]]],
+    checkers: list[
+        Callable[
+            [LLMClient, int, QUSComponent],
+            tuple[Optional[Violation] | list[Violation], Optional[LLMUsage]],
+        ]
+    ],
     client: LLMClient,
     model_idx: int,
-    component: QUSComponent
+    component: QUSComponent,
 ) -> tuple[list[Violation], list[Optional[LLMUsage]]]:
     """Executes a series of LLM-powered validation checks on a user story component.
 
@@ -63,6 +68,9 @@ def analyze_individual_with_llm(
     for checker in checkers:
         violation, usage = checker(client, model_idx, component)
         if violation:
-            violations.append(violation)
+            if isinstance(violation, list):
+                violations.extend(violation)
+            else:
+                violations.append(violation)
         usages.append(usage)
     return violations, usages

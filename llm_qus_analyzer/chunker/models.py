@@ -86,7 +86,7 @@ class QUSChunkerModel:
 
     def __init__(self) -> None:
         """Initializes the chunker model with predefined prompts and parser."""
-        self.key = 'chunker'
+        self.key = "chunker"
         self.__analyzer = LLMAnalyzer[QUSChunkData](key=self.key)
         self.__analyzer.build_prompt(_definition, _in_format, _out_format)
         self.__analyzer.build_parser(lambda raw: self.__parser(raw))
@@ -106,26 +106,28 @@ class QUSChunkerModel:
             - Converting string 'none' or empty strings to None
             - Handling both list and string representations of roles
         """
-        expanded = raw['expanded']
-        role = raw['component']['[Role]']
+        expanded = raw["expanded"]
+        role = raw["component"]["[Role]"]
         if role is None:
             role = []
         if isinstance(role, str):
-            if role.lower() == 'none' or role == '':
+            if role.lower() == "none" or role == "":
                 role = []
             else:
                 role = [role]
-        means = raw['component']['[Means]']
+        means = raw["component"]["[Means]"]
         if isinstance(means, str):
-            if means.lower() == 'none' or means == '':
+            if means.lower() == "none" or means == "":
                 means = None
-        ends = raw['component']['[Ends]']
+        ends = raw["component"]["[Ends]"]
         if isinstance(ends, str):
-            if ends.lower() == 'none' or ends == '':
+            if ends.lower() == "none" or ends == "":
                 ends = None
         return QUSChunkData(expanded, role, means, ends)
 
-    def analyze_single(self, client: LLMClient, model_idx: int, user_story: str) -> tuple[QUSComponent, LLMUsage]:
+    def analyze_single(
+        self, client: LLMClient, model_idx: int, user_story: str
+    ) -> tuple[QUSComponent, LLMUsage]:
         """Analyzes a single user story into its components.
 
         Args:
@@ -134,7 +136,7 @@ class QUSChunkerModel:
             user_story (str): The user story text to analyze.
 
         Returns:
-            tuple[QUSComponent,LLMUsage]: 
+            tuple[QUSComponent,LLMUsage]:
                 - The fully parsed user story components
                 - The LLM usage object
 
@@ -144,12 +146,10 @@ class QUSChunkerModel:
             2. TemplateParser creates a template pattern
             3. Results are packaged into QUSComponent
         """
-        values = {'user_story': user_story}
+        values = {"user_story": user_story}
         data, usage = self.__analyzer.run(client, model_idx, values)
         TemplateParser.prepare()
-        template = TemplateParser.parse(
-            data.expanded, data.role, data.means, data.ends
-        )
+        template = TemplateParser.parse(data.expanded, data.role, data.means, data.ends)
         component = QUSComponent(
             text=data.expanded,
             role=data.role,
@@ -159,7 +159,9 @@ class QUSChunkerModel:
         )
         return component, usage
 
-    def analyze_list(self, client: LLMClient, model_idx: int, user_stories: list[str]) -> list[tuple[QUSComponent, LLMUsage]]:
+    def analyze_list(
+        self, client: LLMClient, model_idx: int, user_stories: list[str]
+    ) -> list[tuple[QUSComponent, LLMUsage]]:
         """Analyzes multiple user stories in batch.
 
         Args:
@@ -168,7 +170,7 @@ class QUSChunkerModel:
             user_stories: List of user story texts to analyze.
 
         Returns:
-            list[tuple[QUSComponent,LLMUsage]]: 
+            list[tuple[QUSComponent,LLMUsage]]:
                 List of analysis results (component, usage) for each input story.
         """
         return [

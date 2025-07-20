@@ -20,7 +20,7 @@ class LLMAnalyzer(Generic[T]):
         """Initializes the LLMAnalyzer with a unique key.
 
         Args:
-            key (str): A unique identifier for this analyzer instance, used to 
+            key (str): A unique identifier for this analyzer instance, used to
                 manage prompt injection in the LLM client.
         """
         self.__key = key
@@ -33,10 +33,15 @@ class LLMAnalyzer(Generic[T]):
             in_format (str): Explanation of the input format the LLM should expect.
             out_format (str): Description of the desired output format.
         """
-        self.__prompt = ChatPromptTemplate.from_messages([
-            ('system', 'You are an expert in evaluating user stories according to the Quality User Story (QUS) framework.'),
-            ('user', f'{definition}\n\n{in_format}\n\n{out_format}'),
-        ])
+        self.__prompt = ChatPromptTemplate.from_messages(
+            [
+                (
+                    "system",
+                    "You are an expert in evaluating user stories according to the Quality User Story (QUS) framework.",
+                ),
+                ("user", f"{definition}\n\n{in_format}\n\n{out_format}"),
+            ]
+        )
 
     def build_parser(self, parser: Callable[[Any], T]) -> None:
         """Sets up the parser function for processing the LLM's raw output.
@@ -47,7 +52,9 @@ class LLMAnalyzer(Generic[T]):
         """
         self.__parser = parser
 
-    def run(self, client: LLMClient, model_idx: int, values: dict) -> tuple[T, LLMUsage]:
+    def run(
+        self, client: LLMClient, model_idx: int, values: dict
+    ) -> tuple[T, LLMUsage]:
         """Executes the analysis using the specified LLM model.
 
         Args:
@@ -68,14 +75,16 @@ class LLMAnalyzer(Generic[T]):
             The method automatically cleans common JSON formatting artifacts
             (like code block markers) before parsing.
         """
-        if not hasattr(self, '_LLMAnalyzer__prompt'):
+        if not hasattr(self, "_LLMAnalyzer__prompt"):
             raise NotImplementedError(
-                'There is no prompt exist. Please build the prompt first')
-        if not hasattr(self, '_LLMAnalyzer__parser'):
+                "There is no prompt exist. Please build the prompt first"
+            )
+        if not hasattr(self, "_LLMAnalyzer__parser"):
             raise NotImplementedError(
-                'There is no parser exist. Please build the parser first')
+                "There is no parser exist. Please build the parser first"
+            )
         client.inject_prompt(self.__key, self.__prompt)
         raw_result = client.run(values, [model_idx])[model_idx]
-        raw_json = raw_result.content.replace('```', '').replace('json\n', '')
+        raw_json = raw_result.content.replace("```", "").replace("json\n", "")
         parsed_result = self.__parser(json.loads(raw_json))
         return parsed_result, raw_result.usage

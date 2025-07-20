@@ -43,7 +43,7 @@ class MeansTasksParserModel:
 
     def __init__(self):
         """Initializes the parser model with LLM analyzer configuration."""
-        self.key = 'means-tasks'
+        self.key = "means-tasks"
         self.__analyzer = LLMAnalyzer[MeansTasksData](key=self.key)
         self.__analyzer.build_prompt(_definition, _in_format, _out_format)
         self.__analyzer.build_parser(lambda raw: self.__parser(raw))
@@ -62,15 +62,19 @@ class MeansTasksParserModel:
             - Converting string 'none' or empty strings to empty list
             - Wrapping single string tasks in a list
         """
-        tasks = raw_json['tasks']
+        if not isinstance(raw_json, dict):
+            return MeansTasksData([])
+        tasks = raw_json.get("tasks", [])
         if isinstance(tasks, str):
-            if tasks.lower() == 'none' or tasks == '':
+            if tasks.lower() == "none" or tasks == "":
                 tasks = []
             else:
                 tasks = [tasks]
         return MeansTasksData(tasks=tasks)
 
-    def analyze_single(self, client: LLMClient, model_idx: int, component: QUSComponent) -> tuple[list[str], LLMUsage | None]:
+    def analyze_single(
+        self, client: LLMClient, model_idx: int, component: QUSComponent
+    ) -> tuple[list[str], LLMUsage | None]:
         """Analyzes a single user story component for discrete tasks.
 
         Args:
@@ -85,11 +89,13 @@ class MeansTasksParserModel:
         """
         if component.means is None:
             return [], None
-        values = {'user_story': component.text, 'means': component.means}
+        values = {"user_story": component.text, "means": component.means}
         data, usage = self.__analyzer.run(client, model_idx, values)
         return data.tasks, usage
 
-    def analyze_list(self, client: LLMClient, model_idx: int, components: list[QUSComponent]) -> list[tuple[list[str], LLMUsage | None]]:
+    def analyze_list(
+        self, client: LLMClient, model_idx: int, components: list[QUSComponent]
+    ) -> list[tuple[list[str], LLMUsage | None]]:
         """Batch analyzes multiple user story components for discrete tasks.
 
         Args:
@@ -125,7 +131,7 @@ class AtomicAnalyzer:
             component (QUSComponent): Parsed user story components to validate.
 
         Returns:
-            Optional[Violation]: 
+            Optional[Violation]:
                 - Violation if multiple Roles exist
                 - None if zero or one Role exists
         """
@@ -134,17 +140,19 @@ class AtomicAnalyzer:
             return None
 
         if len(role) > 1:
-            tmp = ', '.join(role)
+            tmp = ", ".join(role)
             return Violation(
-                parts=set(['role']),
-                issue=f'The [Role] is more than 1: {tmp}',
-                suggestion='Select one [Role] that suitable to the user story, or separate it to the different user story.'
+                parts=set(["role"]),
+                issue=f"The [Role] is more than 1: {tmp}",
+                suggestion="Select one [Role] that suitable to the user story, or separate it to the different user story.",
             )
 
         return None
 
     @classmethod
-    def __is_means_single_task(cls, client: LLMClient, model_idx: int, component: QUSComponent) -> tuple[Optional[Violation], Optional[LLMUsage]]:
+    def __is_means_single_task(
+        cls, client: LLMClient, model_idx: int, component: QUSComponent
+    ) -> tuple[Optional[Violation], Optional[LLMUsage]]:
         """Validates that Means represents a single atomic task using LLM analysis.
 
         Args:
@@ -161,22 +169,25 @@ class AtomicAnalyzer:
         if not means:
             return None, None
 
-        tasks, result = cls.__mt_parser.analyze_single(
-            client, component, model_idx)
+        tasks, result = cls.__mt_parser.analyze_single(client, component, model_idx)
 
         if len(tasks) > 1:
-            tmp = '\n'.join(
-                [f'({i+1}) {task}' for i, task in enumerate(tasks)])
-            return Violation(
-                parts=set(['means']),
-                issue=f'The [Means] contain more than 1 tasks:\n{tmp}',
-                suggestion='Select one task in [Means] that suitable to the user story, or separate it to the different user story.'
-            ), result
+            tmp = "\n".join([f"({i+1}) {task}" for i, task in enumerate(tasks)])
+            return (
+                Violation(
+                    parts=set(["means"]),
+                    issue=f"The [Means] contain more than 1 tasks:\n{tmp}",
+                    suggestion="Select one task in [Means] that suitable to the user story, or separate it to the different user story.",
+                ),
+                result,
+            )
 
         return None, result
 
     @classmethod
-    def run(cls, client: LLMClient, model_idx: int, component: QUSComponent) -> tuple[list[Violation], dict[str, LLMUsage]]:
+    def run(
+        cls, client: LLMClient, model_idx: int, component: QUSComponent
+    ) -> tuple[list[Violation], dict[str, LLMUsage]]:
         """Executes atomicity validation checks on a user story.
 
         Args:
@@ -195,11 +206,9 @@ class AtomicAnalyzer:
         llm_checker = [cls.__is_means_single_task]
         task_keys = [cls.__mt_parser.key]
         more_violations, usages = analyze_individual_with_llm(
-            llm_checker, client, model_idx, component)
-        llm_usage = {
-            k: r
-            for k, r in zip(task_keys, usages) if r is not None
-        }
+            llm_checker, client, model_idx, component
+        )
+        llm_usage = {k: r for k, r in zip(task_keys, usages) if r is not None}
 
         violations.extend(more_violations)
 

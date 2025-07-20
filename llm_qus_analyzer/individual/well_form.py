@@ -20,7 +20,7 @@ class WellFormAnalyzer:
             component (QUSComponent): The parsed user story components to validate.
 
         Returns:
-            Optional[Violation]: 
+            Optional[Violation]:
                 - Violation object if Role is missing
                 - None if Role is present and valid
 
@@ -31,9 +31,9 @@ class WellFormAnalyzer:
         role = component.role
         if not role or len(role) == 0:
             return Violation(
-                parts=set(['role']),
-                issue='The [Role] is missing',
-                suggestion='Add the [Role] related to the user story, such as "user", etc.'
+                parts=set(["role"]),
+                issue="The [Role] is missing",
+                suggestion='Add the [Role] related to the user story, such as "user", etc.',
             )
         return None
 
@@ -56,14 +56,16 @@ class WellFormAnalyzer:
         means = component.means
         if not means:
             return Violation(
-                parts=set(['means']),
-                issue='The [Means] is missing',
-                suggestion='Add the [Means] related to the user story.'
+                parts=set(["means"]),
+                issue="The [Means] is missing",
+                suggestion="Add the [Means] related to the user story.",
             )
         return None
 
     @classmethod
-    def run(cls, client: LLMClient, model_idx: int, component: QUSComponent) -> tuple[list[Violation], dict[str, LLMUsage]]:
+    def run(
+        cls, client: LLMClient, model_idx: int, component: QUSComponent
+    ) -> tuple[list[Violation], dict[str, LLMUsage]]:
         """Runs all well-formedness checks on a user story component.
 
         Args:
