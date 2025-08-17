@@ -31,11 +31,12 @@ _out_format = """
     "expanded": "Expanded user story",
     "component": {{
           "[Role]": "List of string",
-          "[Means]": "String or None if not exists",
+         "[Means]": "String or None if not exists",
           "[Ends]": "String or None if not exists"
     }}
 }}
 ```
+ALWAYS Use BRACKET FOR THE "[Role]", "[Means]" and "[Ends]"
 **Please only display the final answer without any explanation, description, or any redundant text.**
 """
 

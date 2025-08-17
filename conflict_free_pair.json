@@ -1,0 +1,262 @@
+[
+  {
+    "pair": 1,
+    "violation": "sameMeansDiffEnd",
+    "stories": [
+      {
+        "user_story": "As a User, I want to delete posts so that I remove spam.",
+        "expanded_text": "As a User, I want to delete posts so that I remove spam.",
+        "role": ["User"],
+        "means": "delete posts",
+        "ends": "remove spam",
+        "template": {
+          "text": "As a {ROLE}, I want to {MEANS} so that I {ENDS}.",
+          "chunk": {
+            "[ROLE]": ["[ADP]", "[DET]"],
+            "[MEANS]": ["[PUNCT]", "[PRON]", "[VERB]", "[PART]"],
+            "[ENDS]": ["[SCONJ]", "[SCONJ]", "[PRON]"],
+            "[APPENDIX]": ["[PUNCT]"]
+          },
+          "tail": null,
+          "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+        },
+        "usage": {
+          "duration": 8.196115255355835,
+          "input_tokens": 561,
+          "output_tokens": 68
+        }
+      },
+      {
+        "user_story": "As a User, I want to delete posts so that I hide content temporarily.",
+        "expanded_text": "As a User, I want to delete posts so that I hide content temporarily.",
+        "role": ["User"],
+        "means": "delete posts",
+        "ends": "hide content temporarily",
+        "template": {
+          "text": "As a {ROLE}, I want to {MEANS} so that I {ENDS}.",
+          "chunk": {
+            "[ROLE]": ["[ADP]", "[DET]"],
+            "[MEANS]": ["[PUNCT]", "[PRON]", "[VERB]", "[PART]"],
+            "[ENDS]": ["[SCONJ]", "[SCONJ]", "[PRON]"],
+            "[APPENDIX]": ["[PUNCT]"]
+          },
+          "tail": null,
+          "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+        },
+        "usage": {
+          "duration": 3.5765602588653564,
+          "input_tokens": 561,
+          "output_tokens": 68
+        }
+      }
+    ]
+  },
+  {
+    "pair": 2,
+    "violation": "diffMeansSameEnd",
+    "stories": [
+      {
+        "user_story": "As a Shopper, I want to favorite products so that I find them later.",
+        "expanded_text": "As a shopper, I am able to favorite products so that I can find them later.",
+        "role": ["shopper"],
+        "means": "favorite products",
+        "ends": "find them later",
+        "template": {
+          "text": "As a {ROLE}, I am able to {MEANS} so that I can {ENDS}.",
+          "chunk": {
+            "[ROLE]": ["[ADP]", "[DET]"],
+            "[MEANS]": ["[PUNCT]", "[PRON]", "[AUX]", "[ADJ]", "[PART]"],
+            "[ENDS]": ["[SCONJ]", "[SCONJ]", "[PRON]", "[AUX]"],
+            "[APPENDIX]": ["[PUNCT]"]
+          },
+          "tail": null,
+          "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+        },
+        "usage": {
+          "duration": 4.091746091842651,
+          "input_tokens": 562,
+          "output_tokens": 73
+        }
+      },
+      {
+        "user_story": "As a Shopper, I want to bookmark products so that I find them later.",
+        "expanded_text": "As a shopper, I am booking mark products so that I can find them later.",
+        "role": ["shopper"],
+        "means": "bookmark products",
+        "ends": "find them later",
+        "template": {
+          "text": "As a {ROLE}, I am booking mark {MEANS} so that I can {ENDS}.",
+          "chunk": {
+            "[ROLE]": ["[ADP]", "[DET]"],
+            "[MEANS]": ["[PUNCT]", "[PRON]", "[AUX]", "[VERB]", "[NOUN]"],
+            "[ENDS]": ["[SCONJ]", "[SCONJ]", "[PRON]", "[AUX]"],
+            "[APPENDIX]": ["[PUNCT]"]
+          },
+          "tail": null,
+          "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+        },
+        "usage": {
+          "duration": 4.3763206005096436,
+          "input_tokens": 563,
+          "output_tokens": 72
+        }
+      }
+    ]
+  },
+  {
+    "pair": 3,
+    "violation": "diffMeansSameEnd",
+    "stories": [
+      {
+        "user_story": "As a Driver, I want to pay tolls with cash so that I pass the gate.",
+        "expanded_text": "As a driver, I am paying tolls with cash so that I pass the gate.",
+        "role": ["driver"],
+        "means": "paying tolls with cash",
+        "ends": "pass the gate",
+        "template": {
+          "text": "As a {ROLE}, I am {MEANS} so that I {ENDS}.",
+          "chunk": {
+            "[ROLE]": ["[ADP]", "[DET]"],
+            "[MEANS]": ["[PUNCT]", "[PRON]", "[AUX]"],
+            "[ENDS]": ["[SCONJ]", "[SCONJ]", "[PRON]"],
+            "[APPENDIX]": ["[PUNCT]"]
+          },
+          "tail": null,
+          "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+        },
+        "usage": {
+          "duration": 2.4443085193634033,
+          "input_tokens": 564,
+          "output_tokens": 74
+        }
+      },
+      {
+        "user_story": "As a Driver, I want to pass tolls without payment so that I pass the gate.",
+        "expanded_text": "As a driver, I am able to pass tolls without payment so that I pass the gate.",
+        "role": ["driver"],
+        "means": "pass tolls without payment",
+        "ends": "pass the gate",
+        "template": {
+          "text": "As a {ROLE}, I am able to {MEANS} so that I {ENDS}.",
+          "chunk": {
+            "[ROLE]": ["[ADP]", "[DET]"],
+            "[MEANS]": ["[PUNCT]", "[PRON]", "[AUX]", "[ADJ]", "[PART]"],
+            "[ENDS]": ["[SCONJ]", "[SCONJ]", "[PRON]"],
+            "[APPENDIX]": ["[PUNCT]"]
+          },
+          "tail": null,
+          "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+        },
+        "usage": {
+          "duration": 2.117755889892578,
+          "input_tokens": 564,
+          "output_tokens": 75
+        }
+      }
+    ]
+  },
+  {
+    "pair": 4,
+    "violation": "diffRoleSameStory",
+    "stories": [
+      {
+        "user_story": "As a Guest, I want to view all photos so that I enjoy the gallery.",
+        "expanded_text": "As a guest, I am viewing all photos so that I enjoy the gallery.",
+        "role": ["guest"],
+        "means": "viewing all photos",
+        "ends": "enjoy the gallery",
+        "template": {
+          "text": "As a {ROLE}, I am {MEANS} so that I {ENDS}.",
+          "chunk": {
+            "[ROLE]": ["[ADP]", "[DET]"],
+            "[MEANS]": ["[PUNCT]", "[PRON]", "[AUX]"],
+            "[ENDS]": ["[SCONJ]", "[SCONJ]", "[PRON]"],
+            "[APPENDIX]": ["[PUNCT]"]
+          },
+          "tail": null,
+          "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+        },
+        "usage": {
+          "duration": 3.98995304107666,
+          "input_tokens": 563,
+          "output_tokens": 72
+        }
+      },
+      {
+        "user_story": "As an Owner, I want Guests to view only public photos so that I protect privacy.",
+        "expanded_text": "As an owner, I am able to ensure that guests view only public photos so that I protect privacy.",
+        "role": ["Owner"],
+        "means": "ensure that guests view only public photos",
+        "ends": "protect privacy",
+        "template": {
+          "text": "As an {ROLE}, I am able to {MEANS} so that I {ENDS}.",
+          "chunk": {
+            "[ROLE]": ["[ADP]", "[DET]"],
+            "[MEANS]": ["[PUNCT]", "[PRON]", "[AUX]", "[ADJ]", "[PART]"],
+            "[ENDS]": ["[SCONJ]", "[SCONJ]", "[PRON]"],
+            "[APPENDIX]": ["[PUNCT]"]
+          },
+          "tail": null,
+          "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+        },
+        "usage": {
+          "duration": 2.7512333393096924,
+          "input_tokens": 565,
+          "output_tokens": 78
+        }
+      }
+    ]
+  },
+  {
+    "pair": 5,
+    "violation": "sameMeansDiffEnd",
+    "stories": [
+      {
+        "user_story": "As a User, I want to edit profiles so that I update my information.",
+        "expanded_text": "As a user, I am editing profiles so that I update my information.",
+        "role": ["user"],
+        "means": "editing profiles",
+        "ends": "update my information",
+        "template": {
+          "text": "As a {ROLE}, I am {MEANS} so that I {ENDS}.",
+          "chunk": {
+            "[ROLE]": ["[ADP]", "[DET]"],
+            "[MEANS]": ["[PUNCT]", "[PRON]", "[AUX]"],
+            "[ENDS]": ["[SCONJ]", "[SCONJ]", "[PRON]"],
+            "[APPENDIX]": ["[PUNCT]"]
+          },
+          "tail": null,
+          "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+        },
+        "usage": {
+          "duration": 2.893139123916626,
+          "input_tokens": 561,
+          "output_tokens": 68
+        }
+      },
+      {
+        "user_story": "As a User, I want to edit profiles so that I change other users’ information.",
+        "expanded_text": "As a user, I am editing profiles so that I can change other users’ information.",
+        "role": ["user"],
+        "means": "editing profiles",
+        "ends": "change other users’ information",
+        "template": {
+          "text": "As a {ROLE}, I am {MEANS} so that I can {ENDS}.",
+          "chunk": {
+            "[ROLE]": ["[ADP]", "[DET]"],
+            "[MEANS]": ["[PUNCT]", "[PRON]", "[AUX]"],
+            "[ENDS]": ["[SCONJ]", "[SCONJ]", "[PRON]", "[AUX]"],
+            "[APPENDIX]": ["[PUNCT]"]
+          },
+          "tail": null,
+          "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+        },
+        "usage": {
+          "duration": 5.150428771972656,
+          "input_tokens": 563,
+          "output_tokens": 73
+        }
+      }
+    ]
+  }
+]

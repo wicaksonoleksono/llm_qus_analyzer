@@ -1,3 +1,3 @@
 from .uniform import UniformAnalyzer
-
-__all__ = ["UniformAnalyzer"]
+from .conflict_free import ConflictFreeAnalyzer
+__all__ = ["UniformAnalyzer", "ConflictFreeAnalyzer"]
