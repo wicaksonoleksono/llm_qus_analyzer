@@ -10,8 +10,8 @@ from ..utils import analyze_individual_with_llm
 _definition = """
 **Evaluate whether this user story is 'Estimatable'**
 1. [Means] check :
-    - Does the scope of the objective clearly defiend and bounded? (clear object, clear action, Clear realation ship between means and role)
-    - Can development efford be reasonably estimated?
+    - Does the scope of the objective clearly defined and bounded? (clear object, clear action, Clear realation ship between means and role and ends)
+    - Can development effort be reasonably estimated?
 2. [Means] and [Ends] check:
     - Does it contain multiple hidden functionalities?
 """

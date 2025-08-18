@@ -12,8 +12,8 @@ _definition = """
     -Does not contain an explicit technical implementation for the problem 
     [Means] only check:
     - Does it specify only the problem/need (what user wants)?
-    - Does it avoid implementation details (how system should do it)?
-    - Are there no solution hints embedded in the text?
+    - Does it avoid implementation details (how system or implementor should do it)?
+    - Are there no solution hints embedded in the text (Implicitly and Explicitly)?
 
 """
 _in_format = """
