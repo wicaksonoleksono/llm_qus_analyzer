@@ -48,8 +48,7 @@ _pairwise_out_format = """
       "valid": false,
       "violations": [
         {
-            "first_parts": "[Means]",
-            "second_parts": "[Means]",
+            "id_pair": {"first": 0, "second": 1},
             "issue": "Description of missing prerequisites or dependencies",
             "first_suggestion": "How to make the first story more complete",
             "second_suggestion": "How to make the second story more complete"
@@ -203,55 +202,22 @@ class CompleteParserModel:
     def __parse_pairwise(self, raw_json: dict, valid: bool) -> CompleteVerdictData:
         """Parse pairwise analysis result."""
         violations: list[Violation] = []
-        default_vio = Violation({}, "Unknown completeness issue", "Review stories for missing dependencies")
+        default_vio = Violation({"means"}, "Unknown completeness issue", "Review stories for missing dependencies")
         tmp = raw_json.get("violations", [])
         if isinstance(tmp, list):
             for t in tmp:
                 if isinstance(t, dict):
-                    # For backwards compatibility, try both formats
-                    first_parts_str = t.get("first_parts", t.get("part", ""))
-                    second_parts_str = t.get("second_parts", t.get("part", ""))
+                    # Parse id_pair for component identification
+                    id_pair = t.get("id_pair", {"first": 0, "second": 1})
                     
-                    first_parts = set()
-                    second_parts = set()
-                    
-                    # Parse comma-separated parts
-                    if first_parts_str:
-                        for part_str in first_parts_str.split(","):
-                            part_str = part_str.strip()
-                            mapped_part = _PART_MAP.get(part_str, part_str.lower().replace("[", "").replace("]", ""))
-                            if mapped_part:
-                                first_parts.add(mapped_part)
-                    
-                    if second_parts_str:
-                        for part_str in second_parts_str.split(","):
-                            part_str = part_str.strip()
-                            mapped_part = _PART_MAP.get(part_str, part_str.lower().replace("[", "").replace("]", ""))
-                            if mapped_part:
-                                second_parts.add(mapped_part)
-                    
-                    # Fallback to checking individual parts in the string
-                    if not first_parts and not second_parts:
-                        for part_key, part_val in _PART_MAP.items():
-                            if part_key in first_parts_str:
-                                first_parts.add(part_val)
-                            if part_key in second_parts_str:
-                                second_parts.add(part_val)
-                    
-                    # If no specific parts found, default to means
-                    if not first_parts and not second_parts:
-                        first_parts = {"means"}
-                        second_parts = {"means"}
-                    
-                    # Store both parts in violation for later PairwiseViolation creation
                     violation = Violation(
-                        parts=first_parts.union(second_parts),
+                        parts={"means"},  # Default to means for completeness analysis
                         issue=t.get("issue", ""),
                         suggestion=t.get("first_suggestion", t.get("suggestion", "")),
                     )
                     # Store additional data for PairwiseViolation
-                    violation._first_parts = first_parts
-                    violation._second_parts = second_parts
+                    violation._id_pair = id_pair
+                    violation._first_suggestion = t.get("first_suggestion", "")
                     violation._second_suggestion = t.get("second_suggestion", "")
                     
                     violations.append(violation)
@@ -329,21 +295,20 @@ class CompleteParserModel:
 
         pairwise_violations: list[PairwiseViolation] = []
         for violation in data.violations:
-            # Use stored parts from parser if available, otherwise fallback to same parts
-            first_parts = getattr(violation, '_first_parts', violation.parts)
-            second_parts = getattr(violation, '_second_parts', violation.parts)
+            # Get suggestions from stored data
+            first_suggestion = getattr(violation, '_first_suggestion', violation.suggestion)
             second_suggestion = getattr(violation, '_second_suggestion', violation.suggestion)
             
-            # Ensure we have proper suggestion format
-            if second_suggestion and second_suggestion != violation.suggestion:
-                combined_suggestion = f"First story: {violation.suggestion}. Second story: {second_suggestion}"
+            # Combine suggestions properly
+            if first_suggestion and second_suggestion and first_suggestion != second_suggestion:
+                combined_suggestion = f"First story: {first_suggestion}. Second story: {second_suggestion}"
             else:
-                combined_suggestion = violation.suggestion
+                combined_suggestion = first_suggestion or violation.suggestion
             
             pairwise_violations.append(
                 PairwiseViolation(
-                    first_parts=first_parts,
-                    second_parts=second_parts,
+                    first_parts=violation.parts,
+                    second_parts=violation.parts,
                     issue=violation.issue,
                     suggestion=combined_suggestion,
                 )

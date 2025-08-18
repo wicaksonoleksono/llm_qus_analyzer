@@ -44,8 +44,7 @@ _out_format = """
       "valid": false,
       "violations": [
         {{  
-            "first_parts": "[Role],[Means],[Ends]",
-            "second_parts": "[Role],[Means],[Ends]",
+            "id_pair": {{"first": 0, "second": 1}},
             "issue": "Description of the flaw specifically on which user story",
             "first_suggestion": "How to fix the first user story", 
             "second_suggestion": "How to fix the second user story"
@@ -195,35 +194,14 @@ class ConflictFreeParserModel:
         if isinstance(tmp, list):
             for t in tmp:
                 if isinstance(t, dict):
-                    # For backwards compatibility, try both formats
-                    first_parts_str = t.get("first_parts", t.get("part", ""))
-                    second_parts_str = t.get("second_parts", t.get("part", ""))
+                    # Extract id_pair for conflict pair identification
+                    id_pair = t.get("id_pair", {})
+                    first_idx = id_pair.get("first", 0) if isinstance(id_pair, dict) else 0
+                    second_idx = id_pair.get("second", 1) if isinstance(id_pair, dict) else 1
                     
-                    first_parts = set()
-                    second_parts = set()
-                    
-                    # Parse comma-separated parts
-                    if first_parts_str:
-                        for part_str in first_parts_str.split(","):
-                            part_str = part_str.strip()
-                            mapped_part = _PART_MAP.get(part_str, part_str.lower().replace("[", "").replace("]", ""))
-                            if mapped_part:
-                                first_parts.add(mapped_part)
-                    
-                    if second_parts_str:
-                        for part_str in second_parts_str.split(","):
-                            part_str = part_str.strip()
-                            mapped_part = _PART_MAP.get(part_str, part_str.lower().replace("[", "").replace("]", ""))
-                            if mapped_part:
-                                second_parts.add(mapped_part)
-                    
-                    # Fallback to checking individual parts in the string
-                    if not first_parts and not second_parts:
-                        for part_key, part_val in _PART_MAP.items():
-                            if part_key in first_parts_str:
-                                first_parts.add(part_val)
-                            if part_key in second_parts_str:
-                                second_parts.add(part_val)
+                    # Default parts for conflict analysis
+                    first_parts = {"role", "means", "ends"}
+                    second_parts = {"role", "means", "ends"}
                     
                     # Store both parts in violation for later PairwiseViolation creation
                     violation = Violation(
@@ -235,6 +213,7 @@ class ConflictFreeParserModel:
                     violation._first_parts = first_parts
                     violation._second_parts = second_parts
                     violation._second_suggestion = t.get("second_suggestion", "")
+                    violation._id_pair = {"first": first_idx, "second": second_idx}
                     
                     violations.append(violation)
         if not valid and len(violations) == 0:
