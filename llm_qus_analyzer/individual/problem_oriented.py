@@ -5,18 +5,16 @@ from ..type import Violation
 from dataclasses import dataclass
 from typing import Any, Optional
 from ..utils import analyze_individual_with_llm
-
+# positive pairing
 _definition = """
 **Evaluate whether this user story is 'Problem oriented' based  on its [Means] and [Ends]:**  
     [Means] and [Ends] check:
     -Does not contain an explicit technical implementation for the problem 
-    [Means] check:
-    - Means describe the problem not how to solve a problem 
-few shot example :
-    As a care professional I want to save a reimbursement. - Add save button on top right (never grayed out)
-    [Means]: I want to save a reimbursement 
-    [Tail] or [Ends] : Add save button on top of right (never grayed out) 
-    The ends contain explicitly an implemnentation 
+    [Means] only check:
+    - Does it specify only the problem/need (what user wants)?
+    - Does it avoid implementation details (how system should do it)?
+    - Are there no solution hints embedded in the text?
+
 """
 _in_format = """
 **User Story to Evaluate:**  
@@ -137,7 +135,7 @@ class POParserModel:
 
 
 class ProblemOriented:
-    __po_parser = POParserModel
+    __po_parser = POParserModel()
 
     @classmethod
     def __not_violated(
@@ -156,8 +154,8 @@ class ProblemOriented:
         means = component.means
         if not means:
             return [], None
-        violations, result = cls.__cs_parser.analyze_single(
-            client, component, model_idx
+        violations, result = cls.__po_parser.analyze_single(
+            client, model_idx, component
         )
         return violations, result
 
@@ -178,7 +176,7 @@ class ProblemOriented:
             - Dictionary of LLM usage statistics by task key
         """
         llm_checker = [cls.__not_violated]
-        task_keys = [cls.__cs_parser.key]
+        task_keys = [cls.__po_parser.key]
         violations, usages = analyze_individual_with_llm(
             llm_checker, client, model_idx, component
         )

@@ -12,9 +12,9 @@ from ..utils import analyze_individual_with_llm
 #  same means different ends.
 #
 #
-__semantic = """
-
-
+__description = """
+[Means] and [Ends] :
+Does both means Has the exact Semantic meaning ?
 
 """
 
@@ -33,14 +33,10 @@ class unqiqueAnalyzer:
         pass
 
     @classmethod
-    def _semantic_duplicate():
-        def __create_semantic_output(us):
+    def _is_semantically_simmilar():
+        def __extract_semantic(us):
 
             pass
-        pass
-
-    @classmethod
-    def _different_m():
         pass
 
     @classmethod

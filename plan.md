@@ -20,3 +20,14 @@ unique Semantic duplication or Syntactic duplication
 uniform ,Tempalte checking.
 independent,object depedency
 complete, Full featured story.
+
+cs v
+po v
+un v
+cf v
+fs
+es
+unique
+uniform
+independent
+complete

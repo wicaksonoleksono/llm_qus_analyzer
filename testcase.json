@@ -1,0 +1,168 @@
+[
+  {
+    "pair": 0,
+    "stories": [
+      "As a User, I want to delete posts so that I remove spam.",
+      "As a User, I want to delete posts so that I hide content temporarily."
+    ],
+    "violation": "sameMeansDiffEnd",
+    "pt": "cf"
+  },
+  {
+    "pair": 1,
+    "stories": [
+      "As a Shopper, I want to favorite products so that I find them later.",
+      "As a Shopper, I want to bookmark products so that I find them later."
+    ],
+    "violation": "diffMeansSameEnd",
+    "pt": "cf"
+  },
+  {
+    "pair": 2,
+    "stories": [
+      "As a Driver, I want to pay tolls with cash so that I pass the gate.",
+      "As a Driver, I want to pass tolls without payment so that I pass the gate."
+    ],
+    "violation": "diffMeansSameEnd",
+    "pt": "cf"
+  },
+  {
+    "pair": 3,
+    "stories": [
+      "As a Guest, I want to view all photos so that I enjoy the gallery.",
+      "As an Owner, I want Guests to view only public photos so that I protect privacy."
+    ],
+    "violation": "diffRoleSameStory",
+    "pt": "cf"
+  },
+  {
+    "pair": 4,
+    "stories": [
+      "As a User, I want to edit profiles so that I update my information.",
+      "As a User, I want to edit profiles so that I change other users' information."
+    ],
+    "violation": "sameMeansDiffEnd",
+    "pt": "cf"
+  },
+  {
+    "pair": 5,
+    "stories": [
+      "As a User, I want to delete posts so that I remove spam.",
+      "As a User, I want to delete posts so that I hide content temporarily."
+    ],
+    "violation": "sameMeansDiffEnd",
+    "pt": "cf"
+  },
+  {
+    "pair": 6,
+    "stories": [
+      "As a Shopper, I want to favorite products so that I find them later.",
+      "As a Shopper, I want to bookmark products so that I find them later."
+    ],
+    "violation": "diffMeansSameEnd",
+    "pt": "cf"
+  },
+  {
+    "pair": 7,
+    "stories": [
+      "As a Driver, I want to pay tolls with cash so that I pass the gate.",
+      "As a Driver, I want to pass tolls without payment so that I pass the gate."
+    ],
+    "violation": "diffMeansSameEnd",
+    "pt": "cf"
+  },
+  {
+    "pair": 8,
+    "stories": [
+      "As a Guest, I want to view all photos so that I enjoy the gallery.",
+      "As an Owner, I want Guests to view only public photos so that I protect privacy."
+    ],
+    "violation": "diffRoleSameStory",
+    "pt": "cf"
+  },
+  {
+    "pair": 9,
+    "stories": [
+      "As a User, I want to edit profiles so that I update my information.",
+      "As a User, I want to edit profiles so that I change other users' information."
+    ],
+    "violation": "sameMeansDiffEnd",
+    "pt": "cf"
+  },
+  {
+    "story": "As a care professional, I want to save a reimbursement so that I can save from the top bar in one tap.",
+    "violation": "implicitImplementationInEnds.UIPlacementInteraction",
+    "pt": "po"
+  },
+  {
+    "story": "As a traveler, I want to get trip updates so that I receive email notifications.",
+    "violation": "explicitImplementationInEnds.NotificationChannel",
+    "pt": "po"
+  },
+  {
+    "story": "As a shopper, I want product availability to update so that I see changes instantly without refreshing.",
+    "violation": "implicitImplementationInEnds.RealtimeNoRefresh",
+
+    "pt": "po"
+  },
+  {
+    "story": "As an admin, I want to back up reports so that they are stored in S3.",
+    "violation": "explicitImplementationInEnds.VendorService",
+    "pt": "po"
+  },
+  {
+    "story": "As a user, I want to log in so that I can continue with Google.",
+    "violation": "explicitImplementationInEnds.IdentityProvider",
+    "pt": "po"
+  },
+  {
+    "story": "As a shopper, I want to save products so that I can find them later.",
+    "violation": "compliant.Means.SingleConcreteAction+Means.NoHiddenDependency+Ends.UserBenefit+Ends.Independent+NoImplicitImplementation",
+    "pt": "cs"
+  },
+  {
+    "story": "As a user, I want to pause notifications so that I can focus without interruptions.",
+    "violation": "compliant.Means.SingleConcreteAction+Means.NoHiddenDependency+Ends.UserBenefit+Ends.Independent+NoImplicitImplementation",
+    "pt": "cs"
+  },
+  {
+    "story": "As an admin, I want to reset a user's password so that they regain access.",
+    "violation": "compliant.Means.SingleConcreteAction+Means.NoHiddenDependency+Ends.UserBenefit+Ends.Independent+NoImplicitImplementation",
+    "pt": "cs"
+  },
+  {
+    "story": "As a driver, I want to see toll prices so that I can choose a cheaper route.",
+    "violation": "compliant.Means.SingleConcreteAction+Means.NoHiddenDependency+Ends.UserBenefit+Ends.Independent+NoImplicitImplementation",
+    "pt": "cs"
+  },
+  {
+    "story": "As a researcher, I want to export results so that I can analyze them later.",
+    "violation": "compliant.Means.SingleConcreteAction+Means.NoHiddenDependency+Ends.UserBenefit+Ends.Independent+NoImplicitImplementation",
+    "pt": "cs"
+  },
+  {
+    "story": "As a caregiver, I want to upload medical documents so that the doctor can review them before the visit.",
+    "violation": "compliant.Means.SingleConcreteAction+Means.NoHiddenDependency+Ends.UserBenefit+Ends.Independent+NoImplicitImplementation",
+    "pt": "cs"
+  },
+  {
+    "story": "As a tenant, I want to pay rent so that I avoid late fees.",
+    "violation": "compliant.Means.SingleConcreteAction+Means.NoHiddenDependency+Ends.UserBenefit+Ends.Independent+NoImplicitImplementation",
+    "pt": "cs"
+  },
+  {
+    "story": "As a student, I want to set assignment reminders so that I submit on time.",
+    "violation": "compliant.Means.SingleConcreteAction+Means.NoHiddenDependency+Ends.UserBenefit+Ends.Independent+NoImplicitImplementation",
+    "pt": "cs"
+  },
+  {
+    "story": "As a moderator, I want to suspend an account so that I prevent abuse.",
+    "violation": "compliant.Means.SingleConcreteAction+Means.NoHiddenDependency+Ends.UserBenefit+Ends.Independent+NoImplicitImplementation",
+    "pt": "cs"
+  },
+  {
+    "story": "As a traveler, I want to download my boarding pass so that I can board without network access.",
+    "violation": "compliant.Means.SingleConcreteAction+Means.NoHiddenDependency+Ends.UserBenefit+Ends.Independent+NoImplicitImplementation",
+    "pt": "cs"
+  }
+]

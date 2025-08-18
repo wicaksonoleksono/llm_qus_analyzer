@@ -43,8 +43,7 @@ class PairwiseViolation:
     ...     first_parts={'means'},
     ...     second_parts={'means'},
     ...     issue='The second story refers to the same means but has contradicting ends',
-    ...     suggestion='Stories can be concatenated into one by using more general action
-terms'
+    ...     suggestion='Stories can be concatenated into one by using more general action terms'
     ... )
     >>> 'means' in violation.first_parts and 'means' in violation.second_parts
     True
@@ -69,7 +68,6 @@ class FullSetViolation:
 
     This class captures quality issues that involve multiple stories,
     with their IDs, affected components, and suggestions for resolution.
-
     Example:
     >>> violation = FullSetViolation(
     ...     story_ids=[1, 3, 7],
