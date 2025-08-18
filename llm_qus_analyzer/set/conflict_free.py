@@ -6,12 +6,13 @@ from ..chunker.models import QUSComponent
 from ..chunker.parser import Template
 from dataclasses import dataclass
 from ..analyzer import LLMAnalyzer
+
 _definition = """
 **Evaluate whether two user stories are 'Conflict-Free' based on their [Means], [Ends], and [Role]:**
 1. **[Means] and [Ends] Check:**  
    - Do both stories have the same [Means] but contradictory [Ends]?  
    - Do both stories have the same [Ends] but prescribe incompatible [Means]?  
-   - Does one story’s [Ends] equal the other’s [Means], creating an impossible or unsatisfied dependency?  
+   - Does one story's [Ends] equal the other's [Means], creating an impossible or unsatisfied dependency?  
 2. **[Means] Check:**  
    - Do both stories describe the same feature on the same object but with incompatible scope (e.g., self-only vs global)?  
    - Do both stories describe the same feature on the same object but with incompatible state effects (e.g., temporary vs permanent)?  
@@ -33,6 +34,7 @@ second user story
 - [Means]: {m2}
 - [Ends]: {e2}
 """
+
 _out_format = """
 **Strictly follow this output format (JSON) wihtout any other explanation:**
 - If valid: `{{"valid":true}}`
@@ -92,6 +94,7 @@ _all_set_out_format = """
 ```
 **Please only display the final answer without any explanation, description, or any redundant text.**
 """
+
 _PART_MAP = {
     "[Role]": "role",
     "[Means]": "means",
@@ -123,10 +126,10 @@ class CFFullSetVerdictData:
 
 def format_stories_list(components: list[QUSComponent]) -> str:
     """Formats a list of QUSComponent objects into a numbered story list for LLM input.
-
+    
     Args:
         components: List of QUSComponent objects to format
-
+        
     Returns:
         Formatted string with numbered stories
     """
@@ -136,29 +139,56 @@ def format_stories_list(components: list[QUSComponent]) -> str:
     ])
 
 
-class cfParserModel:
-    """Parser for conflict-free"""
+class ConflictFreeParserModel:
+    """Unified parser for conflict-free analysis supporting both pairwise and fullset modes."""
 
-    def __init__(self):
-        self.key = "conflict-free"
-        self.__analyzer = LLMAnalyzer[CFVerdictData](key=self.key)
-        self.__analyzer.build_prompt(_definition, _in_format, _out_format)
+    def __init__(self, mode: str):
+        """Initialize parser with specified mode.
+        
+        Args:
+            mode: Either "pairwise" or "fullset"
+        """
+        if mode not in ["pairwise", "fullset"]:
+            raise ValueError("Mode must be 'pairwise' or 'fullset'")
+        
+        self.mode = mode
+        self.key = f"conflict-free-{mode}"
+        
+        if mode == "pairwise":
+            self.__analyzer = LLMAnalyzer[CFVerdictData](key=self.key)
+            self.__analyzer.build_prompt(_definition, _in_format, _out_format)
+        else:  # fullset
+            self.__analyzer = LLMAnalyzer[CFFullSetVerdictData](key=self.key)
+            self.__analyzer.build_prompt(_all_set_definition, _all_set_in_format, _all_set_out_format)
+        
         self.__analyzer.build_parser(lambda raw: self.__parser(raw))
 
-    def __parser(self, raw_json: Any) -> CFVerdictData:
+    def __parser(self, raw_json: Any) -> CFVerdictData | CFFullSetVerdictData:
         """Parses raw JSON output from LLM into structured data.
         Args:
             raw_json: Raw JSON output from the LLM analysis.
         Returns:
-            CFVerdictData: Containing the parsed validation results and violations.
+            CFVerdictData or CFFullSetVerdictData depending on mode.
         """
         if not isinstance(raw_json, dict):
-            return CFVerdictData(False, [])
-        valid = raw_json.get("valid", False)
+            if self.mode == "pairwise":
+                return CFVerdictData(False, [])
+            else:
+                return CFFullSetVerdictData(True, [])
+
+        valid = raw_json.get("valid", False if self.mode == "pairwise" else True)
         if isinstance(valid, str):
             valid = valid == "true"
         elif valid is None:
-            valid = False
+            valid = False if self.mode == "pairwise" else True
+
+        if self.mode == "pairwise":
+            return self.__parse_pairwise(raw_json, valid)
+        else:
+            return self.__parse_fullset(raw_json, valid)
+
+    def __parse_pairwise(self, raw_json: dict, valid: bool) -> CFVerdictData:
+        """Parse pairwise analysis result."""
         violations: list[Violation] = []
         default_vio = Violation({}, "Unknown conflict", "Review stories for conflicts")
         tmp = raw_json.get("violations", [])
@@ -168,10 +198,10 @@ class cfParserModel:
                     # For backwards compatibility, try both formats
                     first_parts_str = t.get("first_parts", t.get("part", ""))
                     second_parts_str = t.get("second_parts", t.get("part", ""))
-
+                    
                     first_parts = set()
                     second_parts = set()
-
+                    
                     # Parse comma-separated parts
                     if first_parts_str:
                         for part_str in first_parts_str.split(","):
@@ -179,14 +209,14 @@ class cfParserModel:
                             mapped_part = _PART_MAP.get(part_str, part_str.lower().replace("[", "").replace("]", ""))
                             if mapped_part:
                                 first_parts.add(mapped_part)
-
+                    
                     if second_parts_str:
                         for part_str in second_parts_str.split(","):
                             part_str = part_str.strip()
                             mapped_part = _PART_MAP.get(part_str, part_str.lower().replace("[", "").replace("]", ""))
                             if mapped_part:
                                 second_parts.add(mapped_part)
-
+                    
                     # Fallback to checking individual parts in the string
                     if not first_parts and not second_parts:
                         for part_key, part_val in _PART_MAP.items():
@@ -194,7 +224,7 @@ class cfParserModel:
                                 first_parts.add(part_val)
                             if part_key in second_parts_str:
                                 second_parts.add(part_val)
-
+                    
                     # Store both parts in violation for later PairwiseViolation creation
                     violation = Violation(
                         parts=first_parts.union(second_parts),
@@ -205,11 +235,53 @@ class cfParserModel:
                     violation._first_parts = first_parts
                     violation._second_parts = second_parts
                     violation._second_suggestion = t.get("second_suggestion", "")
-
+                    
                     violations.append(violation)
         if not valid and len(violations) == 0:
             violations.append(default_vio)
         return CFVerdictData(valid=valid, violations=violations)
+
+    def __parse_fullset(self, raw_json: dict, valid: bool) -> CFFullSetVerdictData:
+        """Parse fullset analysis result."""
+        violations: list[FullSetViolation] = []
+        default_vio = FullSetViolation([], [], "Unknown conflict", "Review stories for conflicts")
+        tmp = raw_json.get("violations", [])
+        if isinstance(tmp, list):
+            for t in tmp:
+                if isinstance(t, dict):
+                    story_ids = t.get("story_ids", [])
+                    if isinstance(story_ids, list):
+                        story_ids = [int(sid) - 1 for sid in story_ids if isinstance(sid, (int, str)) and str(sid).isdigit()]
+                    else:
+                        story_ids = []
+                    
+                    parts_per_story = t.get("parts_per_story", [])
+                    if not isinstance(parts_per_story, list):
+                        parts_per_story = []
+                    
+                    # Convert string parts to sets
+                    processed_parts = []
+                    for parts in parts_per_story:
+                        if isinstance(parts, list):
+                            part_set = set()
+                            for part in parts:
+                                mapped_part = _PART_MAP.get(f"[{part.capitalize()}]", part.lower())
+                                part_set.add(mapped_part)
+                            processed_parts.append(part_set)
+                        else:
+                            processed_parts.append(set())
+                    
+                    violations.append(
+                        FullSetViolation(
+                            story_ids=story_ids,
+                            parts_per_story=processed_parts,
+                            issue=t.get("issue", ""),
+                            suggestion=t.get("suggestion", "")
+                        )
+                    )
+        if not valid and len(violations) == 0:
+            violations.append(default_vio)
+        return CFFullSetVerdictData(valid=valid, violations=violations)
 
     def analyze_pairwise(
         self, client: LLMClient, model_idx: int, component1: QUSComponent, component2: QUSComponent
@@ -224,6 +296,9 @@ class cfParserModel:
         Returns:
             Tuple containing list of pairwise violations and LLM result.
         """
+        if self.mode != "pairwise":
+            raise ValueError("This parser is not in pairwise mode")
+        
         values = {
             "r1": component1.role,
             "m1": component1.means,
@@ -240,13 +315,13 @@ class cfParserModel:
             first_parts = getattr(violation, '_first_parts', violation.parts)
             second_parts = getattr(violation, '_second_parts', violation.parts)
             second_suggestion = getattr(violation, '_second_suggestion', violation.suggestion)
-
+            
             # Ensure we have proper suggestion format
             if second_suggestion and second_suggestion != violation.suggestion:
                 combined_suggestion = f"First story: {violation.suggestion}. Second story: {second_suggestion}"
             else:
                 combined_suggestion = violation.suggestion
-
+            
             pairwise_violations.append(
                 PairwiseViolation(
                     first_parts=first_parts,
@@ -256,103 +331,6 @@ class cfParserModel:
                 )
             )
         return pairwise_violations, usage
-
-    def analyze_all_set(
-        self, client: LLMClient, model_idx: int, components: list[QUSComponent]
-    ) -> tuple[list[PairwiseViolation], dict[str, LLMUsage]]:
-        """Analyzes all pairwise combinations in a set of QUS components for conflicts.
-
-        Args:
-            client (LLMClient): LLMClient instance for making API calls.
-            model_idx (int): Index of the LLM model to use for analysis.
-            components (list[QUSComponent]): List of QUSComponents to analyze.
-
-        Returns:
-            Tuple containing list of all pairwise violations and LLM usage data.
-        """
-        all_violations: list[PairwiseViolation] = []
-        all_usages: dict[str, LLMUsage] = {}
-        comparison_count = 0
-
-        for i in range(len(components)):
-            for j in range(i + 1, len(components)):
-                violations, usage = self.analyze_pairwise(
-                    client, model_idx, components[i], components[j]
-                )
-                all_violations.extend(violations)
-                if usage:
-                    all_usages[f"{self.key}_pair_{i}_{j}"] = usage
-                comparison_count += 1
-
-        return all_violations, all_usages
-
-
-class CFFullSetParserModel:
-    """Parser model for analyzing conflict-free across multiple stories using LLM."""
-
-    def __init__(self):
-        """Initializes the full-set parser model with analyzer configuration."""
-        self.key = "conflict-free-fullset"
-        self.__analyzer = LLMAnalyzer[CFFullSetVerdictData](key=self.key)
-        self.__analyzer.build_prompt(_all_set_definition, _all_set_in_format, _all_set_out_format)
-        self.__analyzer.build_parser(lambda raw: self.__parser(raw))
-
-    def __parser(self, raw_json: Any) -> CFFullSetVerdictData:
-        """Parses raw JSON output from LLM into structured data.
-        Args:
-            raw_json: Raw JSON output from the LLM analysis.
-        Returns:
-            CFFullSetVerdictData: Containing the parsed validation results and violations.
-        """
-        if not isinstance(raw_json, dict):
-            return CFFullSetVerdictData(True, [])
-
-        valid = raw_json.get("valid", True)
-        if isinstance(valid, str):
-            valid = valid == "true"
-        elif valid is None:
-            valid = True
-
-        violations: list[FullSetViolation] = []
-        default_vio = FullSetViolation([], [], "Unknown conflict", "Review stories for conflicts")
-        tmp = raw_json.get("violations", [])
-        if isinstance(tmp, list):
-            for t in tmp:
-                if isinstance(t, dict):
-                    story_ids = t.get("story_ids", [])
-                    if isinstance(story_ids, list):
-                        story_ids = [int(sid) - 1 for sid in story_ids if isinstance(sid,
-                                                                                     (int, str)) and str(sid).isdigit()]
-                    else:
-                        story_ids = []
-
-                    parts_per_story = t.get("parts_per_story", [])
-                    if not isinstance(parts_per_story, list):
-                        parts_per_story = []
-
-                    # Convert string parts to sets
-                    processed_parts = []
-                    for parts in parts_per_story:
-                        if isinstance(parts, list):
-                            part_set = set()
-                            for part in parts:
-                                mapped_part = _PART_MAP.get(f"[{part.capitalize()}]", part.lower())
-                                part_set.add(mapped_part)
-                            processed_parts.append(part_set)
-                        else:
-                            processed_parts.append(set())
-
-                    violations.append(
-                        FullSetViolation(
-                            story_ids=story_ids,
-                            parts_per_story=processed_parts,
-                            issue=t.get("issue", ""),
-                            suggestion=t.get("suggestion", "")
-                        )
-                    )
-        if not valid and len(violations) == 0:
-            violations.append(default_vio)
-        return CFFullSetVerdictData(valid=valid, violations=violations)
 
     def analyze_full_set(
         self, client: LLMClient, model_idx: int, components: list[QUSComponent]
@@ -365,9 +343,12 @@ class CFFullSetParserModel:
         Returns:
             Tuple containing list of full-set violations and LLM result.
         """
+        if self.mode != "fullset":
+            raise ValueError("This parser is not in fullset mode")
+        
         if len(components) < 2:
             return [], None
-
+            
         stories_list = format_stories_list(components)
         values = {"stories_list": stories_list}
         data, usage = self.__analyzer.run(client, model_idx, values)
@@ -380,8 +361,79 @@ class ConflictFreeAnalyzer:
     Provides class methods for running conflict-free checks on sets of QUS components.
     """
 
-    __cf_parser = cfParserModel()
-    __cf_fullset_parser = CFFullSetParserModel()
+    __cf_parser_pairwise = ConflictFreeParserModel("pairwise")
+    __cf_parser_fullset = ConflictFreeParserModel("fullset")
+
+    @classmethod
+    def analyze_pairwise(
+        cls, client: LLMClient, model_idx: int, component1: QUSComponent, component2: QUSComponent
+    ) -> tuple[list[PairwiseViolation], dict[str, LLMUsage]]:
+        """Analyzes two specific components for conflicts.
+
+        Args:
+            client (LLMClient): LLM client for analysis.
+            model_idx (int): Index of the LLM model to use.
+            component1 (QUSComponent): First component to compare.
+            component2 (QUSComponent): Second component to compare.
+
+        Returns:
+            Tuple containing list of pairwise violations and LLM usage data.
+        """
+        violations, usage = cls.__cf_parser_pairwise.analyze_pairwise(
+            client, model_idx, component1, component2
+        )
+        usage_dict = {cls.__cf_parser_pairwise.key: usage} if usage else {}
+        return violations, usage_dict
+
+    @classmethod
+    def analyze_all_set(
+        cls, client: LLMClient, model_idx: int, components: list[QUSComponent]
+    ) -> tuple[list[PairwiseViolation], dict[str, LLMUsage]]:
+        """Analyzes all pairwise combinations in a set for conflict violations.
+
+        Args:
+            client (LLMClient): LLM client for analysis.
+            model_idx (int): Index of the LLM model to use.
+            components (list[QUSComponent]): List of components to analyze.
+
+        Returns:
+            Tuple containing list of all pairwise violations and LLM usage data.
+        """
+        all_violations: list[PairwiseViolation] = []
+        all_usages: dict[str, LLMUsage] = {}
+
+        for i in range(len(components)):
+            for j in range(i + 1, len(components)):
+                violations, usages = cls.analyze_pairwise(
+                    client, model_idx, components[i], components[j]
+                )
+                all_violations.extend(violations)
+                
+                # Merge usage data with unique keys
+                for key, usage in usages.items():
+                    all_usages[f"{key}_pair_{i}_{j}"] = usage
+
+        return all_violations, all_usages
+
+    @classmethod
+    def analyze_full_set(
+        cls, client: LLMClient, model_idx: int, components: list[QUSComponent]
+    ) -> tuple[list[FullSetViolation], dict[str, LLMUsage]]:
+        """Analyzes all components for conflicts using single LLM call (batch processing).
+
+        Args:
+            client (LLMClient): LLM client for analysis.
+            model_idx (int): Index of the LLM model to use.
+            components (list[QUSComponent]): List of components to analyze.
+
+        Returns:
+            Tuple containing list of full-set violations and LLM usage data.
+        """
+        violations, usage = cls.__cf_parser_fullset.analyze_full_set(
+            client, model_idx, components
+        )
+        usage_dict = {cls.__cf_parser_fullset.key: usage} if usage else {}
+        return violations, usage_dict
 
     @classmethod
     def run(
@@ -412,60 +464,3 @@ class ConflictFreeAnalyzer:
             return [(all_violations, all_usages)] + [([], {}) for _ in components[1:]]
         else:
             return [([], {}) for _ in components]
-
-    @classmethod
-    def analyze_pairwise(
-        cls, client: LLMClient, model_idx: int, component1: QUSComponent, component2: QUSComponent
-    ) -> tuple[list[PairwiseViolation], dict[str, LLMUsage]]:
-        """Analyzes two specific components for conflicts.
-
-        Args:
-            client (LLMClient): LLM client for analysis.
-            model_idx (int): Index of the LLM model to use.
-            component1 (QUSComponent): First component to compare.
-            component2 (QUSComponent): Second component to compare.
-
-        Returns:
-            Tuple containing list of pairwise violations and LLM usage data.
-        """
-        violations, usage = cls.__cf_parser.analyze_pairwise(
-            client, model_idx, component1, component2
-        )
-        usage_dict = {cls.__cf_parser.key: usage} if usage else {}
-        return violations, usage_dict
-
-    @classmethod
-    def analyze_all_set(
-        cls, client: LLMClient, model_idx: int, components: list[QUSComponent]
-    ) -> tuple[list[PairwiseViolation], dict[str, LLMUsage]]:
-        """Analyzes all pairwise combinations in a set for conflict violations.
-
-        Args:
-            client (LLMClient): LLM client for analysis.
-            model_idx (int): Index of the LLM model to use.
-            components (list[QUSComponent]): List of components to analyze.
-
-        Returns:
-            Tuple containing list of all pairwise violations and LLM usage data.
-        """
-        return cls.__cf_parser.analyze_all_set(client, model_idx, components)
-
-    @classmethod
-    def analyze_full_set(
-        cls, client: LLMClient, model_idx: int, components: list[QUSComponent]
-    ) -> tuple[list[FullSetViolation], dict[str, LLMUsage]]:
-        """Analyzes all components for conflicts using single LLM call (batch processing).
-
-        Args:
-            client (LLMClient): LLM client for analysis.
-            model_idx (int): Index of the LLM model to use.
-            components (list[QUSComponent]): List of components to analyze.
-
-        Returns:
-            Tuple containing list of full-set violations and LLM usage data.
-        """
-        violations, usage = cls.__cf_fullset_parser.analyze_full_set(
-            client, model_idx, components
-        )
-        usage_dict = {cls.__cf_fullset_parser.key: usage} if usage else {}
-        return violations, usage_dict

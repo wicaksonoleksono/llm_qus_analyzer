@@ -27,21 +27,21 @@ Second story: "{story2}"
 
 _semantic_out_format = """
 **Strictly follow this output format (JSON) without any other explanation:**
-- If not similar: `{{"valid": true}}`
+- If not similar: `{"valid": true}`
 - If semantically similar:
   ```json
-  {{
+  {
       "valid": false,
       "violations": [
-        {{
+        {
             "first_parts": "semantic_duplicate",
             "second_parts": "semantic_duplicate",
             "issue": "Description of how the stories are semantically similar",
             "first_suggestion": "How to consolidate or differentiate the first story",
             "second_suggestion": "How to consolidate or differentiate the second story"
-        }}
+        }
       ]
-  }}
+  }
   ```
 **Please only display the final answer without any explanation, description, or any redundant text.**
 """
@@ -69,20 +69,20 @@ _all_set_in_format = """
 
 _all_set_out_format = """
 **Strictly follow this output format (JSON) without any other explanation:**
-- If unique: `{{"valid": true}}`
+- If unique: `{"valid": true}`
 - If duplicates found:
 ```json
-{{
+{
     "valid": false,
     "violations": [
-      {{
+      {
           "story_ids": [1, 3, 5],
           "parts_per_story": [["text"], ["text"], ["text"]],
           "issue": "Description of the duplicate stories found",
           "suggestion": "How to resolve the duplicate stories in this set"
-      }}
+      }
     ]
-}}
+}
 ```
 **Please only display the final answer without any explanation, description, or any redundant text.**
 """
@@ -130,27 +130,42 @@ _PART_MAP = {
 }
 
 
-class SemanticSimilarityParserModel:
-    """Parser model for analyzing semantic similarity between user stories using LLM."""
+class UniqueParserModel:
+    """Unified parser for uniqueness analysis supporting both pairwise and fullset modes."""
 
-    def __init__(self):
-        """Initializes the parser model with analyzer configuration."""
-        self.key = "semantic-similarity"
-        self.__analyzer = LLMAnalyzer[UniqueVerdictData](key=self.key)
-        self.__analyzer.build_prompt(_semantic_definition, _semantic_in_format, _semantic_out_format)
+    def __init__(self, mode: str):
+        """Initialize parser with specified mode.
+        
+        Args:
+            mode: Either "pairwise" or "fullset"
+        """
+        if mode not in ["pairwise", "fullset"]:
+            raise ValueError("Mode must be 'pairwise' or 'fullset'")
+        
+        self.mode = mode
+        self.key = f"unique-{mode}"
+        
+        if mode == "pairwise":
+            self.__analyzer = LLMAnalyzer[UniqueVerdictData](key=self.key)
+            self.__analyzer.build_prompt(_semantic_definition, _semantic_in_format, _semantic_out_format)
+        else:  # fullset
+            self.__analyzer = LLMAnalyzer[UniqueFullSetVerdictData](key=self.key)
+            self.__analyzer.build_prompt(_all_set_definition, _all_set_in_format, _all_set_out_format)
+        
         self.__analyzer.build_parser(lambda raw: self.__parser(raw))
 
-    def __parser(self, raw_json: Any) -> UniqueVerdictData:
+    def __parser(self, raw_json: Any) -> UniqueVerdictData | UniqueFullSetVerdictData:
         """Parses raw JSON output from LLM into structured data.
-
         Args:
             raw_json: Raw JSON output from the LLM analysis.
-
         Returns:
-            UniqueVerdictData: Containing the parsed validation results and violations.
+            UniqueVerdictData or UniqueFullSetVerdictData depending on mode.
         """
         if not isinstance(raw_json, dict):
-            return UniqueVerdictData(True, [])
+            if self.mode == "pairwise":
+                return UniqueVerdictData(True, [])
+            else:
+                return UniqueFullSetVerdictData(True, [])
 
         valid = raw_json.get("valid", True)
         if isinstance(valid, str):
@@ -158,6 +173,13 @@ class SemanticSimilarityParserModel:
         elif valid is None:
             valid = True
 
+        if self.mode == "pairwise":
+            return self.__parse_pairwise(raw_json, valid)
+        else:
+            return self.__parse_fullset(raw_json, valid)
+
+    def __parse_pairwise(self, raw_json: dict, valid: bool) -> UniqueVerdictData:
+        """Parse pairwise analysis result."""
         violations: list[Violation] = []
         default_vio = Violation({}, "Unknown semantic similarity", "Review stories for duplicates")
         tmp = raw_json.get("violations", [])
@@ -215,56 +237,8 @@ class SemanticSimilarityParserModel:
             violations.append(default_vio)
         return UniqueVerdictData(valid=valid, violations=violations)
 
-    def analyze_semantic_similarity(
-        self, client: LLMClient, model_idx: int, component1: QUSComponent, component2: QUSComponent
-    ) -> tuple[list[Violation], LLMResult | None]:
-        """Analyzes two QUS components for semantic similarity.
-
-        Args:
-            client (LLMClient): LLMClient instance for making API calls.
-            model_idx (int): Index of the LLM model to use for analysis.
-            component1 (QUSComponent): First QUSComponent to compare.
-            component2 (QUSComponent): Second QUSComponent to compare.
-
-        Returns:
-            Tuple containing list of violations and LLM result.
-        """
-        values = {
-            "story1": component1.text,
-            "story2": component2.text,
-        }
-        data, usage = self.__analyzer.run(client, model_idx, values)
-        return data.violations, usage
-
-
-
-
-class UniqueFullSetParserModel:
-    """Parser model for analyzing uniqueness across multiple stories using LLM."""
-
-    def __init__(self):
-        """Initializes the full-set parser model with analyzer configuration."""
-        self.key = "unique-fullset"
-        self.__analyzer = LLMAnalyzer[UniqueFullSetVerdictData](key=self.key)
-        self.__analyzer.build_prompt(_all_set_definition, _all_set_in_format, _all_set_out_format)
-        self.__analyzer.build_parser(lambda raw: self.__parser(raw))
-
-    def __parser(self, raw_json: Any) -> UniqueFullSetVerdictData:
-        """Parses raw JSON output from LLM into structured data.
-        Args:
-            raw_json: Raw JSON output from the LLM analysis.
-        Returns:
-            UniqueFullSetVerdictData: Containing the parsed validation results and violations.
-        """
-        if not isinstance(raw_json, dict):
-            return UniqueFullSetVerdictData(True, [])
-        
-        valid = raw_json.get("valid", True)
-        if isinstance(valid, str):
-            valid = valid == "true"
-        elif valid is None:
-            valid = True
-
+    def __parse_fullset(self, raw_json: dict, valid: bool) -> UniqueFullSetVerdictData:
+        """Parse fullset analysis result."""
         violations: list[FullSetViolation] = []
         default_vio = FullSetViolation([], [], "Unknown duplicates", "Review stories for uniqueness")
         tmp = raw_json.get("violations", [])
@@ -305,6 +279,52 @@ class UniqueFullSetParserModel:
             violations.append(default_vio)
         return UniqueFullSetVerdictData(valid=valid, violations=violations)
 
+    def analyze_pairwise(
+        self, client: LLMClient, model_idx: int, component1: QUSComponent, component2: QUSComponent
+    ) -> tuple[list[PairwiseViolation], LLMResult | None]:
+        """Analyzes two QUS components for semantic similarity.
+
+        Args:
+            client (LLMClient): LLMClient instance for making API calls.
+            model_idx (int): Index of the LLM model to use for analysis.
+            component1 (QUSComponent): First QUSComponent to compare.
+            component2 (QUSComponent): Second QUSComponent to compare.
+
+        Returns:
+            Tuple containing list of pairwise violations and LLM result.
+        """
+        if self.mode != "pairwise":
+            raise ValueError("This parser is not in pairwise mode")
+        
+        values = {
+            "story1": component1.text,
+            "story2": component2.text,
+        }
+        data, usage = self.__analyzer.run(client, model_idx, values)
+
+        pairwise_violations: list[PairwiseViolation] = []
+        for violation in data.violations:
+            # Use stored parts from parser if available, otherwise default to text
+            first_parts = getattr(violation, '_first_parts', {"text"})
+            second_parts = getattr(violation, '_second_parts', {"text"})
+            second_suggestion = getattr(violation, '_second_suggestion', violation.suggestion)
+            
+            # Ensure we have proper suggestion format
+            if second_suggestion and second_suggestion != violation.suggestion:
+                combined_suggestion = f"First story: {violation.suggestion}. Second story: {second_suggestion}"
+            else:
+                combined_suggestion = violation.suggestion
+            
+            pairwise_violations.append(
+                PairwiseViolation(
+                    first_parts=first_parts,
+                    second_parts=second_parts,
+                    issue=violation.issue,
+                    suggestion=combined_suggestion,
+                )
+            )
+        return pairwise_violations, usage
+
     def analyze_full_set(
         self, client: LLMClient, model_idx: int, components: list[QUSComponent]
     ) -> tuple[list[FullSetViolation], LLMResult | None]:
@@ -316,6 +336,9 @@ class UniqueFullSetParserModel:
         Returns:
             Tuple containing list of full-set violations and LLM result.
         """
+        if self.mode != "fullset":
+            raise ValueError("This parser is not in fullset mode")
+        
         if len(components) < 2:
             return [], None
             
@@ -332,51 +355,8 @@ class UniqueAnalyzer:
     using both full duplicate detection and semantic similarity analysis.
     """
 
-    __semantic_parser = SemanticSimilarityParserModel()
-    __unique_fullset_parser = UniqueFullSetParserModel()
-
-    @classmethod
-    def analyze_pairwise(
-        cls, client: LLMClient, model_idx: int, component1: QUSComponent, component2: QUSComponent
-    ) -> tuple[list[PairwiseViolation], dict[str, LLMUsage]]:
-        """Analyzes two components for uniqueness violations.
-
-        Args:
-            client (LLMClient): LLM client for analysis.
-            model_idx (int): Index of the LLM model to use.
-            component1 (QUSComponent): First component to compare.
-            component2 (QUSComponent): Second component to compare.
-
-        Returns:
-            Tuple containing list of pairwise violations and LLM usage data.
-        """
-        violations: list[PairwiseViolation] = []
-        usage_dict: dict[str, LLMUsage] = {}
-        
-        # Step 1: Check for full duplicates (fast regex check)
-        if cls._is_full_duplicate(component1, component2):
-            violations.append(
-                PairwiseViolation(
-                    first_parts={"text"},
-                    second_parts={"text"},
-                    issue="Stories are identical duplicates",
-                    suggestion="Remove one of the duplicate stories",
-                )
-            )
-            return violations, usage_dict
-
-        # Step 2: Check for semantic similarity (LLM analysis)
-        semantic_violation, usage = cls._is_semantically_similar(
-            client, model_idx, component1, component2
-        )
-        
-        if semantic_violation:
-            violations.append(semantic_violation)
-        
-        if usage:
-            usage_dict[cls.__semantic_parser.key] = usage
-
-        return violations, usage_dict
+    __unique_parser_pairwise = UniqueParserModel("pairwise")
+    __unique_parser_fullset = UniqueParserModel("fullset")
 
     @classmethod
     def _is_full_duplicate(cls, component1: QUSComponent, component2: QUSComponent) -> bool:
@@ -413,32 +393,12 @@ class UniqueAnalyzer:
         Returns:
             Tuple containing optional PairwiseViolation and LLM usage data.
         """
-        violations, usage = cls.__semantic_parser.analyze_semantic_similarity(
+        violations, usage = cls.__unique_parser_pairwise.analyze_pairwise(
             client, model_idx, component1, component2
         )
         
         if violations:
-            # Convert Violation to PairwiseViolation
-            violation = violations[0]  # Take first violation
-            
-            # Use stored parts from parser if available, otherwise default to text
-            first_parts = getattr(violation, '_first_parts', {"text"})
-            second_parts = getattr(violation, '_second_parts', {"text"})
-            second_suggestion = getattr(violation, '_second_suggestion', violation.suggestion)
-            
-            # Ensure we have proper suggestion format
-            if second_suggestion and second_suggestion != violation.suggestion:
-                combined_suggestion = f"First story: {violation.suggestion}. Second story: {second_suggestion}"
-            else:
-                combined_suggestion = violation.suggestion
-            
-            pairwise_violation = PairwiseViolation(
-                first_parts=first_parts,
-                second_parts=second_parts,
-                issue=violation.issue,
-                suggestion=combined_suggestion,
-            )
-            return pairwise_violation, usage
+            return violations[0], usage  # Return first violation
         
         return None, usage
 
@@ -481,7 +441,7 @@ class UniqueAnalyzer:
             violations.append(semantic_violation)
         
         if usage:
-            usage_dict[cls.__semantic_parser.key] = usage
+            usage_dict[cls.__unique_parser_pairwise.key] = usage
 
         return violations, usage_dict
 
@@ -529,10 +489,10 @@ class UniqueAnalyzer:
         Returns:
             Tuple containing list of full-set violations and LLM usage data.
         """
-        violations, usage = cls.__unique_fullset_parser.analyze_full_set(
+        violations, usage = cls.__unique_parser_fullset.analyze_full_set(
             client, model_idx, components
         )
-        usage_dict = {cls.__unique_fullset_parser.key: usage} if usage else {}
+        usage_dict = {cls.__unique_parser_fullset.key: usage} if usage else {}
         return violations, usage_dict
 
     @classmethod

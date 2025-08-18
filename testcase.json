@@ -120,6 +120,7 @@
     "violation": "compliant.Means.SingleConcreteAction+Means.NoHiddenDependency+Ends.UserBenefit+Ends.Independent+NoImplicitImplementation",
     "pt": "cs"
   },
+
   {
     "story": "As a user, I want to pause notifications so that I can focus without interruptions.",
     "violation": "compliant.Means.SingleConcreteAction+Means.NoHiddenDependency+Ends.UserBenefit+Ends.Independent+NoImplicitImplementation",
