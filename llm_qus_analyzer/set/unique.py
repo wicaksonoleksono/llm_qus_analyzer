@@ -111,10 +111,10 @@ class UniqueFullSetVerdictData:
 
 def format_stories_list(components: list[QUSComponent]) -> str:
     """Formats a list of QUSComponent objects into a numbered story list for LLM input.
-    
+
     Args:
         components: List of QUSComponent objects to format
-        
+
     Returns:
         Formatted string with numbered stories
     """
@@ -134,23 +134,23 @@ class UniqueParserModel:
 
     def __init__(self, mode: str):
         """Initialize parser with specified mode.
-        
+
         Args:
             mode: Either "pairwise" or "fullset"
         """
         if mode not in ["pairwise", "fullset"]:
             raise ValueError("Mode must be 'pairwise' or 'fullset'")
-        
+
         self.mode = mode
         self.key = f"unique-{mode}"
-        
+
         if mode == "pairwise":
             self.__analyzer = LLMAnalyzer[UniqueVerdictData](key=self.key)
             self.__analyzer.build_prompt(_semantic_definition, _semantic_in_format, _semantic_out_format)
         else:  # fullset
             self.__analyzer = LLMAnalyzer[UniqueFullSetVerdictData](key=self.key)
             self.__analyzer.build_prompt(_all_set_definition, _all_set_in_format, _all_set_out_format)
-        
+
         self.__analyzer.build_parser(lambda raw: self.__parser(raw))
 
     def __parser(self, raw_json: Any) -> UniqueVerdictData | UniqueFullSetVerdictData:
@@ -189,11 +189,11 @@ class UniqueParserModel:
                     id_pair = t.get("id_pair", {})
                     first_idx = id_pair.get("first", 0) if isinstance(id_pair, dict) else 0
                     second_idx = id_pair.get("second", 1) if isinstance(id_pair, dict) else 1
-                    
+
                     # Default parts for uniqueness analysis
                     first_parts = {"text"}
                     second_parts = {"text"}
-                    
+
                     # Store both parts in violation for later PairwiseViolation creation
                     violation = Violation(
                         parts=first_parts.union(second_parts),
@@ -205,7 +205,7 @@ class UniqueParserModel:
                     violation._second_parts = second_parts
                     violation._second_suggestion = t.get("second_suggestion", t.get("suggestion", ""))
                     violation._id_pair = {"first": first_idx, "second": second_idx}
-                    
+
                     violations.append(violation)
         if not valid and len(violations) == 0:
             violations.append(default_vio)
@@ -221,14 +221,15 @@ class UniqueParserModel:
                 if isinstance(t, dict):
                     story_ids = t.get("story_ids", [])
                     if isinstance(story_ids, list):
-                        story_ids = [int(sid) - 1 for sid in story_ids if isinstance(sid, (int, str)) and str(sid).isdigit()]
+                        story_ids = [int(sid) - 1 for sid in story_ids if isinstance(sid,
+                                                                                     (int, str)) and str(sid).isdigit()]
                     else:
                         story_ids = []
-                    
+
                     parts_per_story = t.get("parts_per_story", [])
                     if not isinstance(parts_per_story, list):
                         parts_per_story = []
-                    
+
                     # Convert string parts to sets
                     processed_parts = []
                     for parts in parts_per_story:
@@ -240,7 +241,7 @@ class UniqueParserModel:
                             processed_parts.append(part_set)
                         else:
                             processed_parts.append({"text"})
-                    
+
                     violations.append(
                         FullSetViolation(
                             story_ids=story_ids,
@@ -269,7 +270,7 @@ class UniqueParserModel:
         """
         if self.mode != "pairwise":
             raise ValueError("This parser is not in pairwise mode")
-        
+
         values = {
             "story1": component1.text,
             "story2": component2.text,
@@ -282,13 +283,13 @@ class UniqueParserModel:
             first_parts = getattr(violation, '_first_parts', {"text"})
             second_parts = getattr(violation, '_second_parts', {"text"})
             second_suggestion = getattr(violation, '_second_suggestion', violation.suggestion)
-            
+
             # Ensure we have proper suggestion format
             if second_suggestion and second_suggestion != violation.suggestion:
                 combined_suggestion = f"First story: {violation.suggestion}. Second story: {second_suggestion}"
             else:
                 combined_suggestion = violation.suggestion
-            
+
             pairwise_violations.append(
                 PairwiseViolation(
                     first_parts=first_parts,
@@ -312,10 +313,10 @@ class UniqueParserModel:
         """
         if self.mode != "fullset":
             raise ValueError("This parser is not in fullset mode")
-        
+
         if len(components) < 2:
             return [], None
-            
+
         stories_list = format_stories_list(components)
         values = {"stories_list": stories_list}
         data, usage = self.__analyzer.run(client, model_idx, values)
@@ -335,21 +336,16 @@ class UniqueAnalyzer:
     @classmethod
     def _is_full_duplicate(cls, component1: QUSComponent, component2: QUSComponent) -> bool:
         """Checks if two components are full duplicates using case-insensitive text comparison.
-
         Args:
             component1 (QUSComponent): First component to compare.
             component2 (QUSComponent): Second component to compare.
-
         Returns:
             bool: True if components are full duplicates, False otherwise.
         """
         if not component1.text or not component2.text:
             return False
-        
-        # Case-insensitive comparison of expanded user story text
         text1 = re.sub(r'\s+', ' ', component1.text.strip().lower())
         text2 = re.sub(r'\s+', ' ', component2.text.strip().lower())
-        
         return text1 == text2
 
     @classmethod
@@ -370,10 +366,10 @@ class UniqueAnalyzer:
         violations, usage = cls.__unique_parser_pairwise.analyze_pairwise(
             client, model_idx, component1, component2
         )
-        
+
         if violations:
             return violations[0], usage  # Return first violation
-        
+
         return None, usage
 
     @classmethod
@@ -393,7 +389,7 @@ class UniqueAnalyzer:
         """
         violations: list[PairwiseViolation] = []
         usage_dict: dict[str, LLMUsage] = {}
-        
+
         # Step 1: Check for full duplicates (fast regex check)
         if cls._is_full_duplicate(component1, component2):
             violations.append(
@@ -410,10 +406,10 @@ class UniqueAnalyzer:
         semantic_violation, usage = cls._is_semantically_similar(
             client, model_idx, component1, component2
         )
-        
+
         if semantic_violation:
             violations.append(semantic_violation)
-        
+
         if usage:
             usage_dict[cls.__unique_parser_pairwise.key] = usage
 
@@ -442,7 +438,7 @@ class UniqueAnalyzer:
                     client, model_idx, components[i], components[j]
                 )
                 all_violations.extend(violations)
-                
+
                 # Merge usage data with unique keys
                 for key, usage in usages.items():
                     all_usages[f"{key}_pair_{i}_{j}"] = usage
@@ -488,9 +484,9 @@ class UniqueAnalyzer:
         """
         if len(components) < 2:
             return [([], {}) for _ in components]
-        
+
         all_violations, all_usages = cls.analyze_all_set(client, model_idx, components)
-        
+
         # Return results in the expected format for set analyzers
         # First component gets all violations, others get empty results
         if all_violations:
