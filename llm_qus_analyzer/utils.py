@@ -83,13 +83,13 @@ def analyze_set_pairwise(
     components: list[QUSComponent]
 ) -> tuple[list[PairwiseViolation], dict[str, LLMUsage]]:
     """Generic pairwise analysis for any set analyzer.
-    
+
     Args:
         analyzer_class: The analyzer class (e.g., ConflictFreeAnalyzer)
         client: LLM client for analysis
         model_idx: Index of the LLM model to use
         components: List of components to analyze
-        
+
     Returns:
         Tuple containing list of all pairwise violations and LLM usage data
     """
@@ -102,7 +102,7 @@ def analyze_set_pairwise(
                 client, model_idx, components[i], components[j]
             )
             all_violations.extend(violations)
-            
+
             # Merge usage data with unique keys
             for key, usage in usages.items():
                 all_usages[f"{key}_pair_{i}_{j}"] = usage
@@ -117,13 +117,13 @@ def analyze_set_fullset(
     components: list[QUSComponent]
 ) -> tuple[list[FullSetViolation], dict[str, LLMUsage]]:
     """Generic fullset analysis for any set analyzer.
-    
+
     Args:
         analyzer_class: The analyzer class (e.g., ConflictFreeAnalyzer)
         client: LLM client for analysis
         model_idx: Index of the LLM model to use
         components: List of components to analyze
-        
+
     Returns:
         Tuple containing list of fullset violations and LLM usage data
     """
@@ -136,12 +136,12 @@ def format_set_results_pairwise(
     components: list[QUSComponent]
 ) -> list[tuple[list[PairwiseViolation], dict[str, LLMUsage]]]:
     """Format pairwise analysis results in the expected format for set analyzers.
-    
+
     Args:
         violations: List of pairwise violations found
         usages: Dictionary of LLM usage data
         components: List of components that were analyzed
-        
+
     Returns:
         List of (violations, usage) tuples where first component gets all violations,
         others get empty results
@@ -158,12 +158,12 @@ def format_set_results_fullset(
     components: list[QUSComponent]
 ) -> list[tuple[list[FullSetViolation], dict[str, LLMUsage]]]:
     """Format fullset analysis results in the expected format for set analyzers.
-    
+
     Args:
         violations: List of fullset violations found
         usages: Dictionary of LLM usage data
         components: List of components that were analyzed
-        
+
     Returns:
         List of (violations, usage) tuples where first component gets all violations,
         others get empty results
