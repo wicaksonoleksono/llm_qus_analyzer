@@ -15,12 +15,11 @@ from ..utils import analyze_individual_with_llm
 
 _definition = """
 **Evaluate whether this user story is a 'Full Sentence' based on grammatical correctness:**
-[user_story] check:
-    - Does the user story follow proper grammatical correctness?
-    - Are there any typos or errors?
-    - Does it read as a complete sentence?
+1. **[User_Story] Grammatical Check:**
+   - Does the user story follow proper grammatical structure and rules?
+   - Are there any spelling errors, typos, or punctuation mistakes?
+   - Does it read as a complete, well-formed sentence rather than fragments or phrases?
 """
-
 _in_format = """
 **User Story to Evaluate:**
 {user_story}
