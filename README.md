@@ -154,3 +154,39 @@ Now you can get each component, template, and LLM usage.
   components = [component1, component2, component3]
   violations, usage = UniqueAnalyzer.analyze_full_set(client, model_idx, components)
 ```
+
+```bash
+
+How to use
+ Set Pattern:
+
+  # Pairwise
+  violations, usage = Analyzer.run(client, model_idx, comp1, comp2, mode="pairwise")
+
+  # Fullset
+  violations, usage = Analyzer.run(client, model_idx, components, mode="fullset")
+
+  Complete Usage Example:
+
+  from llm_qus_analyzer.client import LLMClient
+  from llm_qus_analyzer.individual import ConceptuallyAnalyzer
+  from llm_qus_analyzer.set import ConflictFreeAnalyzer, UniqueAnalyzer
+
+  # Setup
+  client = LLMClient()
+  stories = [component1, component2, component3]
+
+  # Individual analysis
+  for i, story in enumerate(stories):
+      violations, usage = ConceptuallyAnalyzer.run(client, 0, story)
+      print(f"Story {i}: {len(violations)} violations")
+
+  # Set analysis - Pairwise
+  violations, usage = ConflictFreeAnalyzer.run(client, 0, stories[0], stories[1],
+  mode="pairwise")
+  print(f"Conflict check: {len(violations)} conflicts")
+
+  # Set analysis - Fullset
+  violations, usage = UniqueAnalyzer.run(client, 0, stories, mode="fullset")
+  print(f"Uniqueness check: {len(violations)} duplicates")
+```
