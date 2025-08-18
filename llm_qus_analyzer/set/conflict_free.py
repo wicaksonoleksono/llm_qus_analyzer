@@ -6,6 +6,7 @@ from ..chunker.models import QUSComponent
 from ..chunker.parser import Template
 from dataclasses import dataclass
 from ..analyzer import LLMAnalyzer
+from ..utils import analyze_set_pairwise, analyze_set_fullset, format_set_results_pairwise, format_set_results_fullset
 
 _definition = """
 **Evaluate whether two user stories are 'Conflict-Free' based on their [Means], [Ends], and [Role]:**
@@ -124,18 +125,19 @@ class CFFullSetVerdictData:
 
 
 def format_stories_list(components: list[QUSComponent]) -> str:
-    """Formats a list of QUSComponent objects into a numbered story list for LLM input.
+    """Formats a list of QUSComponent objects into a structured story list for LLM input.
     
     Args:
         components: List of QUSComponent objects to format
         
     Returns:
-        Formatted string with numbered stories
+        Formatted string with numbered stories using structured format
     """
-    return "\n".join([
-        f"Story {i+1}: \"{comp.text}\""
-        for i, comp in enumerate(components)
-    ])
+    stories = []
+    for i, comp in enumerate(components):
+        story = f"Story {i+1}:\n- [Role]: {comp.role}\n- [Means]: {comp.means}\n- [Ends]: {comp.ends}"
+        stories.append(story)
+    return "\n\n".join(stories)
 
 
 class ConflictFreeParserModel:
@@ -378,21 +380,7 @@ class ConflictFreeAnalyzer:
         Returns:
             Tuple containing list of all pairwise violations and LLM usage data.
         """
-        all_violations: list[PairwiseViolation] = []
-        all_usages: dict[str, LLMUsage] = {}
-
-        for i in range(len(components)):
-            for j in range(i + 1, len(components)):
-                violations, usages = cls.analyze_pairwise(
-                    client, model_idx, components[i], components[j]
-                )
-                all_violations.extend(violations)
-                
-                # Merge usage data with unique keys
-                for key, usage in usages.items():
-                    all_usages[f"{key}_pair_{i}_{j}"] = usage
-
-        return all_violations, all_usages
+        return analyze_set_pairwise(cls, client, model_idx, components)
 
     @classmethod
     def analyze_full_set(
@@ -416,30 +404,38 @@ class ConflictFreeAnalyzer:
 
     @classmethod
     def run(
-        cls, client: LLMClient, model_idx: int, components: list[QUSComponent]
-    ) -> list[tuple[list[PairwiseViolation], dict[str, LLMUsage]]]:
-        """Runs conflict-free analysis on a set of user story components.
+        cls, client: LLMClient, model_idx: int, *args, mode: str = "pairwise"
+    ) -> tuple[list[PairwiseViolation | FullSetViolation], dict[str, LLMUsage]]:
+        """Runs conflict-free analysis on user story components.
 
         Args:
             client (LLMClient): LLM client for analysis.
             model_idx (int): Index of the LLM model to use.
-            components (list[QUSComponent]): List of user story components to analyze.
+            *args: Variable arguments based on mode:
+                - For pairwise mode: component1, component2 (two QUSComponent objects)
+                - For fullset mode: components (list[QUSComponent])
+            mode (str): Analysis mode - "pairwise" or "fullset". Defaults to "pairwise".
 
         Returns:
-            List of (violations, usage) tuples for conflict analysis results.
-            Each tuple contains pairwise violations found and corresponding LLM usage.
+            Tuple containing violations and LLM usage data.
 
         Note:
-            Performs pairwise conflict analysis between all component combinations.
+            - Pairwise mode: Compares two individual components
+            - Fullset mode: Analyzes entire set using batch processing
         """
-        if len(components) < 2:
-            return [([], {}) for _ in components]
-
-        all_violations, all_usages = cls.analyze_all_set(client, model_idx, components)
-
-        # Return results in the expected format for set analyzers
-        # First component gets all violations, others get empty results
-        if all_violations:
-            return [(all_violations, all_usages)] + [([], {}) for _ in components[1:]]
+        if mode == "pairwise":
+            if len(args) != 2:
+                raise ValueError("Pairwise mode requires exactly 2 components")
+            component1, component2 = args
+            return cls.analyze_pairwise(client, model_idx, component1, component2)
+            
+        elif mode == "fullset":
+            if len(args) != 1 or not isinstance(args[0], list):
+                raise ValueError("Fullset mode requires a list of components")
+            components = args[0]
+            if len(components) < 2:
+                return [], {}
+            return cls.analyze_full_set(client, model_idx, components)
+            
         else:
-            return [([], {}) for _ in components]
+            raise ValueError("Mode must be 'pairwise' or 'fullset'")
