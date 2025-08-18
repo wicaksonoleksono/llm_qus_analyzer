@@ -20,7 +20,7 @@ _definition = """
        story 2: ..., i want to upload a video content.. 
        story 3: ..., i want to upload audio content.. 
      Edit is a superclass action of upload and content is a superclass object of audio & video content
-2. **[Ends] Check:**
+2. **[Ends] Check if exist:**
    - **Ends Containing Means**: Are the ends a purpose that can be implemented separately? (does the ends contain another means?)
      e.g. 
        story1: As a user, I want to register, so that i can contribute to articles
@@ -131,10 +131,10 @@ class IndependentFullSetVerdictData:
 
 def format_stories_list(components: list[QUSComponent]) -> str:
     """Formats a list of QUSComponent objects into a numbered story list for LLM input.
-    
+
     Args:
         components: List of QUSComponent objects to format
-        
+
     Returns:
         Formatted string with numbered stories
     """
@@ -188,10 +188,10 @@ class IndependentParserModel:
                     # For backwards compatibility, try both formats
                     first_parts_str = t.get("first_parts", t.get("part", ""))
                     second_parts_str = t.get("second_parts", t.get("part", ""))
-                    
+
                     first_parts = set()
                     second_parts = set()
-                    
+
                     # Parse comma-separated parts
                     if first_parts_str:
                         for part_str in first_parts_str.split(","):
@@ -199,14 +199,14 @@ class IndependentParserModel:
                             mapped_part = _PART_MAP.get(part_str, part_str.lower().replace("[", "").replace("]", ""))
                             if mapped_part:
                                 first_parts.add(mapped_part)
-                    
+
                     if second_parts_str:
                         for part_str in second_parts_str.split(","):
                             part_str = part_str.strip()
                             mapped_part = _PART_MAP.get(part_str, part_str.lower().replace("[", "").replace("]", ""))
                             if mapped_part:
                                 second_parts.add(mapped_part)
-                    
+
                     # Fallback to checking individual parts in the string
                     if not first_parts and not second_parts:
                         for part_key, part_val in _PART_MAP.items():
@@ -214,7 +214,7 @@ class IndependentParserModel:
                                 first_parts.add(part_val)
                             if part_key in second_parts_str:
                                 second_parts.add(part_val)
-                    
+
                     # Store both parts in violation for later PairwiseViolation creation
                     violation = Violation(
                         parts=first_parts.union(second_parts),
@@ -225,7 +225,7 @@ class IndependentParserModel:
                     violation._first_parts = first_parts
                     violation._second_parts = second_parts
                     violation._second_suggestion = t.get("second_suggestion", "")
-                    
+
                     violations.append(violation)
         if not valid and len(violations) == 0:
             violations.append(default_vio)
@@ -261,13 +261,13 @@ class IndependentParserModel:
             first_parts = getattr(violation, '_first_parts', violation.parts)
             second_parts = getattr(violation, '_second_parts', violation.parts)
             second_suggestion = getattr(violation, '_second_suggestion', violation.suggestion)
-            
+
             # Ensure we have proper suggestion format
             if second_suggestion and second_suggestion != violation.suggestion:
                 combined_suggestion = f"First story: {violation.suggestion}. Second story: {second_suggestion}"
             else:
                 combined_suggestion = violation.suggestion
-            
+
             pairwise_violations.append(
                 PairwiseViolation(
                     first_parts=first_parts,
@@ -325,7 +325,7 @@ class IndependentFullSetParserModel:
         """
         if not isinstance(raw_json, dict):
             return IndependentFullSetVerdictData(True, [])
-        
+
         valid = raw_json.get("valid", True)
         if isinstance(valid, str):
             valid = valid == "true"
@@ -340,14 +340,15 @@ class IndependentFullSetParserModel:
                 if isinstance(t, dict):
                     story_ids = t.get("story_ids", [])
                     if isinstance(story_ids, list):
-                        story_ids = [int(sid) - 1 for sid in story_ids if isinstance(sid, (int, str)) and str(sid).isdigit()]
+                        story_ids = [int(sid) - 1 for sid in story_ids if isinstance(sid,
+                                                                                     (int, str)) and str(sid).isdigit()]
                     else:
                         story_ids = []
-                    
+
                     parts_per_story = t.get("parts_per_story", [])
                     if not isinstance(parts_per_story, list):
                         parts_per_story = []
-                    
+
                     # Convert string parts to sets
                     processed_parts = []
                     for parts in parts_per_story:
@@ -359,7 +360,7 @@ class IndependentFullSetParserModel:
                             processed_parts.append(part_set)
                         else:
                             processed_parts.append(set())
-                    
+
                     violations.append(
                         FullSetViolation(
                             story_ids=story_ids,
@@ -385,7 +386,7 @@ class IndependentFullSetParserModel:
         """
         if len(components) < 2:
             return [], None
-            
+
         stories_list = format_stories_list(components)
         values = {"stories_list": stories_list}
         data, usage = self.__analyzer.run(client, model_idx, values)

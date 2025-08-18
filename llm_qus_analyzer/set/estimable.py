@@ -6,27 +6,27 @@ from dataclasses import dataclass
 from typing import Any, Optional
 
 _definition = """
-**Evaluate whether the user story set is 'Complete' based on [Means] action dependencies:**
+**Evaluate whether the user story set is 'Estimable' by checking for consistent scope and complexity:**
 
-1. **[Means] Prerequisite Check:**
-   - Does any [Means] action verb require prerequisite actions on the same direct object (e.g., edit→create, delete→create, view→create)?
-   - Are all prerequisite [Means] actions covered by other stories in the set?
-   - Does any [Means] reference a state that no other [Means] establishes (e.g., pause without play, submit without draft)?
+1. **[Means] Scope Consistency Check:**
+   - Do all [Means] actions have similar complexity levels across the set?
+   - Are there stories with significantly more complex [Means] than others (e.g., simple "view" vs complex "generate report with multiple filters")?
+   - Do all [Means] operate at consistent abstraction levels (e.g., all high-level features vs all detailed operations)?
 
-2. **[Means] Object Existence Check:**
-   - Does any [Means] operate on direct objects that no story creates or defines?
-   - Are there [Means] that assume objects exist without corresponding creation [Means]?
-   - Do any [Means] reference collections/databases that no story populates?
+2. **[Ends] Value Consistency Check:**
+   - Do all [Ends] provide comparable business value within the set?
+   - Are there stories with vastly different impact levels (e.g., critical system function vs nice-to-have feature)?
+   - Do all [Ends] have measurable and comparable outcomes?
 
-3. **[Means] Workflow Completeness Check:**
-   - Do the [Means] actions enable complete functional workflows without critical gaps?
-   - Are there logical sequence breaks where intermediate [Means] steps are missing (e.g., checkout without add-to-cart)?
-   - Can users accomplish end-to-end tasks with the available [Means] set?
+3. **Story Length and Detail Consistency:**
+   - Do all stories have similar levels of detail and specification?
+   - Are there stories that are too vague compared to others in the set?
+   - Do all stories provide sufficient information for estimation?
 
-4. **[Means] Foundation Coverage Check:**
-   - For modification operations: Are corresponding creation [Means] present (e.g., update profile needs create profile)?
-   - For process flows: Are initiation [Means] present for all continuation [Means] (e.g., start process before complete process)?
-   - For state changes: Are setup [Means] present for all operational [Means] (e.g., configure before modify)?
+4. **Implementation Complexity Alignment:**
+   - Are there stories that would require significantly different effort levels?
+   - Do all stories fit within similar technical complexity brackets?
+   - Are there dependencies that make some stories much harder to estimate than others?
 """
 
 _all_set_in_format = """
@@ -36,17 +36,17 @@ _all_set_in_format = """
 
 _all_set_out_format = """
 **Strictly follow this output format (JSON) without any other explanation:**
-- If complete: `{"valid": true}`
-- If incomplete:
+- If estimable: `{"valid": true}`
+- If not estimable:
 ```json
 {
     "valid": false,
     "violations": [
       {
-          "story_ids": [1, 3, 5],
-          "parts_per_story": [["means"], ["means"], ["means"]],
-          "issue": "Description of missing prerequisites or gaps",
-          "suggestion": "How to complete the story set with missing dependencies"
+          "story_ids": [1, 4, 7],
+          "parts_per_story": [["means"], ["ends"], ["means", "ends"]],
+          "issue": "Description of estimation inconsistency across these stories",
+          "suggestion": "How to make the story set more consistently estimable"
       }
     ]
 }
@@ -56,11 +56,11 @@ _all_set_out_format = """
 
 
 @dataclass
-class CompleteFullSetVerdictData:
-    """Data class representing the verdict of a full-set completeness analysis."""
+class EstimableFullSetVerdictData:
+    """Data class representing the verdict of a full-set estimability analysis."""
 
     valid: bool
-    """Boolean indicating whether the story set is complete."""
+    """Boolean indicating whether the story set is estimable."""
 
     violations: list[FullSetViolation]
     """List of FullSetViolation objects found in the analysis."""
@@ -81,25 +81,25 @@ def format_stories_list(components: list[QUSComponent]) -> str:
     ])
 
 
-class CompleteFullSetParserModel:
-    """Parser model for analyzing completeness across multiple stories using LLM."""
+class EstimableFullSetParserModel:
+    """Parser model for analyzing estimability across multiple stories using LLM."""
 
     def __init__(self):
         """Initializes the full-set parser model with analyzer configuration."""
-        self.key = "complete-fullset"
-        self.__analyzer = LLMAnalyzer[CompleteFullSetVerdictData](key=self.key)
+        self.key = "estimable-fullset"
+        self.__analyzer = LLMAnalyzer[EstimableFullSetVerdictData](key=self.key)
         self.__analyzer.build_prompt(_definition, _all_set_in_format, _all_set_out_format)
         self.__analyzer.build_parser(lambda raw: self.__parser(raw))
 
-    def __parser(self, raw_json: Any) -> CompleteFullSetVerdictData:
+    def __parser(self, raw_json: Any) -> EstimableFullSetVerdictData:
         """Parses raw JSON output from LLM into structured data.
         Args:
             raw_json: Raw JSON output from the LLM analysis.
         Returns:
-            CompleteFullSetVerdictData: Containing the parsed validation results and violations.
+            EstimableFullSetVerdictData: Containing the parsed validation results and violations.
         """
         if not isinstance(raw_json, dict):
-            return CompleteFullSetVerdictData(True, [])
+            return EstimableFullSetVerdictData(True, [])
         
         valid = raw_json.get("valid", True)
         if isinstance(valid, str):
@@ -108,7 +108,7 @@ class CompleteFullSetParserModel:
             valid = True
 
         violations: list[FullSetViolation] = []
-        default_vio = FullSetViolation([], [], "Unknown completeness issue", "Review stories for missing dependencies")
+        default_vio = FullSetViolation([], [], "Unknown estimability issue", "Review stories for consistent estimability")
         tmp = raw_json.get("violations", [])
         if isinstance(tmp, list):
             for t in tmp:
@@ -129,7 +129,7 @@ class CompleteFullSetParserModel:
                         if isinstance(parts, list):
                             part_set = set()
                             for part in parts:
-                                # For completeness, usually "means"
+                                # For estimability, could be means, ends, or both
                                 part_set.add(part.lower())
                             processed_parts.append(part_set)
                         else:
@@ -145,12 +145,12 @@ class CompleteFullSetParserModel:
                     )
         if not valid and len(violations) == 0:
             violations.append(default_vio)
-        return CompleteFullSetVerdictData(valid=valid, violations=violations)
+        return EstimableFullSetVerdictData(valid=valid, violations=violations)
 
     def analyze_full_set(
         self, client: LLMClient, model_idx: int, components: list[QUSComponent]
     ) -> tuple[list[FullSetViolation], LLMResult | None]:
-        """Analyzes multiple QUS components for completeness in a single LLM call.
+        """Analyzes multiple QUS components for estimability in a single LLM call.
         Args:
             client (LLMClient): LLMClient instance for making API calls.
             model_idx (int): Index of the LLM model to use for analysis.
@@ -167,19 +167,19 @@ class CompleteFullSetParserModel:
         return data.violations, usage
 
 
-class CompleteAnalyzer:
-    """Main analyzer class for completeness evaluation.
+class EstimableAnalyzer:
+    """Main analyzer class for estimability evaluation.
 
-    Provides class methods for running completeness checks on sets of QUS components.
+    Provides class methods for running estimability checks on sets of QUS components.
     """
 
-    __complete_fullset_parser = CompleteFullSetParserModel()
+    __estimable_fullset_parser = EstimableFullSetParserModel()
 
     @classmethod
     def analyze_full_set(
         cls, client: LLMClient, model_idx: int, components: list[QUSComponent]
     ) -> tuple[list[FullSetViolation], dict[str, LLMUsage]]:
-        """Analyzes all components for completeness using single LLM call (batch processing).
+        """Analyzes all components for estimability using single LLM call (batch processing).
 
         Args:
             client (LLMClient): LLM client for analysis.
@@ -189,17 +189,17 @@ class CompleteAnalyzer:
         Returns:
             Tuple containing list of full-set violations and LLM usage data.
         """
-        violations, usage = cls.__complete_fullset_parser.analyze_full_set(
+        violations, usage = cls.__estimable_fullset_parser.analyze_full_set(
             client, model_idx, components
         )
-        usage_dict = {cls.__complete_fullset_parser.key: usage} if usage else {}
+        usage_dict = {cls.__estimable_fullset_parser.key: usage} if usage else {}
         return violations, usage_dict
 
     @classmethod
     def run(
         cls, client: LLMClient, model_idx: int, components: list[QUSComponent]
     ) -> list[tuple[list[FullSetViolation], dict[str, LLMUsage]]]:
-        """Runs completeness analysis on a set of user story components.
+        """Runs estimability analysis on a set of user story components.
 
         Args:
             client (LLMClient): LLM client for analysis.
@@ -207,10 +207,10 @@ class CompleteAnalyzer:
             components (list[QUSComponent]): List of user story components to analyze.
 
         Returns:
-            List of (violations, usage) tuples for completeness analysis results.
+            List of (violations, usage) tuples for estimability analysis results.
 
         Note:
-            Performs full-set completeness analysis to identify missing dependencies.
+            Performs full-set estimability analysis to identify inconsistent estimation complexity.
         """
         if len(components) < 2:
             return [([], {}) for _ in components]
