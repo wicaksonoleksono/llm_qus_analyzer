@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from typing import Any, Optional
 
 _pairwise_definition = """
-**Evaluate whether two user stories are 'Estimable' by checking for consistency in scope and complexity:**
+**Evaluate whether two user stories are 'Estimatable' by checking for consistency in scope and complexity:**
 
 1. **[Means] Scope Consistency Check:**
    - Do both [Means] actions have similar complexity levels?
@@ -36,8 +36,8 @@ Second story: "{story2}"
 
 _pairwise_out_format = """
 **Strictly follow this output format (JSON) without any other explanation:**
-- If estimable: `{"valid": true}`
-- If not estimable:
+- If estimatable: `{"valid": true}`
+- If not estimatable:
   ```json
   {
       "valid": false,
@@ -45,8 +45,8 @@ _pairwise_out_format = """
         {
             "id_pair": {"first": 0, "second": 1},
             "issue": "Description of estimation inconsistency between the two stories",
-            "first_suggestion": "How to make the first story more consistently estimable",
-            "second_suggestion": "How to make the second story more consistently estimable"
+            "first_suggestion": "How to make the first story more consistently estimatable",
+            "second_suggestion": "How to make the second story more consistently estimatable"
         }
       ]
   }
@@ -55,7 +55,7 @@ _pairwise_out_format = """
 """
 
 _all_set_definition = """
-**Evaluate whether the user story set is 'Estimable' by checking for consistent scope and complexity:**
+**Evaluate whether the user story set is 'Estimatable' by checking for consistent scope and complexity:**
 
 1. **[Means] Scope Consistency Check:**
    - Do all [Means] actions have similar complexity levels across the set?
@@ -85,8 +85,8 @@ _all_set_in_format = """
 
 _all_set_out_format = """
 **Strictly follow this output format (JSON) without any other explanation:**
-- If estimable: `{"valid": true}`
-- If not estimable:
+- If estimatable: `{"valid": true}`
+- If not estimatable:
 ```json
 {
     "valid": false,
@@ -95,7 +95,7 @@ _all_set_out_format = """
           "story_ids": [1, 4, 7],
           "parts_per_story": [["means"], ["ends"], ["means", "ends"]],
           "issue": "Description of estimation inconsistency across these stories",
-          "suggestion": "How to make the story set more consistently estimable"
+          "suggestion": "How to make the story set more consistently estimatable"
       }
     ]
 }
@@ -105,22 +105,22 @@ _all_set_out_format = """
 
 
 @dataclass
-class EstimableVerdictData:
+class EstimatableVerdictData:
     """Data class representing the verdict of an estimability analysis."""
 
     valid: bool
-    """Boolean indicating whether the components are estimable."""
+    """Boolean indicating whether the components are estimatable."""
 
     violations: list[Violation]
     """List of Violation objects found in the analysis."""
 
 
 @dataclass
-class EstimableFullSetVerdictData:
+class EstimatableFullSetVerdictData:
     """Data class representing the verdict of a full-set estimability analysis."""
 
     valid: bool
-    """Boolean indicating whether the story set is estimable."""
+    """Boolean indicating whether the story set is estimatable."""
 
     violations: list[FullSetViolation]
     """List of FullSetViolation objects found in the analysis."""
@@ -128,10 +128,10 @@ class EstimableFullSetVerdictData:
 
 def format_stories_list(components: list[QUSComponent]) -> str:
     """Formats a list of QUSComponent objects into a numbered story list for LLM input.
-    
+
     Args:
         components: List of QUSComponent objects to format
-        
+
     Returns:
         Formatted string with numbered stories
     """
@@ -147,42 +147,42 @@ _PART_MAP = {
 }
 
 
-class EstimableParserModel:
+class EstimatableParserModel:
     """Unified parser for estimability analysis supporting both pairwise and fullset modes."""
 
     def __init__(self, mode: str):
         """Initialize parser with specified mode.
-        
+
         Args:
             mode: Either "pairwise" or "fullset"
         """
         if mode not in ["pairwise", "fullset"]:
             raise ValueError("Mode must be 'pairwise' or 'fullset'")
-        
+
         self.mode = mode
-        self.key = f"estimable-{mode}"
-        
+        self.key = f"estimatable-{mode}"
+
         if mode == "pairwise":
-            self.__analyzer = LLMAnalyzer[EstimableVerdictData](key=self.key)
+            self.__analyzer = LLMAnalyzer[EstimatableVerdictData](key=self.key)
             self.__analyzer.build_prompt(_pairwise_definition, _pairwise_in_format, _pairwise_out_format)
         else:  # fullset
-            self.__analyzer = LLMAnalyzer[EstimableFullSetVerdictData](key=self.key)
+            self.__analyzer = LLMAnalyzer[EstimatableFullSetVerdictData](key=self.key)
             self.__analyzer.build_prompt(_all_set_definition, _all_set_in_format, _all_set_out_format)
-        
+
         self.__analyzer.build_parser(lambda raw: self.__parser(raw))
 
-    def __parser(self, raw_json: Any) -> EstimableVerdictData | EstimableFullSetVerdictData:
+    def __parser(self, raw_json: Any) -> EstimatableVerdictData | EstimatableFullSetVerdictData:
         """Parses raw JSON output from LLM into structured data.
         Args:
             raw_json: Raw JSON output from the LLM analysis.
         Returns:
-            EstimableVerdictData or EstimableFullSetVerdictData depending on mode.
+            EstimatableVerdictData or EstimatableFullSetVerdictData depending on mode.
         """
         if not isinstance(raw_json, dict):
             if self.mode == "pairwise":
-                return EstimableVerdictData(True, [])
+                return EstimatableVerdictData(True, [])
             else:
-                return EstimableFullSetVerdictData(True, [])
+                return EstimatableFullSetVerdictData(True, [])
 
         valid = raw_json.get("valid", True)
         if isinstance(valid, str):
@@ -195,17 +195,18 @@ class EstimableParserModel:
         else:
             return self.__parse_fullset(raw_json, valid)
 
-    def __parse_pairwise(self, raw_json: dict, valid: bool) -> EstimableVerdictData:
+    def __parse_pairwise(self, raw_json: dict, valid: bool) -> EstimatableVerdictData:
         """Parse pairwise analysis result."""
         violations: list[Violation] = []
-        default_vio = Violation({"means", "ends"}, "Unknown estimability issue", "Review stories for consistent estimability")
+        default_vio = Violation({"means", "ends"}, "Unknown estimability issue",
+                                "Review stories for consistent estimability")
         tmp = raw_json.get("violations", [])
         if isinstance(tmp, list):
             for t in tmp:
                 if isinstance(t, dict):
                     # Parse id_pair for component identification
                     id_pair = t.get("id_pair", {"first": 0, "second": 1})
-                    
+
                     violation = Violation(
                         parts={"means", "ends"},  # Default to means and ends for estimability analysis
                         issue=t.get("issue", ""),
@@ -215,30 +216,32 @@ class EstimableParserModel:
                     violation._id_pair = id_pair
                     violation._first_suggestion = t.get("first_suggestion", "")
                     violation._second_suggestion = t.get("second_suggestion", "")
-                    
+
                     violations.append(violation)
         if not valid and len(violations) == 0:
             violations.append(default_vio)
-        return EstimableVerdictData(valid=valid, violations=violations)
+        return EstimatableVerdictData(valid=valid, violations=violations)
 
-    def __parse_fullset(self, raw_json: dict, valid: bool) -> EstimableFullSetVerdictData:
+    def __parse_fullset(self, raw_json: dict, valid: bool) -> EstimatableFullSetVerdictData:
         """Parse fullset analysis result."""
         violations: list[FullSetViolation] = []
-        default_vio = FullSetViolation([], [], "Unknown estimability issue", "Review stories for consistent estimability")
+        default_vio = FullSetViolation([], [], "Unknown estimability issue",
+                                       "Review stories for consistent estimability")
         tmp = raw_json.get("violations", [])
         if isinstance(tmp, list):
             for t in tmp:
                 if isinstance(t, dict):
                     story_ids = t.get("story_ids", [])
                     if isinstance(story_ids, list):
-                        story_ids = [int(sid) - 1 for sid in story_ids if isinstance(sid, (int, str)) and str(sid).isdigit()]
+                        story_ids = [int(sid) - 1 for sid in story_ids if isinstance(sid,
+                                                                                     (int, str)) and str(sid).isdigit()]
                     else:
                         story_ids = []
-                    
+
                     parts_per_story = t.get("parts_per_story", [])
                     if not isinstance(parts_per_story, list):
                         parts_per_story = []
-                    
+
                     # Convert string parts to sets
                     processed_parts = []
                     for parts in parts_per_story:
@@ -250,7 +253,7 @@ class EstimableParserModel:
                             processed_parts.append(part_set)
                         else:
                             processed_parts.append({"means"})
-                    
+
                     violations.append(
                         FullSetViolation(
                             story_ids=story_ids,
@@ -261,7 +264,7 @@ class EstimableParserModel:
                     )
         if not valid and len(violations) == 0:
             violations.append(default_vio)
-        return EstimableFullSetVerdictData(valid=valid, violations=violations)
+        return EstimatableFullSetVerdictData(valid=valid, violations=violations)
 
     def analyze_pairwise(
         self, client: LLMClient, model_idx: int, component1: QUSComponent, component2: QUSComponent
@@ -278,7 +281,7 @@ class EstimableParserModel:
         """
         if self.mode != "pairwise":
             raise ValueError("This parser is not in pairwise mode")
-        
+
         values = {
             "story1": component1.text,
             "story2": component2.text,
@@ -290,13 +293,13 @@ class EstimableParserModel:
             # Get suggestions from stored data
             first_suggestion = getattr(violation, '_first_suggestion', violation.suggestion)
             second_suggestion = getattr(violation, '_second_suggestion', violation.suggestion)
-            
+
             # Combine suggestions properly
             if first_suggestion and second_suggestion and first_suggestion != second_suggestion:
                 combined_suggestion = f"First story: {first_suggestion}. Second story: {second_suggestion}"
             else:
                 combined_suggestion = first_suggestion or violation.suggestion
-            
+
             pairwise_violations.append(
                 PairwiseViolation(
                     first_parts=violation.parts,
@@ -320,24 +323,24 @@ class EstimableParserModel:
         """
         if self.mode != "fullset":
             raise ValueError("This parser is not in fullset mode")
-        
+
         if len(components) < 2:
             return [], None
-            
+
         stories_list = format_stories_list(components)
         values = {"stories_list": stories_list}
         data, usage = self.__analyzer.run(client, model_idx, values)
         return data.violations, usage
 
 
-class EstimableAnalyzer:
+class EstimatableAnalyzer:
     """Main analyzer class for estimability evaluation.
 
     Provides class methods for running estimability checks on sets of QUS components.
     """
 
-    __estimable_parser_pairwise = EstimableParserModel("pairwise")
-    __estimable_parser_fullset = EstimableParserModel("fullset")
+    __estimatable_parser_pairwise = EstimatableParserModel("pairwise")
+    __estimatable_parser_fullset = EstimatableParserModel("fullset")
 
     @classmethod
     def analyze_pairwise(
@@ -354,10 +357,10 @@ class EstimableAnalyzer:
         Returns:
             Tuple containing list of pairwise violations and LLM usage data.
         """
-        violations, usage = cls.__estimable_parser_pairwise.analyze_pairwise(
+        violations, usage = cls.__estimatable_parser_pairwise.analyze_pairwise(
             client, model_idx, component1, component2
         )
-        usage_dict = {cls.__estimable_parser_pairwise.key: usage} if usage else {}
+        usage_dict = {cls.__estimatable_parser_pairwise.key: usage} if usage else {}
         return violations, usage_dict
 
     @classmethod
@@ -383,7 +386,7 @@ class EstimableAnalyzer:
                     client, model_idx, components[i], components[j]
                 )
                 all_violations.extend(violations)
-                
+
                 # Merge usage data with unique keys
                 for key, usage in usages.items():
                     all_usages[f"{key}_pair_{i}_{j}"] = usage
@@ -404,10 +407,10 @@ class EstimableAnalyzer:
         Returns:
             Tuple containing list of full-set violations and LLM usage data.
         """
-        violations, usage = cls.__estimable_parser_fullset.analyze_full_set(
+        violations, usage = cls.__estimatable_parser_fullset.analyze_full_set(
             client, model_idx, components
         )
-        usage_dict = {cls.__estimable_parser_fullset.key: usage} if usage else {}
+        usage_dict = {cls.__estimatable_parser_fullset.key: usage} if usage else {}
         return violations, usage_dict
 
     @classmethod
