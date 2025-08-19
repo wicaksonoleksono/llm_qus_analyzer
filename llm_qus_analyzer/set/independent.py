@@ -316,10 +316,16 @@ class IndependentParserModel:
             else:
                 combined_suggestion = violation.suggestion
             
+            # Use component IDs if available, otherwise use placeholder values
+            first_id = component1.id or "component_1"
+            second_id = component2.id or "component_2"
+            
             pairwise_violations.append(
                 PairwiseViolation(
                     first_parts=first_parts,
                     second_parts=second_parts,
+                    first_id=first_id,
+                    second_id=second_id,
                     issue=violation.issue,
                     suggestion=combined_suggestion,
                 )

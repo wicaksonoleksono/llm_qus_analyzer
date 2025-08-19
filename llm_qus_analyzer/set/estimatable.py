@@ -302,10 +302,16 @@ class EstimatableParserModel:
             else:
                 combined_suggestion = first_suggestion or violation.suggestion
 
+            # Use component IDs if available, otherwise use placeholder values
+            first_id = component1.id or "component_1"
+            second_id = component2.id or "component_2"
+            
             pairwise_violations.append(
                 PairwiseViolation(
                     first_parts=violation.parts,
                     second_parts=violation.parts,
+                    first_id=first_id,
+                    second_id=second_id,
                     issue=violation.issue,
                     suggestion=combined_suggestion,
                 )

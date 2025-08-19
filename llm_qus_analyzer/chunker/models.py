@@ -76,6 +76,9 @@ class QUSComponent:
 
     template: Template
     """Templatized version of the user story."""
+    
+    id: Optional[str] = None
+    """Optional unique identifier for the component."""
 
 
 class QUSChunkerModel:
@@ -127,7 +130,7 @@ class QUSChunkerModel:
         return QUSChunkData(expanded, role, means, ends)
 
     def analyze_single(
-        self, client: LLMClient, model_idx: int, user_story: str
+        self, client: LLMClient, model_idx: int, user_story: str, id: Optional[str] = None
     ) -> tuple[QUSComponent, LLMUsage]:
         """Analyzes a single user story into its components.
 
@@ -135,6 +138,7 @@ class QUSChunkerModel:
             client (LLMClient): The LLM client to use for analysis.
             model_idx (int): Index of the specific LLM model to use.
             user_story (str): The user story text to analyze.
+            id (Optional[str]): Optional unique identifier for the component.
 
         Returns:
             tuple[QUSComponent,LLMUsage]:
@@ -157,11 +161,12 @@ class QUSChunkerModel:
             means=data.means,
             ends=data.ends,
             template=template,
+            id=id,
         )
         return component, usage
 
     def analyze_list(
-        self, client: LLMClient, model_idx: int, user_stories: list[str]
+        self, client: LLMClient, model_idx: int, user_stories: list[str], ids: list[str] = None
     ) -> list[tuple[QUSComponent, LLMUsage]]:
         """Analyzes multiple user stories in batch.
 
@@ -169,12 +174,18 @@ class QUSChunkerModel:
             client: The LLM client to use for analysis.
             model_idx: Index of the specific LLM model to use.
             user_stories: List of user story texts to analyze.
+            ids: Optional list of IDs corresponding to the user stories.
 
         Returns:
             list[tuple[QUSComponent,LLMUsage]]:
                 List of analysis results (component, usage) for each input story.
         """
+        if ids is None:
+            ids = [None] * len(user_stories)
+        elif len(ids) != len(user_stories):
+            raise ValueError("Length of ids must match length of user_stories")
+            
         return [
-            self.analyze_single(client, model_idx, user_story)
-            for user_story in user_stories
+            self.analyze_single(client, model_idx, user_story, id)
+            for user_story, id in zip(user_stories, ids)
         ]

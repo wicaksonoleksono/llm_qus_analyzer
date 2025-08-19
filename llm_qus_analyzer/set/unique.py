@@ -291,10 +291,16 @@ class UniqueParserModel:
             else:
                 combined_suggestion = violation.suggestion
 
+            # Use component IDs if available, otherwise use placeholder values
+            first_id = component1.id or "component_1"
+            second_id = component2.id or "component_2"
+            
             pairwise_violations.append(
                 PairwiseViolation(
                     first_parts=first_parts,
                     second_parts=second_parts,
+                    first_id=first_id,
+                    second_id=second_id,
                     issue=violation.issue,
                     suggestion=combined_suggestion,
                 )
@@ -393,10 +399,16 @@ class UniqueAnalyzer:
 
         # Step 1: Check for full duplicates (fast regex check)
         if cls._is_full_duplicate(component1, component2):
+            # Use component IDs if available, otherwise use placeholder values
+            first_id = component1.id or "component_1"
+            second_id = component2.id or "component_2"
+            
             violations.append(
                 PairwiseViolation(
                     first_parts={"text"},
                     second_parts={"text"},
+                    first_id=first_id,
+                    second_id=second_id,
                     issue="Stories are identical duplicates",
                     suggestion="Remove one of the duplicate stories",
                 )

@@ -42,6 +42,8 @@ class PairwiseViolation:
     >>> violation = PairwiseViolation(
     ...     first_parts={'means'},
     ...     second_parts={'means'},
+    ...     first_id='story_1',
+    ...     second_id='story_2',
     ...     issue='The second story refers to the same means but has contradicting ends',
     ...     suggestion='Stories can be concatenated into one by using more general action terms'
     ... )
@@ -54,6 +56,12 @@ class PairwiseViolation:
 
     second_parts: set[str]
     """Components affected in the second user story."""
+
+    first_id: str
+    """ID of the first user story."""
+
+    second_id: str
+    """ID of the second user story."""
 
     issue: str
     """Description of the specific quality issue between the stories."""

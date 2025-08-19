@@ -105,7 +105,10 @@ def analyze_set_pairwise(
 
             # Merge usage data with unique keys
             for key, usage in usages.items():
-                all_usages[f"{key}_pair_{i}_{j}"] = usage
+                # Use component IDs if available, otherwise fall back to indices
+                first_id = components[i].id or str(i)
+                second_id = components[j].id or str(j)
+                all_usages[f"{key}_pair_{first_id}_{second_id}"] = usage
 
     return all_violations, all_usages
 
