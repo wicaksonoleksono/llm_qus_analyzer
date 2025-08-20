@@ -237,7 +237,7 @@
     "pt": "conceptually-sound"
   },
   {
-    "story": "As a Manager, I want to generate quarterly reports, so that the data warehouse is populated with sales metriconceptually-sound",
+    "story": "As a Manager, I want to generate quarterly reports, so that the data warehouse is populated with sales metrics",
     "violation": "Ends.SystemFeature+Ends.HiddenDependency",
     "pt": "conceptually-sound"
   },

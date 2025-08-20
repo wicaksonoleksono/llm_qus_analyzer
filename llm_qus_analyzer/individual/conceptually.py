@@ -11,13 +11,14 @@ _definition = """
 **Evaluate whether this user story is 'Conceptually Sound' based on its [Means] and [Ends]:**  
 1. **[Means] Check:**  
    - Is it a **single, concrete action** the system can perform directly?  
-   - Does it **avoid hidden dependencies** (e.g., assuming unstated features)?  
-
 2. **[Ends] Check:**  
-   - Does it explain the **user's true goal or benefit** (not a system feature or intermediate step)?  
+   - Does it explain the **user's true goal or benefit** (not a system feature or intermediate step)?
    - Is it **independent** (no implied dependencies)? 
-"""
+   - Does it **avoid hidden dependencies** that needed itermediate causality or another system behavior not covered by the Means from ?
 
+"""
+# 3.  **[Ends]  & [Means] Check:**
+#
 _in_format = """
 **User Story to Evaluate:**  
 - [Means]: {means}
@@ -177,7 +178,7 @@ class ConceptuallySoundAnalyzer:
             return [], None
 
         violations, result = cls.__cs_parser.analyze_single(
-            client, component, model_idx
+            client, model_idx, component
         )
         return violations, result
 

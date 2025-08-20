@@ -4,6 +4,7 @@ Per-Criteria Analyzer - Analyzes pre-chunked stories by PT category
 Uses cached chunks and saves results to separate JSON files per criteria.
 """
 
+import asyncio
 import json
 import sys
 import time
@@ -99,24 +100,83 @@ def create_component_from_chunk(chunk_data: Dict, story_id: str = None):
     )
 
 
-def safe_analyzer_call(analyzer_func, *args, max_retries=3, **kwargs):
-    """Safely call analyzer with error handling and retry logic."""
+def _format_violation_parts(violation):
+    """Format violation parts based on violation type."""
+    from llm_qus_analyzer.type import PairwiseViolation, Violation, FullSetViolation
+    
+    if isinstance(violation, PairwiseViolation):
+        return {
+            "first_parts": list(violation.first_parts),
+            "second_parts": list(violation.second_parts),
+            "first_id": violation.first_id,
+            "second_id": violation.second_id,
+            "violation_type": "pairwise"
+        }
+    elif isinstance(violation, Violation):
+        return {
+            "parts": list(violation.parts),
+            "violation_type": "individual"
+        }
+    elif isinstance(violation, FullSetViolation):
+        return {
+            "story_ids": violation.story_ids,
+            "parts_per_story": [list(parts) for parts in violation.parts_per_story],
+            "violation_type": "fullset"
+        }
+    else:
+        # Fallback for unknown violation types
+        return {
+            "parts": list(getattr(violation, 'parts', [])),
+            "violation_type": "unknown"
+        }
+
+
+async def safe_analyzer_call_async(analyzer_func, *args, max_retries=5, **kwargs):
+    """Safely call analyzer with error handling and exponential backoff retry logic."""
+    import json
+    
     for attempt in range(max_retries):
         try:
             return analyzer_func(*args, **kwargs)
+        except json.JSONDecodeError as e:
+            print(f"JSON parsing error (attempt {attempt + 1}): {e}")
+            if attempt < max_retries - 1:
+                wait_time = 2 ** attempt  # Exponential backoff
+                print(f"Retrying in {wait_time} seconds...")
+                await asyncio.sleep(wait_time)
+                continue
+            else:
+                print("Max retries reached for JSON parsing. Raising error.")
+                raise e
         except Exception as e:
             error_msg = str(e).lower()
             if "503" in error_msg or "service unavailable" in error_msg:
-                print(f"API unavailable (attempt {attempt + 1}): Retrying...")
+                wait_time = min(10 * (2 ** attempt), 120)  # Exponential backoff, max 2 minutes
+                print(f"API unavailable (attempt {attempt + 1}/{max_retries}): {e}")
                 if attempt < max_retries - 1:
-                    time.sleep(10)
+                    print(f"Waiting {wait_time} seconds before retry...")
+                    await asyncio.sleep(wait_time)
                     continue
-            print(f"Analyzer error: {e}")
-            return [], {}
-    return [], {}
+                else:
+                    print("Max retries reached for API unavailable error. Raising error.")
+                    raise e
+            elif "429" in error_msg or "rate limit" in error_msg:
+                wait_time = min(5 * (2 ** attempt), 60)  # Exponential backoff, max 1 minute
+                print(f"Rate limited (attempt {attempt + 1}/{max_retries}): {e}")
+                if attempt < max_retries - 1:
+                    print(f"Waiting {wait_time} seconds before retry...")
+                    await asyncio.sleep(wait_time)
+                    continue
+                else:
+                    print("Max retries reached for rate limit error. Raising error.")
+                    raise e
+            else:
+                print(f"Analyzer error: {e}")
+                raise e
+    raise Exception("Max retries reached")
 
 
-def analyze_criteria_set(client: LLMClient, test_data: List[Dict], 
+async def analyze_criteria_set(client: LLMClient, test_data: List[Dict], 
                         chunks: Dict, criteria: str) -> Dict:
     """Analyze set criteria (pairwise analysis)."""
     
@@ -166,8 +226,9 @@ def analyze_criteria_set(client: LLMClient, test_data: List[Dict],
         comp1 = create_component_from_chunk(chunk1, f"story_{i+1}_1")
         comp2 = create_component_from_chunk(chunk2, f"story_{i+1}_2")
         
-        # Run analysis
-        violations, usage_dict = safe_analyzer_call(
+        # Run analysis (set analyzers use class method analyze_pairwise)  
+        # Direct call to avoid parameter mismatch with class methods
+        violations, usage_dict = await safe_analyzer_call_async(
             analyzer.analyze_pairwise, client, 0, comp1, comp2
         )
         
@@ -192,8 +253,7 @@ def analyze_criteria_set(client: LLMClient, test_data: List[Dict],
                 {
                     "issue": v.issue,
                     "suggestion": v.suggestion,
-                    "first_parts": list(getattr(v, 'first_parts', v.parts)),
-                    "second_parts": list(getattr(v, 'second_parts', v.parts))
+                    **_format_violation_parts(v)
                 } for v in violations
             ],
             "has_violations": len(violations) > 0,
@@ -202,7 +262,7 @@ def analyze_criteria_set(client: LLMClient, test_data: List[Dict],
         }
         
         results["pairs"].append(pair_result)
-        time.sleep(1)  # Rate limiting
+        await asyncio.sleep(0.5)  # Rate limiting
     
     # Calculate summary
     results["summary"]["total_pairs"] = len(results["pairs"])
@@ -215,7 +275,7 @@ def analyze_criteria_set(client: LLMClient, test_data: List[Dict],
     return results
 
 
-def analyze_criteria_individual(client: LLMClient, test_data: List[Dict], 
+async def analyze_criteria_individual(client: LLMClient, test_data: List[Dict], 
                                chunks: Dict, criteria: str) -> Dict:
     """Analyze individual criteria (single story analysis)."""
     
@@ -259,8 +319,9 @@ def analyze_criteria_individual(client: LLMClient, test_data: List[Dict],
         
         component = create_component_from_chunk(chunk_data, f"story_{i+1}")
         
-        # Run analysis
-        violations, usage_dict = safe_analyzer_call(
+        # Run analysis (individual analyzers use class method run)
+        # Direct call to avoid parameter mismatch with class methods
+        violations, usage_dict = await safe_analyzer_call_async(
             analyzer.run, client, 0, component
         )
         
@@ -278,7 +339,7 @@ def analyze_criteria_individual(client: LLMClient, test_data: List[Dict],
                 {
                     "issue": v.issue,
                     "suggestion": v.suggestion,
-                    "parts": list(v.parts) if hasattr(v, 'parts') else []
+                    **_format_violation_parts(v)
                 } for v in violations
             ],
             "has_violations": len(violations) > 0,
@@ -287,7 +348,7 @@ def analyze_criteria_individual(client: LLMClient, test_data: List[Dict],
         }
         
         results["stories"].append(story_result)
-        time.sleep(1)  # Rate limiting
+        await asyncio.sleep(0.5)  # Rate limiting
     
     # Calculate summary
     results["summary"]["total_stories"] = len(results["stories"])
@@ -300,8 +361,21 @@ def analyze_criteria_individual(client: LLMClient, test_data: List[Dict],
     return results
 
 
-def main():
+async def main():
     """Main function for per-criteria analysis."""
+    import argparse
+    
+    parser = argparse.ArgumentParser(description='Analyze stories by specific criteria')
+    parser.add_argument('--criteria', '-c', type=str, 
+                       help='Specific criteria to analyze (e.g., complete, conflict-free)')
+    parser.add_argument('--list', '-l', action='store_true',
+                       help='List all available criteria')
+    parser.add_argument('--set-only', action='store_true',
+                       help='Only analyze set criteria (pairwise)')
+    parser.add_argument('--individual-only', action='store_true', 
+                       help='Only analyze individual criteria')
+    
+    args = parser.parse_args()
     
     # Configuration
     test_data_path = Path(__file__).parent / "testdata" / "semantic_pragmatic_test.json"
@@ -344,18 +418,49 @@ def main():
         
         print(f"\nAvailable criteria: {sorted(available_criteria)}")
         
+        # Handle --list flag
+        if args.list:
+            print("\nAll available criteria:")
+            for criteria in sorted(available_criteria):
+                criteria_type = "SET" if criteria in SET_CATEGORIES else "INDIVIDUAL"
+                print(f"  {criteria} ({criteria_type})")
+            return
+        
+        # Filter criteria based on flags
+        criteria_to_analyze = available_criteria
+        
+        if args.criteria:
+            if args.criteria not in available_criteria:
+                print(f"\n❌ Error: '{args.criteria}' not found in available criteria")
+                print(f"Available: {sorted(available_criteria)}")
+                return
+            criteria_to_analyze = {args.criteria}
+            print(f"\n🎯 Analyzing single criteria: {args.criteria}")
+        
+        if args.set_only:
+            criteria_to_analyze = {c for c in criteria_to_analyze if c in SET_CATEGORIES}
+            print(f"\n📊 Analyzing SET criteria only: {sorted(criteria_to_analyze)}")
+        
+        if args.individual_only:
+            criteria_to_analyze = {c for c in criteria_to_analyze if c not in SET_CATEGORIES}
+            print(f"\n👤 Analyzing INDIVIDUAL criteria only: {sorted(criteria_to_analyze)}")
+        
+        if not criteria_to_analyze:
+            print("\n❌ No criteria match the specified filters")
+            return
+        
         # Analyze each criteria
         all_results = {}
         
-        for criteria in sorted(available_criteria):
+        for criteria in sorted(criteria_to_analyze):
             print(f"\n{'='*50}")
             print(f"ANALYZING CRITERIA: {criteria.upper()}")
             print(f"{'='*50}")
             
             if criteria in SET_CATEGORIES:
-                results = analyze_criteria_set(client, test_data, chunks, criteria)
+                results = await analyze_criteria_set(client, test_data, chunks, criteria)
             else:
-                results = analyze_criteria_individual(client, test_data, chunks, criteria)
+                results = await analyze_criteria_individual(client, test_data, chunks, criteria)
             
             all_results[criteria] = results
             
@@ -387,4 +492,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
