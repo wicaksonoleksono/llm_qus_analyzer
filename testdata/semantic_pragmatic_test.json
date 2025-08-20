@@ -254,76 +254,76 @@
   {
     "story": "As a Developer, I want to integrate with third-party payment APIs, so that I can enable secure transaction processing across multiple payment providers",
     "violation": "Means.UnclearScope+Ends.HiddenDependency",
-    "pt": "es"
+    "pt": "estimatable"
   },
   {
     "story": "As a Product Manager, I want to analyze user behavior patterns, so that I can optimize the recommendation engine and improve conversion rates",
     "violation": "Means.MultipleHiddenFunctionalities+Ends.IntermediateStep",
-    "pt": "es"
+    "pt": "estimatable"
   },
   {
     "story": "As a System Administrator, I want to monitor application performance, so that I can set up alerting and implement auto-scaling solutions",
     "violation": "Ends.IsActuallyMeans+Ends.HiddenDependency",
-    "pt": "es"
+    "pt": "estimatable"
   },
   {
     "story": "As a Mobile User, I want to sync data across devices, so that I can maintain consistency while handling offline scenarios and conflict resolution",
     "violation": "Means.UnclearScope+Ends.MultipleHiddenFunctionalities",
-    "pt": "es"
+    "pt": "estimatable"
   },
   {
     "story": "As a Customer Support Agent, I want to access customer information, so that I can resolve issues and update the knowledge base system",
     "violation": "Means.UnclearScope+Ends.IntermediateStep+Ends.HiddenDependency",
-    "pt": "es"
+    "pt": "estimatable"
   },
   {
     "story": "As user want to login system so can access dashboard",
     "violation": "Grammar.MissingArticles+Grammar.IncompleteStructure+Grammar.MissingPronoun",
-    "pt": "fs"
+    "pt": "full-sentence"
   },
   {
     "story": "As a Administrator, I wants to manage users accounts, so that I can controlling access permissions",
     "violation": "Grammar.SubjectVerbDisagreement+Grammar.IncorrectVerbForm+Grammar.PluralError",
-    "pt": "fs"
+    "pt": "full-sentence"
   },
   {
     "story": "As customer service rep I want search customer data so I help them quicker",
     "violation": "Grammar.MissingArticle+Grammar.MissingInfinitive+Grammar.IncompleteClause",
-    "pt": "fs"
+    "pt": "full-sentence"
   },
   {
     "story": "As a Manager, I want to generates reports, so that I can make decision about budget allocation and resource planning",
     "violation": "Grammar.SubjectVerbDisagreement+Grammar.SingularPluralMismatch",
-    "pt": "fs"
+    "pt": "full-sentence"
   },
   {
     "story": "As mobile user want sync data across device so that maintain consistency",
     "violation": "Grammar.MissingArticles+Grammar.MissingPronoun+Grammar.PluralSingularError+Grammar.IncompleteClause",
-    "pt": "fs"
+    "pt": "full-sentence"
   },
   {
     "story": "As a User, I want to manage content, so that I can improve efficiency",
     "violation": "Role.TooGeneric+Means.SuperClass+Ends.VagueRationale",
-    "una": "fs"
+    "unambigous": "full-sentence"
   },
   {
     "story": "As a Power User, I want to configure the system using advanced settings, so that I can optimize performance",
     "violation": "Role.ImplicitAssumption+Means.UnclearScope+Ends.SubjectiveMetric",
-    "una": "fs"
+    "unambigous": "full-sentence"
   },
   {
     "story": "As a Stakeholder, I want to access reports, so that I can make decisions",
     "violation": "Role.ExtremelyVague+Means.SuperClass+Ends.NoSpecificOutcome",
-    "una": "fs"
+    "unambigous": "full-sentence"
   },
   {
     "story": "As a Tesla Owner, I want to update vehicle software, so that I can get new features",
     "violation": "Role.BrandSpecific+Means.ImplicitDependency+Ends.UnquantifiedBenefit",
-    "una": "fs"
+    "unambigous": "full-sentence"
   },
   {
     "story": "As a someone who uses our platform frequently, I want to customize my experience, so that things work better for me",
     "violation": "Role.InformalDefinition+Means.ExtremelyVague+Ends.SubjectiveImprovement",
-    "una": "fs"
+    "unambigous": "full-sentence"
   }
 ]
