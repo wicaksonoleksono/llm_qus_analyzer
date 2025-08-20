@@ -10,8 +10,7 @@ _pairwise_definition = """
 **Evaluate whether two user stories are 'Complete' by checking if they have prerequisite dependencies:**
 
 1. **[Means] Prerequisite Check:**
-   - Does the first story's [Means] require prerequisite actions that the second story provides?
-   - Does the second story's [Means] require prerequisite actions that the first story provides?
+   - Do the [Means] of either story require prerequisite actions provided by the other?
    - Do either story's [Means] reference states that the other story establishes?
 
 2. **[Means] Object Dependency Check:**
@@ -42,20 +41,20 @@ Second user story:
 
 _pairwise_out_format = """
 **Strictly follow this output format (JSON) without any other explanation:**
-- If complete: `{"valid": true}`
+- If complete: `{{"valid": true}}`
 - If incomplete:
   ```json
-  {
+  {{
       "valid": false,
       "violations": [
-        {
-            "id_pair": {"first": 0, "second": 1},
+        {{
+            "id_pair": {{"first": 0, "second": 1}},
             "issue": "Description of missing prerequisites or dependencies",
             "first_suggestion": "How to make the first story more complete",
             "second_suggestion": "How to make the second story more complete"
-        }
+        }}
       ]
-  }
+  }}
   ```
 **Please only display the final answer without any explanation, description, or any redundant text.**
 """
@@ -91,20 +90,20 @@ _all_set_in_format = """
 
 _all_set_out_format = """
 **Strictly follow this output format (JSON) without any other explanation:**
-- If complete: `{"valid": true}`
+- If complete: `{{"valid": true}}`
 - If incomplete:
 ```json
-{
+{{
     "valid": false,
     "violations": [
-      {
+      {{
           "story_ids": [1, 3, 5],
           "parts_per_story": [["means"], ["means"], ["means"]],
           "issue": "Description of missing prerequisites or gaps",
           "suggestion": "How to complete the story set with missing dependencies"
-      }
+      }}
     ]
-}
+}}
 ```
 **Please only display the final answer without any explanation, description, or any redundant text.**
 """
@@ -134,10 +133,10 @@ class CompleteFullSetVerdictData:
 
 def format_stories_list(components: list[QUSComponent]) -> str:
     """Formats a list of QUSComponent objects into a structured story list for LLM input.
-    
+
     Args:
         components: List of QUSComponent objects to format
-        
+
     Returns:
         Formatted string with numbered stories using structured format
     """
@@ -158,23 +157,23 @@ class CompleteParserModel:
 
     def __init__(self, mode: str):
         """Initialize parser with specified mode.
-        
+
         Args:
             mode: Either "pairwise" or "fullset"
         """
         if mode not in ["pairwise", "fullset"]:
             raise ValueError("Mode must be 'pairwise' or 'fullset'")
-        
+
         self.mode = mode
         self.key = f"complete-{mode}"
-        
+
         if mode == "pairwise":
             self.__analyzer = LLMAnalyzer[CompleteVerdictData](key=self.key)
             self.__analyzer.build_prompt(_pairwise_definition, _pairwise_in_format, _pairwise_out_format)
         else:  # fullset
             self.__analyzer = LLMAnalyzer[CompleteFullSetVerdictData](key=self.key)
             self.__analyzer.build_prompt(_all_set_definition, _all_set_in_format, _all_set_out_format)
-        
+
         self.__analyzer.build_parser(lambda raw: self.__parser(raw))
 
     def __parser(self, raw_json: Any) -> CompleteVerdictData | CompleteFullSetVerdictData:
@@ -211,7 +210,7 @@ class CompleteParserModel:
                 if isinstance(t, dict):
                     # Parse id_pair for component identification
                     id_pair = t.get("id_pair", {"first": 0, "second": 1})
-                    
+
                     violation = Violation(
                         parts={"means"},  # Default to means for completeness analysis
                         issue=t.get("issue", ""),
@@ -221,7 +220,7 @@ class CompleteParserModel:
                     violation._id_pair = id_pair
                     violation._first_suggestion = t.get("first_suggestion", "")
                     violation._second_suggestion = t.get("second_suggestion", "")
-                    
+
                     violations.append(violation)
         if not valid and len(violations) == 0:
             violations.append(default_vio)
@@ -237,14 +236,15 @@ class CompleteParserModel:
                 if isinstance(t, dict):
                     story_ids = t.get("story_ids", [])
                     if isinstance(story_ids, list):
-                        story_ids = [int(sid) - 1 for sid in story_ids if isinstance(sid, (int, str)) and str(sid).isdigit()]
+                        story_ids = [int(sid) - 1 for sid in story_ids if isinstance(sid,
+                                                                                     (int, str)) and str(sid).isdigit()]
                     else:
                         story_ids = []
-                    
+
                     parts_per_story = t.get("parts_per_story", [])
                     if not isinstance(parts_per_story, list):
                         parts_per_story = []
-                    
+
                     # Convert string parts to sets
                     processed_parts = []
                     for parts in parts_per_story:
@@ -256,7 +256,7 @@ class CompleteParserModel:
                             processed_parts.append(part_set)
                         else:
                             processed_parts.append({"means"})
-                    
+
                     violations.append(
                         FullSetViolation(
                             story_ids=story_ids,
@@ -284,7 +284,7 @@ class CompleteParserModel:
         """
         if self.mode != "pairwise":
             raise ValueError("This parser is not in pairwise mode")
-        
+
         values = {
             "r1": component1.role,
             "m1": component1.means,
@@ -300,17 +300,17 @@ class CompleteParserModel:
             # Get suggestions from stored data
             first_suggestion = getattr(violation, '_first_suggestion', violation.suggestion)
             second_suggestion = getattr(violation, '_second_suggestion', violation.suggestion)
-            
+
             # Combine suggestions properly
             if first_suggestion and second_suggestion and first_suggestion != second_suggestion:
                 combined_suggestion = f"First story: {first_suggestion}. Second story: {second_suggestion}"
             else:
                 combined_suggestion = first_suggestion or violation.suggestion
-            
+
             # Use component IDs if available, otherwise use placeholder values
             first_id = component1.id or "component_1"
             second_id = component2.id or "component_2"
-            
+
             pairwise_violations.append(
                 PairwiseViolation(
                     first_parts=violation.parts,
@@ -336,10 +336,10 @@ class CompleteParserModel:
         """
         if self.mode != "fullset":
             raise ValueError("This parser is not in fullset mode")
-        
+
         if len(components) < 2:
             return [], None
-            
+
         stories_list = format_stories_list(components)
         values = {"stories_list": stories_list}
         data, usage = self.__analyzer.run(client, model_idx, values)
@@ -438,7 +438,7 @@ class CompleteAnalyzer:
                 raise ValueError("Pairwise mode requires exactly 2 components")
             component1, component2 = args
             return cls.analyze_pairwise(client, model_idx, component1, component2)
-            
+
         elif mode == "fullset":
             if len(args) != 1 or not isinstance(args[0], list):
                 raise ValueError("Fullset mode requires a list of components")
@@ -446,6 +446,6 @@ class CompleteAnalyzer:
             if len(components) < 2:
                 return [], {}
             return cls.analyze_full_set(client, model_idx, components)
-            
+
         else:
             raise ValueError("Mode must be 'pairwise' or 'fullset'")

@@ -134,7 +134,7 @@ class POParserModel:
         ]
 
 
-class ProblemOriented:
+class ProblemOrientedAnalyzer:
     __po_parser = POParserModel()
 
     @classmethod

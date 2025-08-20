@@ -42,20 +42,20 @@ Second user story:
 
 _out_format = """
 **Strictly follow this output format (JSON) without any other explanation:**
-- If independent: `{"valid": true}`
+- If independent: `{{"valid": true}}`
 - If dependent:
   ```json
-  {
+  {{
       "valid": false,
       "violations": [
-        {
-            "id_pair": {"first": 0, "second": 1},
+        {{
+            "id_pair": {{"first": 0, "second": 1}},
             "issue": "Description of the dependency type and how they are dependent",
             "first_suggestion": "How to make the first user story independent", 
             "second_suggestion": "How to make the second user story independent"
-        }
+        }}
       ]
-  }
+  }}
   ```
 **Please only display the final answer without any explanation, description, or any redundant text.**
 """
@@ -88,20 +88,20 @@ _all_set_in_format = """
 
 _all_set_out_format = """
 **Strictly follow this output format (JSON) without any other explanation:**
-- If independent: `{"valid": true}`
+- If independent: `{{"valid": true}}`
 - If dependent:
 ```json
-{
+{{
     "valid": false,
     "violations": [
-      {
+      {{
           "story_ids": [1, 2, 3],
           "parts_per_story": [["means"], ["ends"], ["means", "ends"]],
           "issue": "Description of the dependency across these stories",
           "suggestion": "How to make these stories independent"
-      }
+      }}
     ]
-}
+}}
 ```
 **Please only display the final answer without any explanation, description, or any redundant text.**
 """

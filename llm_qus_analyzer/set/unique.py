@@ -28,20 +28,20 @@ Second story: "{story2}"
 
 _semantic_out_format = """
 **Strictly follow this output format (JSON) without any other explanation:**
-- If not similar: `{"valid": true}`
+- If not similar: `{{"valid": true}}`
 - If semantically similar:
   ```json
-  {
+  {{
       "valid": false,
       "violations": [
-        {
-            "id_pair": {"first": 0, "second": 1},
+        {{
+            "id_pair": {{"first": 0, "second": 1}},
             "issue": "Description of how the stories are semantically similar",
             "first_suggestion": "How to consolidate or differentiate the first story",
             "second_suggestion": "How to consolidate or differentiate the second story"
-        }
+        }}
       ]
-  }
+  }}
   ```
 **Please only display the final answer without any explanation, description, or any redundant text.**
 """
@@ -69,20 +69,20 @@ _all_set_in_format = """
 
 _all_set_out_format = """
 **Strictly follow this output format (JSON) without any other explanation:**
-- If unique: `{"valid": true}`
+- If unique: `{{"valid": true}}`
 - If duplicates found:
 ```json
-{
+{{
     "valid": false,
     "violations": [
-      {
+      {{
           "story_ids": [1, 3, 5],
           "parts_per_story": [["text"], ["text"], ["text"]],
           "issue": "Description of the duplicate stories found",
           "suggestion": "How to resolve the duplicate stories in this set"
-      }
+      }}
     ]
-}
+}}
 ```
 **Please only display the final answer without any explanation, description, or any redundant text.**
 """

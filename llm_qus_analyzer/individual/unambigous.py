@@ -137,7 +137,7 @@ class UnParserModel:
         ]
 
 
-class Unambiguous:
+class UnambiguousAnalyzer:
     __un_parser = UnParserModel()
 
     @classmethod

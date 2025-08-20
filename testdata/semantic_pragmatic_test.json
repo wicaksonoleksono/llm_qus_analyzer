@@ -5,7 +5,7 @@
       "As a User, I want to delete posts so that I hide content temporarily."
     ],
     "violation": "sameMeansDiffEnd",
-    "pt": "cf"
+    "pt": "conflict-free"
   },
   {
     "stories": [
@@ -13,7 +13,7 @@
       "As a Shopper, I want to bookmark products so that I find them later."
     ],
     "violation": "diffMeansSameEnd",
-    "pt": "cf"
+    "pt": "conflict-free"
   },
   {
     "stories": [
@@ -21,7 +21,7 @@
       "As a Driver, I want to pass tolls without payment so that I pass the gate."
     ],
     "violation": "diffMeansSameEnd",
-    "pt": "cf"
+    "pt": "conflict-free"
   },
   {
     "stories": [
@@ -29,7 +29,7 @@
       "As an Owner, I want Guests to view only public photos so that I protect privacy."
     ],
     "violation": "diffRoleSameStory",
-    "pt": "cf"
+    "pt": "conflict-free"
   },
   {
     "stories": [
@@ -37,7 +37,7 @@
       "As a User, I want to edit profiles so that I change other users' information."
     ],
     "violation": "sameMeansDiffEnd",
-    "pt": "cf"
+    "pt": "conflict-free"
   },
   {
     "stories": [
@@ -45,7 +45,7 @@
       "As a Shopper, I want to bookmark products so that I find them later."
     ],
     "violation": "diffMeansSameEnd",
-    "pt": "cf"
+    "pt": "conflict-free"
   },
   {
     "stories": [
@@ -53,7 +53,7 @@
       "As an Owner, I want Guests to view only public photos so that I protect privacy."
     ],
     "violation": "diffRoleSameStory",
-    "pt": "cf"
+    "pt": "conflict-free"
   },
   {
     "stories": [
@@ -61,7 +61,7 @@
       "As a User, I want to edit profiles so that I change other users' information."
     ],
     "violation": "sameMeansDiffEnd",
-    "pt": "cf"
+    "pt": "conflict-free"
   },
   {
     "stories": [
@@ -69,7 +69,7 @@
       "As a User, I want to delete my account so that I can remove my data."
     ],
     "violation": "Means.MissingPrerequisite+Means.WorkflowGap",
-    "pt": "com"
+    "pt": "complete"
   },
   {
     "stories": [
@@ -77,7 +77,7 @@
       "As an Employee, I want to view approval status so that I can track my requests."
     ],
     "violation": "Means.ObjectDependency+Means.FoundationMissing",
-    "pt": "com"
+    "pt": "complete"
   },
   {
     "stories": [
@@ -85,7 +85,7 @@
       "As a Customer, I want to cancel orders so that I can get refunds."
     ],
     "violation": "Means.PrerequisiteState+Means.WorkflowSequence",
-    "pt": "com"
+    "pt": "complete"
   },
   {
     "stories": [
@@ -93,7 +93,7 @@
       "As a Student, I want to download certificates so that I can prove completion."
     ],
     "violation": "Means.CreationOperation+Means.ProcessFlow+Means.FoundationCoverage",
-    "pt": "com"
+    "pt": "complete"
   },
   {
     "stories": [
@@ -101,56 +101,9 @@
       "As a User, I want to reset my password so that I can regain access."
     ],
     "violation": "Means.StateReference+Means.ComplementaryActions",
-    "pt": "com"
+    "pt": "complete"
   },
-  {
-    "stories": [
-      "As a User, I want to view my profile so that I can see my information.",
-      "As an Admin, I want to generate comprehensive analytics reports with real-time data visualization, filtering, and export capabilities so that I can make strategic business decisions."
-    ],
-    "violation": "Means.ComplexityMismatch+Ends.ValueDisparity+Story.DetailInconsistency",
-    "pt": "esti"
-  },
-  {
-    "stories": [
-      "As a Customer, I want to click a button so that something happens.",
-      "As a Manager, I want to configure multi-tenant user access controls with role-based permissions so that I can maintain security compliance."
-    ],
-    "violation": "Means.AbstractionMismatch+Story.VaguenessDisparity+Implementation.EffortGap",
-    "pt": "esti"
-  },
-  {
-    "stories": [
-      "As a User, I want to change my password so that I can secure my account.",
-      "As a Developer, I want to implement machine learning algorithms for predictive analytics across multiple data sources so that I can provide intelligent recommendations."
-    ],
-    "violation": "Means.ScopeInconsistency+Ends.ImpactDifference+Implementation.ComplexityBracket",
-    "pt": "esti"
-  },
-  {
-    "stories": [
-      "As a Visitor, I want to see stuff so that I know things.",
-      "As a Sales Rep, I want to integrate CRM data with email marketing platforms using API synchronization so that I can automate lead nurturing workflows."
-    ],
-    "violation": "Story.DetailDisparity+Means.SpecificationGap+Ends.MeasurabilityMismatch",
-    "pt": "esti"
-  },
-  {
-    "stories": [
-      "As a User, I want to save my preferences so that I can personalize my experience.",
-      "As an Enterprise Admin, I want to establish cross-platform data governance frameworks with automated compliance monitoring so that I can ensure regulatory adherence."
-    ],
-    "violation": "Means.ComplexityDivergence+Ends.BusinessValueGap+Implementation.TechnicalComplexity",
-    "pt": "esti"
-  },
-  {
-    "stories": [
-      "As a Student, I want to submit homework so that I can complete assignments.",
-      "As a System Architect, I want to design and implement distributed microservices architecture with event-driven communication patterns so that I can achieve scalable system performance."
-    ],
-    "violation": "Means.AbstractionLevel+Story.InformationSufficiency+Implementation.EffortMagnitude",
-    "pt": "esti"
-  },
+
   {
     "stories": [
       "As an Admin, I want to view user profiles so that I can monitor activity.",
@@ -250,53 +203,53 @@
   {
     "story": "As a care professional, I want to save a reimbursement so that I can save from the top bar in one tap.",
     "violation": "implicitImplementationInEnds.UIPlacementInteraction",
-    "pt": "po"
+    "pt": "problem-oriented"
   },
   {
     "story": "As a traveler, I want to get trip updates so that I receive email notifications.",
     "violation": "explicitImplementationInEnds.NotificationChannel",
-    "pt": "po"
+    "pt": "problem-oriented"
   },
   {
     "story": "As a shopper, I want product availability to update so that I see changes instantly without refreshing.",
     "violation": "implicitImplementationInEnds.RealtimeNoRefresh",
 
-    "pt": "po"
+    "pt": "problem-oriented"
   },
   {
     "story": "As an admin, I want to back up reports so that they are stored in S3.",
     "violation": "explicitImplementationInEnds.VendorService",
-    "pt": "po"
+    "pt": "problem-oriented"
   },
   {
     "story": "As a user, I want to log in so that I can continue with Google.",
     "violation": "explicitImplementationInEnds.IdentityProvider",
-    "pt": "po"
+    "pt": "problem-oriented"
   },
   {
     "story": "As a User, I want to open the interactive map, so that I can see the location of landmarks",
     "violation": "Ends.HiddenDependency",
-    "pt": "cs"
+    "pt": "conceptually-sound"
   },
   {
     "story": "As a Developer, I want to deploy the application, so that I can run integration tests",
     "violation": "Ends.IsActuallyMeans",
-    "pt": "cs"
+    "pt": "conceptually-sound"
   },
   {
-    "story": "As a Manager, I want to generate quarterly reports, so that the data warehouse is populated with sales metrics",
+    "story": "As a Manager, I want to generate quarterly reports, so that the data warehouse is populated with sales metriconceptually-sound",
     "violation": "Ends.SystemFeature+Ends.HiddenDependency",
-    "pt": "cs"
+    "pt": "conceptually-sound"
   },
   {
     "story": "As a Customer, I want to checkout my cart, so that I can complete the payment processing workflow",
     "violation": "Ends.IntermediateStep+Ends.HiddenDependency",
-    "pt": "cs"
+    "pt": "conceptually-sound"
   },
   {
     "story": "As an Administrator, I want to backup user data, so that I can restore from the backup system",
     "violation": "Ends.IsActuallyMeans+Ends.HiddenDependency",
-    "pt": "cs"
+    "pt": "conceptually-sound"
   },
   {
     "story": "As a Developer, I want to integrate with third-party payment APIs, so that I can enable secure transaction processing across multiple payment providers",
