@@ -85,6 +85,94 @@ def load_test_data(file_path: str) -> List[Dict]:
         return json.load(f)
 
 
+def save_chunks(chunks: Dict, file_path: str):
+    """Save chunked components to file."""
+    with open(file_path, 'w') as f:
+        json.dump(chunks, f, indent=2, default=str)
+    print(f"Chunks saved to {file_path}")
+
+
+def load_chunks(file_path: str) -> Dict:
+    """Load chunked components from file."""
+    try:
+        with open(file_path, 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}
+
+
+def chunk_all_stories(client: LLMClient, chunker: QUSChunkerModel, 
+                     test_data: List[Dict], chunks_file: str) -> Dict:
+    """Chunk all stories and save components to avoid re-chunking."""
+    
+    # Try to load existing chunks
+    existing_chunks = load_chunks(chunks_file)
+    
+    all_chunks = {}
+    stories_to_chunk = []
+    
+    # Collect all unique stories
+    for item in test_data:
+        if "stories" in item and len(item["stories"]) == 2:
+            for story in item["stories"]:
+                story_hash = hash(story)
+                if str(story_hash) not in existing_chunks:
+                    stories_to_chunk.append((story, story_hash))
+                else:
+                    all_chunks[str(story_hash)] = existing_chunks[str(story_hash)]
+        elif "story" in item:
+            story = item["story"]
+            story_hash = hash(story)
+            if str(story_hash) not in existing_chunks:
+                stories_to_chunk.append((story, story_hash))
+            else:
+                all_chunks[str(story_hash)] = existing_chunks[str(story_hash)]
+    
+    if not stories_to_chunk:
+        print("All stories already chunked!")
+        return existing_chunks
+    
+    print(f"Chunking {len(stories_to_chunk)} new stories...")
+    
+    # Chunk new stories
+    for i, (story, story_hash) in enumerate(stories_to_chunk):
+        print(f"Chunking story {i+1}/{len(stories_to_chunk)}: {story[:50]}...")
+        
+        try:
+            component, usage = chunker.analyze_single(client, 0, story, f"story_{story_hash}")
+            
+            # Convert component to serializable dict
+            chunk_data = {
+                "text": component.text,
+                "role": component.role,
+                "means": component.means,
+                "ends": component.ends,
+                "id": component.id,
+                "original_story": story,
+                "usage": {
+                    "duration": usage.duration,
+                    "num_token_in": usage.num_token_in,
+                    "num_token_out": usage.num_token_out
+                }
+            }
+            
+            all_chunks[str(story_hash)] = chunk_data
+            
+            # Save periodically
+            if (i + 1) % 5 == 0:
+                save_chunks(all_chunks, chunks_file)
+            
+            time.sleep(1)  # Rate limiting
+            
+        except Exception as e:
+            print(f"Error chunking story {i+1}: {e}")
+            continue
+    
+    # Final save
+    save_chunks(all_chunks, chunks_file)
+    return all_chunks
+
+
 def filter_by_pt_category(test_data: List[Dict], category: str) -> List[Dict]:
     """Filter test data by pt category."""
     return [item for item in test_data if item.get("pt") == category]
@@ -163,9 +251,27 @@ def safe_analyzer_call(analyzer_func, *args, max_retries=3, **kwargs):
     return [], {}
 
 
-def analyze_set_category(client: LLMClient, chunker: QUSChunkerModel, 
-                        test_data: List[Dict], analyzer, category: str) -> List[Dict]:
-    """Handle set analyzers (pairwise analysis) with proper part mapping."""
+def create_component_from_chunk(chunk_data: Dict, story_id: str = None):
+    """Create QUSComponent from cached chunk data."""
+    from llm_qus_analyzer.chunker.models import QUSComponent
+    from llm_qus_analyzer.chunker.parser import Template
+    
+    # Create a simple template (we don't need the full template for analysis)
+    template = Template(chunk_data["text"], [], [])
+    
+    return QUSComponent(
+        text=chunk_data["text"],
+        role=chunk_data["role"],
+        means=chunk_data["means"],
+        ends=chunk_data["ends"],
+        template=template,
+        id=story_id or chunk_data.get("id")
+    )
+
+
+def analyze_set_category_with_chunks(client: LLMClient, test_data: List[Dict], 
+                                   analyzer, category: str, chunks: Dict) -> List[Dict]:
+    """Handle set analyzers using pre-chunked components."""
     results = []
     part_map = ANALYZER_PART_MAPS.get(category, {})
     
@@ -179,9 +285,16 @@ def analyze_set_category(client: LLMClient, chunker: QUSChunkerModel,
         print(f"Analyzing pair {i+1}: {violation}")
         
         try:
-            # Parse stories
-            comp1, _ = chunker.analyze_single(client, 0, stories[0], f"story_{i+1}_1")
-            comp2, _ = chunker.analyze_single(client, 0, stories[1], f"story_{i+1}_2")
+            # Get components from cached chunks
+            hash1 = str(hash(stories[0]))
+            hash2 = str(hash(stories[1]))
+            
+            if hash1 not in chunks or hash2 not in chunks:
+                print(f"Missing chunks for pair {i+1}, skipping...")
+                continue
+                
+            comp1 = create_component_from_chunk(chunks[hash1], f"story_{i+1}_1")
+            comp2 = create_component_from_chunk(chunks[hash2], f"story_{i+1}_2")
             
             # Run pairwise analysis with error handling
             violations, usage_dict = safe_analyzer_call(
@@ -239,6 +352,76 @@ def analyze_set_category(client: LLMClient, chunker: QUSChunkerModel,
                 "has_conflict": False,
                 "detected_violations": []
             })
+    
+    return results
+
+
+def analyze_individual_category_with_chunks(client: LLMClient, test_data: List[Dict], 
+                                          analyzer, chunks: Dict) -> List[Dict]:
+    """Handle individual analyzers using pre-chunked components."""
+    results = []
+    
+    for i, item in enumerate(test_data):
+        if "story" in item:
+            story = item["story"]
+            violation = item.get("violation", "")
+            
+            print(f"Analyzing story {i+1}: {violation}")
+            
+            try:
+                # Get component from cached chunks
+                story_hash = str(hash(story))
+                
+                if story_hash not in chunks:
+                    print(f"Missing chunk for story {i+1}, skipping...")
+                    continue
+                    
+                component = create_component_from_chunk(chunks[story_hash], f"story_{i+1}")
+                
+                # Run individual analysis with error handling
+                violations, usage_dict = safe_analyzer_call(
+                    analyzer.run, client, 0, component
+                )
+                
+                # Small delay to avoid API rate limits
+                time.sleep(1)
+                
+                # Process violations
+                processed_violations = []
+                for v in violations:
+                    processed_violations.append({
+                        "issue": v.issue,
+                        "suggestion": v.suggestion,
+                        "parts": list(v.parts) if hasattr(v, 'parts') else []
+                    })
+                
+                results.append({
+                    "story_id": i + 1,
+                    "expected_violation": violation,
+                    "story": story,
+                    "analyzer": analyzer.__name__,
+                    "component": {
+                        "role": component.role,
+                        "means": component.means,
+                        "ends": component.ends
+                    },
+                    "detected_violations": processed_violations,
+                    "has_violation": len(violations) > 0,
+                    "usage_stats": usage_dict
+                })
+                
+            except Exception as e:
+                print(f"Error processing story {i+1}: {e}")
+                # Add error result
+                results.append({
+                    "story_id": i + 1,
+                    "expected_violation": violation,
+                    "story": story,
+                    "analyzer": analyzer.__name__,
+                    "error": str(e),
+                    "has_violation": False,
+                    "detected_violations": []
+                })
     
     return results
 
@@ -315,6 +498,7 @@ def main():
     test_data_path = Path(__file__).parent / "testdata" / "semantic_pragmatic_test.json"
     models_path = Path(__file__).parent / "models.yaml"
     env_path = Path(__file__).parent / ".env"
+    chunks_file = Path(__file__).parent / "story_chunks.json"
     
     # Choose category to analyze (can be changed)
     target_category = "conflict-free"  # Change this to test different analyzers
@@ -323,24 +507,61 @@ def main():
     test_multiple = True  # Set to True to test all set analyzers
     max_items = 2  # Limit items per analyzer for testing
     
+    # TWO-PHASE APPROACH
+    chunk_only = False  # Set to True to only do chunking phase
+    analyze_only = False  # Set to True to only do analysis phase (requires existing chunks)
+    
     try:
-        # Setup
-        settings = Settings()
-        settings.configure_paths_and_load(env_path if env_path.exists() else None, models_path)
+        # Setup (only if not analyze-only mode)
+        if not analyze_only:
+            settings = Settings()
+            settings.configure_paths_and_load(env_path if env_path.exists() else None, models_path)
+            
+            client = LLMClient(settings)
+            chunker = QUSChunkerModel()
+            
+            print(f"Initialized with model: {client.names[0]}")
         
-        client = LLMClient(settings)
-        chunker = QUSChunkerModel()
-        
-        print(f"Initialized with model: {client.names[0]}")
         print(f"Available categories: {list(ANALYZER_MAP.keys())}")
         
         # Load test data
         test_data = load_test_data(test_data_path)
         
+        # PHASE 1: CHUNKING
+        if not analyze_only:
+            print(f"\n{'='*50}")
+            print("PHASE 1: CHUNKING ALL STORIES")
+            print(f"{'='*50}")
+            
+            chunks = chunk_all_stories(client, chunker, test_data, chunks_file)
+            print(f"Chunked {len(chunks)} unique stories")
+            
+            if chunk_only:
+                print("Chunking phase complete! Set chunk_only=False to run analysis.")
+                return
+        else:
+            print("Loading existing chunks...")
+            chunks = load_chunks(chunks_file)
+            if not chunks:
+                print("No chunks found! Run chunking phase first (set analyze_only=False)")
+                return
+        
+        # PHASE 2: ANALYSIS
+        print(f"\n{'='*50}")
+        print("PHASE 2: RUNNING ANALYSIS WITH CACHED CHUNKS")
+        print(f"{'='*50}")
+        
+        # Setup client for analysis phase
+        if analyze_only:
+            settings = Settings()
+            settings.configure_paths_and_load(env_path if env_path.exists() else None, models_path)
+            client = LLMClient(settings)
+            print(f"Initialized with model: {client.names[0]}")
+        
         if test_multiple:
             # Test all set analyzers
             categories_to_test = SET_CATEGORIES
-            print(f"\nTesting {len(categories_to_test)} set analyzers...")
+            print(f"Testing {len(categories_to_test)} set analyzers...")
         else:
             # Test single category
             categories_to_test = [target_category]
@@ -348,9 +569,9 @@ def main():
         all_results = {}
         
         for category in categories_to_test:
-            print(f"\n{'='*50}")
-            print(f"Testing {category.upper()} Analyzer")
-            print(f"{'='*50}")
+            print(f"\n{'='*40}")
+            print(f"Analyzing {category.upper()}")
+            print(f"{'='*40}")
             
             # Filter data for this category
             filtered_data = filter_by_pt_category(test_data, category)
@@ -362,8 +583,19 @@ def main():
             print(f"Found {len(filtered_data)} items for '{category}' analysis")
             print(f"Analyzer focus: {ANALYZER_PART_MAPS.get(category, 'template-based')}")
             
-            # Universal analysis
-            results = analyze_universal(client, chunker, filtered_data[:max_items], category)
+            # Get analyzer
+            analyzer = ANALYZER_MAP[category]
+            
+            # Run analysis with cached chunks
+            if category in SET_CATEGORIES:
+                results = analyze_set_category_with_chunks(
+                    client, filtered_data[:max_items], analyzer, category, chunks
+                )
+            else:
+                results = analyze_individual_category_with_chunks(
+                    client, filtered_data[:max_items], analyzer, chunks
+                )
+            
             all_results[category] = results
             
             # Results summary
@@ -400,7 +632,7 @@ def main():
         
         print(f"\n{'='*50}")
         print(f"Results saved to {output_file}")
-        print(f"Universal analyzer testing complete!")
+        print(f"Two-phase analysis complete!")
         
     except Exception as e:
         print(f"Error: {e}")
