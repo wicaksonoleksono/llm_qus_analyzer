@@ -1,0 +1,66 @@
+[
+  {
+    "stories": [
+      "As a User, I want to delete posts so that I remove spam.",
+      "As a User, I want to delete posts so that I hide content temporarily."
+    ],
+    "violation": "sameMeansDiffEnd",
+    "pt": "conflict-free"
+  },
+  {
+    "stories": [
+      "As a Shopper, I want to favorite products so that I find them later.",
+      "As a Shopper, I want to bookmark products so that I find them later."
+    ],
+    "violation": "diffMeansSameEnd",
+    "pt": "conflict-free"
+  },
+  {
+    "stories": [
+      "As a Driver, I want to pay tolls with cash so that I pass the gate.",
+      "As a Driver, I want to pass tolls without payment so that I pass the gate."
+    ],
+    "violation": "diffMeansSameEnd",
+    "pt": "conflict-free"
+  },
+  {
+    "stories": [
+      "As a Guest, I want to view all photos so that I enjoy the gallery.",
+      "As an Owner, I want Guests to view only public photos so that I protect privacy."
+    ],
+    "violation": "diffRoleSameStory",
+    "pt": "conflict-free"
+  },
+  {
+    "stories": [
+      "As a User, I want to edit profiles so that I update my information.",
+      "As a User, I want to edit profiles so that I change other users' information."
+    ],
+    "violation": "sameMeansDiffEnd",
+    "pt": "conflict-free"
+  },
+  {
+    "stories": [
+      "As a Shopper, I want to favorite products so that I find them later.",
+      "As a Shopper, I want to bookmark products so that I find them later."
+    ],
+    "violation": "diffMeansSameEnd",
+    "pt": "conflict-free"
+  },
+  {
+    "stories": [
+      "As a Guest, I want to view all photos so that I enjoy the gallery.",
+      "As an Owner, I want Guests to view only public photos so that I protect privacy."
+    ],
+    "violation": "diffRoleSameStory",
+    "pt": "conflict-free"
+  },
+  {
+    "stories": [
+      "As a User, I want to edit profiles so that I update my information.",
+      "As a User, I want to edit profiles so that I change other users' information."
+    ],
+    "violation": "sameMeansDiffEnd",
+    "pt": "conflict-free"
+  }
+]

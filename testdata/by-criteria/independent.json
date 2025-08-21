@@ -1,0 +1,50 @@
+[
+  {
+    "stories": [
+      "As an Admin, I want to view user profiles so that I can monitor activity.",
+      "As an Admin, I want to create new user accounts so that I can add users to the system."
+    ],
+    "violation": "Means.CausalityDependency",
+    "pt": "independent"
+  },
+  {
+    "stories": [
+      "As a Manager, I want to edit content so that I can update information.",
+      "As an Editor, I want to upload video content so that I can publish media."
+    ],
+    "violation": "Means.SuperclassDependency",
+    "pt": "independent"
+  },
+  {
+    "stories": [
+      "As a User, I want to register an account so that I can write blog posts.",
+      "As a Blogger, I want to write blog posts so that I can share my thoughts."
+    ],
+    "violation": "Ends.ContainsMeans",
+    "pt": "independent"
+  },
+  {
+    "stories": [
+      "As a Customer, I want to modify my order so that I can change items.",
+      "As a Customer, I want to place an order so that I can purchase products."
+    ],
+    "violation": "Means.CausalityDependency",
+    "pt": "independent"
+  },
+  {
+    "stories": [
+      "As a Teacher, I want to manage assignments so that I can organize coursework.",
+      "As a Teacher, I want to create quiz assignments so that I can test students."
+    ],
+    "violation": "Means.SuperclassDependency",
+    "pt": "independent"
+  },
+  {
+    "stories": [
+      "As a Student, I want to enroll in courses so that I can access learning materials.",
+      "As a Student, I want to access learning materials so that I can study effectively."
+    ],
+    "violation": "Ends.ContainsMeans",
+    "pt": "independent"
+  }
+]

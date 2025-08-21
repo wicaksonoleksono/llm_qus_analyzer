@@ -1,0 +1,27 @@
+[
+  {
+    "story": "As a User, I want to manage content, so that I can improve efficiency",
+    "violation": "Role.TooGeneric+Means.SuperClass+Ends.VagueRationale",
+    "unambigous": "full-sentence"
+  },
+  {
+    "story": "As a Power User, I want to configure the system using advanced settings, so that I can optimize performance",
+    "violation": "Role.ImplicitAssumption+Means.UnclearScope+Ends.SubjectiveMetric",
+    "unambigous": "full-sentence"
+  },
+  {
+    "story": "As a Stakeholder, I want to access reports, so that I can make decisions",
+    "violation": "Role.ExtremelyVague+Means.SuperClass+Ends.NoSpecificOutcome",
+    "unambigous": "full-sentence"
+  },
+  {
+    "story": "As a Tesla Owner, I want to update vehicle software, so that I can get new features",
+    "violation": "Role.BrandSpecific+Means.ImplicitDependency+Ends.UnquantifiedBenefit",
+    "unambigous": "full-sentence"
+  },
+  {
+    "story": "As a someone who uses our platform frequently, I want to customize my experience, so that things work better for me",
+    "violation": "Role.InformalDefinition+Means.ExtremelyVague+Ends.SubjectiveImprovement",
+    "unambigous": "full-sentence"
+  }
+]

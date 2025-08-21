@@ -378,9 +378,9 @@ async def main():
     args = parser.parse_args()
     
     # Configuration
-    test_data_path = Path(__file__).parent / "testdata" / "semantic_pragmatic_test.json"
-    chunks_file = Path(__file__).parent / "story_chunks.json"
     output_dir = Path(__file__).parent / "output"
+    pre_chunked_dir = Path(__file__).parent / "pre-chunked"
+    testdata_dir = Path(__file__).parent / "testdata" / "by-criteria"
     models_path = Path(__file__).parent / "models.yaml"
     env_path = Path(__file__).parent / ".env"
     
@@ -398,23 +398,14 @@ async def main():
         print(f"Model: {client.names[0]}")
         print(f"Output directory: {output_dir}")
         
-        # Load data
-        print("\nLoading data...")
-        chunks = load_chunks(chunks_file)
-        if not chunks:
-            print("No chunks found! Run chunking phase first.")
-            return
-            
-        test_data = load_test_data(test_data_path)
-        
-        print(f"Loaded {len(chunks)} chunks and {len(test_data)} test items")
-        
-        # Get available criteria from test data
+        # Get available criteria from pre-chunked files
+        print("\nScanning for available criteria...")
         available_criteria = set()
-        for item in test_data:
-            pt = item.get("pt")
-            if pt and pt in ANALYZER_MAP:
-                available_criteria.add(pt)
+        
+        for chunk_file in pre_chunked_dir.glob("*_chunks.json"):
+            criteria = chunk_file.stem.replace("_chunks", "")
+            if criteria in ANALYZER_MAP:
+                available_criteria.add(criteria)
         
         print(f"\nAvailable criteria: {sorted(available_criteria)}")
         
@@ -456,6 +447,27 @@ async def main():
             print(f"\n{'='*50}")
             print(f"ANALYZING CRITERIA: {criteria.upper()}")
             print(f"{'='*50}")
+            
+            # Load data for this specific criteria
+            chunks_file = pre_chunked_dir / f"{criteria}_chunks.json"
+            test_data_file = testdata_dir / f"{criteria}.json"
+            
+            if not chunks_file.exists():
+                print(f"❌ Chunks file not found: {chunks_file}")
+                print(f"Run: python chunk_by_criteria.py --criteria {criteria}")
+                continue
+            
+            if not test_data_file.exists():
+                print(f"❌ Test data file not found: {test_data_file}")
+                continue
+            
+            print(f"📁 Loading chunks: {chunks_file}")
+            print(f"📁 Loading test data: {test_data_file}")
+            
+            chunks = load_chunks(str(chunks_file))
+            test_data = load_test_data(str(test_data_file))
+            
+            print(f"Loaded {len(chunks)} chunks and {len(test_data)} test items")
             
             if criteria in SET_CATEGORIES:
                 results = await analyze_criteria_set(client, test_data, chunks, criteria)

@@ -8,13 +8,19 @@ from ..type import Violation
 
 
 _definition = """
-**Evaluate whether this user story is 'Conceptually Sound' based on its [Means] and [Ends]:**  
+**Evaluate whether this user story is 'Conceptually Sound' based on its [Means] and [Ends]:**
 1. **[Means] Check:**  
    - Is it a **single, concrete action** the system can perform directly?  
 2. **[Ends] Check:**  
-   - Does it explain the **user's true goal or benefit** (not a system feature or intermediate step)?
-   - Is it **independent** (no implied dependencies)? 
-   - Does it **avoid hidden dependencies** that needed itermediate causality or another system behavior not covered by the Means from ?
+   - Does it explain the **user's true goal or benefit** (not a system feature or intermediate step)?  
+   - Is it **independent** (no implied dependencies on other stories)?  
+   - Does it **avoid hidden dependencies** that assume it was an intermediate causality or another system behavior not covered by the Means?  
+**Hidden dependency example:**  
+- *As a User, I want to edit my profile settings, so that I can update my email address.*  
+-> Invalid, Assumes email is a specific capability not guaranteed by the broad Means.
+- *As a User, I want to change my email address, so that my contact info stays current.*
+-> Valid, intermediate benefit to the user, means and ends is in the correct scope  
+
 
 """
 # 3.  **[Ends]  & [Means] Check:**

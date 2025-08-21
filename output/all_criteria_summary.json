@@ -7,19 +7,19 @@
       {
         "story_id": 1,
         "expected_violation": "Ends.HiddenDependency",
-        "story": "As a User, I want to open the interactive map, so that I can see the location of landmarks",
+        "story": "As a Visitor, I want to open the interactive map, so that I can see live road closures",
         "component": {
           "role": [
-            "user"
+            "Visitor"
           ],
-          "means": "opening the interactive map",
-          "ends": "see the location of landmarks"
+          "means": "open the interactive map",
+          "ends": "see live road closures"
         },
         "detected_violations": [],
         "has_violations": false,
         "violation_count": 0,
         "usage_stats": {
-          "conceptually-sound": "LLMUsage(duration=1.0462257862091064, num_token_in=357, num_token_out=10)"
+          "conceptually-sound": "LLMUsage(duration=6.922391414642334, num_token_in=442, num_token_out=10)"
         }
       },
       {
@@ -36,7 +36,7 @@
         "detected_violations": [
           {
             "issue": "Does not explain the user's true goal or benefit",
-            "suggestion": "Describe the user's goal or benefit, e.g., ensure the application runs correctly",
+            "suggestion": "Describe the user's goal or benefit, e.g., 'As a developer, I want to deploy the application so that users can access the latest features and improvements.'",
             "parts": [
               "ends"
             ],
@@ -46,24 +46,51 @@
         "has_violations": true,
         "violation_count": 1,
         "usage_stats": {
-          "conceptually-sound": "LLMUsage(duration=1.703392744064331, num_token_in=353, num_token_out=82)"
+          "conceptually-sound": "LLMUsage(duration=3.0708935260772705, num_token_in=439, num_token_out=98)"
         }
       },
       {
         "story_id": 3,
+        "expected_violation": "Means.CompoundAction",
+        "story": "As a Shopper, I want to apply a coupon and checkout, so that I pay less",
+        "component": {
+          "role": [
+            "shopper"
+          ],
+          "means": "apply a coupon and checkout",
+          "ends": "pay less"
+        },
+        "detected_violations": [
+          {
+            "issue": "Does not explain the user's true goal or benefit, sounds like a system feature",
+            "suggestion": "Describe the user's true goal, e.g. 'As a customer, I want to apply a coupon and checkout, so that I can save money on my purchase.'",
+            "parts": [
+              "ends"
+            ],
+            "violation_type": "individual"
+          }
+        ],
+        "has_violations": true,
+        "violation_count": 1,
+        "usage_stats": {
+          "conceptually-sound": "LLMUsage(duration=6.1335437297821045, num_token_in=442, num_token_out=107)"
+        }
+      },
+      {
+        "story_id": 4,
         "expected_violation": "Ends.SystemFeature+Ends.HiddenDependency",
         "story": "As a Manager, I want to generate quarterly reports, so that the data warehouse is populated with sales metrics",
         "component": {
           "role": [
             "Manager"
           ],
-          "means": "generate quarterly reports",
+          "means": "generating quarterly reports",
           "ends": "the data warehouse is populated with sales metrics"
         },
         "detected_violations": [
           {
             "issue": "Does not explain the user's true goal or benefit",
-            "suggestion": "Describe the user's goal, e.g., to analyze sales trends",
+            "suggestion": "Describe the user's true goal or benefit, e.g. 'As a sales manager, I can view accurate sales metrics for the past quarter'",
             "parts": [
               "ends"
             ],
@@ -73,85 +100,33 @@
         "has_violations": true,
         "violation_count": 1,
         "usage_stats": {
-          "conceptually-sound": "LLMUsage(duration=2.122264862060547, num_token_in=360, num_token_out=85)"
-        }
-      },
-      {
-        "story_id": 4,
-        "expected_violation": "Ends.IntermediateStep+Ends.HiddenDependency",
-        "story": "As a Customer, I want to checkout my cart, so that I can complete the payment processing workflow",
-        "component": {
-          "role": [
-            "Customer"
-          ],
-          "means": "check my cart",
-          "ends": "complete the payment processing workflow"
-        },
-        "detected_violations": [
-          {
-            "issue": "Not a single, concrete action. 'Check' is vague and could mean many things.",
-            "suggestion": "Specify the exact action, like 'Display the cart contents'.",
-            "parts": [
-              "means"
-            ],
-            "violation_type": "individual"
-          },
-          {
-            "issue": "Does not explain the user's true goal or benefit. 'Complete payment processing workflow' is a system feature.",
-            "suggestion": "Describe the user's true goal, like 'Pay for the items in the cart'.",
-            "parts": [
-              "ends"
-            ],
-            "violation_type": "individual"
-          }
-        ],
-        "has_violations": true,
-        "violation_count": 2,
-        "usage_stats": {
-          "conceptually-sound": "LLMUsage(duration=3.483657121658325, num_token_in=356, num_token_out=161)"
+          "conceptually-sound": "LLMUsage(duration=4.37115740776062, num_token_in=446, num_token_out=94)"
         }
       },
       {
         "story_id": 5,
-        "expected_violation": "Ends.IsActuallyMeans+Ends.HiddenDependency",
-        "story": "As an Administrator, I want to backup user data, so that I can restore from the backup system",
+        "expected_violation": "Ends.HiddenDependency",
+        "story": "As a Data Analyst, I want to open the retention dashboard, so that I can compare monthly churn",
         "component": {
           "role": [
-            "administrator"
+            "Data Analyst"
           ],
-          "means": "backup user data",
-          "ends": "restore from the backup system"
+          "means": "open the retention dashboard",
+          "ends": "compare monthly churn"
         },
-        "detected_violations": [
-          {
-            "issue": "Does not explain the user's true goal or benefit",
-            "suggestion": "The user story should explain the user's goal, e.g., 'recover data in case of data loss'",
-            "parts": [
-              "ends"
-            ],
-            "violation_type": "individual"
-          },
-          {
-            "issue": "Is not independent",
-            "suggestion": "The user story should not imply dependencies, e.g., 'restore from the backup system' implies a 'backup system' already exists",
-            "parts": [
-              "ends"
-            ],
-            "violation_type": "individual"
-          }
-        ],
-        "has_violations": true,
-        "violation_count": 2,
+        "detected_violations": [],
+        "has_violations": false,
+        "violation_count": 0,
         "usage_stats": {
-          "conceptually-sound": "LLMUsage(duration=3.11319899559021, num_token_in=355, num_token_out=149)"
+          "conceptually-sound": "LLMUsage(duration=1.8528871536254883, num_token_in=443, num_token_out=10)"
         }
       }
     ],
     "summary": {
       "total_stories": 5,
-      "stories_with_violations": 4,
-      "total_violations": 6,
-      "success_rate": 0.8
+      "stories_with_violations": 3,
+      "total_violations": 3,
+      "success_rate": 0.6
     }
   }
 }

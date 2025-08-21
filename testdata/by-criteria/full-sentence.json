@@ -1,0 +1,27 @@
+[
+  {
+    "story": "As user want to login system so can access dashboard",
+    "violation": "Grammar.MissingArticles+Grammar.IncompleteStructure+Grammar.MissingPronoun",
+    "pt": "full-sentence"
+  },
+  {
+    "story": "As a Administrator, I wants to manage users accounts, so that I can controlling access permissions",
+    "violation": "Grammar.SubjectVerbDisagreement+Grammar.IncorrectVerbForm+Grammar.PluralError",
+    "pt": "full-sentence"
+  },
+  {
+    "story": "As customer service rep I want search customer data so I help them quicker",
+    "violation": "Grammar.MissingArticle+Grammar.MissingInfinitive+Grammar.IncompleteClause",
+    "pt": "full-sentence"
+  },
+  {
+    "story": "As a Manager, I want to generates reports, so that I can make decision about budget allocation and resource planning",
+    "violation": "Grammar.SubjectVerbDisagreement+Grammar.SingularPluralMismatch",
+    "pt": "full-sentence"
+  },
+  {
+    "story": "As mobile user want sync data across device so that maintain consistency",
+    "violation": "Grammar.MissingArticles+Grammar.MissingPronoun+Grammar.PluralSingularError+Grammar.IncompleteClause",
+    "pt": "full-sentence"
+  }
+]

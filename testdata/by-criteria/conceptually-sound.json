@@ -1,0 +1,27 @@
+[
+  {
+    "story": "As a Visitor, I want to open the interactive map, so that I can see live road closures",
+    "violation": "Ends.HiddenDependency",
+    "pt": "conceptually-sound"
+  },
+  {
+    "story": "As a Developer, I want to deploy the application, so that I can run integration tests",
+    "violation": "Ends.IsActuallyMeans",
+    "pt": "conceptually-sound"
+  },
+  {
+    "story": "As a Shopper, I want to apply a coupon and checkout, so that I pay less",
+    "violation": "Means.CompoundAction",
+    "pt": "conceptually-sound"
+  },
+  {
+    "story": "As a Manager, I want to generate quarterly reports, so that the data warehouse is populated with sales metrics",
+    "violation": "Ends.SystemFeature+Ends.HiddenDependency",
+    "pt": "conceptually-sound"
+  },
+  {
+    "story": "As a Data Analyst, I want to open the retention dashboard, so that I can compare monthly churn",
+    "violation": "Ends.HiddenDependency",
+    "pt": "conceptually-sound"
+  }
+]

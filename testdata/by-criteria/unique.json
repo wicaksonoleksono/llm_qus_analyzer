@@ -1,0 +1,50 @@
+[
+  {
+    "stories": [
+      "As a User, I want to save my document so that I can preserve my work.",
+      "As an Author, I want to store my file so that I can keep my progress."
+    ],
+    "violation": "Action.SameBehavior+Output.IdenticalOutcome",
+    "pt": "unique"
+  },
+  {
+    "stories": [
+      "As a Customer, I want to browse products so that I can find items to buy.",
+      "As a Shopper, I want to explore merchandise so that I can discover purchase options."
+    ],
+    "violation": "Action.EquivalentFunctionality+Output.SameGoal",
+    "pt": "unique"
+  },
+  {
+    "stories": [
+      "As a Manager, I want to remove employees so that I can reduce staff.",
+      "As a Supervisor, I want to terminate workers so that I can downsize the team."
+    ],
+    "violation": "Action.IdenticalOperation+Output.SameBenefit",
+    "pt": "unique"
+  },
+  {
+    "stories": [
+      "As a Student, I want to submit my assignment so that I can complete my coursework.",
+      "As a Learner, I want to turn in my homework so that I can finish my studies."
+    ],
+    "violation": "Action.CoreBehaviorMatch+Output.EquivalentResult",
+    "pt": "unique"
+  },
+  {
+    "stories": [
+      "As a Driver, I want to locate parking spots so that I can park my vehicle.",
+      "As a Motorist, I want to find parking spaces so that I can leave my car."
+    ],
+    "violation": "Action.SystemOperationEquivalent+Output.IdenticalPurpose",
+    "pt": "unique"
+  },
+  {
+    "stories": [
+      "As an Admin, I want to backup data so that I can protect information.",
+      "As a System Manager, I want to archive files so that I can safeguard content."
+    ],
+    "violation": "Action.FunctionalityDuplicate+Output.SameEndGoal",
+    "pt": "unique"
+  }
+]

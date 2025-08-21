@@ -1,0 +1,330 @@
+{
+  "-3502569731486270463": {
+    "text": "As a Visitor, I want to open the interactive map, so that I can see live road closures",
+    "role": [
+      "Visitor"
+    ],
+    "means": "open the interactive map",
+    "ends": "see live road closures",
+    "id": "story_-3502569731486270463",
+    "original_story": "As a Visitor, I want to open the interactive map, so that I can see live road closures",
+    "story_hash": "-3502569731486270463",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that I can {ENDS}",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]",
+          "[PRON]",
+          "[AUX]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "conceptually-sound"
+      ],
+      "expected_violations": [
+        "Ends.HiddenDependency"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "conceptually-sound",
+          "violation": "Ends.HiddenDependency"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 2.0503172874450684,
+      "num_token_in": 568,
+      "num_token_out": 79
+    },
+    "primary_pt": "conceptually-sound",
+    "primary_violation": "Ends.HiddenDependency",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "694524106088135740": {
+    "text": "As a developer, I want to deploy the application, so that I can run integration tests.",
+    "role": [
+      "developer"
+    ],
+    "means": "deploy the application",
+    "ends": "run integration tests",
+    "id": "story_694524106088135740",
+    "original_story": "As a Developer, I want to deploy the application, so that I can run integration tests",
+    "story_hash": "694524106088135740",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that I can {ENDS}.",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]",
+          "[PRON]",
+          "[AUX]"
+        ],
+        "[APPENDIX]": [
+          "[PUNCT]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "conceptually-sound"
+      ],
+      "expected_violations": [
+        "Ends.IsActuallyMeans"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "conceptually-sound",
+          "violation": "Ends.IsActuallyMeans"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 2.0452873706817627,
+      "num_token_in": 565,
+      "num_token_out": 74
+    },
+    "primary_pt": "conceptually-sound",
+    "primary_violation": "Ends.IsActuallyMeans",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-1278446376870152776": {
+    "text": "As a shopper, I want to apply a coupon and checkout, so that I pay less",
+    "role": [
+      "shopper"
+    ],
+    "means": "apply a coupon and checkout",
+    "ends": "pay less",
+    "id": "story_-1278446376870152776",
+    "original_story": "As a Shopper, I want to apply a coupon and checkout, so that I pay less",
+    "story_hash": "-1278446376870152776",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that I {ENDS}",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]",
+          "[PRON]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "conceptually-sound"
+      ],
+      "expected_violations": [
+        "Means.CompoundAction"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "conceptually-sound",
+          "violation": "Means.CompoundAction"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 2.090433120727539,
+      "num_token_in": 567,
+      "num_token_out": 79
+    },
+    "primary_pt": "conceptually-sound",
+    "primary_violation": "Means.CompoundAction",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-3226435779106637316": {
+    "text": "As a Manager, I am generating quarterly reports so that the data warehouse is populated with sales metrics",
+    "role": [
+      "Manager"
+    ],
+    "means": "generating quarterly reports",
+    "ends": "the data warehouse is populated with sales metrics",
+    "id": "story_-3226435779106637316",
+    "original_story": "As a Manager, I want to generate quarterly reports, so that the data warehouse is populated with sales metrics",
+    "story_hash": "-3226435779106637316",
+    "template_data": {
+      "text": "As a {ROLE}, I am {MEANS} so that {ENDS}",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[AUX]"
+        ],
+        "[ENDS]": [
+          "[SCONJ]",
+          "[SCONJ]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "conceptually-sound"
+      ],
+      "expected_violations": [
+        "Ends.SystemFeature+Ends.HiddenDependency"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "conceptually-sound",
+          "violation": "Ends.SystemFeature+Ends.HiddenDependency"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 3.5326998233795166,
+      "num_token_in": 569,
+      "num_token_out": 83
+    },
+    "primary_pt": "conceptually-sound",
+    "primary_violation": "Ends.SystemFeature+Ends.HiddenDependency",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-664374504354846204": {
+    "text": "As a Data Analyst, I want to open the retention dashboard, so that I can compare monthly churn",
+    "role": [
+      "Data Analyst"
+    ],
+    "means": "open the retention dashboard",
+    "ends": "compare monthly churn",
+    "id": "story_-664374504354846204",
+    "original_story": "As a Data Analyst, I want to open the retention dashboard, so that I can compare monthly churn",
+    "story_hash": "-664374504354846204",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that I can {ENDS}",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]",
+          "[PRON]",
+          "[AUX]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "conceptually-sound"
+      ],
+      "expected_violations": [
+        "Ends.HiddenDependency"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "conceptually-sound",
+          "violation": "Ends.HiddenDependency"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 2.816230058670044,
+      "num_token_in": 570,
+      "num_token_out": 84
+    },
+    "primary_pt": "conceptually-sound",
+    "primary_violation": "Ends.HiddenDependency",
+    "is_pairwise": false,
+    "is_individual": true
+  }
+}
