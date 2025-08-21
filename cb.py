@@ -38,6 +38,17 @@ def load_test_data(criteria: str) -> List[Dict]:
         return json.load(f)
 
 
+def load_existing_chunks(file_path: Path) -> Dict:
+    """Load existing chunks from JSON file if it exists."""
+    if file_path.exists():
+        try:
+            with open(file_path, 'r') as f:
+                return json.load(f)
+        except (json.JSONDecodeError, FileNotFoundError):
+            return {}
+    return {}
+
+
 def save_chunks(chunks: Dict, file_path: Path):
     """Save chunks to JSON file."""
     with open(file_path, 'w') as f:
@@ -45,10 +56,10 @@ def save_chunks(chunks: Dict, file_path: Path):
 
 
 def chunk_criteria_stories(client: LLMClient, chunker: QUSChunkerModel, 
-                          test_data: List[Dict], criteria: str) -> Dict:
-    """Chunk all stories for a specific criteria."""
+                          test_data: List[Dict], criteria: str, existing_chunks: Dict = None) -> Dict:
+    """Chunk all stories for a specific criteria, skipping already chunked ones."""
     
-    chunks = {}
+    chunks = existing_chunks.copy() if existing_chunks else {}
     stories_to_chunk = []
     story_metadata = {}
     
@@ -87,7 +98,7 @@ def chunk_criteria_stories(client: LLMClient, chunker: QUSChunkerModel,
                     "paired_with_hash": other_story_hash
                 })
                 
-                if story not in [s[0] for s in stories_to_chunk]:
+                if story not in [s[0] for s in stories_to_chunk] and story_hash not in chunks:
                     stories_to_chunk.append((story, story_hash))
         
         elif "story" in item:
@@ -114,7 +125,7 @@ def chunk_criteria_stories(client: LLMClient, chunker: QUSChunkerModel,
                 "violation": violation
             })
             
-            if story not in [s[0] for s in stories_to_chunk]:
+            if story not in [s[0] for s in stories_to_chunk] and story_hash not in chunks:
                 stories_to_chunk.append((story, story_hash))
     
     print(f"Found {len(stories_to_chunk)} unique stories to chunk")
@@ -247,14 +258,19 @@ def main():
             # Load test data for this criteria
             test_data = load_test_data(criteria)
             
-            # Chunk stories for this criteria
-            chunks = chunk_criteria_stories(client, chunker, test_data, criteria)
+            # Load existing chunks (if any)
+            chunks_file = pre_chunked_dir / f"{criteria}_chunks.json"
+            existing_chunks = load_existing_chunks(chunks_file)
+            print(f"Found {len(existing_chunks)} existing chunks")
+            
+            # Chunk stories for this criteria (skipping already chunked ones)
+            chunks = chunk_criteria_stories(client, chunker, test_data, criteria, existing_chunks)
             
             # Save chunks
-            chunks_file = pre_chunked_dir / f"{criteria}_chunks.json"
             save_chunks(chunks, chunks_file)
             
-            print(f"\n✅ Chunked {len(chunks)} stories for '{criteria}'")
+            new_chunks_count = len(chunks) - len(existing_chunks)
+            print(f"\n✅ Processed {len(chunks)} total stories for '{criteria}' ({new_chunks_count} new, {len(existing_chunks)} existing)")
             print(f"💾 Saved: {chunks_file}")
         
         print(f"\n{'='*60}")

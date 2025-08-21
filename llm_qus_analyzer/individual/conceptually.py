@@ -5,32 +5,28 @@ from ..analyzer import LLMAnalyzer
 from ..client import LLMClient, LLMResult, LLMUsage
 from ..chunker.models import QUSComponent
 from ..type import Violation
-
+# Qualitative requirements the ends commuinicates the intended qualitatifve effect of the means
 
 _definition = """
 **Evaluate whether this user story is 'Conceptually Sound' based on its [Means] and [Ends]:**
+rationale: reasoning or justification behind a decision, action, or belief
 1. **[Means] Check:**  
-   - Is it a **single, concrete action** the system can perform directly?  
-2. **[Ends] Check:**  
-   - Does it explain the **user's true goal or benefit** (not a system feature or intermediate step)?  
-   - Is it **independent** (no implied dependencies on other stories)?  
-   - Does it **avoid hidden dependencies** that assume it was an intermediate causality or another system behavior not covered by the Means?  
-**Hidden dependency example:**  
-- *As a User, I want to edit my profile settings, so that I can update my email address.*  
--> Invalid, Assumes email is a specific capability not guaranteed by the broad Means.
-- *As a User, I want to change my email address, so that my contact info stays current.*
--> Valid, intermediate benefit to the user, means and ends is in the correct scope  
-
-
+    - Does the [Means] contain a **single, concrete action** the system can perform directly?  
+2. **[Ends] Check (If exist):**  
+    - Does [Ends] express a direct qualitative benefit or rationale of the means (e.g., easier, faster, more reliable)?”
+    - Does [Ends] avoid introducing another feature disguised as rationale ? (explicit hidden dependency) 
+    - Does [Ends] avoid assuming capabilities of the feature implied from the [Means]? (implicit hidden dependency, assumed features)
+Suggestion to fix: 
+    If [Means] contains multiple actions -> split into separate stories, or generalize if both logically collapse (e.g., Delete + Create -> Edit).
+    If [Ends] is vague or doesn’t show benefit -> rephrase as a direct rationale in scope of the means. 
+    If [Ends] contain assumed features of the means object and action remove it and change it as a general rationale.
+    If [Ends] sneaks in another feature -> remove it, and create a new story where that feature is the [Means].
 """
-# 3.  **[Ends]  & [Means] Check:**
-#
 _in_format = """
 **User Story to Evaluate:**  
 - [Means]: {means}
 - [Ends]: {ends}
 """
-
 _out_format = """
 **Stricly follow this output format (JSON) without any other explanation:**  
 - If valid: `{{ "valid": true }}`  

@@ -12,13 +12,15 @@ from ..utils import analyze_individual_with_llm
 #     is the scope clearly defined and bounded? (Clear object, clear action, clear Role)
 #     Cann development effort be reasonably estimated
 #     Does it avoid multiple hidden functionalities
-
+# if wf true
+# - Does it read as a complete, well-formed sentence rather than fragments or phrases?
+#
 _definition = """
 **Evaluate whether this user story is a 'Full Sentence' based on grammatical correctness:**
 1. **[User_Story] Grammatical Check:**
    - Does the user story follow proper grammatical structure and rules?
    - Are there any spelling errors, typos, or punctuation mistakes?
-   - Does it read as a complete, well-formed sentence rather than fragments or phrases?
+
 """
 _in_format = """
 **User Story to Evaluate:**

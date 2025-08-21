@@ -6,22 +6,37 @@
   },
   {
     "story": "As a Developer, I want to deploy the application, so that I can run integration tests",
-    "violation": "Ends.IsActuallyMeans",
-    "pt": "conceptually-sound"
-  },
-  {
-    "story": "As a Shopper, I want to apply a coupon and checkout, so that I pay less",
-    "violation": "Means.CompoundAction",
-    "pt": "conceptually-sound"
-  },
-  {
-    "story": "As a Manager, I want to generate quarterly reports, so that the data warehouse is populated with sales metrics",
-    "violation": "Ends.SystemFeature+Ends.HiddenDependency",
-    "pt": "conceptually-sound"
-  },
-  {
-    "story": "As a Data Analyst, I want to open the retention dashboard, so that I can compare monthly churn",
     "violation": "Ends.HiddenDependency",
+    "pt": "conceptually-sound"
+  },
+  {
+    "story": "As a User, I want to export my contacts, so that I can send them marketing emails",
+    "violation": "Ends.ImplicitDependency",
+    "pt": "conceptually-sound"
+  },
+  {
+    "story": "As a Student, I want to upload my assignment, so that my professor can grade it",
+    "violation": "Ends.ImplicitDependency",
+    "pt": "conceptually-sound"
+  },
+  {
+    "story": "As a User, I want to open the interactive map, so that I can see the location of landmarks",
+    "violation": "Ends.ImplicitDependency",
+    "pt": "conceptually-sound"
+  },
+  {
+    "story": "As a Customer, I want to reset my password, so that I can regain access to my account",
+    "violation": "None (Valid.ExplicitRationale)",
+    "pt": "conceptually-sound"
+  },
+  {
+    "story": "As a Reader, I want to bookmark an article, so that I can find it later more easily",
+    "violation": "None (Valid.CloseToFalseNegative)",
+    "pt": "conceptually-sound"
+  },
+  {
+    "story": "As a User, I want to filter search results, so that I can quickly focus on relevant items",
+    "violation": "None (Valid.CloseToFalseNegative)",
     "pt": "conceptually-sound"
   }
 ]

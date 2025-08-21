@@ -3,7 +3,6 @@ from typing import Any, Optional
 from ..analyzer import LLMAnalyzer
 from ..client import LLMClient, LLMUsage
 from .parser import Template, TemplateParser
-
 _definition = """
 By definition,
 [Role]: A stakeholder or persona that expresses the need. Typically, [Role] are taken from the softwares application domain.
@@ -76,7 +75,7 @@ class QUSComponent:
 
     template: Template
     """Templatized version of the user story."""
-    
+
     id: Optional[str] = None
     """Optional unique identifier for the component."""
 
@@ -184,7 +183,7 @@ class QUSChunkerModel:
             ids = [None] * len(user_stories)
         elif len(ids) != len(user_stories):
             raise ValueError("Length of ids must match length of user_stories")
-            
+
         return [
             self.analyze_single(client, model_idx, user_story, id)
             for user_story, id in zip(user_stories, ids)

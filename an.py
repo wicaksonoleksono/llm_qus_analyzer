@@ -65,6 +65,15 @@ def load_test_data(file_path: str) -> List[Dict]:
         return json.load(f)
 
 
+def load_existing_results(file_path: str) -> Dict:
+    """Load existing analysis results from JSON file if it exists."""
+    try:
+        with open(file_path, 'r') as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+
 def create_component_from_chunk(chunk_data: Dict, story_id: str = None):
     """Create QUSComponent from cached chunk data."""
     from llm_qus_analyzer.chunker.models import QUSComponent
@@ -129,6 +138,27 @@ def _format_violation_parts(violation):
             "parts": list(getattr(violation, 'parts', [])),
             "violation_type": "unknown"
         }
+
+
+def _evaluate_violation_match(expected_violation: str, detected_violations: List) -> bool:
+    """
+    Evaluate if detected violations match expected violations.
+    
+    Returns True for successful prediction (TP or TN), False for failure (FP or FN).
+    """
+    # Parse expected violation
+    is_expected_none = expected_violation.startswith("None (Valid.")
+    
+    # Check if any violations were detected
+    has_detected_violations = len(detected_violations) > 0
+    
+    if is_expected_none:
+        # True Negative: Expected no violations, detected no violations
+        return not has_detected_violations
+    else:
+        # Expected specific violation type - any detected violation counts as success
+        # True Positive: Expected violation and found any violation
+        return has_detected_violations
 
 
 async def safe_analyzer_call_async(analyzer_func, *args, max_retries=5, **kwargs):
@@ -276,15 +306,15 @@ async def analyze_criteria_set(client: LLMClient, test_data: List[Dict],
 
 
 async def analyze_criteria_individual(client: LLMClient, test_data: List[Dict], 
-                               chunks: Dict, criteria: str) -> Dict:
-    """Analyze individual criteria (single story analysis)."""
+                               chunks: Dict, criteria: str, existing_results: Dict = None, revise_only: bool = False) -> Dict:
+    """Analyze individual criteria (single story analysis), skipping already analyzed stories."""
     
     analyzer = ANALYZER_MAP[criteria]
     results = {
         "criteria": criteria,
         "analyzer_type": "individual", 
         "analyzer_name": analyzer.__name__,
-        "stories": [],
+        "stories": existing_results.get("stories", []) if existing_results else [],
         "summary": {
             "total_stories": 0,
             "stories_with_violations": 0,
@@ -293,17 +323,55 @@ async def analyze_criteria_individual(client: LLMClient, test_data: List[Dict],
         }
     }
     
-    # Filter test data for this criteria
-    criteria_items = [item for item in test_data 
-                     if item.get("pt") == criteria and "story" in item]
+    # Handle revision mode vs normal mode
+    revision_tracker = {}  # Track original failed stories for reporting
+    if revise_only:
+        # In revision mode, only process stories with is_success == false
+        failed_stories = []
+        if existing_results and "stories" in existing_results:
+            failed_stories = [story for story in existing_results["stories"] 
+                            if story.get("is_success") == False]
+        
+        print(f"Revision mode: Found {len(failed_stories)} failed stories to re-analyze")
+        
+        # Track original failed stories for reporting
+        for story in failed_stories:
+            revision_tracker[story["story_id"]] = {
+                "story_text": story["story"][:50] + "..." if len(story["story"]) > 50 else story["story"],
+                "original_success": False,
+                "new_success": None  # Will be updated after re-analysis
+            }
+        
+        # Convert failed stories back to test data format for processing
+        revision_items = []
+        for story_result in failed_stories:
+            revision_items.append({
+                "story": story_result["story"],
+                "violation": story_result["expected_violation"],
+                "pt": criteria
+            })
+        
+        items_to_process = revision_items
+    else:
+        # Normal mode: skip already analyzed stories
+        already_analyzed = set()
+        if existing_results and "stories" in existing_results:
+            already_analyzed = {story["story"] for story in existing_results["stories"]}
+        
+        # Filter test data for this criteria
+        criteria_items = [item for item in test_data 
+                         if item.get("pt") == criteria and "story" in item]
+        
+        # Filter out already analyzed stories
+        items_to_process = [item for item in criteria_items if item["story"] not in already_analyzed]
+        
+        print(f"Analyzing {len(criteria_items)} stories for '{criteria}' criteria ({len(items_to_process)} new, {len(already_analyzed)} existing)")
     
-    print(f"Analyzing {len(criteria_items)} stories for '{criteria}' criteria")
-    
-    for i, item in enumerate(criteria_items):
+    for i, item in enumerate(items_to_process):
         story = item["story"]
         expected_violation = item.get("violation", "")
         
-        print(f"  Story {i+1}/{len(criteria_items)}: {expected_violation}")
+        print(f"  Story {i+1}/{len(items_to_process)}: {expected_violation}")
         
         # Find chunk by original story text
         chunk_data = None
@@ -317,7 +385,17 @@ async def analyze_criteria_individual(client: LLMClient, test_data: List[Dict],
             print(f"    Missing chunk, skipping...")
             continue
         
-        component = create_component_from_chunk(chunk_data, f"story_{i+1}")
+        # Handle story ID assignment
+        if revise_only:
+            # In revision mode, find the original story ID from existing results
+            original_story = next((s for s in existing_results["stories"] 
+                                 if s["story"] == story and s.get("is_success") == False), None)
+            story_id_num = original_story["story_id"] if original_story else i + 1
+        else:
+            # Normal mode: use story ID that accounts for existing stories
+            story_id_num = len(already_analyzed) + i + 1
+        
+        component = create_component_from_chunk(chunk_data, f"story_{story_id_num}")
         
         # Run analysis (individual analyzers use class method run)
         # Direct call to avoid parameter mismatch with class methods
@@ -325,9 +403,12 @@ async def analyze_criteria_individual(client: LLMClient, test_data: List[Dict],
             analyzer.run, client, 0, component
         )
         
+        # Evaluate success based on expected vs detected violations
+        is_success = _evaluate_violation_match(expected_violation, violations)
+        
         # Process results
         story_result = {
-            "story_id": i + 1,
+            "story_id": story_id_num,
             "expected_violation": expected_violation,
             "story": story,
             "component": {
@@ -344,19 +425,67 @@ async def analyze_criteria_individual(client: LLMClient, test_data: List[Dict],
             ],
             "has_violations": len(violations) > 0,
             "violation_count": len(violations),
+            "is_success": is_success,
             "usage_stats": usage_dict
         }
         
-        results["stories"].append(story_result)
+        
+        if revise_only:
+            # Update revision tracker with new success status
+            if story_id_num in revision_tracker:
+                revision_tracker[story_id_num]["new_success"] = is_success
+            
+            # Replace the existing story in-place
+            for idx, existing_story in enumerate(results["stories"]):
+                if existing_story["story_id"] == story_id_num:
+                    results["stories"][idx] = story_result
+                    break
+        else:
+            # Normal mode: append new story
+            results["stories"].append(story_result)
         await asyncio.sleep(0.5)  # Rate limiting
     
     # Calculate summary
     results["summary"]["total_stories"] = len(results["stories"])
     results["summary"]["stories_with_violations"] = sum(1 for s in results["stories"] if s["has_violations"])
     results["summary"]["total_violations"] = sum(s["violation_count"] for s in results["stories"])
+    results["summary"]["successful_predictions"] = sum(1 for s in results["stories"] if s["is_success"])
     
     if results["summary"]["total_stories"] > 0:
-        results["summary"]["success_rate"] = results["summary"]["stories_with_violations"] / results["summary"]["total_stories"]
+        results["summary"]["success_rate"] = results["summary"]["successful_predictions"] / results["summary"]["total_stories"]
+    
+    # Add revision report if in revision mode
+    if revise_only and revision_tracker:
+        resolved_stories = [sid for sid, info in revision_tracker.items() 
+                           if info["new_success"] == True]
+        still_failing = [sid for sid, info in revision_tracker.items() 
+                        if info["new_success"] == False]
+        
+        print(f"\n{'='*60}")
+        print(f"REVISION REPORT")
+        print(f"{'='*60}")
+        print(f"✅ Resolved: {len(resolved_stories)}/{len(revision_tracker)} stories")
+        print(f"❌ Still failing: {len(still_failing)}/{len(revision_tracker)} stories")
+        
+        if resolved_stories:
+            print(f"\n🎉 RESOLVED STORIES:")
+            for sid in resolved_stories:
+                story_info = revision_tracker[sid]
+                print(f"  • Story {sid}: {story_info['story_text']}")
+        
+        if still_failing:
+            print(f"\n⚠️  STILL FAILING STORIES:")
+            for sid in still_failing:
+                story_info = revision_tracker[sid]
+                print(f"  • Story {sid}: {story_info['story_text']}")
+        
+        results["revision_report"] = {
+            "total_revised": len(revision_tracker),
+            "resolved": len(resolved_stories),
+            "still_failing": len(still_failing),
+            "resolved_story_ids": resolved_stories,
+            "still_failing_story_ids": still_failing
+        }
     
     return results
 
@@ -374,6 +503,8 @@ async def main():
                        help='Only analyze set criteria (pairwise)')
     parser.add_argument('--individual-only', action='store_true', 
                        help='Only analyze individual criteria')
+    parser.add_argument('--revise-only', '-r', action='store_true',
+                       help='Only re-analyze stories with "is_success": false')
     
     args = parser.parse_args()
     
@@ -467,12 +598,22 @@ async def main():
             chunks = load_chunks(str(chunks_file))
             test_data = load_test_data(str(test_data_file))
             
-            print(f"Loaded {len(chunks)} chunks and {len(test_data)} test items")
+            # Load existing results if available
+            criteria_file = output_dir / f"{criteria}_analysis.json"
+            existing_results = load_existing_results(str(criteria_file))
+            existing_count = len(existing_results.get("stories", [])) if "stories" in existing_results else 0
+            
+            print(f"Loaded {len(chunks)} chunks, {len(test_data)} test items, and {existing_count} existing results")
+            
+            # Validate revise-only mode
+            if args.revise_only and existing_count == 0:
+                print(f"❌ Revise-only mode requires existing results. No results found for '{criteria}'")
+                continue
             
             if criteria in SET_CATEGORIES:
                 results = await analyze_criteria_set(client, test_data, chunks, criteria)
             else:
-                results = await analyze_criteria_individual(client, test_data, chunks, criteria)
+                results = await analyze_criteria_individual(client, test_data, chunks, criteria, existing_results, args.revise_only)
             
             all_results[criteria] = results
             
@@ -481,19 +622,15 @@ async def main():
             with open(criteria_file, 'w') as f:
                 json.dump(results, f, indent=2, default=str)
             
+            new_count = len(results["stories"]) - existing_count
             print(f"\n✅ Results saved: {criteria_file}")
+            print(f"📊 Processed {len(results['stories'])} total stories ({new_count} new, {existing_count} existing)")
             print(f"Summary: {results['summary']}")
-        
-        # Save combined results
-        summary_file = output_dir / "all_criteria_summary.json"
-        with open(summary_file, 'w') as f:
-            json.dump(all_results, f, indent=2, default=str)
         
         print(f"\n{'='*60}")
         print(f"PER-CRITERIA ANALYSIS COMPLETE!")
         print(f"{'='*60}")
         print(f"✅ Individual results: {output_dir}/<criteria>_analysis.json")
-        print(f"✅ Combined summary: {summary_file}")
         print(f"✅ Analyzed {len(available_criteria)} criteria")
         
     except Exception as e:
