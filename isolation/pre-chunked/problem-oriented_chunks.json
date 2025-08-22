@@ -1,0 +1,510 @@
+{
+  "5123521175035003945": {
+    "text": "As a User, I want a red 'Download CSV' button at the bottom of the page, so that I can export my data",
+    "role": [
+      "User"
+    ],
+    "means": "a red 'Download CSV' button at the bottom of the page",
+    "ends": "I can export my data",
+    "id": "story_5123521175035003945",
+    "original_story": "As a User, I want a red 'Download CSV' button at the bottom of the page, so that I can export my data",
+    "story_hash": "5123521175035003945",
+    "template_data": {
+      "text": "As a {ROLE}, I want {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]"
+        ],
+        "[ENDS]": [
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "problem-oriented"
+      ],
+      "expected_violations": [
+        "Means.SolutionSpecified.UI"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "problem-oriented",
+          "violation": "Means.SolutionSpecified.UI"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 2.88584303855896,
+      "num_token_in": 532,
+      "num_token_out": 87
+    },
+    "primary_pt": "problem-oriented",
+    "primary_violation": "Means.SolutionSpecified.UI",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "6668225298762797512": {
+    "text": "As a Customer, I want the system to use Redis caching, so that pages load faster",
+    "role": [
+      "Customer"
+    ],
+    "means": "the system uses Redis caching",
+    "ends": "pages load faster",
+    "id": "story_6668225298762797512",
+    "original_story": "As a Customer, I want the system to use Redis caching, so that pages load faster",
+    "story_hash": "6668225298762797512",
+    "template_data": {
+      "text": "As a {ROLE}, I want {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]"
+        ],
+        "[ENDS]": [
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "problem-oriented"
+      ],
+      "expected_violations": [
+        "Means.SolutionSpecified.Technology"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "problem-oriented",
+          "violation": "Means.SolutionSpecified.Technology"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 2.4246466159820557,
+      "num_token_in": 523,
+      "num_token_out": 68
+    },
+    "primary_pt": "problem-oriented",
+    "primary_violation": "Means.SolutionSpecified.Technology",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-1975201718084660563": {
+    "text": "As a care professional I want to save a reimbursement. - Add save button on top right (never grayed out)",
+    "role": [
+      "care professional"
+    ],
+    "means": "Add save button on top right (never grayed out)",
+    "ends": "save a reimbursement",
+    "id": "story_-1975201718084660563",
+    "original_story": "As a care professional I want to save a reimbursement. - Add save button on top right (never grayed out)",
+    "story_hash": "-1975201718084660563",
+    "template_data": {
+      "text": "As a {ROLE} I want to {ENDS}. - {MEANS}",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[ENDS]": [
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PUNCT]"
+        ]
+      },
+      "tail": ")",
+      "order": [
+        "[ROLE]",
+        "[ENDS]",
+        "[MEANS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "problem-oriented"
+      ],
+      "expected_violations": [
+        "Ends.SolutionSpecified.UI"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "problem-oriented",
+          "violation": "Ends.SolutionSpecified.UI"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 2.2155959606170654,
+      "num_token_in": 528,
+      "num_token_out": 80
+    },
+    "primary_pt": "problem-oriented",
+    "primary_violation": "Ends.SolutionSpecified.UI",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-1922383099603054903": {
+    "text": "As a Shopper, I want to scan a QR code to pay, so that I can complete checkout quickly",
+    "role": [
+      "Shopper"
+    ],
+    "means": "scan a QR code to pay",
+    "ends": "I can complete checkout quickly",
+    "id": "story_-1922383099603054903",
+    "original_story": "As a Shopper, I want to scan a QR code to pay, so that I can complete checkout quickly",
+    "story_hash": "-1922383099603054903",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "problem-oriented"
+      ],
+      "expected_violations": [
+        "Means.ImplicitSolution"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "problem-oriented",
+          "violation": "Means.ImplicitSolution"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 2.0030057430267334,
+      "num_token_in": 527,
+      "num_token_out": 76
+    },
+    "primary_pt": "problem-oriented",
+    "primary_violation": "Means.ImplicitSolution",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "7722406897036032572": {
+    "text": "As a Student, I want to confirm my submission, so that I receive an immediate on-screen confirmation",
+    "role": [
+      "Student"
+    ],
+    "means": "confirm my submission",
+    "ends": "I receive an immediate on-screen confirmation",
+    "id": "story_7722406897036032572",
+    "original_story": "As a Student, I want to confirm my submission, so that I receive an immediate on-screen confirmation",
+    "story_hash": "7722406897036032572",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "problem-oriented"
+      ],
+      "expected_violations": [
+        "Ends.ImplicitSolution"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "problem-oriented",
+          "violation": "Ends.ImplicitSolution"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 1.927473545074463,
+      "num_token_in": 525,
+      "num_token_out": 72
+    },
+    "primary_pt": "problem-oriented",
+    "primary_violation": "Ends.ImplicitSolution",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "2709852713810704931": {
+    "text": "As a Nurse, I want to be alerted about critical lab results, so that I can respond promptly",
+    "role": [
+      "Nurse"
+    ],
+    "means": "be alerted about critical lab results",
+    "ends": "I can respond promptly",
+    "id": "story_2709852713810704931",
+    "original_story": "As a Nurse, I want to be alerted about critical lab results, so that I can respond promptly",
+    "story_hash": "2709852713810704931",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "problem-oriented"
+      ],
+      "expected_violations": [
+        "None (Valid.Explicit.ProblemOriented)"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "problem-oriented",
+          "violation": "None (Valid.Explicit.ProblemOriented)"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 1.9678330421447754,
+      "num_token_in": 526,
+      "num_token_out": 75
+    },
+    "primary_pt": "problem-oriented",
+    "primary_violation": "None (Valid.Explicit.ProblemOriented)",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-1329467684251015475": {
+    "text": "As a Customer, I want to access my data outside the system, so that I can perform further analysis",
+    "role": [
+      "Customer"
+    ],
+    "means": "access my data outside the system",
+    "ends": "I can perform further analysis",
+    "id": "story_-1329467684251015475",
+    "original_story": "As a Customer, I want to access my data outside the system, so that I can perform further analysis",
+    "story_hash": "-1329467684251015475",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "problem-oriented"
+      ],
+      "expected_violations": [
+        "None (Valid.CloseToProblemOriented)"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "problem-oriented",
+          "violation": "None (Valid.CloseToProblemOriented)"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 2.605478286743164,
+      "num_token_in": 526,
+      "num_token_out": 74
+    },
+    "primary_pt": "problem-oriented",
+    "primary_violation": "None (Valid.CloseToProblemOriented)",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-3043416858468456788": {
+    "text": "As a Reader, I want to save interesting articles, so that I can find them later without searching again",
+    "role": [
+      "Reader"
+    ],
+    "means": "save interesting articles",
+    "ends": "I can find them later without searching again",
+    "id": "story_-3043416858468456788",
+    "original_story": "As a Reader, I want to save interesting articles, so that I can find them later without searching again",
+    "story_hash": "-3043416858468456788",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "problem-oriented"
+      ],
+      "expected_violations": [
+        "None (Valid.CloseToProblemOriented)"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "problem-oriented",
+          "violation": "None (Valid.CloseToProblemOriented)"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 2.213407039642334,
+      "num_token_in": 526,
+      "num_token_out": 74
+    },
+    "primary_pt": "problem-oriented",
+    "primary_violation": "None (Valid.CloseToProblemOriented)",
+    "is_pairwise": false,
+    "is_individual": true
+  }
+}

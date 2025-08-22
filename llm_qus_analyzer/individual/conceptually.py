@@ -9,6 +9,7 @@ from ..type import Violation
 
 _definition = """
 **Evaluate whether this user story is 'Conceptually Sound' based on its [Means] and [Ends]:**
+Conceptualy sound: The means expresses a feature and the ends expresses a rationale
 rationale: reasoning or justification behind a decision, action, or belief
 1. **[Means] Check:**  
     - Does the [Means] contain a **single, concrete action** the system can perform directly?  

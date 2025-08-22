@@ -19,7 +19,8 @@ Use that definition to get a better understanding about Quality User Story.
 _in_format = """
 Extract the [Role], [Means] and [Ends] from the following user story:
 "{user_story}"
-Also please expand all the short version of english verb like "i'm" into "i am", etc.
+Also please expand all gramatical contraction of english verb like "i'm" into "i am", etc.
+If there are quotes in the user story, keep them as part of the text - do not split or separate quoted content.
 **Please only display the single final answer without any explanation, fixing steps, or any redundant text.**
 """
 
@@ -119,11 +120,25 @@ class QUSChunkerModel:
             else:
                 role = [role]
         means = raw["component"]["[Means]"]
-        if isinstance(means, str):
+        if isinstance(means, list):
+            if not means:
+                # sy tambahkan eringatan kadang llm output nya list.
+                print("[SNAFU]: LLM returned empty array for [Means]")
+                raise ValueError("LLM returned empty array for [Means]")
+            print(f"[SNAFU]: LLM returned array for [Means]: {means}, taking first element")
+            means = means[0]
+        elif isinstance(means, str):
             if means.lower() == "none" or means == "":
                 means = None
+
         ends = raw["component"]["[Ends]"]
-        if isinstance(ends, str):
+        if isinstance(ends, list):
+            if not ends:
+                print("[SNAFU]: LLM returned empty array for [Ends]")
+                raise ValueError("LLM returned empty array for [Ends]")
+            print(f"[SNAFU]: LLM returned array for [Ends]: {ends}, taking first element")
+            ends = ends[0]
+        elif isinstance(ends, str):
             if ends.lower() == "none" or ends == "":
                 ends = None
         return QUSChunkData(expanded, role, means, ends)

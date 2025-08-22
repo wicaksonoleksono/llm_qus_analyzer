@@ -11,7 +11,7 @@ import time
 from pathlib import Path
 from typing import List, Dict
 
-sys.path.append(str(Path(__file__).parent))
+sys.path.append(str(Path(__file__).parent.parent))
 
 from llm_qus_analyzer.client import LLMClient
 from llm_qus_analyzer.settings import Settings
@@ -20,11 +20,11 @@ from llm_qus_analyzer.chunker import QUSChunkerModel
 # Available criteria (matches the split test data files)
 AVAILABLE_CRITERIA = [
     "complete", "conceptually-sound", "conflict-free", "estimatable", 
-    "full-sentence", "independent", "problem-oriented", "unique", "unknown"
+    "full-sentence", "independent", "problem-oriented", "unambiguous", "unique", "unknown"
 ]
 
 SET_CATEGORIES = ["conflict-free", "complete", "independent", "unique"]
-INDIVIDUAL_CATEGORIES = ["conceptually-sound", "problem-oriented", "full-sentence", "estimatable"]
+INDIVIDUAL_CATEGORIES = ["conceptually-sound", "problem-oriented", "full-sentence", "estimatable", "unambiguous"]
 
 
 def load_test_data(criteria: str) -> List[Dict]:
@@ -210,8 +210,8 @@ def main():
     args = parser.parse_args()
     
     # Configuration
-    models_path = Path(__file__).parent / "models.yaml"
-    env_path = Path(__file__).parent / ".env"
+    models_path = Path(__file__).parent.parent / "models.yaml"
+    env_path = Path(__file__).parent.parent / ".env"
     pre_chunked_dir = Path(__file__).parent / "pre-chunked"
     
     # Handle --list flag

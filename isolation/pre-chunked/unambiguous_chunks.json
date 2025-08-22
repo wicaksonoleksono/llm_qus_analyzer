@@ -1,0 +1,322 @@
+{
+  "-2087709015888483638": {
+    "text": "As a User, I want to manage content, so that I can keep the platform up to date",
+    "role": ["User"],
+    "means": "manage content",
+    "ends": "I can keep the platform up to date",
+    "id": "story_-2087709015888483638",
+    "original_story": "As a User, I want to manage content, so that I can keep the platform up to date",
+    "story_hash": "-2087709015888483638",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": ["[ADP]", "[DET]"],
+        "[MEANS]": ["[PUNCT]", "[PRON]", "[VERB]", "[PART]"],
+        "[ENDS]": ["[PUNCT]", "[SCONJ]", "[SCONJ]"]
+      },
+      "tail": null,
+      "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+    },
+    "tags": {
+      "pt_categories": ["unambiguous"],
+      "expected_violations": ["Means.Explicit.UnderspecifiedVerb"],
+      "analysis_types": ["individual"],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "unambiguous",
+          "violation": "Means.Explicit.UnderspecifiedVerb"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 5.644662380218506,
+      "num_token_in": 525,
+      "num_token_out": 72
+    },
+    "primary_pt": "unambiguous",
+    "primary_violation": "Means.Explicit.UnderspecifiedVerb",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-1619896342132155533": {
+    "text": "As an Analyst, I want to work with data, so that I can generate insights",
+    "role": ["Analyst"],
+    "means": "work with data",
+    "ends": "I can generate insights",
+    "id": "story_-1619896342132155533",
+    "original_story": "As an Analyst, I want to work with data, so that I can generate insights",
+    "story_hash": "-1619896342132155533",
+    "template_data": {
+      "text": "As an {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": ["[ADP]", "[DET]"],
+        "[MEANS]": ["[PUNCT]", "[PRON]", "[VERB]", "[PART]"],
+        "[ENDS]": ["[PUNCT]", "[SCONJ]", "[SCONJ]"]
+      },
+      "tail": null,
+      "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+    },
+    "tags": {
+      "pt_categories": ["unambiguous"],
+      "expected_violations": ["Means.Explicit.SuperclassNoun"],
+      "analysis_types": ["individual"],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "unambiguous",
+          "violation": "Means.Explicit.SuperclassNoun"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 12.434506893157959,
+      "num_token_in": 522,
+      "num_token_out": 67
+    },
+    "primary_pt": "unambiguous",
+    "primary_violation": "Means.Explicit.SuperclassNoun",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "5060823186841513157": {
+    "text": "As a Student, I want to save my files, so that it's easier",
+    "role": ["Student"],
+    "means": "save my files",
+    "ends": "it's easier",
+    "id": "story_5060823186841513157",
+    "original_story": "As a Student, I want to save my files, so that it\u2019s easier",
+    "story_hash": "5060823186841513157",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": ["[ADP]", "[DET]"],
+        "[MEANS]": ["[PUNCT]", "[PRON]", "[VERB]", "[PART]"],
+        "[ENDS]": ["[PUNCT]", "[SCONJ]", "[SCONJ]"]
+      },
+      "tail": null,
+      "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+    },
+    "tags": {
+      "pt_categories": ["unambiguous"],
+      "expected_violations": ["Ends.Implicit.AmbiguousComparative"],
+      "analysis_types": ["individual"],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "unambiguous",
+          "violation": "Ends.Implicit.AmbiguousComparative"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 6.972072601318359,
+      "num_token_in": 521,
+      "num_token_out": 62
+    },
+    "primary_pt": "unambiguous",
+    "primary_violation": "Ends.Implicit.AmbiguousComparative",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-5708018289032730434": {
+    "text": "As a Researcher, I want to access external sources, so that I can broaden my analysis",
+    "role": ["Researcher"],
+    "means": "access external sources",
+    "ends": "I can broaden my analysis",
+    "id": "story_-5708018289032730434",
+    "original_story": "As a Researcher, I want to access external sources, so that I can broaden my analysis",
+    "story_hash": "-5708018289032730434",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": ["[ADP]", "[DET]"],
+        "[MEANS]": ["[PUNCT]", "[PRON]", "[VERB]", "[PART]"],
+        "[ENDS]": ["[PUNCT]", "[SCONJ]", "[SCONJ]"]
+      },
+      "tail": null,
+      "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+    },
+    "tags": {
+      "pt_categories": ["unambiguous"],
+      "expected_violations": ["Means.Implicit.SuperclassScope"],
+      "analysis_types": ["individual"],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "unambiguous",
+          "violation": "Means.Implicit.SuperclassScope"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 5.722196340560913,
+      "num_token_in": 524,
+      "num_token_out": 70
+    },
+    "primary_pt": "unambiguous",
+    "primary_violation": "Means.Implicit.SuperclassScope",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-8303946513476088683": {
+    "text": "As a Nurse, I want to check records, so that I can provide better care",
+    "role": ["Nurse"],
+    "means": "check records",
+    "ends": "I can provide better care",
+    "id": "story_-8303946513476088683",
+    "original_story": "As a Nurse, I want to check records, so that I can provide better care",
+    "story_hash": "-8303946513476088683",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": ["[ADP]", "[DET]"],
+        "[MEANS]": ["[PUNCT]", "[PRON]", "[VERB]", "[PART]"],
+        "[ENDS]": ["[PUNCT]", "[SCONJ]", "[SCONJ]"]
+      },
+      "tail": null,
+      "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+    },
+    "tags": {
+      "pt_categories": ["unambiguous"],
+      "expected_violations": ["Means.Implicit.VagueVerb+Object"],
+      "analysis_types": ["individual"],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "unambiguous",
+          "violation": "Means.Implicit.VagueVerb+Object"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 2.205092191696167,
+      "num_token_in": 522,
+      "num_token_out": 67
+    },
+    "primary_pt": "unambiguous",
+    "primary_violation": "Means.Implicit.VagueVerb+Object",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "7111125232065121733": {
+    "text": "As a Customer, I want to download my purchase history for 2024, so that I can review my expenses",
+    "role": ["Customer"],
+    "means": "download my purchase history for 2024",
+    "ends": "I can review my expenses",
+    "id": "story_7111125232065121733",
+    "original_story": "As a Customer, I want to download my purchase history for 2024, so that I can review my expenses",
+    "story_hash": "7111125232065121733",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": ["[ADP]", "[DET]"],
+        "[MEANS]": ["[PUNCT]", "[PRON]", "[VERB]", "[PART]"],
+        "[ENDS]": ["[PUNCT]", "[SCONJ]", "[SCONJ]"]
+      },
+      "tail": null,
+      "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+    },
+    "tags": {
+      "pt_categories": ["unambiguous"],
+      "expected_violations": ["None (Valid.ExplicitlyQualifiedObject)"],
+      "analysis_types": ["individual"],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "unambiguous",
+          "violation": "None (Valid.ExplicitlyQualifiedObject)"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 2.3846254348754883,
+      "num_token_in": 528,
+      "num_token_out": 78
+    },
+    "primary_pt": "unambiguous",
+    "primary_violation": "None (Valid.ExplicitlyQualifiedObject)",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-6938879862625929100": {
+    "text": "As a Librarian, I want to search for books by title or author, so that i can find the books faster to help patrons",
+    "role": ["Librarian"],
+    "means": "search for books by title or author",
+    "ends": "can find the books faster to help patrons",
+    "id": "story_-6938879862625929100",
+    "original_story": "As a Librarian, I want to search for books by title or author, so that i can find the books faster to help patrons",
+    "story_hash": "-6938879862625929100",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": ["[ADP]", "[DET]"],
+        "[MEANS]": ["[PUNCT]", "[PRON]", "[VERB]", "[PART]"],
+        "[ENDS]": ["[PUNCT]", "[SCONJ]", "[SCONJ]"]
+      },
+      "tail": null,
+      "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+    },
+    "tags": {
+      "pt_categories": ["unambiguous"],
+      "expected_violations": ["None (Valid.ClearlyScopedMeans)"],
+      "analysis_types": ["individual"],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "unambiguous",
+          "violation": "None (Valid.ClearlyScopedMeans)"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 2.542057991027832,
+      "num_token_in": 531,
+      "num_token_out": 82
+    },
+    "primary_pt": "unambiguous",
+    "primary_violation": "None (Valid.ClearlyScopedMeans)",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "3059501381312647255": {
+    "text": "As a Driver, I want to receive alerts about low fuel, so that I can refill before running out",
+    "role": ["Driver"],
+    "means": "receive alerts about low fuel",
+    "ends": "I can refill before running out",
+    "id": "story_3059501381312647255",
+    "original_story": "As a Driver, I want to receive alerts about low fuel, so that I can refill before running out",
+    "story_hash": "3059501381312647255",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": ["[ADP]", "[DET]"],
+        "[MEANS]": ["[PUNCT]", "[PRON]", "[VERB]", "[PART]"],
+        "[ENDS]": ["[PUNCT]", "[SCONJ]", "[SCONJ]"]
+      },
+      "tail": null,
+      "order": ["[ROLE]", "[MEANS]", "[ENDS]"]
+    },
+    "tags": {
+      "pt_categories": ["unambiguous"],
+      "expected_violations": ["None (Valid.ClearlyScopedEnds)"],
+      "analysis_types": ["individual"],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "unambiguous",
+          "violation": "None (Valid.ClearlyScopedEnds)"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 2.4060235023498535,
+      "num_token_in": 526,
+      "num_token_out": 74
+    },
+    "primary_pt": "unambiguous",
+    "primary_violation": "None (Valid.ClearlyScopedEnds)",
+    "is_pairwise": false,
+    "is_individual": true
+  }
+}

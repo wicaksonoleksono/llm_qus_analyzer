@@ -1,143 +1,16 @@
 {
-  "-4768989857394511123": {
-    "text": "As a Visitor, I am able to open the interactive map to see live road closures",
+  "1128287705131328160": {
+    "text": "As a Visitor, I want to open the interactive map, so that I can see live road closures",
     "role": [
       "Visitor"
     ],
     "means": "open the interactive map",
-    "ends": "see live road closures",
-    "id": "story_-4768989857394511123",
+    "ends": "I can see live road closures",
+    "id": "story_1128287705131328160",
     "original_story": "As a Visitor, I want to open the interactive map, so that I can see live road closures",
-    "story_hash": "-4768989857394511123",
+    "story_hash": "1128287705131328160",
     "template_data": {
-      "text": "As a {ROLE}, I am able to {MEANS} to {ENDS}",
-      "chunk": {
-        "[ROLE]": [
-          "[ADP]",
-          "[DET]"
-        ],
-        "[MEANS]": [
-          "[PUNCT]",
-          "[PRON]",
-          "[AUX]",
-          "[ADJ]",
-          "[PART]"
-        ],
-        "[ENDS]": [
-          "[PART]"
-        ]
-      },
-      "tail": null,
-      "order": [
-        "[ROLE]",
-        "[MEANS]",
-        "[ENDS]"
-      ]
-    },
-    "tags": {
-      "pt_categories": [
-        "conceptually-sound"
-      ],
-      "expected_violations": [
-        "Ends.HiddenDependency"
-      ],
-      "analysis_types": [
-        "individual"
-      ],
-      "pair_contexts": [],
-      "individual_contexts": [
-        {
-          "pt": "conceptually-sound",
-          "violation": "Ends.HiddenDependency"
-        }
-      ]
-    },
-    "usage": {
-      "duration": 0.7548856735229492,
-      "num_token_in": 573,
-      "num_token_out": 82
-    },
-    "primary_pt": "conceptually-sound",
-    "primary_violation": "Ends.HiddenDependency",
-    "is_pairwise": false,
-    "is_individual": true
-  },
-  "-1328966471078091596": {
-    "text": "As a Developer, I am deploying the application in order to run integration tests",
-    "role": [
-      "Developer"
-    ],
-    "means": "deploy the application",
-    "ends": "run integration tests",
-    "id": "story_-1328966471078091596",
-    "original_story": "As a Developer, I want to deploy the application, so that I can run integration tests",
-    "story_hash": "-1328966471078091596",
-    "template_data": {
-      "text": "As a {ROLE}, I am deploying {MEANS} in order to {ENDS}",
-      "chunk": {
-        "[ROLE]": [
-          "[ADP]",
-          "[DET]"
-        ],
-        "[MEANS]": [
-          "[PUNCT]",
-          "[PRON]",
-          "[AUX]",
-          "[VERB]"
-        ],
-        "[ENDS]": [
-          "[SCONJ]",
-          "[NOUN]",
-          "[PART]"
-        ]
-      },
-      "tail": null,
-      "order": [
-        "[ROLE]",
-        "[MEANS]",
-        "[ENDS]"
-      ]
-    },
-    "tags": {
-      "pt_categories": [
-        "conceptually-sound"
-      ],
-      "expected_violations": [
-        "Ends.HiddenDependency"
-      ],
-      "analysis_types": [
-        "individual"
-      ],
-      "pair_contexts": [],
-      "individual_contexts": [
-        {
-          "pt": "conceptually-sound",
-          "violation": "Ends.HiddenDependency"
-        }
-      ]
-    },
-    "usage": {
-      "duration": 1.576326608657837,
-      "num_token_in": 570,
-      "num_token_out": 80
-    },
-    "primary_pt": "conceptually-sound",
-    "primary_violation": "Ends.HiddenDependency",
-    "is_pairwise": false,
-    "is_individual": true
-  },
-  "142530663840346095": {
-    "text": "As a User, I want to export my contacts in order to send them marketing emails",
-    "role": [
-      "User"
-    ],
-    "means": "export my contacts",
-    "ends": "send them marketing emails",
-    "id": "story_142530663840346095",
-    "original_story": "As a User, I want to export my contacts, so that I can send them marketing emails",
-    "story_hash": "142530663840346095",
-    "template_data": {
-      "text": "As a {ROLE}, I want to {MEANS} in order to {ENDS}",
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
         "[ROLE]": [
           "[ADP]",
@@ -150,9 +23,9 @@
           "[PART]"
         ],
         "[ENDS]": [
-          "[ADP]",
-          "[NOUN]",
-          "[PART]"
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]"
         ]
       },
       "tail": null,
@@ -167,7 +40,7 @@
         "conceptually-sound"
       ],
       "expected_violations": [
-        "Ends.ImplicitDependency"
+        "Ends.HiddenDependency"
       ],
       "analysis_types": [
         "individual"
@@ -176,32 +49,32 @@
       "individual_contexts": [
         {
           "pt": "conceptually-sound",
-          "violation": "Ends.ImplicitDependency"
+          "violation": "Ends.HiddenDependency"
         }
       ]
     },
     "usage": {
-      "duration": 0.874943733215332,
-      "num_token_in": 570,
-      "num_token_out": 78
+      "duration": 5.072548866271973,
+      "num_token_in": 527,
+      "num_token_out": 72
     },
     "primary_pt": "conceptually-sound",
-    "primary_violation": "Ends.ImplicitDependency",
+    "primary_violation": "Ends.HiddenDependency",
     "is_pairwise": false,
     "is_individual": true
   },
-  "1567594229354758130": {
-    "text": "As a Student, I am able to upload my assignment so that my professor can grade it",
+  "-4287229171012180675": {
+    "text": "As a Developer, I want to deploy the application, so that I can run integration tests",
     "role": [
-      "Student"
+      "Developer"
     ],
-    "means": "upload my assignment",
-    "ends": "my professor can grade it",
-    "id": "story_1567594229354758130",
-    "original_story": "As a Student, I want to upload my assignment, so that my professor can grade it",
-    "story_hash": "1567594229354758130",
+    "means": "deploy the application",
+    "ends": "I can run integration tests",
+    "id": "story_-4287229171012180675",
+    "original_story": "As a Developer, I want to deploy the application, so that I can run integration tests",
+    "story_hash": "-4287229171012180675",
     "template_data": {
-      "text": "As a {ROLE}, I am able to {MEANS} so that {ENDS}",
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
         "[ROLE]": [
           "[ADP]",
@@ -210,11 +83,75 @@
         "[MEANS]": [
           "[PUNCT]",
           "[PRON]",
-          "[AUX]",
-          "[ADJ]",
+          "[VERB]",
           "[PART]"
         ],
         "[ENDS]": [
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "conceptually-sound"
+      ],
+      "expected_violations": [
+        "Ends.HiddenDependency"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "conceptually-sound",
+          "violation": "Ends.HiddenDependency"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 4.625467538833618,
+      "num_token_in": 525,
+      "num_token_out": 68
+    },
+    "primary_pt": "conceptually-sound",
+    "primary_violation": "Ends.HiddenDependency",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-4805425652162959911": {
+    "text": "As a User, I want to export my contacts, so that I can send them marketing emails",
+    "role": [
+      "User"
+    ],
+    "means": "export contacts",
+    "ends": "I can send them marketing emails",
+    "id": "story_-4805425652162959911",
+    "original_story": "As a User, I want to export my contacts, so that I can send them marketing emails",
+    "story_hash": "-4805425652162959911",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[PUNCT]",
           "[SCONJ]",
           "[SCONJ]"
         ]
@@ -245,27 +182,27 @@
       ]
     },
     "usage": {
-      "duration": 0.7905921936035156,
-      "num_token_in": 569,
-      "num_token_out": 80
+      "duration": 5.012681484222412,
+      "num_token_in": 526,
+      "num_token_out": 69
     },
     "primary_pt": "conceptually-sound",
     "primary_violation": "Ends.ImplicitDependency",
     "is_pairwise": false,
     "is_individual": true
   },
-  "-4291442594742107437": {
-    "text": "As a User, I am wanting to open the interactive map in order to see the location of landmarks",
+  "-627949332363913168": {
+    "text": "As a Student, I want to upload my assignment, so that my professor can grade it",
     "role": [
-      "User"
+      "Student"
     ],
-    "means": "open the interactive map",
-    "ends": "see the location of landmarks",
-    "id": "story_-4291442594742107437",
-    "original_story": "As a User, I want to open the interactive map, so that I can see the location of landmarks",
-    "story_hash": "-4291442594742107437",
+    "means": "upload my assignment",
+    "ends": "my professor can grade it",
+    "id": "story_-627949332363913168",
+    "original_story": "As a Student, I want to upload my assignment, so that my professor can grade it",
+    "story_hash": "-627949332363913168",
     "template_data": {
-      "text": "As a {ROLE}, I am wanting to {MEANS} in order to {ENDS}",
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
         "[ROLE]": [
           "[ADP]",
@@ -274,14 +211,13 @@
         "[MEANS]": [
           "[PUNCT]",
           "[PRON]",
-          "[AUX]",
           "[VERB]",
           "[PART]"
         ],
         "[ENDS]": [
+          "[PUNCT]",
           "[SCONJ]",
-          "[NOUN]",
-          "[PART]"
+          "[SCONJ]"
         ]
       },
       "tail": null,
@@ -310,27 +246,27 @@
       ]
     },
     "usage": {
-      "duration": 0.6912596225738525,
-      "num_token_in": 573,
-      "num_token_out": 85
+      "duration": 3.712496280670166,
+      "num_token_in": 525,
+      "num_token_out": 68
     },
     "primary_pt": "conceptually-sound",
     "primary_violation": "Ends.ImplicitDependency",
     "is_pairwise": false,
     "is_individual": true
   },
-  "-2613717409285209913": {
-    "text": "As a Customer, I am wanting to reset my password in order to regain access to my account",
+  "-2067000591349045507": {
+    "text": "As a User, I want to open the interactive map, so that I can see the location of landmarks",
     "role": [
-      "Customer"
+      "User"
     ],
-    "means": "reset my password",
-    "ends": "regain access to my account",
-    "id": "story_-2613717409285209913",
-    "original_story": "As a Customer, I want to reset my password, so that I can regain access to my account",
-    "story_hash": "-2613717409285209913",
+    "means": "open the interactive map",
+    "ends": "I can see the location of landmarks",
+    "id": "story_-2067000591349045507",
+    "original_story": "As a User, I want to open the interactive map, so that I can see the location of landmarks",
+    "story_hash": "-2067000591349045507",
     "template_data": {
-      "text": "As a {ROLE}, I am wanting to {MEANS} in order to {ENDS}",
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
         "[ROLE]": [
           "[ADP]",
@@ -339,14 +275,77 @@
         "[MEANS]": [
           "[PUNCT]",
           "[PRON]",
-          "[AUX]",
           "[VERB]",
           "[PART]"
         ],
         "[ENDS]": [
+          "[PUNCT]",
           "[SCONJ]",
-          "[NOUN]",
+          "[SCONJ]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "conceptually-sound"
+      ],
+      "expected_violations": [
+        "Ends.ImplicitDependency"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "conceptually-sound",
+          "violation": "Ends.ImplicitDependency"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 4.180945873260498,
+      "num_token_in": 528,
+      "num_token_out": 74
+    },
+    "primary_pt": "conceptually-sound",
+    "primary_violation": "Ends.ImplicitDependency",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "6420608457683875517": {
+    "text": "As a Customer, I want to reset my password, so that I can regain access to my account",
+    "role": [
+      "Customer"
+    ],
+    "means": "reset my password",
+    "ends": "I can regain access to my account",
+    "id": "story_6420608457683875517",
+    "original_story": "As a Customer, I want to reset my password, so that I can regain access to my account",
+    "story_hash": "6420608457683875517",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
           "[PART]"
+        ],
+        "[ENDS]": [
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]"
         ]
       },
       "tail": null,
@@ -375,27 +374,27 @@
       ]
     },
     "usage": {
-      "duration": 1.0844931602478027,
-      "num_token_in": 572,
-      "num_token_out": 83
+      "duration": 3.556440591812134,
+      "num_token_in": 527,
+      "num_token_out": 72
     },
     "primary_pt": "conceptually-sound",
     "primary_violation": "None (Valid.ExplicitRationale)",
     "is_pairwise": false,
     "is_individual": true
   },
-  "-8656217880372628278": {
-    "text": "As a Reader, I am able to bookmark an article in order to find it later more easily",
+  "-333704583811177738": {
+    "text": "As a Reader, I want to bookmark an article, so that I can find it later more easily",
     "role": [
       "Reader"
     ],
     "means": "bookmark an article",
-    "ends": "find it later more easily",
-    "id": "story_-8656217880372628278",
+    "ends": "I can find it later more easily",
+    "id": "story_-333704583811177738",
     "original_story": "As a Reader, I want to bookmark an article, so that I can find it later more easily",
-    "story_hash": "-8656217880372628278",
+    "story_hash": "-333704583811177738",
     "template_data": {
-      "text": "As a {ROLE}, I am able to {MEANS} in order to {ENDS}",
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
         "[ROLE]": [
           "[ADP]",
@@ -404,14 +403,13 @@
         "[MEANS]": [
           "[PUNCT]",
           "[PRON]",
-          "[AUX]",
-          "[ADJ]",
+          "[VERB]",
           "[PART]"
         ],
         "[ENDS]": [
+          "[PUNCT]",
           "[SCONJ]",
-          "[NOUN]",
-          "[PART]"
+          "[SCONJ]"
         ]
       },
       "tail": null,
@@ -440,27 +438,27 @@
       ]
     },
     "usage": {
-      "duration": 1.808903694152832,
-      "num_token_in": 573,
-      "num_token_out": 84
+      "duration": 2.6308772563934326,
+      "num_token_in": 527,
+      "num_token_out": 72
     },
     "primary_pt": "conceptually-sound",
     "primary_violation": "None (Valid.CloseToFalseNegative)",
     "is_pairwise": false,
     "is_individual": true
   },
-  "4441849900971905546": {
-    "text": "As a User, I am able to filter search results in order to quickly focus on relevant items",
+  "-2110368476883067651": {
+    "text": "As a User, I want to filter search results, so that I can quickly focus on relevant items",
     "role": [
       "User"
     ],
     "means": "filter search results",
-    "ends": "quickly focus on relevant items",
-    "id": "story_4441849900971905546",
+    "ends": "I can quickly focus on relevant items",
+    "id": "story_-2110368476883067651",
     "original_story": "As a User, I want to filter search results, so that I can quickly focus on relevant items",
-    "story_hash": "4441849900971905546",
+    "story_hash": "-2110368476883067651",
     "template_data": {
-      "text": "As a {ROLE}, I am able to {MEANS} in order to {ENDS}",
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
         "[ROLE]": [
           "[ADP]",
@@ -469,14 +467,13 @@
         "[MEANS]": [
           "[PUNCT]",
           "[PRON]",
-          "[AUX]",
-          "[ADJ]",
+          "[VERB]",
           "[PART]"
         ],
         "[ENDS]": [
+          "[PUNCT]",
           "[SCONJ]",
-          "[NOUN]",
-          "[PART]"
+          "[SCONJ]"
         ]
       },
       "tail": null,
@@ -505,9 +502,9 @@
       ]
     },
     "usage": {
-      "duration": 0.7864274978637695,
-      "num_token_in": 571,
-      "num_token_out": 82
+      "duration": 2.83213472366333,
+      "num_token_in": 527,
+      "num_token_out": 72
     },
     "primary_pt": "conceptually-sound",
     "primary_violation": "None (Valid.CloseToFalseNegative)",

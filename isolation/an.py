@@ -11,7 +11,7 @@ import time
 from pathlib import Path
 from typing import List, Dict, Any
 
-sys.path.append(str(Path(__file__).parent))
+sys.path.append(str(Path(__file__).parent.parent))
 
 from llm_qus_analyzer.client import LLMClient
 from llm_qus_analyzer.settings import Settings
@@ -28,6 +28,7 @@ from llm_qus_analyzer.individual.conceptually import ConceptuallySoundAnalyzer
 from llm_qus_analyzer.individual.problem_oriented import ProblemOrientedAnalyzer
 from llm_qus_analyzer.individual.full_sentence import FullSentenceAnalyzer
 from llm_qus_analyzer.individual.estimatable import EstimatableAnalyzer
+from llm_qus_analyzer.individual.unambigous import UnambiguousAnalyzer
 
 # PT category mappings to analyzers
 ANALYZER_MAP = {
@@ -42,10 +43,11 @@ ANALYZER_MAP = {
     "problem-oriented": ProblemOrientedAnalyzer,
     "full-sentence": FullSentenceAnalyzer,
     "estimatable": EstimatableAnalyzer,
+    "unambiguous": UnambiguousAnalyzer,
 }
 
 SET_CATEGORIES = ["conflict-free", "complete", "independent", "unique"]
-INDIVIDUAL_CATEGORIES = ["conceptually-sound", "problem-oriented", "full-sentence", "estimatable"]
+INDIVIDUAL_CATEGORIES = ["conceptually-sound", "problem-oriented", "full-sentence", "estimatable", "unambiguous"]
 
 
 def load_chunks(file_path: str) -> Dict:
@@ -512,8 +514,8 @@ async def main():
     output_dir = Path(__file__).parent / "output"
     pre_chunked_dir = Path(__file__).parent / "pre-chunked"
     testdata_dir = Path(__file__).parent / "testdata" / "by-criteria"
-    models_path = Path(__file__).parent / "models.yaml"
-    env_path = Path(__file__).parent / ".env"
+    models_path = Path(__file__).parent.parent / "models.yaml"
+    env_path = Path(__file__).parent.parent / ".env"
     
     # Create output directory
     output_dir.mkdir(exist_ok=True)

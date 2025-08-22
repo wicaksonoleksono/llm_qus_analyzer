@@ -7,7 +7,7 @@ from ..chunker.parser import Template
 from dataclasses import dataclass
 from ..analyzer import LLMAnalyzer
 from ..utils import analyze_set_pairwise, analyze_set_fullset, format_set_results_pairwise, format_set_results_fullset
-
+# https://link.springer.com/article/10.1007/s00766-016-0250-x Based off the 4 rules of conflict free but we saw it through the semantic scope (Refer to this)
 _definition = """
 **Evaluate whether two user stories are 'Conflict-Free' based on their [Means], [Ends], and [Role]:**
 1. **[Means] and [Ends] Check:**  
@@ -15,8 +15,8 @@ _definition = """
    - Do both stories have the same [Ends] but prescribe incompatible [Means]?  
    - Does one story's [Ends] equal the other's [Means], creating an impossible or unsatisfied dependency?  
 2. **[Means] Check:**  
-   - Do both stories describe the same feature on the same object but with incompatible scope (e.g., self-only vs global)?  
-   - Do both stories describe the same feature on the same object but with incompatible state effects (e.g., temporary vs permanent)?  
+   - Do both stories describe the same feature on the same object but with incompatible SCOPE (e.g., self-only vs global)?  
+   - Do both stories describe the same feature on the same object but with incompatible STATE effects (e.g., temporary vs permanent)?  
 3. **[Role] and [Means] Check:**  
    - Do different [Role]s demand outcomes, permissions, or constraints that cannot both be satisfied for the same [Means] and object?  
 4. **Empty [Ends] Check:**  
@@ -126,10 +126,10 @@ class CFFullSetVerdictData:
 
 def format_stories_list(components: list[QUSComponent]) -> str:
     """Formats a list of QUSComponent objects into a structured story list for LLM input.
-    
+
     Args:
         components: List of QUSComponent objects to format
-        
+
     Returns:
         Formatted string with numbered stories using structured format
     """
@@ -145,23 +145,23 @@ class ConflictFreeParserModel:
 
     def __init__(self, mode: str):
         """Initialize parser with specified mode.
-        
+
         Args:
             mode: Either "pairwise" or "fullset"
         """
         if mode not in ["pairwise", "fullset"]:
             raise ValueError("Mode must be 'pairwise' or 'fullset'")
-        
+
         self.mode = mode
         self.key = f"conflict-free-{mode}"
-        
+
         if mode == "pairwise":
             self.__analyzer = LLMAnalyzer[CFVerdictData](key=self.key)
             self.__analyzer.build_prompt(_definition, _in_format, _out_format)
         else:  # fullset
             self.__analyzer = LLMAnalyzer[CFFullSetVerdictData](key=self.key)
             self.__analyzer.build_prompt(_all_set_definition, _all_set_in_format, _all_set_out_format)
-        
+
         self.__analyzer.build_parser(lambda raw: self.__parser(raw))
 
     def __parser(self, raw_json: Any) -> CFVerdictData | CFFullSetVerdictData:
@@ -200,11 +200,11 @@ class ConflictFreeParserModel:
                     id_pair = t.get("id_pair", {})
                     first_idx = id_pair.get("first", 0) if isinstance(id_pair, dict) else 0
                     second_idx = id_pair.get("second", 1) if isinstance(id_pair, dict) else 1
-                    
+
                     # Default parts for conflict analysis
                     first_parts = {"role", "means", "ends"}
                     second_parts = {"role", "means", "ends"}
-                    
+
                     # Store both parts in violation for later PairwiseViolation creation
                     violation = Violation(
                         parts=first_parts.union(second_parts),
@@ -216,7 +216,7 @@ class ConflictFreeParserModel:
                     violation._second_parts = second_parts
                     violation._second_suggestion = t.get("second_suggestion", "")
                     violation._id_pair = {"first": first_idx, "second": second_idx}
-                    
+
                     violations.append(violation)
         if not valid and len(violations) == 0:
             violations.append(default_vio)
@@ -232,14 +232,15 @@ class ConflictFreeParserModel:
                 if isinstance(t, dict):
                     story_ids = t.get("story_ids", [])
                     if isinstance(story_ids, list):
-                        story_ids = [int(sid) - 1 for sid in story_ids if isinstance(sid, (int, str)) and str(sid).isdigit()]
+                        story_ids = [int(sid) - 1 for sid in story_ids if isinstance(sid,
+                                                                                     (int, str)) and str(sid).isdigit()]
                     else:
                         story_ids = []
-                    
+
                     parts_per_story = t.get("parts_per_story", [])
                     if not isinstance(parts_per_story, list):
                         parts_per_story = []
-                    
+
                     # Convert string parts to sets
                     processed_parts = []
                     for parts in parts_per_story:
@@ -251,7 +252,7 @@ class ConflictFreeParserModel:
                             processed_parts.append(part_set)
                         else:
                             processed_parts.append(set())
-                    
+
                     violations.append(
                         FullSetViolation(
                             story_ids=story_ids,
@@ -279,7 +280,7 @@ class ConflictFreeParserModel:
         """
         if self.mode != "pairwise":
             raise ValueError("This parser is not in pairwise mode")
-        
+
         values = {
             "r1": component1.role,
             "m1": component1.means,
@@ -296,17 +297,17 @@ class ConflictFreeParserModel:
             first_parts = getattr(violation, '_first_parts', violation.parts)
             second_parts = getattr(violation, '_second_parts', violation.parts)
             second_suggestion = getattr(violation, '_second_suggestion', violation.suggestion)
-            
+
             # Ensure we have proper suggestion format
             if second_suggestion and second_suggestion != violation.suggestion:
                 combined_suggestion = f"First story: {violation.suggestion}. Second story: {second_suggestion}"
             else:
                 combined_suggestion = violation.suggestion
-            
+
             # Use component IDs if available, otherwise use placeholder values
             first_id = component1.id or "component_1"
             second_id = component2.id or "component_2"
-            
+
             pairwise_violations.append(
                 PairwiseViolation(
                     first_parts=first_parts,
@@ -332,10 +333,10 @@ class ConflictFreeParserModel:
         """
         if self.mode != "fullset":
             raise ValueError("This parser is not in fullset mode")
-        
+
         if len(components) < 2:
             return [], None
-            
+
         stories_list = format_stories_list(components)
         values = {"stories_list": stories_list}
         data, usage = self.__analyzer.run(client, model_idx, values)
@@ -434,7 +435,7 @@ class ConflictFreeAnalyzer:
                 raise ValueError("Pairwise mode requires exactly 2 components")
             component1, component2 = args
             return cls.analyze_pairwise(client, model_idx, component1, component2)
-            
+
         elif mode == "fullset":
             if len(args) != 1 or not isinstance(args[0], list):
                 raise ValueError("Fullset mode requires a list of components")
@@ -442,6 +443,6 @@ class ConflictFreeAnalyzer:
             if len(components) < 2:
                 return [], {}
             return cls.analyze_full_set(client, model_idx, components)
-            
+
         else:
             raise ValueError("Mode must be 'pairwise' or 'fullset'")

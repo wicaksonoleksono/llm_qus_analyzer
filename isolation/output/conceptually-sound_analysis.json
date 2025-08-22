@@ -12,12 +12,12 @@
           "Visitor"
         ],
         "means": "open the interactive map",
-        "ends": "see live road closures"
+        "ends": "I can see live road closures"
       },
       "detected_violations": [
         {
-          "issue": "Does not express a direct qualitative benefit or rationale of the means",
-          "suggestion": "Rephrase as a direct rationale in scope of the means: 'View live road closure information on the interactive map'",
+          "issue": "Assumes capabilities of the feature implied from the [Means]",
+          "suggestion": "Change it as a general rationale, e.g., 'to help me plan my route'",
           "parts": [
             "ends"
           ],
@@ -28,7 +28,7 @@
       "violation_count": 1,
       "is_success": true,
       "usage_stats": {
-        "conceptually-sound": "LLMUsage(duration=3.680576801300049, num_token_in=521, num_token_out=74)"
+        "conceptually-sound": "LLMUsage(duration=4.217860698699951, num_token_in=459, num_token_out=73)"
       }
     },
     {
@@ -40,12 +40,12 @@
           "Developer"
         ],
         "means": "deploy the application",
-        "ends": "run integration tests"
+        "ends": "I can run integration tests"
       },
       "detected_violations": [
         {
-          "issue": "Does not express a direct qualitative benefit or rationale of the means",
-          "suggestion": "Rephrase as a direct rationale in scope of the means, e.g., 'In order to verify the application's functionality, run integration tests after deployment.'",
+          "issue": "Assumes capabilities of the feature implied from the [Means]",
+          "suggestion": "Rephrase as a general rationale, e.g., 'to ensure the application is working correctly'",
           "parts": [
             "ends"
           ],
@@ -56,7 +56,7 @@
       "violation_count": 1,
       "is_success": true,
       "usage_stats": {
-        "conceptually-sound": "LLMUsage(duration=2.648902177810669, num_token_in=518, num_token_out=102)"
+        "conceptually-sound": "LLMUsage(duration=2.7986974716186523, num_token_in=457, num_token_out=74)"
       }
     },
     {
@@ -67,13 +67,21 @@
         "role": [
           "User"
         ],
-        "means": "export my contacts",
-        "ends": "send them marketing emails"
+        "means": "export contacts",
+        "ends": "I can send them marketing emails"
       },
       "detected_violations": [
         {
-          "issue": "Introduces another feature disguised as rationale",
-          "suggestion": "Remove 'send them marketing emails' and create a new story where sending marketing emails is the [Means]",
+          "issue": "Introduces another feature disguised as rationale (sending marketing emails)",
+          "suggestion": "Remove it and create a new story where sending marketing emails is the [Means]",
+          "parts": [
+            "ends"
+          ],
+          "violation_type": "individual"
+        },
+        {
+          "issue": "Assumes capabilities of the feature implied from the [Means] (exporting contacts implies they can be used for marketing emails)",
+          "suggestion": "Rephrase as a direct rationale in scope of the means, e.g., 'so I have a backup of my contacts'",
           "parts": [
             "ends"
           ],
@@ -81,10 +89,10 @@
         }
       ],
       "has_violations": true,
-      "violation_count": 1,
+      "violation_count": 2,
       "is_success": true,
       "usage_stats": {
-        "conceptually-sound": "LLMUsage(duration=1.0391368865966797, num_token_in=519, num_token_out=86)"
+        "conceptually-sound": "LLMUsage(duration=3.31553316116333, num_token_in=457, num_token_out=145)"
       }
     },
     {
@@ -100,8 +108,8 @@
       },
       "detected_violations": [
         {
-          "issue": "Does not express a direct qualitative benefit or rationale of the means",
-          "suggestion": "Rephrase as a direct rationale in scope of the means: 'My professor can easily access and grade my assignment after I upload it'",
+          "issue": "Assumes capabilities of the feature implied from the [Means]",
+          "suggestion": "Change it as a general rationale, e.g., 'so that my professor can access it'",
           "parts": [
             "ends"
           ],
@@ -112,7 +120,7 @@
       "violation_count": 1,
       "is_success": true,
       "usage_stats": {
-        "conceptually-sound": "LLMUsage(duration=0.9439640045166016, num_token_in=520, num_token_out=96)"
+        "conceptually-sound": "LLMUsage(duration=1.7815642356872559, num_token_in=457, num_token_out=74)"
       }
     },
     {
@@ -124,12 +132,12 @@
           "User"
         ],
         "means": "open the interactive map",
-        "ends": "see the location of landmarks"
+        "ends": "I can see the location of landmarks"
       },
       "detected_violations": [
         {
-          "issue": "Does not express a direct qualitative benefit or rationale of the means",
-          "suggestion": "Rephrase as a direct rationale in scope of the means: 'To visualize the location of landmarks on the interactive map'",
+          "issue": "Assumes capabilities of the feature implied from the [Means]",
+          "suggestion": "Change it as a general rationale, e.g., 'to help navigation'",
           "parts": [
             "ends"
           ],
@@ -140,7 +148,7 @@
       "violation_count": 1,
       "is_success": true,
       "usage_stats": {
-        "conceptually-sound": "LLMUsage(duration=0.8680222034454346, num_token_in=522, num_token_out=77)"
+        "conceptually-sound": "LLMUsage(duration=2.7011802196502686, num_token_in=460, num_token_out=70)"
       }
     },
     {
@@ -152,14 +160,14 @@
           "Customer"
         ],
         "means": "reset my password",
-        "ends": "regain access to my account"
+        "ends": "I can regain access to my account"
       },
       "detected_violations": [],
       "has_violations": false,
       "violation_count": 0,
       "is_success": true,
       "usage_stats": {
-        "conceptually-sound": "LLMUsage(duration=0.5601096153259277, num_token_in=521, num_token_out=7)"
+        "conceptually-sound": "LLMUsage(duration=3.008613348007202, num_token_in=459, num_token_out=13)"
       }
     },
     {
@@ -171,14 +179,14 @@
           "Reader"
         ],
         "means": "bookmark an article",
-        "ends": "find it later more easily"
+        "ends": "I can find it later more easily"
       },
       "detected_violations": [],
       "has_violations": false,
       "violation_count": 0,
       "is_success": true,
       "usage_stats": {
-        "conceptually-sound": "LLMUsage(duration=0.7385661602020264, num_token_in=521, num_token_out=7)"
+        "conceptually-sound": "LLMUsage(duration=0.59523606300354, num_token_in=459, num_token_out=13)"
       }
     },
     {
@@ -190,21 +198,21 @@
           "User"
         ],
         "means": "filter search results",
-        "ends": "quickly focus on relevant items"
+        "ends": "I can quickly focus on relevant items"
       },
       "detected_violations": [],
       "has_violations": false,
       "violation_count": 0,
       "is_success": true,
       "usage_stats": {
-        "conceptually-sound": "LLMUsage(duration=1.5288071632385254, num_token_in=520, num_token_out=11)"
+        "conceptually-sound": "LLMUsage(duration=0.5132439136505127, num_token_in=459, num_token_out=13)"
       }
     }
   ],
   "summary": {
     "total_stories": 8,
     "stories_with_violations": 5,
-    "total_violations": 5,
+    "total_violations": 6,
     "success_rate": 1.0,
     "successful_predictions": 8
   }

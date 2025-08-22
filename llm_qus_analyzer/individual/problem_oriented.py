@@ -5,16 +5,21 @@ from ..type import Violation
 from dataclasses import dataclass
 from typing import Any, Optional
 from ..utils import analyze_individual_with_llm
-# positive pairing
 _definition = """
-**Evaluate whether this user story is 'Problem oriented' based  on its [Means] and [Ends]:**  
-    [Means] and [Ends] check:
-    -Does not contain an explicit technical implementation for the problem 
-    [Means] only check:
-    - Does it specify only the problem/need (what user wants)?
-    - Does it avoid implementation details (how system or implementor should do it)?
-    - Are there no solution hints embedded in the text (Implicitly and Explicitly)?
-
+**Evaluate whether this user story is 'Problem-Oriented' based on its [Means] and [Ends]:**  
+problem-oriented: focuses on describing the **user’s need/problem (what)** and **benefit (why)** without prescribing a **solution (how)**  
+1. **[Means] Check:**  
+    - Does the [Means] describe only the **user’s problem/need** (what the user wants)?
+    - Does the [Means] avoid explicit solutions of the problem (e.g.,Technology, Algorithm, User Interface to use )?  
+    - Does the [Means] avoid implicit solution hints (describes *a way of doing it* instead of the problem e.g. Specific technology,ui or algorithm used)?  
+2. **[Ends] Check (If exist):**  
+    - Does the [Ends] express a clear benefit or rationale of solving the problem (e.g., faster, easier, safer, compliant)?  
+    - Does the [Ends] avoid prescribing implementation outcomes (e.g., “so that a modal appears,” “so that it runs in Redis”)?  
+**Suggestion to fix:**  
+- If [Means] specifies UI, tech, or algorith -> restate only the **problem/need** and delete the Implementation.  
+- If [Means] Uses a implicit solution hints -> restate the problem and use a generic word
+- If [Ends] prescribes how -> replace with the **intended benefit**.  
+- If story mixes problem & solution -> split into separate stories (problem in user story, solution in acceptance criteria/design as a solution).  
 """
 _in_format = """
 **User Story to Evaluate:**  
