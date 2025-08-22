@@ -15,7 +15,7 @@
     "pt": "conceptually-sound"
   },
   {
-    "story": "As a Student, I want to upload my assignment, so that my professor can grade it",
+    "story": "As a Student, I want to upload my assignment, so that my professor can grade it online",
     "violation": "Ends.ImplicitDependency",
     "pt": "conceptually-sound"
   },

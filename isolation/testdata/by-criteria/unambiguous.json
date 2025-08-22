@@ -30,7 +30,7 @@
     "pt": "unambiguous"
   },
   {
-    "story": "As a Librarian, I want to search for books by title or author, so that so that patrons can easily find the books",
+    "story": "As a Librarian, I want to search for books by title or author, so that I can provide search results to patrons quickly at the desk",
     "violation": "None (Valid.ClearlyScopedMeans)",
     "pt": "unambiguous"
   },

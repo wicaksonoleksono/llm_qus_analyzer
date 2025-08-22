@@ -1,27 +1,42 @@
 [
   {
-    "story": "As a Developer, I want to integrate with third-party payment APIs, so that I can enable secure transaction processing across multiple payment providers",
-    "violation": "Means.UnclearScope+Ends.HiddenDependency",
+    "story": "As a User, I want search to be fast, so that I can find results without waiting",
+    "violation": "Means.Explicit.UnboundedNonFunctional",
     "pt": "estimatable"
   },
   {
-    "story": "As a Product Manager, I want to analyze user behavior patterns, so that I can optimize the recommendation engine and improve conversion rates",
-    "violation": "Means.MultipleHiddenFunctionalities+Ends.IntermediateStep",
+    "story": "As an Analyst, I want to export data, so that I can run reports",
+    "violation": "Means.Explicit.MissingDataSpec",
     "pt": "estimatable"
   },
   {
-    "story": "As a System Administrator, I want to monitor application performance, so that I can set up alerting and implement auto-scaling solutions",
-    "violation": "Ends.IsActuallyMeans+Ends.HiddenDependency",
+    "story": "As a Support Agent, I want to view a customer profile, so that I can resolve issues",
+    "violation": "Means.Implicit.HiddenDataScope",
     "pt": "estimatable"
   },
   {
-    "story": "As a Mobile User, I want to sync data across devices, so that I can maintain consistency while handling offline scenarios and conflict resolution",
-    "violation": "Means.UnclearScope+Ends.MultipleHiddenFunctionalities",
+    "story": "As a Shopper, I want to see product recommendations, so that I can find items faster",
+    "violation": "Means.Implicit.HiddenAlgorithm",
     "pt": "estimatable"
   },
   {
-    "story": "As a Customer Support Agent, I want to access customer information, so that I can resolve issues and update the knowledge base system",
-    "violation": "Means.UnclearScope+Ends.IntermediateStep+Ends.HiddenDependency",
+    "story": "As an Admin, I want to manage users, so that access stays accurate",
+    "violation": "Means.Implicit.CoarseGrainedCapability",
+    "pt": "estimatable"
+  },
+  {
+    "story": "As a Customer, I want to download my purchase history for a selected month as CSV (UTF-8, comma, header) including order_id, date, total, up to 5000 rows, so that I can review my expenses",
+    "violation": "None (Valid.ExplicitEstimatable)",
+    "pt": "estimatable"
+  },
+  {
+    "story": "As a Librarian, I want to search books by title or author with pagination (limit, offset) returning title, author, call_number, so that I can help patrons at the desk",
+    "violation": "None (Valid.CloseToFalseNegative)",
+    "pt": "estimatable"
+  },
+  {
+    "story": "As a Driver, I want to receive a low-fuel alert when fuel < 10% via in-app banner no more than once per hour using existing telemetry, so that I can refill before running out",
+    "violation": "None (Valid.CloseToFalseNegative)",
     "pt": "estimatable"
   }
 ]

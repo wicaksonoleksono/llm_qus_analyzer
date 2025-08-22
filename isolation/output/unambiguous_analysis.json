@@ -1,0 +1,284 @@
+{
+  "criteria": "unambiguous",
+  "analyzer_type": "individual",
+  "analyzer_name": "UnambiguousAnalyzer",
+  "stories": [
+    {
+      "story_id": 1,
+      "expected_violation": "Means.Explicit.UnderspecifiedVerb",
+      "story": "As a User, I want to manage content, so that I can keep the platform up to date",
+      "component": {
+        "role": [
+          "User"
+        ],
+        "means": "manage content",
+        "ends": "keep the platform up to date"
+      },
+      "detected_violations": [
+        {
+          "issue": "The term 'manage content' is ambiguous as it could mean multiple actions such as create, update, or delete content.",
+          "suggestion": "Replace 'manage content' with specific actions like 'create, update, and delete content'.",
+          "parts": [
+            "means"
+          ],
+          "violation_type": "individual"
+        },
+        {
+          "issue": "The phrase 'keep the platform up to date' is vague and does not directly relate to the action on 'content'.",
+          "suggestion": "Clarify 'keep the platform up to date' to something like 'so that the content is current and reflects the latest information'.",
+          "parts": [
+            "ends"
+          ],
+          "violation_type": "individual"
+        }
+      ],
+      "has_violations": true,
+      "violation_count": 2,
+      "is_success": true,
+      "usage_stats": {
+        "unambiguous": "LLMUsage(duration=6.488913536071777, num_token_in=651, num_token_out=160)"
+      }
+    },
+    {
+      "story_id": 2,
+      "expected_violation": "Means.Explicit.SuperclassNoun",
+      "story": "As an Analyst, I want to work with data, so that I can generate insights",
+      "component": {
+        "role": [
+          "Analyst"
+        ],
+        "means": "work with data",
+        "ends": "I can generate insights"
+      },
+      "detected_violations": [
+        {
+          "issue": "The term 'work with data' is ambiguous because 'work with' is an underspecified verb and 'data' is too broad and vague.",
+          "suggestion": "Replace 'work with data' with specific actions and clarify the type of data, e.g., 'analyze customer order data' or 'create, update, and delete user data'.",
+          "parts": [
+            "means"
+          ],
+          "violation_type": "individual"
+        },
+        {
+          "issue": "The term 'generate insights' is comparative/qualitative without a clear anchor or specificity to the [Means] action.",
+          "suggestion": "Phrase the qualitative ends to anchor stated in [Means], e.g., 'so that I can generate deeper insights into customer behavior than currently possible with the existing reporting tools'.",
+          "parts": [
+            "ends"
+          ],
+          "violation_type": "individual"
+        }
+      ],
+      "has_violations": true,
+      "violation_count": 2,
+      "is_success": true,
+      "usage_stats": {
+        "unambiguous": "LLMUsage(duration=9.301382541656494, num_token_in=650, num_token_out=190)"
+      }
+    },
+    {
+      "story_id": 3,
+      "expected_violation": "Ends.Implicit.AmbiguousComparative",
+      "story": "As a Student, I want to save my files, so that it\u2019s easier",
+      "component": {
+        "role": [
+          "Student"
+        ],
+        "means": "save my files",
+        "ends": "it's easier"
+      },
+      "detected_violations": [
+        {
+          "issue": "The term 'files' could be considered somewhat specific but still ambiguous as it doesn't specify the type of files.",
+          "suggestion": "Qualify 'files' to be more specific, e.g., 'save my project files'",
+          "parts": [
+            "means"
+          ],
+          "violation_type": "individual"
+        },
+        {
+          "issue": "The term 'it's easier' is ambiguous and doesn't clearly relate to the action of saving files.",
+          "suggestion": "Specify what is easier, e.g., 'so that saving my files is faster than before'",
+          "parts": [
+            "ends"
+          ],
+          "violation_type": "individual"
+        },
+        {
+          "issue": "The pronoun 'it' in 'it's easier' is ambiguous and doesn't have a clear referent.",
+          "suggestion": "Clarify the pronoun, e.g., 'so that the process of saving files is easier'",
+          "parts": [
+            "ends"
+          ],
+          "violation_type": "individual"
+        }
+      ],
+      "has_violations": true,
+      "violation_count": 3,
+      "is_success": true,
+      "usage_stats": {
+        "unambiguous": "LLMUsage(duration=8.014298677444458, num_token_in=648, num_token_out=205)"
+      }
+    },
+    {
+      "story_id": 4,
+      "expected_violation": "Means.Implicit.SuperclassScope",
+      "story": "As a Researcher, I want to access external sources, so that I can broaden my analysis",
+      "component": {
+        "role": [
+          "Researcher"
+        ],
+        "means": "access external sources",
+        "ends": "broaden my analysis"
+      },
+      "detected_violations": [
+        {
+          "issue": "The term 'access external sources' is ambiguous because 'external sources' is a superclass term that could refer to multiple domain items.",
+          "suggestion": "Replace 'external sources' with explicit domain items, e.g., 'access external data APIs, databases, and files'.",
+          "parts": [
+            "means"
+          ],
+          "violation_type": "individual"
+        },
+        {
+          "issue": "The term 'broaden my analysis' is ambiguous because it does not clearly specify how the analysis should be broadened.",
+          "suggestion": "Phrase the qualitative ends to anchor stated in [Means], e.g., 'so that I can include more diverse data sets in my analysis'.",
+          "parts": [
+            "ends"
+          ],
+          "violation_type": "individual"
+        },
+        {
+          "issue": "The pronoun 'my' in 'broaden my analysis' could refer to different users or contexts.",
+          "suggestion": "Clarify the pronoun, e.g., 'so that the user can broaden their analysis' or specify the context.",
+          "parts": [
+            "ends"
+          ],
+          "violation_type": "individual"
+        }
+      ],
+      "has_violations": true,
+      "violation_count": 3,
+      "is_success": true,
+      "usage_stats": {
+        "unambiguous": "LLMUsage(duration=9.152073621749878, num_token_in=649, num_token_out=234)"
+      }
+    },
+    {
+      "story_id": 5,
+      "expected_violation": "Means.Implicit.VagueVerb+Object",
+      "story": "As a Nurse, I want to check records, so that I can provide better care",
+      "component": {
+        "role": [
+          "Nurse"
+        ],
+        "means": "check records",
+        "ends": "I can provide better care"
+      },
+      "detected_violations": [
+        {
+          "issue": "The term 'records' is a superclass term that could refer to multiple domain items (e.g., patient records, medical records, etc.).",
+          "suggestion": "Replace 'records' with explicit domain items, e.g., 'patient medical records'.",
+          "parts": [
+            "means"
+          ],
+          "violation_type": "individual"
+        },
+        {
+          "issue": "The verb 'check' is underspecified and could mean different actions (e.g., view, verify, update).",
+          "suggestion": "Replace 'check' with the intended action, e.g., 'view', 'verify', or 'update'.",
+          "parts": [
+            "means"
+          ],
+          "violation_type": "individual"
+        },
+        {
+          "issue": "The phrase 'provide better care' is too generic and doesn't clearly relate to the action of checking records.",
+          "suggestion": "Phrase the qualitative ends to anchor stated in [Means], e.g., 'so that I can identify potential health issues earlier'.",
+          "parts": [
+            "ends"
+          ],
+          "violation_type": "individual"
+        }
+      ],
+      "has_violations": true,
+      "violation_count": 3,
+      "is_success": true,
+      "usage_stats": {
+        "unambiguous": "LLMUsage(duration=8.33412504196167, num_token_in=650, num_token_out=228)"
+      }
+    },
+    {
+      "story_id": 6,
+      "expected_violation": "None (Valid.ExplicitlyQualifiedObject)",
+      "story": "As a Customer, I want to download my purchase history for 2024, so that I can review my expenses",
+      "component": {
+        "role": [
+          "Customer"
+        ],
+        "means": "download my purchase history for 2024",
+        "ends": "I can review my expenses"
+      },
+      "detected_violations": [],
+      "has_violations": false,
+      "violation_count": 0,
+      "is_success": true,
+      "usage_stats": {
+        "unambiguous": "LLMUsage(duration=1.365251064300537, num_token_in=656, num_token_out=13)"
+      }
+    },
+    {
+      "story_id": 7,
+      "expected_violation": "None (Valid.ClearlyScopedMeans)",
+      "story": "As a Librarian, I want to search for books by title or author, so that i can search book faster to help patrons",
+      "component": {
+        "role": [
+          "Librarian"
+        ],
+        "means": "search for books by title or author",
+        "ends": "I can search book faster to help patrons"
+      },
+      "detected_violations": [
+        {
+          "issue": "The term 'faster' is comparative but lacks a clear reference point for comparison.",
+          "suggestion": "Phrase the qualitative ends to anchor stated in [Means], e.g., 'so that search results load faster than the current average time of 3 seconds'",
+          "parts": [
+            "ends"
+          ],
+          "violation_type": "individual"
+        }
+      ],
+      "has_violations": true,
+      "violation_count": 1,
+      "is_success": false,
+      "usage_stats": {
+        "unambiguous": "LLMUsage(duration=3.3731114864349365, num_token_in=658, num_token_out=91)"
+      }
+    },
+    {
+      "story_id": 8,
+      "expected_violation": "None (Valid.ClearlyScopedEnds)",
+      "story": "As a Driver, I want to receive alerts about low fuel, so that I can refill before running out",
+      "component": {
+        "role": [
+          "Driver"
+        ],
+        "means": "receive alerts about low fuel",
+        "ends": "I can refill before running out"
+      },
+      "detected_violations": [],
+      "has_violations": false,
+      "violation_count": 0,
+      "is_success": true,
+      "usage_stats": {
+        "unambiguous": "LLMUsage(duration=1.834700584411621, num_token_in=654, num_token_out=13)"
+      }
+    }
+  ],
+  "summary": {
+    "total_stories": 8,
+    "stories_with_violations": 6,
+    "total_violations": 14,
+    "success_rate": 0.875,
+    "successful_predictions": 7
+  }
+}
