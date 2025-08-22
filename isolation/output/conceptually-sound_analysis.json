@@ -16,8 +16,8 @@
       },
       "detected_violations": [
         {
-          "issue": "Assumes capabilities of the feature implied from the [Means]",
-          "suggestion": "Change it as a general rationale, e.g., 'to help me plan my route'",
+          "issue": "Assuming extra capabilities not stated in [Means]",
+          "suggestion": "Rephrase as a pure rationale or add separate stories for the missing capabilities",
           "parts": [
             "ends"
           ],
@@ -28,7 +28,7 @@
       "violation_count": 1,
       "is_success": true,
       "usage_stats": {
-        "conceptually-sound": "LLMUsage(duration=4.217860698699951, num_token_in=459, num_token_out=73)"
+        "conceptually-sound": "LLMUsage(duration=2.6113121509552, num_token_in=504, num_token_out=67)"
       }
     },
     {
@@ -44,44 +44,16 @@
       },
       "detected_violations": [
         {
-          "issue": "Assumes capabilities of the feature implied from the [Means]",
-          "suggestion": "Rephrase as a general rationale, e.g., 'to ensure the application is working correctly'",
+          "issue": "Describes a goal or an action that is not a specific system capability/action",
+          "suggestion": "Rewrite it as a specific system capability/action, e.g., 'allow automated deployment of the application'",
           "parts": [
-            "ends"
-          ],
-          "violation_type": "individual"
-        }
-      ],
-      "has_violations": true,
-      "violation_count": 1,
-      "is_success": true,
-      "usage_stats": {
-        "conceptually-sound": "LLMUsage(duration=2.7986974716186523, num_token_in=457, num_token_out=74)"
-      }
-    },
-    {
-      "story_id": 3,
-      "expected_violation": "Ends.ImplicitDependency",
-      "story": "As a User, I want to export my contacts, so that I can send them marketing emails",
-      "component": {
-        "role": [
-          "User"
-        ],
-        "means": "export contacts",
-        "ends": "I can send them marketing emails"
-      },
-      "detected_violations": [
-        {
-          "issue": "Introduces another feature disguised as rationale (sending marketing emails)",
-          "suggestion": "Remove it and create a new story where sending marketing emails is the [Means]",
-          "parts": [
-            "ends"
+            "means"
           ],
           "violation_type": "individual"
         },
         {
-          "issue": "Assumes capabilities of the feature implied from the [Means] (exporting contacts implies they can be used for marketing emails)",
-          "suggestion": "Rephrase as a direct rationale in scope of the means, e.g., 'so I have a backup of my contacts'",
+          "issue": "Introduces another feature disguised as rationale",
+          "suggestion": "Remove it and create a separate story where running integration tests is the [Means]",
           "parts": [
             "ends"
           ],
@@ -92,24 +64,24 @@
       "violation_count": 2,
       "is_success": true,
       "usage_stats": {
-        "conceptually-sound": "LLMUsage(duration=3.31553316116333, num_token_in=457, num_token_out=145)"
+        "conceptually-sound": "LLMUsage(duration=4.3603291511535645, num_token_in=502, num_token_out=126)"
       }
     },
     {
-      "story_id": 4,
+      "story_id": 3,
       "expected_violation": "Ends.ImplicitDependency",
-      "story": "As a Student, I want to upload my assignment, so that my professor can grade it",
+      "story": "As a User, I want to export my contacts, so that I can send them marketing emails",
       "component": {
         "role": [
-          "Student"
+          "User"
         ],
-        "means": "upload my assignment",
-        "ends": "my professor can grade it"
+        "means": "export my contacts",
+        "ends": "I can send them marketing emails"
       },
       "detected_violations": [
         {
-          "issue": "Assumes capabilities of the feature implied from the [Means]",
-          "suggestion": "Change it as a general rationale, e.g., 'so that my professor can access it'",
+          "issue": "Introduces another feature disguised as rationale and assumes extra capabilities not stated in [Means]",
+          "suggestion": "Rephrase [Ends] as a pure rationale or add separate stories for the missing capabilities. For example, 'so that I can reach out to them' is a more general rationale.",
           "parts": [
             "ends"
           ],
@@ -120,7 +92,35 @@
       "violation_count": 1,
       "is_success": true,
       "usage_stats": {
-        "conceptually-sound": "LLMUsage(duration=1.7815642356872559, num_token_in=457, num_token_out=74)"
+        "conceptually-sound": "LLMUsage(duration=3.052971124649048, num_token_in=503, num_token_out=98)"
+      }
+    },
+    {
+      "story_id": 4,
+      "expected_violation": "Ends.ImplicitDependency",
+      "story": "As a Student, I want to upload my assignment, so that my professor can grade it online",
+      "component": {
+        "role": [
+          "Student"
+        ],
+        "means": "upload my assignment",
+        "ends": "my professor can grade it online"
+      },
+      "detected_violations": [
+        {
+          "issue": "Assumes extra capabilities not stated in [Means]",
+          "suggestion": "Rephrase as a pure rationale or add separate stories for the missing capabilities",
+          "parts": [
+            "ends"
+          ],
+          "violation_type": "individual"
+        }
+      ],
+      "has_violations": true,
+      "violation_count": 1,
+      "is_success": true,
+      "usage_stats": {
+        "conceptually-sound": "LLMUsage(duration=2.4060213565826416, num_token_in=503, num_token_out=68)"
       }
     },
     {
@@ -136,8 +136,8 @@
       },
       "detected_violations": [
         {
-          "issue": "Assumes capabilities of the feature implied from the [Means]",
-          "suggestion": "Change it as a general rationale, e.g., 'to help navigation'",
+          "issue": "Assuming extra capabilities not stated in [Means]",
+          "suggestion": "Rephrase as a pure rationale or add separate stories for the missing capabilities",
           "parts": [
             "ends"
           ],
@@ -148,7 +148,7 @@
       "violation_count": 1,
       "is_success": true,
       "usage_stats": {
-        "conceptually-sound": "LLMUsage(duration=2.7011802196502686, num_token_in=460, num_token_out=70)"
+        "conceptually-sound": "LLMUsage(duration=2.504485607147217, num_token_in=505, num_token_out=67)"
       }
     },
     {
@@ -160,14 +160,14 @@
           "Customer"
         ],
         "means": "reset my password",
-        "ends": "I can regain access to my account"
+        "ends": "regain access to my account"
       },
       "detected_violations": [],
       "has_violations": false,
       "violation_count": 0,
       "is_success": true,
       "usage_stats": {
-        "conceptually-sound": "LLMUsage(duration=3.008613348007202, num_token_in=459, num_token_out=13)"
+        "conceptually-sound": "LLMUsage(duration=0.9559473991394043, num_token_in=502, num_token_out=13)"
       }
     },
     {
@@ -186,7 +186,7 @@
       "violation_count": 0,
       "is_success": true,
       "usage_stats": {
-        "conceptually-sound": "LLMUsage(duration=0.59523606300354, num_token_in=459, num_token_out=13)"
+        "conceptually-sound": "LLMUsage(duration=1.2818574905395508, num_token_in=504, num_token_out=13)"
       }
     },
     {
@@ -205,7 +205,7 @@
       "violation_count": 0,
       "is_success": true,
       "usage_stats": {
-        "conceptually-sound": "LLMUsage(duration=0.5132439136505127, num_token_in=459, num_token_out=13)"
+        "conceptually-sound": "LLMUsage(duration=1.104444980621338, num_token_in=504, num_token_out=13)"
       }
     }
   ],

@@ -1,14 +1,14 @@
 {
-  "-4415817285217039608": {
+  "-2706952270697253168": {
     "text": "As a User, I want to manage content, so that I can keep the platform up to date",
     "role": [
       "User"
     ],
     "means": "manage content",
     "ends": "keep the platform up to date",
-    "id": "story_-4415817285217039608",
+    "id": "story_-2706952270697253168",
     "original_story": "As a User, I want to manage content, so that I can keep the platform up to date",
-    "story_hash": "-4415817285217039608",
+    "story_hash": "-2706952270697253168",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that I can {ENDS}",
       "chunk": {
@@ -56,7 +56,7 @@
       ]
     },
     "usage": {
-      "duration": 15.00377106666565,
+      "duration": 4.076327323913574,
       "num_token_in": 525,
       "num_token_out": 70
     },
@@ -65,16 +65,16 @@
     "is_pairwise": false,
     "is_individual": true
   },
-  "-360106878367842577": {
+  "7732968582205698374": {
     "text": "As an Analyst, I want to work with data, so that I can generate insights",
     "role": [
       "Analyst"
     ],
     "means": "work with data",
     "ends": "I can generate insights",
-    "id": "story_-360106878367842577",
+    "id": "story_7732968582205698374",
     "original_story": "As an Analyst, I want to work with data, so that I can generate insights",
-    "story_hash": "-360106878367842577",
+    "story_hash": "7732968582205698374",
     "template_data": {
       "text": "As an {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -120,7 +120,7 @@
       ]
     },
     "usage": {
-      "duration": 4.820765018463135,
+      "duration": 5.151636123657227,
       "num_token_in": 522,
       "num_token_out": 67
     },
@@ -129,16 +129,16 @@
     "is_pairwise": false,
     "is_individual": true
   },
-  "-7204433450539020753": {
+  "6232694057877621306": {
     "text": "As a Student, I want to save my files, so that it's easier",
     "role": [
       "Student"
     ],
     "means": "save my files",
-    "ends": "it's easier",
-    "id": "story_-7204433450539020753",
+    "ends": "it is easier",
+    "id": "story_6232694057877621306",
     "original_story": "As a Student, I want to save my files, so that it\u2019s easier",
-    "story_hash": "-7204433450539020753",
+    "story_hash": "6232694057877621306",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -184,25 +184,25 @@
       ]
     },
     "usage": {
-      "duration": 3.4852380752563477,
+      "duration": 4.274020195007324,
       "num_token_in": 521,
-      "num_token_out": 62
+      "num_token_out": 63
     },
     "primary_pt": "unambiguous",
     "primary_violation": "Ends.Implicit.AmbiguousComparative",
     "is_pairwise": false,
     "is_individual": true
   },
-  "3658129786868065549": {
+  "-1877123780156751658": {
     "text": "As a Researcher, I want to access external sources, so that I can broaden my analysis",
     "role": [
       "Researcher"
     ],
     "means": "access external sources",
     "ends": "broaden my analysis",
-    "id": "story_3658129786868065549",
+    "id": "story_-1877123780156751658",
     "original_story": "As a Researcher, I want to access external sources, so that I can broaden my analysis",
-    "story_hash": "3658129786868065549",
+    "story_hash": "-1877123780156751658",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that I can {ENDS}",
       "chunk": {
@@ -250,7 +250,7 @@
       ]
     },
     "usage": {
-      "duration": 3.542909622192383,
+      "duration": 3.3368890285491943,
       "num_token_in": 524,
       "num_token_out": 69
     },
@@ -259,16 +259,16 @@
     "is_pairwise": false,
     "is_individual": true
   },
-  "6118577751398575895": {
+  "4520187931893314017": {
     "text": "As a Nurse, I want to check records, so that I can provide better care",
     "role": [
       "Nurse"
     ],
     "means": "check records",
     "ends": "I can provide better care",
-    "id": "story_6118577751398575895",
+    "id": "story_4520187931893314017",
     "original_story": "As a Nurse, I want to check records, so that I can provide better care",
-    "story_hash": "6118577751398575895",
+    "story_hash": "4520187931893314017",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -314,7 +314,7 @@
       ]
     },
     "usage": {
-      "duration": 3.820995569229126,
+      "duration": 3.906867027282715,
       "num_token_in": 522,
       "num_token_out": 67
     },
@@ -323,16 +323,16 @@
     "is_pairwise": false,
     "is_individual": true
   },
-  "-3490253906781823691": {
+  "-6199084392834825101": {
     "text": "As a Customer, I want to download my purchase history for 2024, so that I can review my expenses",
     "role": [
       "Customer"
     ],
     "means": "download my purchase history for 2024",
     "ends": "I can review my expenses",
-    "id": "story_-3490253906781823691",
+    "id": "story_-6199084392834825101",
     "original_story": "As a Customer, I want to download my purchase history for 2024, so that I can review my expenses",
-    "story_hash": "-3490253906781823691",
+    "story_hash": "-6199084392834825101",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -378,7 +378,7 @@
       ]
     },
     "usage": {
-      "duration": 3.778151273727417,
+      "duration": 6.557161808013916,
       "num_token_in": 528,
       "num_token_out": 78
     },
@@ -387,16 +387,16 @@
     "is_pairwise": false,
     "is_individual": true
   },
-  "2001115581543758386": {
-    "text": "As a Librarian, I want to search for books by title or author, so that I can search book faster to help patrons",
+  "2095925109095535922": {
+    "text": "As a Librarian, I want to search for books by title or author, so that I can provide search results to patrons quickly at the desk",
     "role": [
       "Librarian"
     ],
     "means": "search for books by title or author",
-    "ends": "I can search book faster to help patrons",
-    "id": "story_2001115581543758386",
-    "original_story": "As a Librarian, I want to search for books by title or author, so that i can search book faster to help patrons",
-    "story_hash": "2001115581543758386",
+    "ends": "I can provide search results to patrons quickly at the desk",
+    "id": "story_2095925109095535922",
+    "original_story": "As a Librarian, I want to search for books by title or author, so that I can provide search results to patrons quickly at the desk",
+    "story_hash": "2095925109095535922",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -442,25 +442,25 @@
       ]
     },
     "usage": {
-      "duration": 9.649080276489258,
-      "num_token_in": 531,
-      "num_token_out": 85
+      "duration": 5.402954339981079,
+      "num_token_in": 534,
+      "num_token_out": 91
     },
     "primary_pt": "unambiguous",
     "primary_violation": "None (Valid.ClearlyScopedMeans)",
     "is_pairwise": false,
     "is_individual": true
   },
-  "220855062233468830": {
+  "-6913950125845511037": {
     "text": "As a Driver, I want to receive alerts about low fuel, so that I can refill before running out",
     "role": [
       "Driver"
     ],
     "means": "receive alerts about low fuel",
     "ends": "I can refill before running out",
-    "id": "story_220855062233468830",
+    "id": "story_-6913950125845511037",
     "original_story": "As a Driver, I want to receive alerts about low fuel, so that I can refill before running out",
-    "story_hash": "220855062233468830",
+    "story_hash": "-6913950125845511037",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -506,7 +506,7 @@
       ]
     },
     "usage": {
-      "duration": 4.3887715339660645,
+      "duration": 5.273106336593628,
       "num_token_in": 526,
       "num_token_out": 74
     },

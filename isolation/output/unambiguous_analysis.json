@@ -16,27 +16,33 @@
       },
       "detected_violations": [
         {
-          "issue": "The term 'manage content' is ambiguous as it could mean multiple actions such as create, update, or delete content.",
-          "suggestion": "Replace 'manage content' with specific actions like 'create, update, and delete content'.",
+          "issue": "The term 'manage content' is ambiguous as it could imply different actions such as create, update, or delete, and 'content' is a superclass term that could refer to various domain items.",
+          "suggestion": "Replace 'manage content' with explicit actions and domain items, e.g., 'create, update, and delete video, photo, and audio content'.",
           "parts": [
             "means"
           ],
           "violation_type": "individual"
         },
         {
-          "issue": "The phrase 'keep the platform up to date' is vague and does not directly relate to the action on 'content'.",
-          "suggestion": "Clarify 'keep the platform up to date' to something like 'so that the content is current and reflects the latest information'.",
+          "issue": "The phrase 'keep the platform up to date' is ambiguous as it is unclear which aspect of the platform is being kept up to date.",
+          "suggestion": "Clarify the phrase 'keep the platform up to date' to refer to a specific aspect, e.g., 'ensure content on the platform is current'.",
           "parts": [
             "ends"
           ],
           "violation_type": "individual"
+        },
+        {
+          "issue": "It is unclear which aspect of 'manage content' is related to 'keep the platform up to date'.",
+          "suggestion": "Clarify the link between [Means] and [Ends], e.g., 'update content to keep the platform current'.",
+          "parts": [],
+          "violation_type": "individual"
         }
       ],
       "has_violations": true,
-      "violation_count": 2,
+      "violation_count": 3,
       "is_success": true,
       "usage_stats": {
-        "unambiguous": "LLMUsage(duration=6.488913536071777, num_token_in=651, num_token_out=160)"
+        "unambiguous": "LLMUsage(duration=15.686059951782227, num_token_in=643, num_token_out=270)"
       }
     },
     {
@@ -52,18 +58,18 @@
       },
       "detected_violations": [
         {
-          "issue": "The term 'work with data' is ambiguous because 'work with' is an underspecified verb and 'data' is too broad and vague.",
-          "suggestion": "Replace 'work with data' with specific actions and clarify the type of data, e.g., 'analyze customer order data' or 'create, update, and delete user data'.",
+          "issue": "The term 'data' is a superclass term that could mean multiple domain items and is unclear in context.",
+          "suggestion": "Replace 'data' with explicit domain items, e.g., 'work with customer order data' or 'work with sales records'.",
           "parts": [
             "means"
           ],
           "violation_type": "individual"
         },
         {
-          "issue": "The term 'generate insights' is comparative/qualitative without a clear anchor or specificity to the [Means] action.",
-          "suggestion": "Phrase the qualitative ends to anchor stated in [Means], e.g., 'so that I can generate deeper insights into customer behavior than currently possible with the existing reporting tools'.",
+          "issue": "The verb 'work with' is ambiguous as it could imply different actions such as 'view', 'edit', 'analyze', etc.",
+          "suggestion": "List the exact actions intended, e.g., 'view', 'edit', 'analyze customer order data'.",
           "parts": [
-            "ends"
+            "means"
           ],
           "violation_type": "individual"
         }
@@ -72,7 +78,7 @@
       "violation_count": 2,
       "is_success": true,
       "usage_stats": {
-        "unambiguous": "LLMUsage(duration=9.301382541656494, num_token_in=650, num_token_out=190)"
+        "unambiguous": "LLMUsage(duration=3.7142374515533447, num_token_in=642, num_token_out=162)"
       }
     },
     {
@@ -84,39 +90,53 @@
           "Student"
         ],
         "means": "save my files",
-        "ends": "it's easier"
+        "ends": "it is easier"
       },
       "detected_violations": [
         {
-          "issue": "The term 'files' could be considered somewhat specific but still ambiguous as it doesn't specify the type of files.",
-          "suggestion": "Qualify 'files' to be more specific, e.g., 'save my project files'",
+          "issue": "The term 'files' is a superclass term that could refer to different types of files.",
+          "suggestion": "Specify the type of files, e.g., 'save my documents' or 'save my images'.",
           "parts": [
             "means"
           ],
           "violation_type": "individual"
         },
         {
-          "issue": "The term 'it's easier' is ambiguous and doesn't clearly relate to the action of saving files.",
-          "suggestion": "Specify what is easier, e.g., 'so that saving my files is faster than before'",
+          "issue": "The verb 'save' is generally clear, but in some contexts, it could imply different actions (e.g., save as a different format).",
+          "suggestion": "Clarify the action if necessary, e.g., 'save my files to the cloud'.",
+          "parts": [
+            "means"
+          ],
+          "violation_type": "individual"
+        },
+        {
+          "issue": "The pronoun 'it' is ambiguous as it does not clearly refer to the action or outcome of saving files.",
+          "suggestion": "Replace 'it' with a specific reference, e.g., 'the process of saving my files is easier'.",
           "parts": [
             "ends"
           ],
           "violation_type": "individual"
         },
         {
-          "issue": "The pronoun 'it' in 'it's easier' is ambiguous and doesn't have a clear referent.",
-          "suggestion": "Clarify the pronoun, e.g., 'so that the process of saving files is easier'",
+          "issue": "The term 'easier' is a multi-meaning phrase as it is unclear what aspect is being improved.",
+          "suggestion": "Specify the aspect that is improved, e.g., 'saving my files is faster' or 'the process is less complicated'.",
           "parts": [
             "ends"
           ],
           "violation_type": "individual"
+        },
+        {
+          "issue": "It is unclear how 'saving my files' directly relates to 'it is easier'.",
+          "suggestion": "Clarify the link, e.g., 'save my files so that the process is faster'.",
+          "parts": [],
+          "violation_type": "individual"
         }
       ],
       "has_violations": true,
-      "violation_count": 3,
+      "violation_count": 5,
       "is_success": true,
       "usage_stats": {
-        "unambiguous": "LLMUsage(duration=8.014298677444458, num_token_in=648, num_token_out=205)"
+        "unambiguous": "LLMUsage(duration=7.925025939941406, num_token_in=641, num_token_out=358)"
       }
     },
     {
@@ -132,7 +152,7 @@
       },
       "detected_violations": [
         {
-          "issue": "The term 'access external sources' is ambiguous because 'external sources' is a superclass term that could refer to multiple domain items.",
+          "issue": "The term 'external sources' is a superclass term that could mean multiple domain items.",
           "suggestion": "Replace 'external sources' with explicit domain items, e.g., 'access external data APIs, databases, and files'.",
           "parts": [
             "means"
@@ -140,16 +160,16 @@
           "violation_type": "individual"
         },
         {
-          "issue": "The term 'broaden my analysis' is ambiguous because it does not clearly specify how the analysis should be broadened.",
-          "suggestion": "Phrase the qualitative ends to anchor stated in [Means], e.g., 'so that I can include more diverse data sets in my analysis'.",
+          "issue": "The verb 'access' could imply different actions, such as read, write, or execute.",
+          "suggestion": "List the exact actions intended, e.g., 'read data from external sources'.",
           "parts": [
-            "ends"
+            "means"
           ],
           "violation_type": "individual"
         },
         {
-          "issue": "The pronoun 'my' in 'broaden my analysis' could refer to different users or contexts.",
-          "suggestion": "Clarify the pronoun, e.g., 'so that the user can broaden their analysis' or specify the context.",
+          "issue": "The phrase 'broaden my analysis' is a multi-meaning phrase; it's unclear which aspect is meant.",
+          "suggestion": "Clarify the aspect, e.g., 'include more data points in my analysis' or 'expand the scope of my analysis to include external factors'.",
           "parts": [
             "ends"
           ],
@@ -160,7 +180,7 @@
       "violation_count": 3,
       "is_success": true,
       "usage_stats": {
-        "unambiguous": "LLMUsage(duration=9.152073621749878, num_token_in=649, num_token_out=234)"
+        "unambiguous": "LLMUsage(duration=5.148306369781494, num_token_in=641, num_token_out=218)"
       }
     },
     {
@@ -176,35 +196,41 @@
       },
       "detected_violations": [
         {
-          "issue": "The term 'records' is a superclass term that could refer to multiple domain items (e.g., patient records, medical records, etc.).",
-          "suggestion": "Replace 'records' with explicit domain items, e.g., 'patient medical records'.",
+          "issue": "The term 'records' is a superclass term that could refer to multiple domain items (e.g., patient records, financial records, etc.).",
+          "suggestion": "Specify the type of records, e.g., 'check patient medical records'",
           "parts": [
             "means"
           ],
           "violation_type": "individual"
         },
         {
-          "issue": "The verb 'check' is underspecified and could mean different actions (e.g., view, verify, update).",
-          "suggestion": "Replace 'check' with the intended action, e.g., 'view', 'verify', or 'update'.",
+          "issue": "The verb 'check' could imply different actions (e.g., view, verify, update).",
+          "suggestion": "List the exact actions intended, e.g., 'view, verify patient medical records'",
           "parts": [
             "means"
           ],
           "violation_type": "individual"
         },
         {
-          "issue": "The phrase 'provide better care' is too generic and doesn't clearly relate to the action of checking records.",
-          "suggestion": "Phrase the qualitative ends to anchor stated in [Means], e.g., 'so that I can identify potential health issues earlier'.",
+          "issue": "The term 'better care' is a multi-meaning phrase as it is unclear which aspect of care is being referred to.",
+          "suggestion": "Clarify the aspect of care, e.g., 'provide more accurate diagnoses' or 'reduce patient wait times'",
           "parts": [
             "ends"
           ],
           "violation_type": "individual"
+        },
+        {
+          "issue": "It is unclear how 'checking records' directly relates to 'providing better care'.",
+          "suggestion": "Clarify the link, e.g., 'check patient medical history so I can provide more accurate diagnoses'",
+          "parts": [],
+          "violation_type": "individual"
         }
       ],
       "has_violations": true,
-      "violation_count": 3,
+      "violation_count": 4,
       "is_success": true,
       "usage_stats": {
-        "unambiguous": "LLMUsage(duration=8.33412504196167, num_token_in=650, num_token_out=228)"
+        "unambiguous": "LLMUsage(duration=9.86622142791748, num_token_in=642, num_token_out=283)"
       }
     },
     {
@@ -223,35 +249,26 @@
       "violation_count": 0,
       "is_success": true,
       "usage_stats": {
-        "unambiguous": "LLMUsage(duration=1.365251064300537, num_token_in=656, num_token_out=13)"
+        "unambiguous": "LLMUsage(duration=0.6483638286590576, num_token_in=648, num_token_out=13)"
       }
     },
     {
       "story_id": 7,
       "expected_violation": "None (Valid.ClearlyScopedMeans)",
-      "story": "As a Librarian, I want to search for books by title or author, so that i can search book faster to help patrons",
+      "story": "As a Librarian, I want to search for books by title or author, so that I can provide search results to patrons quickly at the desk",
       "component": {
         "role": [
           "Librarian"
         ],
         "means": "search for books by title or author",
-        "ends": "I can search book faster to help patrons"
+        "ends": "I can provide search results to patrons quickly at the desk"
       },
-      "detected_violations": [
-        {
-          "issue": "The term 'faster' is comparative but lacks a clear reference point for comparison.",
-          "suggestion": "Phrase the qualitative ends to anchor stated in [Means], e.g., 'so that search results load faster than the current average time of 3 seconds'",
-          "parts": [
-            "ends"
-          ],
-          "violation_type": "individual"
-        }
-      ],
-      "has_violations": true,
-      "violation_count": 1,
-      "is_success": false,
+      "detected_violations": [],
+      "has_violations": false,
+      "violation_count": 0,
+      "is_success": true,
       "usage_stats": {
-        "unambiguous": "LLMUsage(duration=3.3731114864349365, num_token_in=658, num_token_out=91)"
+        "unambiguous": "LLMUsage(duration=0.6517815589904785, num_token_in=653, num_token_out=13)"
       }
     },
     {
@@ -270,15 +287,15 @@
       "violation_count": 0,
       "is_success": true,
       "usage_stats": {
-        "unambiguous": "LLMUsage(duration=1.834700584411621, num_token_in=654, num_token_out=13)"
+        "unambiguous": "LLMUsage(duration=1.3229954242706299, num_token_in=646, num_token_out=13)"
       }
     }
   ],
   "summary": {
     "total_stories": 8,
-    "stories_with_violations": 6,
-    "total_violations": 14,
-    "success_rate": 0.875,
-    "successful_predictions": 7
+    "stories_with_violations": 5,
+    "total_violations": 17,
+    "success_rate": 1.0,
+    "successful_predictions": 8
   }
 }

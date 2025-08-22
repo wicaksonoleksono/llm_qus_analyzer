@@ -1,27 +1,42 @@
 [
   {
-    "story": "As user want to login system so can access dashboard",
-    "violation": "Grammar.MissingArticles+Grammar.IncompleteStructure+Grammar.MissingPronoun",
+    "story": "As an Admins, I want to reset passwords, so that users can regain access.",
+    "violation": "Explicit.ArticlePluralMismatch",
     "pt": "full-sentence"
   },
   {
-    "story": "As a Administrator, I wants to manage users accounts, so that I can controlling access permissions",
-    "violation": "Grammar.SubjectVerbDisagreement+Grammar.IncorrectVerbForm+Grammar.PluralError",
+    "story": "As Users. Want to export data.",
+    "violation": "Explicit.Fragment",
     "pt": "full-sentence"
   },
   {
-    "story": "As customer service rep I want search customer data so I help them quicker",
-    "violation": "Grammar.MissingArticle+Grammar.MissingInfinitive+Grammar.IncompleteClause",
+    "story": "As a Manager, I review reports, they are approved by Finance.",
+    "violation": "Implicit.CommaSplice",
     "pt": "full-sentence"
   },
   {
-    "story": "As a Manager, I want to generates reports, so that I can make decision about budget allocation and resource planning",
-    "violation": "Grammar.SubjectVerbDisagreement+Grammar.SingularPluralMismatch",
+    "story": "As a Nurse, I review lab results and notifies physicians when values are critical.",
+    "violation": "Implicit.SubjectVerbAgreement",
     "pt": "full-sentence"
   },
   {
-    "story": "As mobile user want sync data across device so that maintain consistency",
-    "violation": "Grammar.MissingArticles+Grammar.MissingPronoun+Grammar.PluralSingularError+Grammar.IncompleteClause",
+    "story": "As a Reader, I want to save articles, so that I can find them later (at any time.",
+    "violation": "Implicit.UnbalancedParenthesis",
+    "pt": "full-sentence"
+  },
+  {
+    "story": "As a Customer, I want to reset my password, so that I can regain access to my account.",
+    "violation": "None (Valid.ExplicitFullSentence)",
+    "pt": "full-sentence"
+  },
+  {
+    "story": "As Admins, we need to review flagged posts.",
+    "violation": "None (Valid.CloseToFalseNegative)",
+    "pt": "full-sentence"
+  },
+  {
+    "story": "To reduce errors, operators verify each batch before shipping.",
+    "violation": "None (Valid.CloseToFalseNegative)",
     "pt": "full-sentence"
   }
 ]

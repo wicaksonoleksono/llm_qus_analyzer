@@ -1,0 +1,209 @@
+{
+  "criteria": "full-sentence",
+  "analyzer_type": "individual",
+  "analyzer_name": "FullSentenceAnalyzer",
+  "stories": [
+    {
+      "story_id": 1,
+      "expected_violation": "Explicit.ArticlePluralMismatch",
+      "story": "As an Admins, I want to reset passwords, so that users can regain access.",
+      "component": {
+        "role": [
+          "Admins"
+        ],
+        "means": "reset passwords",
+        "ends": "users can regain access"
+      },
+      "detected_violations": [
+        {
+          "issue": "The subject 'Admins' should be 'Administrator' or 'Admin' to be grammatically correct in the context of a role, and 'As an Admins' is not a standard phrase; it should be 'As an Admin' or 'As Administrators'.",
+          "suggestion": "Change 'As an Admins' to 'As an Admin' or 'As Administrators'.",
+          "parts": [
+            "user_story"
+          ],
+          "violation_type": "individual"
+        }
+      ],
+      "has_violations": true,
+      "violation_count": 1,
+      "is_success": true,
+      "usage_stats": {
+        "full-sentence": "LLMUsage(duration=5.123011112213135, num_token_in=483, num_token_out=120)"
+      }
+    },
+    {
+      "story_id": 2,
+      "expected_violation": "Explicit.Fragment",
+      "story": "As Users. Want to export data.",
+      "component": {
+        "role": [
+          "Users"
+        ],
+        "means": "export data",
+        "ends": null
+      },
+      "detected_violations": [
+        {
+          "issue": "The user story is a fragment, lacking a finite verb to form a complete sentence.",
+          "suggestion": "Rephrase to a complete sentence, e.g., 'As Users, I want to export data.' or 'As Users, we want to export data.'",
+          "parts": [
+            "user_story"
+          ],
+          "violation_type": "individual"
+        },
+        {
+          "issue": "The sentence lacks proper terminal punctuation.",
+          "suggestion": "Add a period at the end of the sentence.",
+          "parts": [
+            "user_story"
+          ],
+          "violation_type": "individual"
+        }
+      ],
+      "has_violations": true,
+      "violation_count": 2,
+      "is_success": true,
+      "usage_stats": {
+        "full-sentence": "LLMUsage(duration=4.095167398452759, num_token_in=473, num_token_out=135)"
+      }
+    },
+    {
+      "story_id": 3,
+      "expected_violation": "Implicit.CommaSplice",
+      "story": "As a Manager, I review reports, they are approved by Finance.",
+      "component": {
+        "role": [
+          "Manager"
+        ],
+        "means": "review reports, they are approved by Finance",
+        "ends": null
+      },
+      "detected_violations": [
+        {
+          "issue": "The sentence is a run-on sentence as it contains two independent clauses ('I review reports' and 'they are approved by Finance') joined without proper conjunction.",
+          "suggestion": "Split the sentence into two or add a conjunction to join the clauses properly, e.g., 'As a Manager, I review reports that are approved by Finance.'",
+          "parts": [
+            "user_story"
+          ],
+          "violation_type": "individual"
+        },
+        {
+          "issue": "Comma splice: a comma is used between two independent clauses.",
+          "suggestion": "Use a conjunction after the comma, or separate the clauses into distinct sentences.",
+          "parts": [
+            "user_story"
+          ],
+          "violation_type": "individual"
+        }
+      ],
+      "has_violations": true,
+      "violation_count": 2,
+      "is_success": true,
+      "usage_stats": {
+        "full-sentence": "LLMUsage(duration=3.822995662689209, num_token_in=479, num_token_out=160)"
+      }
+    },
+    {
+      "story_id": 4,
+      "expected_violation": "Implicit.SubjectVerbAgreement",
+      "story": "As a Nurse, I review lab results and notifies physicians when values are critical.",
+      "component": {
+        "role": [
+          "Nurse"
+        ],
+        "means": "review lab results and notify physicians when values are critical",
+        "ends": null
+      },
+      "detected_violations": [],
+      "has_violations": false,
+      "violation_count": 0,
+      "is_success": false,
+      "usage_stats": {
+        "full-sentence": "LLMUsage(duration=0.954336404800415, num_token_in=481, num_token_out=13)"
+      }
+    },
+    {
+      "story_id": 5,
+      "expected_violation": "Implicit.UnbalancedParenthesis",
+      "story": "As a Reader, I want to save articles, so that I can find them later (at any time.",
+      "component": {
+        "role": [
+          "Reader"
+        ],
+        "means": "save articles",
+        "ends": "I can find them later (at any time)"
+      },
+      "detected_violations": [],
+      "has_violations": false,
+      "violation_count": 0,
+      "is_success": false,
+      "usage_stats": {
+        "full-sentence": "LLMUsage(duration=0.6299986839294434, num_token_in=488, num_token_out=13)"
+      }
+    },
+    {
+      "story_id": 6,
+      "expected_violation": "None (Valid.ExplicitFullSentence)",
+      "story": "As a Customer, I want to reset my password, so that I can regain access to my account.",
+      "component": {
+        "role": [
+          "Customer"
+        ],
+        "means": "reset my password",
+        "ends": "regain access to my account"
+      },
+      "detected_violations": [],
+      "has_violations": false,
+      "violation_count": 0,
+      "is_success": true,
+      "usage_stats": {
+        "full-sentence": "LLMUsage(duration=0.6732993125915527, num_token_in=486, num_token_out=13)"
+      }
+    },
+    {
+      "story_id": 7,
+      "expected_violation": "None (Valid.CloseToFalseNegative)",
+      "story": "As Admins, we need to review flagged posts.",
+      "component": {
+        "role": [
+          "Admins"
+        ],
+        "means": "review flagged posts",
+        "ends": null
+      },
+      "detected_violations": [],
+      "has_violations": false,
+      "violation_count": 0,
+      "is_success": true,
+      "usage_stats": {
+        "full-sentence": "LLMUsage(duration=1.0185134410858154, num_token_in=476, num_token_out=13)"
+      }
+    },
+    {
+      "story_id": 8,
+      "expected_violation": "None (Valid.CloseToFalseNegative)",
+      "story": "To reduce errors, operators verify each batch before shipping.",
+      "component": {
+        "role": [
+          "operators"
+        ],
+        "means": "verify each batch before shipping",
+        "ends": "reduce errors"
+      },
+      "detected_violations": [],
+      "has_violations": false,
+      "violation_count": 0,
+      "is_success": true,
+      "usage_stats": {
+        "full-sentence": "LLMUsage(duration=0.6111836433410645, num_token_in=476, num_token_out=13)"
+      }
+    }
+  ],
+  "summary": {
+    "total_stories": 8,
+    "stories_with_violations": 3,
+    "total_violations": 5,
+    "success_rate": 0.75,
+    "successful_predictions": 6
+  }
+}

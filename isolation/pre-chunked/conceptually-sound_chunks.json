@@ -1,14 +1,14 @@
 {
-  "1128287705131328160": {
+  "-6945169792468282506": {
     "text": "As a Visitor, I want to open the interactive map, so that I can see live road closures",
     "role": [
       "Visitor"
     ],
     "means": "open the interactive map",
     "ends": "I can see live road closures",
-    "id": "story_1128287705131328160",
+    "id": "story_-6945169792468282506",
     "original_story": "As a Visitor, I want to open the interactive map, so that I can see live road closures",
-    "story_hash": "1128287705131328160",
+    "story_hash": "-6945169792468282506",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -54,8 +54,8 @@
       ]
     },
     "usage": {
-      "duration": 5.072548866271973,
-      "num_token_in": 527,
+      "duration": 16.939329385757446,
+      "num_token_in": 525,
       "num_token_out": 72
     },
     "primary_pt": "conceptually-sound",
@@ -63,16 +63,16 @@
     "is_pairwise": false,
     "is_individual": true
   },
-  "-4287229171012180675": {
+  "4649305044278899971": {
     "text": "As a Developer, I want to deploy the application, so that I can run integration tests",
     "role": [
       "Developer"
     ],
     "means": "deploy the application",
     "ends": "I can run integration tests",
-    "id": "story_-4287229171012180675",
+    "id": "story_4649305044278899971",
     "original_story": "As a Developer, I want to deploy the application, so that I can run integration tests",
-    "story_hash": "-4287229171012180675",
+    "story_hash": "4649305044278899971",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -118,8 +118,8 @@
       ]
     },
     "usage": {
-      "duration": 4.625467538833618,
-      "num_token_in": 525,
+      "duration": 7.7389585971832275,
+      "num_token_in": 523,
       "num_token_out": 68
     },
     "primary_pt": "conceptually-sound",
@@ -127,16 +127,16 @@
     "is_pairwise": false,
     "is_individual": true
   },
-  "-4805425652162959911": {
+  "2134982820178631799": {
     "text": "As a User, I want to export my contacts, so that I can send them marketing emails",
     "role": [
       "User"
     ],
-    "means": "export contacts",
+    "means": "export my contacts",
     "ends": "I can send them marketing emails",
-    "id": "story_-4805425652162959911",
+    "id": "story_2134982820178631799",
     "original_story": "As a User, I want to export my contacts, so that I can send them marketing emails",
-    "story_hash": "-4805425652162959911",
+    "story_hash": "2134982820178631799",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -182,25 +182,25 @@
       ]
     },
     "usage": {
-      "duration": 5.012681484222412,
-      "num_token_in": 526,
-      "num_token_out": 69
+      "duration": 7.715954303741455,
+      "num_token_in": 524,
+      "num_token_out": 70
     },
     "primary_pt": "conceptually-sound",
     "primary_violation": "Ends.ImplicitDependency",
     "is_pairwise": false,
     "is_individual": true
   },
-  "-627949332363913168": {
-    "text": "As a Student, I want to upload my assignment, so that my professor can grade it",
+  "647126526410178858": {
+    "text": "As a Student, I want to upload my assignment, so that my professor can grade it online",
     "role": [
       "Student"
     ],
     "means": "upload my assignment",
-    "ends": "my professor can grade it",
-    "id": "story_-627949332363913168",
-    "original_story": "As a Student, I want to upload my assignment, so that my professor can grade it",
-    "story_hash": "-627949332363913168",
+    "ends": "my professor can grade it online",
+    "id": "story_647126526410178858",
+    "original_story": "As a Student, I want to upload my assignment, so that my professor can grade it online",
+    "story_hash": "647126526410178858",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -246,25 +246,25 @@
       ]
     },
     "usage": {
-      "duration": 3.712496280670166,
-      "num_token_in": 525,
-      "num_token_out": 68
+      "duration": 8.871557235717773,
+      "num_token_in": 524,
+      "num_token_out": 70
     },
     "primary_pt": "conceptually-sound",
     "primary_violation": "Ends.ImplicitDependency",
     "is_pairwise": false,
     "is_individual": true
   },
-  "-2067000591349045507": {
+  "-3814088521232721272": {
     "text": "As a User, I want to open the interactive map, so that I can see the location of landmarks",
     "role": [
       "User"
     ],
     "means": "open the interactive map",
     "ends": "I can see the location of landmarks",
-    "id": "story_-2067000591349045507",
+    "id": "story_-3814088521232721272",
     "original_story": "As a User, I want to open the interactive map, so that I can see the location of landmarks",
-    "story_hash": "-2067000591349045507",
+    "story_hash": "-3814088521232721272",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -310,8 +310,8 @@
       ]
     },
     "usage": {
-      "duration": 4.180945873260498,
-      "num_token_in": 528,
+      "duration": 3.605454921722412,
+      "num_token_in": 526,
       "num_token_out": 74
     },
     "primary_pt": "conceptually-sound",
@@ -319,18 +319,18 @@
     "is_pairwise": false,
     "is_individual": true
   },
-  "6420608457683875517": {
+  "1365539354192913401": {
     "text": "As a Customer, I want to reset my password, so that I can regain access to my account",
     "role": [
       "Customer"
     ],
     "means": "reset my password",
-    "ends": "I can regain access to my account",
-    "id": "story_6420608457683875517",
+    "ends": "regain access to my account",
+    "id": "story_1365539354192913401",
     "original_story": "As a Customer, I want to reset my password, so that I can regain access to my account",
-    "story_hash": "6420608457683875517",
+    "story_hash": "1365539354192913401",
     "template_data": {
-      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "text": "As a {ROLE}, I want to {MEANS}, so that I can {ENDS}",
       "chunk": {
         "[ROLE]": [
           "[ADP]",
@@ -345,7 +345,9 @@
         "[ENDS]": [
           "[PUNCT]",
           "[SCONJ]",
-          "[SCONJ]"
+          "[SCONJ]",
+          "[PRON]",
+          "[AUX]"
         ]
       },
       "tail": null,
@@ -374,25 +376,25 @@
       ]
     },
     "usage": {
-      "duration": 3.556440591812134,
-      "num_token_in": 527,
-      "num_token_out": 72
+      "duration": 2.660750389099121,
+      "num_token_in": 525,
+      "num_token_out": 71
     },
     "primary_pt": "conceptually-sound",
     "primary_violation": "None (Valid.ExplicitRationale)",
     "is_pairwise": false,
     "is_individual": true
   },
-  "-333704583811177738": {
+  "-7548372633608206118": {
     "text": "As a Reader, I want to bookmark an article, so that I can find it later more easily",
     "role": [
       "Reader"
     ],
     "means": "bookmark an article",
     "ends": "I can find it later more easily",
-    "id": "story_-333704583811177738",
+    "id": "story_-7548372633608206118",
     "original_story": "As a Reader, I want to bookmark an article, so that I can find it later more easily",
-    "story_hash": "-333704583811177738",
+    "story_hash": "-7548372633608206118",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -438,8 +440,8 @@
       ]
     },
     "usage": {
-      "duration": 2.6308772563934326,
-      "num_token_in": 527,
+      "duration": 7.746356964111328,
+      "num_token_in": 525,
       "num_token_out": 72
     },
     "primary_pt": "conceptually-sound",
@@ -447,16 +449,16 @@
     "is_pairwise": false,
     "is_individual": true
   },
-  "-2110368476883067651": {
+  "6073941723029905914": {
     "text": "As a User, I want to filter search results, so that I can quickly focus on relevant items",
     "role": [
       "User"
     ],
     "means": "filter search results",
     "ends": "I can quickly focus on relevant items",
-    "id": "story_-2110368476883067651",
+    "id": "story_6073941723029905914",
     "original_story": "As a User, I want to filter search results, so that I can quickly focus on relevant items",
-    "story_hash": "-2110368476883067651",
+    "story_hash": "6073941723029905914",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -502,8 +504,8 @@
       ]
     },
     "usage": {
-      "duration": 2.83213472366333,
-      "num_token_in": 527,
+      "duration": 5.002922296524048,
+      "num_token_in": 525,
       "num_token_out": 72
     },
     "primary_pt": "conceptually-sound",

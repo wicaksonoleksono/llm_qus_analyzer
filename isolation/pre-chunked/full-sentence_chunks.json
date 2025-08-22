@@ -1,0 +1,498 @@
+{
+  "-6366281145398389420": {
+    "text": "As an Admins, I want to reset passwords, so that users can regain access.",
+    "role": [
+      "Admins"
+    ],
+    "means": "reset passwords",
+    "ends": "users can regain access",
+    "id": "story_-6366281145398389420",
+    "original_story": "As an Admins, I want to reset passwords, so that users can regain access.",
+    "story_hash": "-6366281145398389420",
+    "template_data": {
+      "text": "As an {ROLE}, I want to {MEANS}, so that {ENDS}.",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]"
+        ],
+        "[APPENDIX]": [
+          "[PUNCT]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "full-sentence"
+      ],
+      "expected_violations": [
+        "Explicit.ArticlePluralMismatch"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "full-sentence",
+          "violation": "Explicit.ArticlePluralMismatch"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 3.583115339279175,
+      "num_token_in": 522,
+      "num_token_out": 66
+    },
+    "primary_pt": "full-sentence",
+    "primary_violation": "Explicit.ArticlePluralMismatch",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-5792524216229498711": {
+    "text": "As Users. Want to export data.",
+    "role": [
+      "Users"
+    ],
+    "means": "export data",
+    "ends": null,
+    "id": "story_-5792524216229498711",
+    "original_story": "As Users. Want to export data.",
+    "story_hash": "-5792524216229498711",
+    "template_data": {
+      "text": "As {ROLE}. Want to {MEANS}.",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[APPENDIX]": [
+          "[PUNCT]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "full-sentence"
+      ],
+      "expected_violations": [
+        "Explicit.Fragment"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "full-sentence",
+          "violation": "Explicit.Fragment"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 2.692349672317505,
+      "num_token_in": 512,
+      "num_token_out": 51
+    },
+    "primary_pt": "full-sentence",
+    "primary_violation": "Explicit.Fragment",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-2210788572787107247": {
+    "text": "As a Manager, I review reports, they are approved by Finance.",
+    "role": [
+      "Manager"
+    ],
+    "means": "review reports, they are approved by Finance",
+    "ends": null,
+    "id": "story_-2210788572787107247",
+    "original_story": "As a Manager, I review reports, they are approved by Finance.",
+    "story_hash": "-2210788572787107247",
+    "template_data": {
+      "text": "As a {ROLE}, I {MEANS}.",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]"
+        ],
+        "[APPENDIX]": [
+          "[PUNCT]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "full-sentence"
+      ],
+      "expected_violations": [
+        "Implicit.CommaSplice"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "full-sentence",
+          "violation": "Implicit.CommaSplice"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 5.446789503097534,
+      "num_token_in": 518,
+      "num_token_out": 64
+    },
+    "primary_pt": "full-sentence",
+    "primary_violation": "Implicit.CommaSplice",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-5090645622089749130": {
+    "text": "As a Nurse, I review lab results and notify physicians when values are critical.",
+    "role": [
+      "Nurse"
+    ],
+    "means": "review lab results and notify physicians when values are critical",
+    "ends": null,
+    "id": "story_-5090645622089749130",
+    "original_story": "As a Nurse, I review lab results and notifies physicians when values are critical.",
+    "story_hash": "-5090645622089749130",
+    "template_data": {
+      "text": "As a {ROLE}, I {MEANS}.",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]"
+        ],
+        "[APPENDIX]": [
+          "[PUNCT]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "full-sentence"
+      ],
+      "expected_violations": [
+        "Implicit.SubjectVerbAgreement"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "full-sentence",
+          "violation": "Implicit.SubjectVerbAgreement"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 3.94583797454834,
+      "num_token_in": 521,
+      "num_token_out": 69
+    },
+    "primary_pt": "full-sentence",
+    "primary_violation": "Implicit.SubjectVerbAgreement",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-4761889943518254437": {
+    "text": "As a Reader, I want to save articles, so that I can find them later (at any time).",
+    "role": [
+      "Reader"
+    ],
+    "means": "save articles",
+    "ends": "I can find them later (at any time)",
+    "id": "story_-4761889943518254437",
+    "original_story": "As a Reader, I want to save articles, so that I can find them later (at any time.",
+    "story_hash": "-4761889943518254437",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]"
+        ]
+      },
+      "tail": ").",
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "full-sentence"
+      ],
+      "expected_violations": [
+        "None (Valid.FullSentence)"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "full-sentence",
+          "violation": "None (Valid.FullSentence)"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 2.565164566040039,
+      "num_token_in": 526,
+      "num_token_out": 75
+    },
+    "primary_pt": "full-sentence",
+    "primary_violation": "None (Valid.FullSentence)",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "-5102576158152720821": {
+    "text": "As a Customer, I want to reset my password, so that I can regain access to my account.",
+    "role": [
+      "Customer"
+    ],
+    "means": "reset my password",
+    "ends": "regain access to my account",
+    "id": "story_-5102576158152720821",
+    "original_story": "As a Customer, I want to reset my password, so that I can regain access to my account.",
+    "story_hash": "-5102576158152720821",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS}, so that I can {ENDS}.",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[PUNCT]",
+          "[SCONJ]",
+          "[SCONJ]",
+          "[PRON]",
+          "[AUX]"
+        ],
+        "[APPENDIX]": [
+          "[PUNCT]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "full-sentence"
+      ],
+      "expected_violations": [
+        "None (Valid.ExplicitFullSentence)"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "full-sentence",
+          "violation": "None (Valid.ExplicitFullSentence)"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 3.4241232872009277,
+      "num_token_in": 525,
+      "num_token_out": 71
+    },
+    "primary_pt": "full-sentence",
+    "primary_violation": "None (Valid.ExplicitFullSentence)",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "1870656727090308401": {
+    "text": "As Admins, we need to review flagged posts.",
+    "role": [
+      "Admins"
+    ],
+    "means": "review flagged posts",
+    "ends": null,
+    "id": "story_1870656727090308401",
+    "original_story": "As Admins, we need to review flagged posts.",
+    "story_hash": "1870656727090308401",
+    "template_data": {
+      "text": "As {ROLE}, we need to {MEANS}.",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[APPENDIX]": [
+          "[PUNCT]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "full-sentence"
+      ],
+      "expected_violations": [
+        "None (Valid.CloseToFalseNegative)"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "full-sentence",
+          "violation": "None (Valid.CloseToFalseNegative)"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 1.923217535018921,
+      "num_token_in": 515,
+      "num_token_out": 56
+    },
+    "primary_pt": "full-sentence",
+    "primary_violation": "None (Valid.CloseToFalseNegative)",
+    "is_pairwise": false,
+    "is_individual": true
+  },
+  "2800091108189010650": {
+    "text": "To reduce errors, operators verify each batch before shipping.",
+    "role": [
+      "operators"
+    ],
+    "means": "verify each batch before shipping",
+    "ends": "reduce errors",
+    "id": "story_2800091108189010650",
+    "original_story": "To reduce errors, operators verify each batch before shipping.",
+    "story_hash": "2800091108189010650",
+    "template_data": {
+      "text": "To {ENDS}, {ROLE} {MEANS}.",
+      "chunk": {
+        "[ENDS]": [
+          "[PART]"
+        ],
+        "[ROLE]": [
+          "[PUNCT]"
+        ],
+        "[MEANS]": [],
+        "[APPENDIX]": [
+          "[PUNCT]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ENDS]",
+        "[ROLE]",
+        "[MEANS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "full-sentence"
+      ],
+      "expected_violations": [
+        "None (Valid.CloseToFalseNegative)"
+      ],
+      "analysis_types": [
+        "individual"
+      ],
+      "pair_contexts": [],
+      "individual_contexts": [
+        {
+          "pt": "full-sentence",
+          "violation": "None (Valid.CloseToFalseNegative)"
+        }
+      ]
+    },
+    "usage": {
+      "duration": 1.9125151634216309,
+      "num_token_in": 515,
+      "num_token_out": 59
+    },
+    "primary_pt": "full-sentence",
+    "primary_violation": "None (Valid.CloseToFalseNegative)",
+    "is_pairwise": false,
+    "is_individual": true
+  }
+}

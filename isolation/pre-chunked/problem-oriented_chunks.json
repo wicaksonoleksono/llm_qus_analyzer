@@ -1,14 +1,14 @@
 {
-  "5123521175035003945": {
+  "-2197404873005852388": {
     "text": "As a User, I want a red 'Download CSV' button at the bottom of the page, so that I can export my data",
     "role": [
       "User"
     ],
     "means": "a red 'Download CSV' button at the bottom of the page",
     "ends": "I can export my data",
-    "id": "story_5123521175035003945",
+    "id": "story_-2197404873005852388",
     "original_story": "As a User, I want a red 'Download CSV' button at the bottom of the page, so that I can export my data",
-    "story_hash": "5123521175035003945",
+    "story_hash": "-2197404873005852388",
     "template_data": {
       "text": "As a {ROLE}, I want {MEANS}, so that {ENDS}",
       "chunk": {
@@ -53,7 +53,7 @@
       ]
     },
     "usage": {
-      "duration": 2.88584303855896,
+      "duration": 13.903239727020264,
       "num_token_in": 532,
       "num_token_out": 87
     },
@@ -62,16 +62,16 @@
     "is_pairwise": false,
     "is_individual": true
   },
-  "6668225298762797512": {
+  "3052451539571612165": {
     "text": "As a Customer, I want the system to use Redis caching, so that pages load faster",
     "role": [
       "Customer"
     ],
     "means": "the system uses Redis caching",
     "ends": "pages load faster",
-    "id": "story_6668225298762797512",
+    "id": "story_3052451539571612165",
     "original_story": "As a Customer, I want the system to use Redis caching, so that pages load faster",
-    "story_hash": "6668225298762797512",
+    "story_hash": "3052451539571612165",
     "template_data": {
       "text": "As a {ROLE}, I want {MEANS}, so that {ENDS}",
       "chunk": {
@@ -116,7 +116,7 @@
       ]
     },
     "usage": {
-      "duration": 2.4246466159820557,
+      "duration": 11.762239456176758,
       "num_token_in": 523,
       "num_token_out": 68
     },
@@ -125,16 +125,16 @@
     "is_pairwise": false,
     "is_individual": true
   },
-  "-1975201718084660563": {
+  "-6382758710725136405": {
     "text": "As a care professional I want to save a reimbursement. - Add save button on top right (never grayed out)",
     "role": [
       "care professional"
     ],
     "means": "Add save button on top right (never grayed out)",
     "ends": "save a reimbursement",
-    "id": "story_-1975201718084660563",
+    "id": "story_-6382758710725136405",
     "original_story": "As a care professional I want to save a reimbursement. - Add save button on top right (never grayed out)",
-    "story_hash": "-1975201718084660563",
+    "story_hash": "-6382758710725136405",
     "template_data": {
       "text": "As a {ROLE} I want to {ENDS}. - {MEANS}",
       "chunk": {
@@ -178,7 +178,7 @@
       ]
     },
     "usage": {
-      "duration": 2.2155959606170654,
+      "duration": 3.8966758251190186,
       "num_token_in": 528,
       "num_token_out": 80
     },
@@ -187,16 +187,16 @@
     "is_pairwise": false,
     "is_individual": true
   },
-  "-1922383099603054903": {
+  "7228430803005568025": {
     "text": "As a Shopper, I want to scan a QR code to pay, so that I can complete checkout quickly",
     "role": [
       "Shopper"
     ],
     "means": "scan a QR code to pay",
     "ends": "I can complete checkout quickly",
-    "id": "story_-1922383099603054903",
+    "id": "story_7228430803005568025",
     "original_story": "As a Shopper, I want to scan a QR code to pay, so that I can complete checkout quickly",
-    "story_hash": "-1922383099603054903",
+    "story_hash": "7228430803005568025",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -242,7 +242,7 @@
       ]
     },
     "usage": {
-      "duration": 2.0030057430267334,
+      "duration": 3.519090175628662,
       "num_token_in": 527,
       "num_token_out": 76
     },
@@ -251,16 +251,16 @@
     "is_pairwise": false,
     "is_individual": true
   },
-  "7722406897036032572": {
+  "-1763970782702726612": {
     "text": "As a Student, I want to confirm my submission, so that I receive an immediate on-screen confirmation",
     "role": [
       "Student"
     ],
     "means": "confirm my submission",
     "ends": "I receive an immediate on-screen confirmation",
-    "id": "story_7722406897036032572",
+    "id": "story_-1763970782702726612",
     "original_story": "As a Student, I want to confirm my submission, so that I receive an immediate on-screen confirmation",
-    "story_hash": "7722406897036032572",
+    "story_hash": "-1763970782702726612",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -306,7 +306,7 @@
       ]
     },
     "usage": {
-      "duration": 1.927473545074463,
+      "duration": 8.364481449127197,
       "num_token_in": 525,
       "num_token_out": 72
     },
@@ -315,16 +315,16 @@
     "is_pairwise": false,
     "is_individual": true
   },
-  "2709852713810704931": {
+  "8964988992856269959": {
     "text": "As a Nurse, I want to be alerted about critical lab results, so that I can respond promptly",
     "role": [
       "Nurse"
     ],
     "means": "be alerted about critical lab results",
     "ends": "I can respond promptly",
-    "id": "story_2709852713810704931",
+    "id": "story_8964988992856269959",
     "original_story": "As a Nurse, I want to be alerted about critical lab results, so that I can respond promptly",
-    "story_hash": "2709852713810704931",
+    "story_hash": "8964988992856269959",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -370,7 +370,7 @@
       ]
     },
     "usage": {
-      "duration": 1.9678330421447754,
+      "duration": 9.897339820861816,
       "num_token_in": 526,
       "num_token_out": 75
     },
@@ -379,16 +379,16 @@
     "is_pairwise": false,
     "is_individual": true
   },
-  "-1329467684251015475": {
+  "7217104619570714596": {
     "text": "As a Customer, I want to access my data outside the system, so that I can perform further analysis",
     "role": [
       "Customer"
     ],
     "means": "access my data outside the system",
     "ends": "I can perform further analysis",
-    "id": "story_-1329467684251015475",
+    "id": "story_7217104619570714596",
     "original_story": "As a Customer, I want to access my data outside the system, so that I can perform further analysis",
-    "story_hash": "-1329467684251015475",
+    "story_hash": "7217104619570714596",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -434,7 +434,7 @@
       ]
     },
     "usage": {
-      "duration": 2.605478286743164,
+      "duration": 2.7265782356262207,
       "num_token_in": 526,
       "num_token_out": 74
     },
@@ -443,16 +443,16 @@
     "is_pairwise": false,
     "is_individual": true
   },
-  "-3043416858468456788": {
+  "1831479847538584884": {
     "text": "As a Reader, I want to save interesting articles, so that I can find them later without searching again",
     "role": [
       "Reader"
     ],
     "means": "save interesting articles",
     "ends": "I can find them later without searching again",
-    "id": "story_-3043416858468456788",
+    "id": "story_1831479847538584884",
     "original_story": "As a Reader, I want to save interesting articles, so that I can find them later without searching again",
-    "story_hash": "-3043416858468456788",
+    "story_hash": "1831479847538584884",
     "template_data": {
       "text": "As a {ROLE}, I want to {MEANS}, so that {ENDS}",
       "chunk": {
@@ -498,7 +498,7 @@
       ]
     },
     "usage": {
-      "duration": 2.213407039642334,
+      "duration": 2.9312708377838135,
       "num_token_in": 526,
       "num_token_out": 74
     },
