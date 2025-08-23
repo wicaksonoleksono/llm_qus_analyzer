@@ -28,17 +28,17 @@
       },
       "detected_violations": [
         {
-          "issue": "Both stories have the same [Means] 'delete customer records' but contradictory [Ends]: 'comply with right-to-erasure requests' vs 'preserve historical analytics'",
-          "suggestion": "First story: Rewrite the first story to specify a condition or context where deletion is prioritized, e.g., upon receiving a valid erasure request. Second story: Rewrite the second story to explore alternative means to preserve historical analytics without deleting records, e.g., anonymizing data instead of deletion",
+          "issue": "Both stories have the same [Means] 'delete customer records' but contradictory [Ends] 'comply with right-to-erasure requests' and 'preserve historical analytics'",
+          "suggestion": "First story: Retain the story that aligns with the primary goal, e.g., complying with right-to-erasure requests, and consider an alternative means for preserving historical analytics, such as anonymizing data instead of deleting it. Second story: Modify the second story to use a different [Means] that does not conflict with the first, such as 'anonymize customer records' to preserve historical analytics while still allowing for compliance with erasure requests",
           "first_parts": [
             "means",
-            "role",
-            "ends"
+            "ends",
+            "role"
           ],
           "second_parts": [
             "means",
-            "role",
-            "ends"
+            "ends",
+            "role"
           ],
           "first_id": "story_1_1",
           "second_id": "story_1_2",
@@ -47,13 +47,14 @@
       ],
       "has_violations": true,
       "violation_count": 1,
+      "is_success": true,
       "usage_stats": {
-        "conflict-free-pairwise": "LLMUsage(duration=2.907280921936035, num_token_in=704, num_token_out=148)"
+        "conflict-free-pairwise": "LLMUsage(duration=3.0847413539886475, num_token_in=708, num_token_out=188)"
       }
     },
     {
       "pair_id": 2,
-      "expected_violation": "diffMeansSameEndIncompatible",
+      "expected_violation": "diffMeansSameEnd",
       "stories": [
         "As a Compliance Officer, I want to auto-delete inactive customer records after 30 days so that we comply with our retention policy.",
         "As a Compliance Officer, I want to retain inactive customer records for 1 year so that we comply with our retention policy."
@@ -76,34 +77,17 @@
       },
       "detected_violations": [
         {
-          "issue": "Same [Means] implied but contradictory state effects on the same object: 'auto-delete inactive customer records after 30 days' vs 'retain inactive customer records for 1 year'",
-          "suggestion": "Parameterize the retention period as a configurable value or setting, allowing Compliance Officers to set the desired retention duration",
+          "issue": "Same [Means] implied (managing inactive customer records) but with contradictory state effects on the same object (auto-delete after 30 days vs retain for 1 year), leading to incompatible constraints",
+          "suggestion": "First story: Revise story_2_1 to align with a retention policy that allows for a longer retention period, such as soft-delete and retain for 1 year. Second story: Revise story_2_2 to be more specific about the conditions under which inactive records are retained, and consider introducing a configurable retention period to accommodate different needs",
           "first_parts": [
             "means",
-            "role",
-            "ends"
+            "ends",
+            "role"
           ],
           "second_parts": [
             "means",
-            "role",
-            "ends"
-          ],
-          "first_id": "story_2_1",
-          "second_id": "story_2_2",
-          "violation_type": "pairwise"
-        },
-        {
-          "issue": "Same [Ends] but different and incompatible [Means]: 'auto-delete after 30 days' vs 'retain for 1 year'",
-          "suggestion": "Define a precedence or mode (e.g., feature flag or organizational setting) that determines whether to auto-delete or retain inactive records",
-          "first_parts": [
-            "means",
-            "role",
-            "ends"
-          ],
-          "second_parts": [
-            "means",
-            "role",
-            "ends"
+            "ends",
+            "role"
           ],
           "first_id": "story_2_1",
           "second_id": "story_2_2",
@@ -111,14 +95,15 @@
         }
       ],
       "has_violations": true,
-      "violation_count": 2,
+      "violation_count": 1,
+      "is_success": true,
       "usage_stats": {
-        "conflict-free-pairwise": "LLMUsage(duration=3.9163687229156494, num_token_in=715, num_token_out=276)"
+        "conflict-free-pairwise": "LLMUsage(duration=2.6822710037231445, num_token_in=719, num_token_out=174)"
       }
     },
     {
       "pair_id": 3,
-      "expected_violation": "None (Valid)",
+      "expected_violation": "None",
       "stories": [
         "As a Compliance Officer, I want to soft-delete customer records to a recycle bin so that they can be restored within 30 days.",
         "As a Compliance Officer, I want to permanently delete records that have been in the recycle bin for 30 days so that we reduce storage costs."
@@ -141,34 +126,17 @@
       },
       "detected_violations": [
         {
-          "issue": "The two stories have different [Means] (soft-delete vs permanent delete) toward related [Ends] (restoration vs cost reduction) on the same object (customer records), but they are not inherently incompatible as they apply to different stages of the record's lifecycle.",
-          "suggestion": "First story: Refactor story_3_1 to explicitly state the 30-day retention period as a constraint or acceptance criterion. Second story: Ensure story_3_2 is aligned with the retention period defined in story_3_1",
+          "issue": "The two stories have different [Means] (soft-delete vs permanent delete) toward related outcomes on the same object (customer records), but they are not inherently incompatible; however, they imply contradictory state effects on the same object (records being retained vs deleted).",
+          "suggestion": "First story: Define a lifecycle for customer records that includes soft-deletion and permanent deletion with clear retention policies.. Second story: Align the permanent deletion with the soft-deletion policy by ensuring that records are permanently deleted after the specified retention period.",
           "first_parts": [
             "means",
-            "role",
-            "ends"
+            "ends",
+            "role"
           ],
           "second_parts": [
             "means",
-            "role",
-            "ends"
-          ],
-          "first_id": "story_3_1",
-          "second_id": "story_3_2",
-          "violation_type": "pairwise"
-        },
-        {
-          "issue": "The [Means] of story_3_1 (soft-delete to recycle bin) and story_3_2 (permanently delete after 30 days) together define a lifecycle for customer records, but story_3_2's permanent deletion contradicts the potential need for restoration after 30 days if not properly coordinated",
-          "suggestion": "First story: Define a clear lifecycle for customer records that includes both soft-deletion and permanent deletion with a clear timeline. Second story: Specify in story_3_2 that permanent deletion occurs after the restoration period has expired",
-          "first_parts": [
-            "means",
-            "role",
-            "ends"
-          ],
-          "second_parts": [
-            "means",
-            "role",
-            "ends"
+            "ends",
+            "role"
           ],
           "first_id": "story_3_1",
           "second_id": "story_3_2",
@@ -176,14 +144,15 @@
         }
       ],
       "has_violations": true,
-      "violation_count": 2,
+      "violation_count": 1,
+      "is_success": true,
       "usage_stats": {
-        "conflict-free-pairwise": "LLMUsage(duration=5.257913112640381, num_token_in=720, num_token_out=317)"
+        "conflict-free-pairwise": "LLMUsage(duration=2.9692747592926025, num_token_in=724, num_token_out=163)"
       }
     },
     {
       "pair_id": 4,
-      "expected_violation": "None (Valid.CloseToFalseNegative)",
+      "expected_violation": "None.CloseToFalseNegative",
       "stories": [
         "As a Customer Support Agent, I want to delete draft customer records I created so that I can correct onboarding mistakes.",
         "As a Compliance Officer, I want to prevent agents from deleting approved customer records so that we maintain auditability."
@@ -206,17 +175,17 @@
       },
       "detected_violations": [
         {
-          "issue": "The [Means] of story_4_1 (delete draft customer records) and the [Means] of story_4_2 (prevent agents from deleting approved customer records) relate to the same object (customer records) but story_4_1 implies deletion is allowed for draft records created by the agent, while story_4_2 implies a restriction on deletion for approved records. Although they target different states of customer records (draft vs approved), they could potentially conflict if not properly scoped or constrained.",
-          "suggestion": "First story: Refine story_4_1 to explicitly state it only applies to 'draft' records and not 'approved' records, ensuring the deletion permission is clearly scoped to the record status.. Second story: For story_4_2, clarify that the prevention of deletion applies specifically to 'approved' customer records, and consider introducing a status check in the deletion process to enforce this rule.",
+          "issue": "The [Means] of story_4_1 (delete draft customer records) and the [Means] of story_4_2 (prevent agents from deleting approved customer records) relate to the same object (customer records) but story_4_1 implies deletion is allowed for draft records created by the agent, while story_4_2 implies a restriction on deletion for approved records. However, there's a potential clash because 'draft' and 'approved' are different states of customer records, and the stories don't directly contradict each other on the same state. Yet, they both deal with deletion permissions, which could be seen as related. The main issue arises if 'Customer Support Agent' tries to delete an 'approved' record, which is not explicitly limited to 'draft' in story_4_1.",
+          "suggestion": "First story: Refine story_4_1 to explicitly state it applies to 'draft' customer records created by the agent, ensuring clarity that it doesn't conflict with story_4_2's intent for 'approved' records.. Second story: Ensure story_4_2 is clear that it applies to 'approved' customer records, and consider adding a note or acceptance criteria that 'draft' records are out of scope for this restriction, aligning with the intent of story_4_1.",
           "first_parts": [
             "means",
-            "role",
-            "ends"
+            "ends",
+            "role"
           ],
           "second_parts": [
             "means",
-            "role",
-            "ends"
+            "ends",
+            "role"
           ],
           "first_id": "story_4_1",
           "second_id": "story_4_2",
@@ -225,15 +194,83 @@
       ],
       "has_violations": true,
       "violation_count": 1,
+      "is_success": true,
       "usage_stats": {
-        "conflict-free-pairwise": "LLMUsage(duration=3.328573703765869, num_token_in=709, num_token_out=245)"
+        "conflict-free-pairwise": "LLMUsage(duration=4.632119178771973, num_token_in=713, num_token_out=325)"
+      }
+    },
+    {
+      "pair_id": 5,
+      "expected_violation": "conflictScopeOverlap",
+      "stories": [
+        "As a User, I\u2019m able to edit any landmark.",
+        "As a User, I\u2019m able to delete only the landmarks that I added."
+      ],
+      "components": {
+        "story_1": {
+          "role": [
+            "User"
+          ],
+          "means": "edit any landmark",
+          "ends": null
+        },
+        "story_2": {
+          "role": [
+            "User"
+          ],
+          "means": "delete only the landmarks that I added",
+          "ends": null
+        }
+      },
+      "detected_violations": [
+        {
+          "issue": "Both user stories have the same [Role] ('User') but 'story_5_1' allows editing 'any landmark' while 'story_5_2' allows deleting 'only the landmarks that I added', indicating a potential clash in permissions or scope on the 'landmarks' object.",
+          "suggestion": "First story: Parameterize the editing capability to restrict it to landmarks added by the user, aligning with the scope of 'story_5_2'.. Second story: Retain 'story_5_2' as is and modify 'story_5_1' to include a permission check to ensure users can only edit landmarks they added.",
+          "first_parts": [
+            "means",
+            "ends",
+            "role"
+          ],
+          "second_parts": [
+            "means",
+            "ends",
+            "role"
+          ],
+          "first_id": "story_5_1",
+          "second_id": "story_5_2",
+          "violation_type": "pairwise"
+        },
+        {
+          "issue": "The [Means] of 'story_5_1' (edit any landmark) and 'story_5_2' (delete only the landmarks that I added) have different constraints on the same object (landmarks), potentially leading to inconsistent state or permissions.",
+          "suggestion": "First story: Introduce a permission matrix to govern edit and delete operations on landmarks based on ownership.. Second story: Refactor both stories to ensure that the operations (edit, delete) are restricted to landmarks added by the user, ensuring consistency.",
+          "first_parts": [
+            "means",
+            "ends",
+            "role"
+          ],
+          "second_parts": [
+            "means",
+            "ends",
+            "role"
+          ],
+          "first_id": "story_5_1",
+          "second_id": "story_5_2",
+          "violation_type": "pairwise"
+        }
+      ],
+      "has_violations": true,
+      "violation_count": 2,
+      "is_success": true,
+      "usage_stats": {
+        "conflict-free-pairwise": "LLMUsage(duration=5.933674573898315, num_token_in=700, num_token_out=335)"
       }
     }
   ],
   "summary": {
-    "total_pairs": 4,
-    "pairs_with_violations": 4,
+    "total_pairs": 5,
+    "pairs_with_violations": 5,
     "total_violations": 6,
-    "success_rate": 1.0
+    "success_rate": 1.0,
+    "successful_predictions": 5
   }
 }
