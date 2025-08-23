@@ -107,7 +107,8 @@ def create_component_from_chunk(chunk_data: Dict, story_id: str = None):
         means=chunk_data["means"],
         ends=chunk_data["ends"],
         template=template,
-        id=story_id or chunk_data.get("id")
+        id=story_id or chunk_data.get("id"),
+        original_text=chunk_data.get("original_story")
     )
 
 

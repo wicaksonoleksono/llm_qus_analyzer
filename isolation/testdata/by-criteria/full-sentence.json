@@ -1,22 +1,17 @@
 [
   {
-    "story": "As an Admins, I want to reset passwords, so that users can regain access.",
-    "violation": "Explicit.ArticlePluralMismatch",
-    "pt": "full-sentence"
-  },
-  {
-    "story": "As Users. Want to export data.",
+    "story": "As a User. Want to export data.",
     "violation": "Explicit.Fragment",
     "pt": "full-sentence"
   },
   {
-    "story": "As a Manager, I review reports, they are approved by Finance.",
-    "violation": "Implicit.CommaSplice",
+    "story": "As a Manager I review reports they are approved by Finance and we ship orders",
+    "violation": "Explicit.RunOn",
     "pt": "full-sentence"
   },
   {
-    "story": "As a Nurse, I review lab results and notifies physicians when values are critical.",
-    "violation": "Implicit.SubjectVerbAgreement",
+    "story": "As a Nurse, I review lab results, I notify physicians when values are critical.",
+    "violation": "Implicit.CommaSplice",
     "pt": "full-sentence"
   },
   {
@@ -25,17 +20,22 @@
     "pt": "full-sentence"
   },
   {
+    "story": "As a Librarian, I want to seach for books by title or author, so that I can assist patrons.",
+    "violation": "Implicit.Spelling",
+    "pt": "full-sentence"
+  },
+  {
     "story": "As a Customer, I want to reset my password, so that I can regain access to my account.",
     "violation": "None (Valid.ExplicitFullSentence)",
     "pt": "full-sentence"
   },
   {
-    "story": "As Admins, we need to review flagged posts.",
+    "story": "As Operators, we want to verify each batch before shipping, so that we reduce errors.",
     "violation": "None (Valid.CloseToFalseNegative)",
     "pt": "full-sentence"
   },
   {
-    "story": "To reduce errors, operators verify each batch before shipping.",
+    "story": "As admins, we need to review flagged posts.",
     "violation": "None (Valid.CloseToFalseNegative)",
     "pt": "full-sentence"
   }
