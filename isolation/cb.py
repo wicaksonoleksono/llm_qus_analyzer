@@ -62,6 +62,7 @@ def chunk_criteria_stories(client: LLMClient, chunker: QUSChunkerModel,
     chunks = existing_chunks.copy() if existing_chunks else {}
     stories_to_chunk = []
     story_metadata = {}
+    story_id_counter = 1  # Simple sequential counter
     
     print(f"Analyzing {len(test_data)} items for '{criteria}' criteria")
     
@@ -73,11 +74,49 @@ def chunk_criteria_stories(client: LLMClient, chunker: QUSChunkerModel,
             violation = item.get("violation", "")
             
             for idx, story in enumerate(stories):
-                story_hash = str(hash(story))
+                # Check if story already processed
+                if story not in [s[0] for s in stories_to_chunk]:
+                    story_id = f"story_{story_id_counter}"
+                    
+                    # Store metadata for this story  
+                    if story_id not in story_metadata:
+                        story_metadata[story_id] = {
+                            "pt_categories": set(),
+                            "expected_violations": set(),
+                            "analysis_types": set(),
+                            "pair_contexts": [],
+                            "individual_contexts": []
+                        }
+                    
+                    story_metadata[story_id]["pt_categories"].add(criteria)
+                    story_metadata[story_id]["expected_violations"].add(violation)
+                    story_metadata[story_id]["analysis_types"].add("pairwise")
+                    
+                    # Store pair context
+                    other_story_id = f"story_{story_id_counter + (1 if idx == 0 else -1)}"
+                    story_metadata[story_id]["pair_contexts"].append({
+                        "pt": criteria,
+                        "violation": violation,
+                        "position_in_pair": idx + 1,
+                        "paired_with_id": other_story_id
+                    })
+                    
+                    if story_id not in chunks:
+                        stories_to_chunk.append((story, story_id))
+                        story_id_counter += 1
+        
+        elif "story" in item:
+            # Individual stories (individual analyzers)
+            story = item["story"]
+            
+            # Check if story already processed
+            if story not in [s[0] for s in stories_to_chunk]:
+                story_id = f"story_{story_id_counter}"
+                violation = item.get("violation", "")
                 
                 # Store metadata for this story
-                if story_hash not in story_metadata:
-                    story_metadata[story_hash] = {
+                if story_id not in story_metadata:
+                    story_metadata[story_id] = {
                         "pt_categories": set(),
                         "expected_violations": set(),
                         "analysis_types": set(),
@@ -85,60 +124,29 @@ def chunk_criteria_stories(client: LLMClient, chunker: QUSChunkerModel,
                         "individual_contexts": []
                     }
                 
-                story_metadata[story_hash]["pt_categories"].add(criteria)
-                story_metadata[story_hash]["expected_violations"].add(violation)
-                story_metadata[story_hash]["analysis_types"].add("pairwise")
-                
-                # Store pair context
-                other_story_hash = str(hash(stories[1 - idx]))
-                story_metadata[story_hash]["pair_contexts"].append({
+                story_metadata[story_id]["pt_categories"].add(criteria)
+                story_metadata[story_id]["expected_violations"].add(violation)
+                story_metadata[story_id]["analysis_types"].add("individual")
+                story_metadata[story_id]["individual_contexts"].append({
                     "pt": criteria,
-                    "violation": violation,
-                    "position_in_pair": idx + 1,
-                    "paired_with_hash": other_story_hash
+                    "violation": violation
                 })
                 
-                if story not in [s[0] for s in stories_to_chunk] and story_hash not in chunks:
-                    stories_to_chunk.append((story, story_hash))
-        
-        elif "story" in item:
-            # Individual stories (individual analyzers)
-            story = item["story"]
-            story_hash = str(hash(story))
-            violation = item.get("violation", "")
-            
-            # Store metadata for this story
-            if story_hash not in story_metadata:
-                story_metadata[story_hash] = {
-                    "pt_categories": set(),
-                    "expected_violations": set(),
-                    "analysis_types": set(),
-                    "pair_contexts": [],
-                    "individual_contexts": []
-                }
-            
-            story_metadata[story_hash]["pt_categories"].add(criteria)
-            story_metadata[story_hash]["expected_violations"].add(violation)
-            story_metadata[story_hash]["analysis_types"].add("individual")
-            story_metadata[story_hash]["individual_contexts"].append({
-                "pt": criteria,
-                "violation": violation
-            })
-            
-            if story not in [s[0] for s in stories_to_chunk] and story_hash not in chunks:
-                stories_to_chunk.append((story, story_hash))
+                if story_id not in chunks:
+                    stories_to_chunk.append((story, story_id))
+                    story_id_counter += 1
     
     print(f"Found {len(stories_to_chunk)} unique stories to chunk")
     
     # Chunk each story
-    for i, (story, story_hash) in enumerate(stories_to_chunk):
+    for i, (story, story_id) in enumerate(stories_to_chunk):
         print(f"Chunking story {i+1}/{len(stories_to_chunk)}: {story[:50]}...")
         
         try:
-            component, usage = chunker.analyze_single(client, 0, story, f"story_{story_hash}")
+            component, usage = chunker.analyze_single(client, 0, story, story_id)
             
             # Get metadata for this story
-            metadata = story_metadata.get(story_hash, {})
+            metadata = story_metadata.get(story_id, {})
             
             # Convert sets to lists for JSON serialization
             serializable_metadata = {
@@ -165,7 +173,7 @@ def chunk_criteria_stories(client: LLMClient, chunker: QUSChunkerModel,
                 "ends": component.ends,
                 "id": component.id,
                 "original_story": story,
-                "story_hash": story_hash,
+                "story_id": story_id,
                 
                 # Store complete template for proper reconstruction
                 "template_data": template_data,
@@ -186,7 +194,7 @@ def chunk_criteria_stories(client: LLMClient, chunker: QUSChunkerModel,
                 "is_individual": "individual" in serializable_metadata["analysis_types"]
             }
             
-            chunks[story_hash] = chunk_data
+            chunks[story_id] = chunk_data
             
             # Rate limiting
             time.sleep(1)

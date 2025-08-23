@@ -1,66 +1,34 @@
 [
   {
     "stories": [
-      "As a User, I want to delete posts so that I remove spam.",
-      "As a User, I want to delete posts so that I hide content temporarily."
+      "As a Compliance Officer, I want to delete customer records so that we comply with right-to-erasure requests.",
+      "As a Compliance Officer, I want to delete customer records so that we preserve historical analytics."
     ],
     "violation": "sameMeansDiffEnd",
     "pt": "conflict-free"
   },
   {
     "stories": [
-      "As a Shopper, I want to favorite products so that I find them later.",
-      "As a Shopper, I want to bookmark products so that I find them later."
+      "As a Compliance Officer, I want to auto-delete inactive customer records after 30 days so that we comply with our retention policy.",
+      "As a Compliance Officer, I want to retain inactive customer records for 1 year so that we comply with our retention policy."
     ],
-    "violation": "diffMeansSameEnd",
+    "violation": "diffMeansSameEndIncompatible",
     "pt": "conflict-free"
   },
   {
     "stories": [
-      "As a Driver, I want to pay tolls with cash so that I pass the gate.",
-      "As a Driver, I want to pass tolls without payment so that I pass the gate."
+      "As a Compliance Officer, I want to soft-delete customer records to a recycle bin so that they can be restored within 30 days.",
+      "As a Compliance Officer, I want to permanently delete records that have been in the recycle bin for 30 days so that we reduce storage costs."
     ],
-    "violation": "diffMeansSameEnd",
+    "violation": "None (Valid)",
     "pt": "conflict-free"
   },
   {
     "stories": [
-      "As a Guest, I want to view all photos so that I enjoy the gallery.",
-      "As an Owner, I want Guests to view only public photos so that I protect privacy."
+      "As a Customer Support Agent, I want to delete draft customer records I created so that I can correct onboarding mistakes.",
+      "As a Compliance Officer, I want to prevent agents from deleting approved customer records so that we maintain auditability."
     ],
-    "violation": "diffRoleSameStory",
-    "pt": "conflict-free"
-  },
-  {
-    "stories": [
-      "As a User, I want to edit profiles so that I update my information.",
-      "As a User, I want to edit profiles so that I change other users' information."
-    ],
-    "violation": "sameMeansDiffEnd",
-    "pt": "conflict-free"
-  },
-  {
-    "stories": [
-      "As a Shopper, I want to favorite products so that I find them later.",
-      "As a Shopper, I want to bookmark products so that I find them later."
-    ],
-    "violation": "diffMeansSameEnd",
-    "pt": "conflict-free"
-  },
-  {
-    "stories": [
-      "As a Guest, I want to view all photos so that I enjoy the gallery.",
-      "As an Owner, I want Guests to view only public photos so that I protect privacy."
-    ],
-    "violation": "diffRoleSameStory",
-    "pt": "conflict-free"
-  },
-  {
-    "stories": [
-      "As a User, I want to edit profiles so that I update my information.",
-      "As a User, I want to edit profiles so that I change other users' information."
-    ],
-    "violation": "sameMeansDiffEnd",
+    "violation": "None (Valid.CloseToFalseNegative)",
     "pt": "conflict-free"
   }
 ]

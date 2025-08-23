@@ -1,0 +1,546 @@
+{
+  "story_1": {
+    "text": "As a Compliance Officer, I want to delete customer records so that we comply with right-to-erasure requests.",
+    "role": [
+      "Compliance Officer"
+    ],
+    "means": "delete customer records",
+    "ends": "we comply with right-to-erasure requests",
+    "id": "story_1",
+    "original_story": "As a Compliance Officer, I want to delete customer records so that we comply with right-to-erasure requests.",
+    "story_id": "story_1",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS} so that {ENDS}.",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[SCONJ]",
+          "[SCONJ]"
+        ],
+        "[APPENDIX]": [
+          "[PUNCT]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "conflict-free"
+      ],
+      "expected_violations": [
+        "sameMeansDiffEnd"
+      ],
+      "analysis_types": [
+        "pairwise"
+      ],
+      "pair_contexts": [
+        {
+          "pt": "conflict-free",
+          "violation": "sameMeansDiffEnd",
+          "position_in_pair": 1,
+          "paired_with_id": "story_2"
+        }
+      ],
+      "individual_contexts": []
+    },
+    "usage": {
+      "duration": 2.496173143386841,
+      "num_token_in": 526,
+      "num_token_out": 75
+    },
+    "primary_pt": "conflict-free",
+    "primary_violation": "sameMeansDiffEnd",
+    "is_pairwise": true,
+    "is_individual": false
+  },
+  "story_2": {
+    "text": "As a Compliance Officer, I want to delete customer records so that we preserve historical analytics.",
+    "role": [
+      "Compliance Officer"
+    ],
+    "means": "delete customer records",
+    "ends": "we preserve historical analytics",
+    "id": "story_2",
+    "original_story": "As a Compliance Officer, I want to delete customer records so that we preserve historical analytics.",
+    "story_id": "story_2",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS} so that {ENDS}.",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[SCONJ]",
+          "[SCONJ]"
+        ],
+        "[APPENDIX]": [
+          "[PUNCT]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "conflict-free"
+      ],
+      "expected_violations": [
+        "sameMeansDiffEnd"
+      ],
+      "analysis_types": [
+        "pairwise"
+      ],
+      "pair_contexts": [
+        {
+          "pt": "conflict-free",
+          "violation": "sameMeansDiffEnd",
+          "position_in_pair": 2,
+          "paired_with_id": "story_1"
+        }
+      ],
+      "individual_contexts": []
+    },
+    "usage": {
+      "duration": 2.303298234939575,
+      "num_token_in": 522,
+      "num_token_out": 67
+    },
+    "primary_pt": "conflict-free",
+    "primary_violation": "sameMeansDiffEnd",
+    "is_pairwise": true,
+    "is_individual": false
+  },
+  "story_3": {
+    "text": "As a Compliance Officer, I want to auto-delete inactive customer records after 30 days so that we comply with our retention policy.",
+    "role": [
+      "Compliance Officer"
+    ],
+    "means": "auto-delete inactive customer records after 30 days",
+    "ends": "we comply with our retention policy",
+    "id": "story_3",
+    "original_story": "As a Compliance Officer, I want to auto-delete inactive customer records after 30 days so that we comply with our retention policy.",
+    "story_id": "story_3",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS} so that {ENDS}.",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[SCONJ]",
+          "[SCONJ]"
+        ],
+        "[APPENDIX]": [
+          "[PUNCT]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "conflict-free"
+      ],
+      "expected_violations": [
+        "diffMeansSameEndIncompatible"
+      ],
+      "analysis_types": [
+        "pairwise"
+      ],
+      "pair_contexts": [
+        {
+          "pt": "conflict-free",
+          "violation": "diffMeansSameEndIncompatible",
+          "position_in_pair": 1,
+          "paired_with_id": "story_4"
+        }
+      ],
+      "individual_contexts": []
+    },
+    "usage": {
+      "duration": 1.8859610557556152,
+      "num_token_in": 530,
+      "num_token_out": 83
+    },
+    "primary_pt": "conflict-free",
+    "primary_violation": "diffMeansSameEndIncompatible",
+    "is_pairwise": true,
+    "is_individual": false
+  },
+  "story_4": {
+    "text": "As a Compliance Officer, I want to retain inactive customer records for 1 year so that we comply with our retention policy.",
+    "role": [
+      "Compliance Officer"
+    ],
+    "means": "retain inactive customer records for 1 year",
+    "ends": "we comply with our retention policy",
+    "id": "story_4",
+    "original_story": "As a Compliance Officer, I want to retain inactive customer records for 1 year so that we comply with our retention policy.",
+    "story_id": "story_4",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS} so that {ENDS}.",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[SCONJ]",
+          "[SCONJ]"
+        ],
+        "[APPENDIX]": [
+          "[PUNCT]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "conflict-free"
+      ],
+      "expected_violations": [
+        "diffMeansSameEndIncompatible"
+      ],
+      "analysis_types": [
+        "pairwise"
+      ],
+      "pair_contexts": [
+        {
+          "pt": "conflict-free",
+          "violation": "diffMeansSameEndIncompatible",
+          "position_in_pair": 2,
+          "paired_with_id": "story_3"
+        }
+      ],
+      "individual_contexts": []
+    },
+    "usage": {
+      "duration": 1.6336438655853271,
+      "num_token_in": 529,
+      "num_token_out": 81
+    },
+    "primary_pt": "conflict-free",
+    "primary_violation": "diffMeansSameEndIncompatible",
+    "is_pairwise": true,
+    "is_individual": false
+  },
+  "story_5": {
+    "text": "As a Compliance Officer, I want to soft-delete customer records to a recycle bin so that they can be restored within 30 days.",
+    "role": [
+      "Compliance Officer"
+    ],
+    "means": "soft-delete customer records to a recycle bin",
+    "ends": "they can be restored within 30 days",
+    "id": "story_5",
+    "original_story": "As a Compliance Officer, I want to soft-delete customer records to a recycle bin so that they can be restored within 30 days.",
+    "story_id": "story_5",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS} so that {ENDS}.",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[SCONJ]",
+          "[SCONJ]"
+        ],
+        "[APPENDIX]": [
+          "[PUNCT]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "conflict-free"
+      ],
+      "expected_violations": [
+        "None (Valid)"
+      ],
+      "analysis_types": [
+        "pairwise"
+      ],
+      "pair_contexts": [
+        {
+          "pt": "conflict-free",
+          "violation": "None (Valid)",
+          "position_in_pair": 1,
+          "paired_with_id": "story_6"
+        }
+      ],
+      "individual_contexts": []
+    },
+    "usage": {
+      "duration": 1.4463913440704346,
+      "num_token_in": 531,
+      "num_token_out": 85
+    },
+    "primary_pt": "conflict-free",
+    "primary_violation": "None (Valid)",
+    "is_pairwise": true,
+    "is_individual": false
+  },
+  "story_6": {
+    "text": "As a Compliance Officer, I want to permanently delete records that have been in the recycle bin for 30 days so that we reduce storage costs.",
+    "role": [
+      "Compliance Officer"
+    ],
+    "means": "permanently delete records that have been in the recycle bin for 30 days",
+    "ends": "we reduce storage costs",
+    "id": "story_6",
+    "original_story": "As a Compliance Officer, I want to permanently delete records that have been in the recycle bin for 30 days so that we reduce storage costs.",
+    "story_id": "story_6",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS} so that {ENDS}.",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[SCONJ]",
+          "[SCONJ]"
+        ],
+        "[APPENDIX]": [
+          "[PUNCT]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "conflict-free"
+      ],
+      "expected_violations": [
+        "None (Valid)"
+      ],
+      "analysis_types": [
+        "pairwise"
+      ],
+      "pair_contexts": [
+        {
+          "pt": "conflict-free",
+          "violation": "None (Valid)",
+          "position_in_pair": 2,
+          "paired_with_id": "story_5"
+        }
+      ],
+      "individual_contexts": []
+    },
+    "usage": {
+      "duration": 1.502103567123413,
+      "num_token_in": 533,
+      "num_token_out": 91
+    },
+    "primary_pt": "conflict-free",
+    "primary_violation": "None (Valid)",
+    "is_pairwise": true,
+    "is_individual": false
+  },
+  "story_7": {
+    "text": "As a Customer Support Agent, I want to delete draft customer records I created so that I can correct onboarding mistakes.",
+    "role": [
+      "Customer Support Agent"
+    ],
+    "means": "delete draft customer records I created",
+    "ends": "I can correct onboarding mistakes",
+    "id": "story_7",
+    "original_story": "As a Customer Support Agent, I want to delete draft customer records I created so that I can correct onboarding mistakes.",
+    "story_id": "story_7",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS} so that {ENDS}.",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[SCONJ]",
+          "[SCONJ]"
+        ],
+        "[APPENDIX]": [
+          "[PUNCT]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "conflict-free"
+      ],
+      "expected_violations": [
+        "None (Valid.CloseToFalseNegative)"
+      ],
+      "analysis_types": [
+        "pairwise"
+      ],
+      "pair_contexts": [
+        {
+          "pt": "conflict-free",
+          "violation": "None (Valid.CloseToFalseNegative)",
+          "position_in_pair": 1,
+          "paired_with_id": "story_8"
+        }
+      ],
+      "individual_contexts": []
+    },
+    "usage": {
+      "duration": 1.5665242671966553,
+      "num_token_in": 527,
+      "num_token_out": 77
+    },
+    "primary_pt": "conflict-free",
+    "primary_violation": "None (Valid.CloseToFalseNegative)",
+    "is_pairwise": true,
+    "is_individual": false
+  },
+  "story_8": {
+    "text": "As a Compliance Officer, I want to prevent agents from deleting approved customer records so that we maintain auditability.",
+    "role": [
+      "Compliance Officer"
+    ],
+    "means": "prevent agents from deleting approved customer records",
+    "ends": "we maintain auditability",
+    "id": "story_8",
+    "original_story": "As a Compliance Officer, I want to prevent agents from deleting approved customer records so that we maintain auditability.",
+    "story_id": "story_8",
+    "template_data": {
+      "text": "As a {ROLE}, I want to {MEANS} so that {ENDS}.",
+      "chunk": {
+        "[ROLE]": [
+          "[ADP]",
+          "[DET]"
+        ],
+        "[MEANS]": [
+          "[PUNCT]",
+          "[PRON]",
+          "[VERB]",
+          "[PART]"
+        ],
+        "[ENDS]": [
+          "[SCONJ]",
+          "[SCONJ]"
+        ],
+        "[APPENDIX]": [
+          "[PUNCT]"
+        ]
+      },
+      "tail": null,
+      "order": [
+        "[ROLE]",
+        "[MEANS]",
+        "[ENDS]"
+      ]
+    },
+    "tags": {
+      "pt_categories": [
+        "conflict-free"
+      ],
+      "expected_violations": [
+        "None (Valid.CloseToFalseNegative)"
+      ],
+      "analysis_types": [
+        "pairwise"
+      ],
+      "pair_contexts": [
+        {
+          "pt": "conflict-free",
+          "violation": "None (Valid.CloseToFalseNegative)",
+          "position_in_pair": 2,
+          "paired_with_id": "story_7"
+        }
+      ],
+      "individual_contexts": []
+    },
+    "usage": {
+      "duration": 1.806337594985962,
+      "num_token_in": 526,
+      "num_token_out": 75
+    },
+    "primary_pt": "conflict-free",
+    "primary_violation": "None (Valid.CloseToFalseNegative)",
+    "is_pairwise": true,
+    "is_individual": false
+  }
+}

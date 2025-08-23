@@ -246,7 +246,7 @@ async def analyze_criteria_set(client: LLMClient, test_data: List[Dict],
         chunk1 = None
         chunk2 = None
         
-        for chunk_hash, chunk_data in chunks.items():
+        for chunk_id, chunk_data in chunks.items():
             if chunk_data.get("original_story") == stories[0]:
                 chunk1 = chunk_data
             elif chunk_data.get("original_story") == stories[1]:
@@ -304,6 +304,94 @@ async def analyze_criteria_set(client: LLMClient, test_data: List[Dict],
     
     if results["summary"]["total_pairs"] > 0:
         results["summary"]["success_rate"] = results["summary"]["pairs_with_violations"] / results["summary"]["total_pairs"]
+    
+    return results
+
+
+
+async def analyze_criteria_set_fullset(client: LLMClient, test_data: List[Dict], 
+                                 chunks: Dict, criteria: str) -> Dict:
+    """Analyze set criteria using full-set analysis only."""
+    
+    analyzer = ANALYZER_MAP[criteria]
+    results = {
+        "criteria": criteria,
+        "analyzer_type": "set_fullset",
+        "analyzer_name": analyzer.__name__,
+        "violations": [],
+        "summary": {
+            "total_violations": 0,
+            "has_violations": False
+        }
+    }
+    
+    # Build component list from all unique stories
+    all_components = []
+    story_to_component = {}
+    story_id_mapping = {}  # Maps LLM story position (1-indexed) to original story text
+    
+    # Filter test data for this criteria and collect unique stories  
+    criteria_items = [item for item in test_data 
+                     if item.get("pt") == criteria and "stories" in item]
+    
+    print(f"Analyzing {len(criteria_items)} pairs for '{criteria}' criteria (fullset mode)")
+    
+    for i, item in enumerate(criteria_items):
+        if len(item["stories"]) != 2:
+            continue
+            
+        stories = item["stories"]
+        
+        for story in stories:
+            if story not in story_to_component:
+                # Find chunk by original story text
+                chunk_data = None
+                for chunk_id, chunk in chunks.items():
+                    if chunk.get("original_story") == story:
+                        chunk_data = chunk
+                        break
+                
+                if chunk_data:
+                    component = create_component_from_chunk(chunk_data, f"story_{len(all_components)+1}")
+                    story_to_component[story] = component
+                    all_components.append(component)
+                    # Map LLM story number (1-indexed) to original story text
+                    story_id_mapping[len(all_components)] = story
+    
+    print(f"  Built component set of {len(all_components)} unique stories")
+    print(f"  Story ID mapping: {story_id_mapping}")
+    
+    # Run fullset analysis if we have enough components
+    if len(all_components) >= 2:
+        fullset_violations, usage_dict = await safe_analyzer_call_async(
+            analyzer.run, client, 0, all_components, mode="fullset"
+        )
+        
+        # Process results with story mapping  
+        processed_violations = []
+        for v in fullset_violations:
+            # Map LLM story IDs back to original stories
+            mapped_stories = []
+            for story_id in v.story_ids:
+                if story_id in story_id_mapping:
+                    mapped_stories.append(story_id_mapping[story_id])
+                else:
+                    mapped_stories.append(f"story_{story_id}")  # fallback
+            
+            processed_violations.append({
+                "issue": v.issue,
+                "suggestion": v.suggestion,
+                "story_ids": v.story_ids,  # Original LLM IDs
+                "original_stories": mapped_stories,  # Mapped back to actual story text
+                "parts_per_story": [list(parts) for parts in v.parts_per_story],
+                "violation_type": "fullset"
+            })
+        
+        results["violations"] = processed_violations
+        results["story_mapping"] = story_id_mapping  # Include mapping for validation
+        results["summary"]["total_violations"] = len(fullset_violations)
+        results["summary"]["has_violations"] = len(fullset_violations) > 0
+        results["usage_stats"] = usage_dict
     
     return results
 
@@ -379,7 +467,7 @@ async def analyze_criteria_individual(client: LLMClient, test_data: List[Dict],
         # Find chunk by original story text
         chunk_data = None
         
-        for chunk_hash, chunk in chunks.items():
+        for chunk_id, chunk in chunks.items():
             if chunk.get("original_story") == story:
                 chunk_data = chunk
                 break
@@ -508,6 +596,8 @@ async def main():
                        help='Only analyze individual criteria')
     parser.add_argument('--revise-only', '-r', action='store_true',
                        help='Only re-analyze stories with "is_success": false')
+    parser.add_argument('--type', '-t', choices=['p', 'a'], default='p',
+                       help='Analysis type for set criteria: p=pairwise, a=all (fullset)')
     
     args = parser.parse_args()
     
@@ -601,8 +691,16 @@ async def main():
             chunks = load_chunks(str(chunks_file))
             test_data = load_test_data(str(test_data_file))
             
+            # Create filename with analysis mode suffix
+            mode_suffix = ""
+            if criteria in SET_CATEGORIES:
+                if args.type == 'p':
+                    mode_suffix = "-pair"
+                elif args.type == 'a':
+                    mode_suffix = "-free"
+            
             # Load existing results if available
-            criteria_file = output_dir / f"{criteria}_analysis.json"
+            criteria_file = output_dir / f"{criteria}{mode_suffix}_analysis.json"
             existing_results = load_existing_results(str(criteria_file))
             existing_count = len(existing_results.get("stories", [])) if "stories" in existing_results else 0
             
@@ -614,21 +712,40 @@ async def main():
                 continue
             
             if criteria in SET_CATEGORIES:
-                results = await analyze_criteria_set(client, test_data, chunks, criteria)
+                if args.type == 'p':
+                    results = await analyze_criteria_set(client, test_data, chunks, criteria)
+                elif args.type == 'a':
+                    results = await analyze_criteria_set_fullset(client, test_data, chunks, criteria)
             else:
                 results = await analyze_criteria_individual(client, test_data, chunks, criteria, existing_results, args.revise_only)
             
             all_results[criteria] = results
             
             # Save individual criteria results
-            criteria_file = output_dir / f"{criteria}_analysis.json"
+            criteria_file = output_dir / f"{criteria}{mode_suffix}_analysis.json"
             with open(criteria_file, 'w') as f:
                 json.dump(results, f, indent=2, default=str)
             
-            new_count = len(results["stories"]) - existing_count
             print(f"\n✅ Results saved: {criteria_file}")
-            print(f"📊 Processed {len(results['stories'])} total stories ({new_count} new, {existing_count} existing)")
-            print(f"Summary: {results['summary']}")
+            
+            if results.get("analyzer_type") == "set_fullset":
+                # Fullset mode reporting
+                total_violations = results["summary"]["total_violations"]
+                has_violations = results["summary"]["has_violations"]
+                print(f"📦 Full-set Analysis Results:")
+                print(f"   Total violations: {total_violations}")
+                print(f"   Has violations: {has_violations}")
+            elif "stories" in results:
+                # Individual mode reporting
+                new_count = len(results["stories"]) - existing_count
+                print(f"📊 Processed {len(results['stories'])} total stories ({new_count} new, {existing_count} existing)")
+                print(f"Summary: {results['summary']}")
+            else:
+                # Set mode reporting
+                total_pairs = results.get("summary", {}).get("total_pairs", 0)
+                pairs_with_violations = results.get("summary", {}).get("pairs_with_violations", 0)
+                print(f"📊 Processed {total_pairs} pairs ({pairs_with_violations} with violations)")
+                print(f"Summary: {results['summary']}")
         
         print(f"\n{'='*60}")
         print(f"PER-CRITERIA ANALYSIS COMPLETE!")
