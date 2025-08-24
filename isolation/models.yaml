@@ -1,0 +1,5 @@
+models:
+  - id: "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8"
+    name: "Lamma 17B-Instruct FP8"
+  - id: "mistralai/Mistral-7B-Instruct-v0.3"
+    name: "Mistral 7B-Instruct v0.3"

@@ -709,8 +709,8 @@ async def main():
     output_dir = Path(__file__).parent / "output"
     pre_chunked_dir = Path(__file__).parent / "pre-chunked"
     testdata_dir = Path(__file__).parent / "testdata" / "by-criteria"
-    models_path = Path(__file__).parent.parent / "models.yaml"
-    env_path = Path(__file__).parent.parent / ".env"
+    models_path = Path(__file__).parent / "models.yaml"
+    env_path = Path(__file__).parent / ".env"
 
     # Create output directory
     output_dir.mkdir(exist_ok=True)

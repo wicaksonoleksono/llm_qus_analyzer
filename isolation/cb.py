@@ -220,8 +220,8 @@ def main():
     args = parser.parse_args()
 
     # Configuration
-    models_path = Path(__file__).parent.parent / "models.yaml"
-    env_path = Path(__file__).parent.parent / ".env"
+    models_path = Path(__file__).parent / "models.yaml"
+    env_path = Path(__file__).parent / ".env"
     pre_chunked_dir = Path(__file__).parent / "pre-chunked"
 
     # Handle --list flag
