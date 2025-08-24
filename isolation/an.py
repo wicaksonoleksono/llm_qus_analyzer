@@ -29,6 +29,9 @@ from llm_qus_analyzer.individual.problem_oriented import ProblemOrientedAnalyzer
 from llm_qus_analyzer.individual.full_sentence import FullSentenceAnalyzer
 from llm_qus_analyzer.individual.estimatable import EstimatableAnalyzer
 from llm_qus_analyzer.individual.unambigous import UnambiguousAnalyzer
+from llm_qus_analyzer.individual.atomic import AtomicAnalyzer
+from llm_qus_analyzer.individual.minimal import MinimalAnalyzer
+from llm_qus_analyzer.individual.well_form import WellFormAnalyzer
 
 
 # Set analyzers
@@ -49,10 +52,13 @@ ANALYZER_MAP = {
     "full-sentence": FullSentenceAnalyzer,
     "estimatable": EstimatableAnalyzer,
     "unambiguous": UnambiguousAnalyzer,
+    "atomic": AtomicAnalyzer,
+    "minimal": MinimalAnalyzer,
+    "well-formed": WellFormAnalyzer,
 }
 
 SET_CATEGORIES = ["conflict-free", "complete", "independent", "unique"]
-INDIVIDUAL_CATEGORIES = ["conceptually-sound", "problem-oriented", "full-sentence", "estimatable", "unambiguous"]
+INDIVIDUAL_CATEGORIES = ["conceptually-sound", "problem-oriented", "full-sentence", "estimatable", "unambiguous", "atomic", "minimal", "well-formed"]
 
 
 def load_chunks(file_path: str) -> Dict:
@@ -376,25 +382,24 @@ async def analyze_criteria_set_fullset(client: LLMClient, test_data: List[Dict],
         }
     }
 
-    # Build component list from all unique stories and track expected violations
+    # Build component list preserving all stories (including duplicates for unique analysis)
     all_components = []
-    story_to_component = {}
-    story_id_mapping = {}  # Maps LLM story position (1-indexed) to original story text
+    story_id_mapping = {}  # Maps component index to original story text
     expected_violation_pairs = []  # Track pairs that should have violations
 
-    # Filter test data for this criteria and collect unique stories
+    # Filter test data for this criteria and collect all stories
     criteria_items = [item for item in test_data
                       if item.get("pt") == criteria and "stories" in item]
 
     print(f"Analyzing {len(criteria_items)} pairs for '{criteria}' criteria (fullset mode)")
 
-    # Collect expected violation pairs
+    # Collect expected violation pairs and build component list
     for i, item in enumerate(criteria_items):
         if len(item["stories"]) != 2:
             continue
 
         expected_violation = item.get("violation", "")
-        has_expected_violation = not expected_violation.startswith("None (Valid")
+        has_expected_violation = not expected_violation.startswith("None (Valid") and expected_violation != "None"
         
         if has_expected_violation:
             expected_violation_pairs.append({
@@ -403,22 +408,21 @@ async def analyze_criteria_set_fullset(client: LLMClient, test_data: List[Dict],
                 "pair_index": i
             })
 
+        # Add ALL stories (including duplicates) to preserve pairs for analysis
         stories = item["stories"]
         for story in stories:
-            if story not in story_to_component:
-                # Find chunk by original story text
-                chunk_data = None
-                for chunk_id, chunk in chunks.items():
-                    if chunk.get("original_story") == story:
-                        chunk_data = chunk
-                        break
+            # Find chunk by original story text
+            chunk_data = None
+            for chunk_id, chunk in chunks.items():
+                if chunk.get("original_story") == story:
+                    chunk_data = chunk
+                    break
 
-                if chunk_data:
-                    component = create_component_from_chunk(chunk_data, f"story_{len(all_components)+1}")
-                    story_to_component[story] = component
-                    all_components.append(component)
-                    # Map LLM story number (1-indexed) to original story text
-                    story_id_mapping[len(all_components)] = story
+            if chunk_data:
+                component = create_component_from_chunk(chunk_data, f"story_{len(all_components)+1}")
+                all_components.append(component)
+                # Map component index to original story text
+                story_id_mapping[len(all_components)-1] = story
 
     print(f"  Built component set of {len(all_components)} unique stories")
     print(f"  Expected violation pairs: {len(expected_violation_pairs)}")
@@ -461,7 +465,10 @@ async def analyze_criteria_set_fullset(client: LLMClient, test_data: List[Dict],
             # Check if any detected violation covers this pair
             for violation in processed_violations:
                 violation_stories = set(violation["original_stories"])
-                if pair_stories.issubset(violation_stories):
+                
+                # For unique analysis, check if the expected pair stories are found in the violation
+                # Handle both exact matches and subset matches
+                if pair_stories.issubset(violation_stories) or len(pair_stories.intersection(violation_stories)) >= 2:
                     found_violation = True
                     break
             
