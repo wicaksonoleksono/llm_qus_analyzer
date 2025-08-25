@@ -8,12 +8,26 @@ from dataclasses import dataclass
 from typing import Any, Optional
 from ..utils import analyze_individual_with_llm
 _definition = """
-**Evaluate whether this user story is 'Estimatable'**
-1. [Means] check :
-    - Does the scope of the objective clearly defined and bounded? (clear object, clear action, Clear realation ship between means and role and ends)
-    - Can development effort be reasonably estimated?
-2. [Means] and [Ends] check:
-    - Does it contain multiple hidden functionalities?
+**Evaluate whether this user story is 'Estimatable' based on its [Role] [Means] [Ends]:**  
+estimatable: effort can be sized without guessing; the story is not coarse-grained or hiding extra work.
+
+1. **[Role] Check:**  
+    - Does [Role] provide the access/context needed to infer effort (e.g., permissions, data scope)? If not, NOT estimatable.  (The story must at least have a role, means, and optional ends.)  
+
+2. **[Means] Check:**  
+    - Is the capability **bounded** to one concrete action on a clear object (not a coarse-grained “do everything” ask)?  
+    - Are likely variants that would change effort **ruled out** (no hidden algorithm/visualization/routing/etc.)?  
+    - If the text allows multiple materially different implementations, mark NOT estimatable and **split**.  
+
+3. **[Ends] Check (if present):**  
+    - Does [Ends] avoid introducing additional features that expand scope (e.g., auto-optimization, external integrations)?  
+    - If [Ends] subtly implies extra functionality, mark NOT estimatable and **separate** it into its own story.
+
+**Suggestion to fix:**  
+- Narrow the **Means** to a single clear capability; remove or split any implied extras.  
+- Make any scope-expanding **Ends** their own user stories.  
+
+
 """
 _in_format = """
 **User story to Evaluate:**

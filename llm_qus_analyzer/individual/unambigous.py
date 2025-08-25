@@ -9,23 +9,28 @@ from ..utils import analyze_individual_with_llm
 _definition = """
 **Evaluate whether this user story is 'Unambiguous' based on its [Means] and [Ends]:**  
 unambiguous: the story has a single clear interpretation on its own; no term should plausibly mean different things in this domain.
+
 1. **[Means] Check:**  
-    - Does [Means] avoid **superclass (hypernym) terms** that could mean multiple domain items (e.g., “content,” “media,” “items,” “data”)?  
-    - Does [Means] avoid **underspecified verbs** that allow multiple actions (e.g., “manage content” could mean create/update/delete/moderate)?  
-    - Are object nouns **clear in context**, or could they still be read in multiple ways? 
-    (e.g., “data” in *“view telemetry data logs”* is unambiguous, but “work with data” is ambiguous because the scope of “data” and “work with” is unclear).
+    - Does [Means] avoid **superclass (hypernym) terms** that could mean multiple domain items (e.g., “content,” “media,” generic “data”)?  
+    - Does [Means] use verbs that are **understood one way in this context**? If a verb could imply different actions (e.g., “manage” = create/update/delete/moderate), rewrite to **list the exact actions**.  
+    - Are object nouns **clear in context**, not allowing competing readings?  
+      *(e.g., “view telemetry data logs” is clear; “work with data” is ambiguous.)*
+
 2. **[Ends] Check (if present):**  
     - Does [Ends] avoid **ambiguous references** (“this,” “it,” “there”) that could point to different things?  
-3. **[Means] and [Ends] Check (if  present):**  
-    - Does the [Ends] rationale  **clear and specific** to the stated [Means] (no generic “better experience,” “more efficient” without context)?  
-    - If [Ends] uses comparative/qualitative words, are they specific to the [Means] action so there’s only one clear improvement being described?
+    - Does [Ends] avoid **multi-meaning phrases** (e.g., “better,” “improved,” “efficient”) when it’s unclear **which aspect** is meant?
+
+3. **[Means] and [Ends] Link (if present):**  
+    - Is it **clear which aspect of the [Means]** the [Ends] refers to, so only one interpretation of the rationale is possible?  
+      *(e.g., “help patrons quickly” → ambiguous; “provide book-search results to patrons quickly at the desk” → single reading.)*
 
 **Suggestion to fix:**  
 - Replace superclass terms with **explicit domain items** (e.g., “edit content” → “edit video, photo, and audio”).  
-- Replace vague verbs with the **intended actions** (e.g., “manage records” → “create, update, and delete patient records”).  
-- Qualify generic nouns so they cannot be misread (e.g., “access data” → “access exported customer order data”).  
-- Clarify pronouns/comparatives so each term has **one obvious referent** (e.g., “so that it’s faster” → “so that search results load faster than the current average”).  
-- If Comparative/qualitative words in [Ends] present without any anchor , Phrase the qualitative ends to anchor stated in [Means] 
+- Replace ambiguous verbs with the **intended actions** (e.g., “manage records” → “create, update, and delete patient records”).  
+- Clarify generic nouns **in context** (e.g., “access data” → “access exported customer order data”).  
+- Clarify pronouns and multi-meaning phrases so each has **one obvious referent/aspect** (e.g., “help patrons quickly” → “return book-search results to patrons quickly at the desk”).
+
+
 """
 _in_format = """
 **User Story to Evaluate:**  

@@ -13,17 +13,18 @@ Additionally,
 the [Role] can be the name of the persona acts as the role: Joe, Alice, and not a subject like I, you, they, etc.
 the [Means] should not start with a phrasal modal verb (or semi-modal verb), like "be able to", "want to" etc. Even though if [Role] is not exists, [Means] still can be exists.
 the [Ends] should start with a pronoun (if it exist) or verb, not a causal phrase such as "so that", "in order to", "to" etc, and not including any unnecessary text behind it.
-Use that definition to get a better understanding about Quality User Story.
+Use that definition to get a better understanding about Quality User Story. 
 """
 
 _in_format = """
 Extract the [Role], [Means] and [Ends] from the following user story:
 "{user_story}"
-Also please expand all gramatical contraction of english verb like "i'm" into "i am", etc.
+Also please expand all gramatical contraction of english verb such as "i'm" into "i am", etc.
 If there are quotes in the user story, keep them as part of the text - do not split or separate quoted content.
 **Please only display the single final answer without any explanation, fixing steps, or any redundant text.**
 """
-
+# menambahkan 1. If there are quotes in the user story, keep them as part of the text - do not split or separate quoted content. krn terkadang malah output list.
+# Menambahkan parsiung utk list .
 _out_format = """
 **Strictly follow this output format (JSON):**  
 ```json
@@ -80,6 +81,9 @@ class QUSComponent:
     id: Optional[str] = None
     """Optional unique identifier for the component."""
 
+    original_text: Optional[str] = None
+    """The original user story text before expansion."""
+
 
 class QUSChunkerModel:
     """Model for analyzing and chunking user stories into components.
@@ -122,10 +126,8 @@ class QUSChunkerModel:
         means = raw["component"]["[Means]"]
         if isinstance(means, list):
             if not means:
-                # sy tambahkan eringatan kadang llm output nya list.
-                print("[SNAFU]: LLM returned empty array for [Means]")
+                # sy tambahkan ini kadang llm output nya list.
                 raise ValueError("LLM returned empty array for [Means]")
-            print(f"[SNAFU]: LLM returned array for [Means]: {means}, taking first element")
             means = means[0]
         elif isinstance(means, str):
             if means.lower() == "none" or means == "":
@@ -176,6 +178,7 @@ class QUSChunkerModel:
             ends=data.ends,
             template=template,
             id=id,
+            original_text=user_story,
         )
         return component, usage
 

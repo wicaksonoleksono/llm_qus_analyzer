@@ -5,35 +5,43 @@ from ..type import Violation, PairwiseViolation, FullSetViolation
 from ..utils import analyze_set_pairwise, analyze_set_fullset, format_set_results_pairwise, format_set_results_fullset
 from dataclasses import dataclass
 from typing import Any, Optional
-
+#  TODO : fix this not using pairwise. instead use Cluster based shit. mybe word embedding like taht ? like the previ shit
+#
 _pairwise_definition = """
-**Evaluate whether two user stories are 'Complete' by checking if they have prerequisite dependencies:**
-
+**Evaluate whether two user stories are 'Complete' by checking if they cover prerequisite dependencies :**
+complete : Implementing a set of user stories creates a feature-complete application, n
 1. **[Means] Prerequisite Check:**
-   - Do the [Means] of either story require prerequisite actions provided by the other?
-   - Do either story's [Means] reference states that the other story establishes?
+   - Do either story’s [Means] require a precondition/action that the other story provides, or is explicitly stated as pre-existing?
+   - Do either story’s [Means] require a state that the other story establishes, or is explicitly stated as pre-existing?
 
 2. **[Means] Object Dependency Check:**
-   - Does one story's [Means] operate on objects that the other story creates or defines?
-   - Are there complementary creation and operation [Means] between the stories?
+   - Does one story’s [Means] operate on a direct object that the other story creates/introduces/defines (or declares pre-existing)?
+   - Are there complementary creation vs. operation [Means] on the same direct object (e.g., Create X ↔ Read/Update/Delete X)?
 
 3. **[Means] Workflow Dependency Check:**
-   - Do the two stories represent sequential steps in a workflow?
-   - Is one story a prerequisite for the other to be meaningful?
+   - Do the two stories represent sequential steps in one process where initiation and continuation are both present (or initiation is declared pre-existing)?
+   - Is one story’s step otherwise without meaning because the other step is missing?
 
 4. **[Means] Foundation Coverage Check:**
-   - For modification operations: Does one story provide the creation that the other requires?
-   - For process flows: Does one story provide initiation that the other continues?
+   - For modification operations: does the pair include the required creation of the same direct object?
+   - For process flows: does the pair include the initiation that the other continues?
+
+**Suggestions to fix:**
+- Add the missing story that creates/introduces/initiates the needed direct object or state.
+- If relying on existing data or process, **state it** as pre-existing in the story.
+- Align the direct object (avoid superclass vagueness); make both stories act on the same object/state.
+- Split or rephrase stories so each prerequisite is either covered by the pair or clearly declared.
 """
+
 
 _pairwise_in_format = """
 **User Stories to Evaluate:**
-First user story:
+id: {id1} user story
 - [Role]: {r1}
 - [Means]: {m1}
 - [Ends]: {e1}
 
-Second user story:
+id: {id2} user story 
 - [Role]: {r2}
 - [Means]: {m2}
 - [Ends]: {e2}
@@ -286,6 +294,8 @@ class CompleteParserModel:
             raise ValueError("This parser is not in pairwise mode")
 
         values = {
+            "id1": component1.id,
+            "id2": component2.id,
             "r1": component1.role,
             "m1": component1.means,
             "e1": component1.ends,

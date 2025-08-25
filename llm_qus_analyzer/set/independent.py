@@ -7,34 +7,42 @@ from dataclasses import dataclass
 from typing import Any, Optional
 
 _definition = """
-**Evaluate whether two user stories are 'Independent' by checking for dependencies:**
-1. **[Means] Check:**  
-   - **Causality Dependencies**: Does the means have causality dependencies? (Before doing A you have to do B)
-     e.g. 
-       story 1: as an admin, i want to view a person profile 
-       story 2: as an admin, i want to add a new person to database
-     You can't view a person profile; you have to create a profile first
-   - **Superclass Dependencies**: Does the means have superclass dependencies?  
-     e.g. 
-       story 1: ..., i want to edit a content.. 
-       story 2: ..., i want to upload a video content.. 
-       story 3: ..., i want to upload audio content.. 
-     Edit is a superclass action of upload and content is a superclass object of audio & video content
-2. **[Ends] Check:**
-   - **Ends Containing Means**: Are the ends a purpose that can be implemented separately? (does the ends contain another means?)
-     e.g. 
-       story1: As a user, I want to register, so that i can contribute to articles
-       story2: As a user I want to contribute to articles 
+**Evaluate whether two user stories are 'Independent' based on their [Means], [Ends], and [Role]:**
+Independent: a user story is self-contained, schedulable and implementable in any order, without hidden prerequisites on other stories.
+
+1. **[Means] Causality Check**  
+    – Do the [Means] across stories avoid requires-before relations between verbs on the same object state (one action is impossible without the other)?
+    NOTE: 
+        if  the [Means] describe **soft overlaps—actions on the same object that are equally schedulable and testable in isolation and therefore remain independent it's a valid userstory
+        to check if its a causal statement, Can it be both implemented independently
+2. **[Means] Superclass/Object Check**  
+    – Do the [Means] across stories avoid superclass–subclass coupling on the direct object that would make one story's object subsume the other?
+    NOTE: Sharing the same object is allowed. Do not flag just because both stories act on the same object or a field of it. Only flag when the direct objects are different and there is a real is-a relation (one truly generalizes the other).
+
+3. **[Ends] Purpose = Means Check**  
+    – Do the [Ends] across stories avoid stating a purpose that is semantically identical to another story's [Means] (same action verb + direct object, paraphrase-equivalent)?
+
+4. **[Role] Same Story, Different Roles (impact note)**  
+    – Different roles with same means and/or ends indicate relation but do not by themselves break independence if all checks above are YES.
+
+**Suggestions to fix:**  
+– Add an explicit dependency when hard causality exists.
+– Replace superclasses with explicit subtypes or split per subtype.
+– When an End is semantically identical to another story's Means, promote that End to its own Means or link the stories with a dependency.
+– Keep role variants separate only if each is independently shippable/testable; otherwise consolidate or add a dependency.
+– Clarify object scope to avoid subsumption; use precise objects instead of umbrella terms.
+– For soft overlaps, ensure isolation via defined interfaces/contracts so each story can be scheduled and tested independently.
+
 """
 
 _in_format = """
 **User Stories to Evaluate:**  
-First user story:
+id: {id1} user story
 - [Role]: {r1}
 - [Means]: {m1}
 - [Ends]: {e1}
 
-Second user story:
+id: {id2} user story 
 - [Role]: {r2}
 - [Means]: {m2}
 - [Ends]: {e2}
@@ -61,24 +69,31 @@ _out_format = """
 """
 
 _all_set_definition = """
-**Evaluate whether multiple user stories are 'Independent' by checking for dependencies across the entire set:**
-1. **[Means] Check:**  
-   - **Causality Dependencies**: Do any stories have causality dependencies? (Before doing A you have to do B)
-     e.g. 
-       story 1: as an admin, i want to view a person profile 
-       story 2: as an admin, i want to add a new person to database
-     You can't view a person profile; you have to create a profile first
-   - **Superclass Dependencies**: Do any stories have superclass dependencies?  
-     e.g. 
-       story 1: ..., i want to edit a content.. 
-       story 2: ..., i want to upload a video content.. 
-       story 3: ..., i want to upload audio content.. 
-     Edit is a superclass action of upload and content is a superclass object of audio & video content
-2. **[Ends] Check:**
-   - **Ends Containing Means**: Are the ends a purpose that can be implemented separately? (does the ends contain another means?)
-     e.g. 
-       story1: As a user, I want to register, so that i can contribute to articles
-       story2: As a user I want to contribute to articles 
+**Evaluate whether multiple user stories are 'Independent' across the entire set based on their [Means], [Ends], and [Role]:**
+Independent: a user story is self-contained, schedulable and implementable in any order, without hidden prerequisites on other stories.
+
+1. **[Means] Causality Check**  
+    – Do the [Means] across stories avoid requires-before relations between verbs on the same object state (one action is impossible without the other)?
+    NOTE: if  the [Means] describe **soft overlaps—actions on the same object that are equally schedulable and testable in isolation and therefore remain independent it's a valid userstory
+
+2. **[Means] Superclass/Object Check**  
+    – Do the [Means] across stories avoid superclass–subclass coupling on the direct object that would make one story's object subsume the other?
+    NOTE: Sharing the same object is allowed. Do not flag just because both stories act on the same object or a field of it. Only flag when the direct objects are different and there is a real is-a relation (one truly generalizes the other).
+
+3. **[Ends] Purpose = Means Check**  
+    – Do the [Ends] across stories avoid stating a purpose that is semantically identical to another story's [Means] (same action verb + direct object, paraphrase-equivalent)?
+
+4. **[Role] Same Story, Different Roles (impact note)**  
+    – Different roles with same means and/or ends indicate relation but do not by themselves break independence if all checks above are YES.
+
+**Suggestions to fix:**  
+– Add an explicit dependency when hard causality exists.
+– Replace superclasses with explicit subtypes or split per subtype.
+– When an End is semantically identical to another story's Means, promote that End to its own Means or link the stories with a dependency.
+– Keep role variants separate only if each is independently shippable/testable; otherwise consolidate or add a dependency.
+– Clarify object scope to avoid subsumption; use precise objects instead of umbrella terms.
+– For soft overlaps, ensure isolation via defined interfaces/contracts so each story can be scheduled and tested independently.
+
 """
 
 _all_set_in_format = """
@@ -131,10 +146,10 @@ class IndependentFullSetVerdictData:
 
 def format_stories_list(components: list[QUSComponent]) -> str:
     """Formats a list of QUSComponent objects into a structured story list for LLM input.
-    
+
     Args:
         components: List of QUSComponent objects to format
-        
+
     Returns:
         Formatted string with numbered stories using structured format
     """
@@ -157,23 +172,23 @@ class IndependentParserModel:
 
     def __init__(self, mode: str):
         """Initialize parser with specified mode.
-        
+
         Args:
             mode: Either "pairwise" or "fullset"
         """
         if mode not in ["pairwise", "fullset"]:
             raise ValueError("Mode must be 'pairwise' or 'fullset'")
-        
+
         self.mode = mode
         self.key = f"independent-{mode}"
-        
+
         if mode == "pairwise":
             self.__analyzer = LLMAnalyzer[IndependentVerdictData](key=self.key)
             self.__analyzer.build_prompt(_definition, _in_format, _out_format)
         else:  # fullset
             self.__analyzer = LLMAnalyzer[IndependentFullSetVerdictData](key=self.key)
             self.__analyzer.build_prompt(_all_set_definition, _all_set_in_format, _all_set_out_format)
-        
+
         self.__analyzer.build_parser(lambda raw: self.__parser(raw))
 
     def __parser(self, raw_json: Any) -> IndependentVerdictData | IndependentFullSetVerdictData:
@@ -212,11 +227,11 @@ class IndependentParserModel:
                     id_pair = t.get("id_pair", {})
                     first_idx = id_pair.get("first", 0) if isinstance(id_pair, dict) else 0
                     second_idx = id_pair.get("second", 1) if isinstance(id_pair, dict) else 1
-                    
+
                     # Default parts for independence analysis
                     first_parts = {"role", "means", "ends"}
                     second_parts = {"role", "means", "ends"}
-                    
+
                     # Store both parts in violation for later PairwiseViolation creation
                     violation = Violation(
                         parts=first_parts.union(second_parts),
@@ -228,7 +243,7 @@ class IndependentParserModel:
                     violation._second_parts = second_parts
                     violation._second_suggestion = t.get("second_suggestion", "")
                     violation._id_pair = {"first": first_idx, "second": second_idx}
-                    
+
                     violations.append(violation)
         if not valid and len(violations) == 0:
             violations.append(default_vio)
@@ -244,14 +259,15 @@ class IndependentParserModel:
                 if isinstance(t, dict):
                     story_ids = t.get("story_ids", [])
                     if isinstance(story_ids, list):
-                        story_ids = [int(sid) - 1 for sid in story_ids if isinstance(sid, (int, str)) and str(sid).isdigit()]
+                        story_ids = [int(sid) - 1 for sid in story_ids if isinstance(sid,
+                                                                                     (int, str)) and str(sid).isdigit()]
                     else:
                         story_ids = []
-                    
+
                     parts_per_story = t.get("parts_per_story", [])
                     if not isinstance(parts_per_story, list):
                         parts_per_story = []
-                    
+
                     # Convert string parts to sets
                     processed_parts = []
                     for parts in parts_per_story:
@@ -263,7 +279,7 @@ class IndependentParserModel:
                             processed_parts.append(part_set)
                         else:
                             processed_parts.append(set())
-                    
+
                     violations.append(
                         FullSetViolation(
                             story_ids=story_ids,
@@ -292,8 +308,10 @@ class IndependentParserModel:
         """
         if self.mode != "pairwise":
             raise ValueError("This parser is not in pairwise mode")
-        
+
         values = {
+            "id1": component1.id,
+            "id2": component2.id,
             "r1": component1.role,
             "m1": component1.means,
             "e1": component1.ends,
@@ -309,17 +327,17 @@ class IndependentParserModel:
             first_parts = getattr(violation, '_first_parts', violation.parts)
             second_parts = getattr(violation, '_second_parts', violation.parts)
             second_suggestion = getattr(violation, '_second_suggestion', violation.suggestion)
-            
+
             # Ensure we have proper suggestion format
             if second_suggestion and second_suggestion != violation.suggestion:
                 combined_suggestion = f"First story: {violation.suggestion}. Second story: {second_suggestion}"
             else:
                 combined_suggestion = violation.suggestion
-            
+
             # Use component IDs if available, otherwise use placeholder values
             first_id = component1.id or "component_1"
             second_id = component2.id or "component_2"
-            
+
             pairwise_violations.append(
                 PairwiseViolation(
                     first_parts=first_parts,
@@ -345,10 +363,10 @@ class IndependentParserModel:
         """
         if self.mode != "fullset":
             raise ValueError("This parser is not in fullset mode")
-        
+
         if len(components) < 2:
             return [], None
-            
+
         stories_list = format_stories_list(components)
         values = {"stories_list": stories_list}
         data, usage = self.__analyzer.run(client, model_idx, values)
@@ -447,7 +465,7 @@ class IndependentAnalyzer:
                 raise ValueError("Pairwise mode requires exactly 2 components")
             component1, component2 = args
             return cls.analyze_pairwise(client, model_idx, component1, component2)
-            
+
         elif mode == "fullset":
             if len(args) != 1 or not isinstance(args[0], list):
                 raise ValueError("Fullset mode requires a list of components")
@@ -455,6 +473,6 @@ class IndependentAnalyzer:
             if len(components) < 2:
                 return [], {}
             return cls.analyze_full_set(client, model_idx, components)
-            
+
         else:
             raise ValueError("Mode must be 'pairwise' or 'fullset'")

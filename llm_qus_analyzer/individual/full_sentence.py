@@ -14,17 +14,29 @@ from ..utils import analyze_individual_with_llm
 #     Does it avoid multiple hidden functionalities
 # if wf true
 # - Does it read as a complete, well-formed sentence rather than fragments or phrases?
-#
+# Few shot for general knowledge on ``
 _definition = """
-**Evaluate whether this user story is a 'Full Sentence' based on grammatical correctness:**
-1. **[User_Story] Grammatical Check:**
-   - Does the user story follow proper grammatical structure and rules?
-   - Are there any spelling errors, typos, or punctuation mistakes?
+**Evaluate whether this user story is 'Full Sentence' based on linguistic correctness (template-agnostic):**
 
+1. **[user_story] Grammatical Check:**  
+    - Is it a complete sentence with a subject and a finite verb (not a fragment or a run-on)?  
+    - Does it start with a capital letter and end with terminal punctuation (. ? !)?  
+    - Is subject–verb agreement correct (including irregular verbs)?  
+    - Are articles/demonstratives number-correct (a/an = singular only; no a/an with plurals; this/that = singular; these/those = plural)?
+
+2. **[user_story] Punctuation & Spelling:**  
+    - Are commas used correctly between clauses (no comma splices)?  
+    - Are quotation marks and brackets **paired and balanced**: “ ”, ‘ ’, ( ), [ ], {{}}?  
+      *(Apostrophes in contractions/possessives—it’s, user’s, users’—are single characters, not pairs.)*  
+    - Are there any spelling errors or typos?
+3. flag as correct
+    Using prural subject is ok, aslong as its consistent e.g. as developers, we want .. (use a proper pronoun based off the first word)
+**Suggestion to fix:**  
+- If a fragment, add the missing subject or finite verb; if a run-on, split or add a conjunction.  
+- Fix subject–verb agreement and tense consistency; repair comma splices; balance quotes/brackets; correct spelling.
 """
 _in_format = """
-**User Story to Evaluate:**
-{user_story}
+**User Story to Evaluate:** given [user_story] is {user_story}
 """
 
 _out_format = """
@@ -126,7 +138,7 @@ class FullSentenceParserModel:
         Returns:
             Tuple containing list of violations and LLM result/usage data.
         """
-        values = {"user_story": component.text}
+        values = {"user_story": component.original_text or component.text}
         data, usage = self.__analyzer.run(client, model_idx, values)
         return data.violations, usage
 
