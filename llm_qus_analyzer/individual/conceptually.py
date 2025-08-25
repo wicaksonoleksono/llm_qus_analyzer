@@ -8,20 +8,20 @@ from ..type import Violation
 # Qualitative requirements the ends commuinicates the intended qualitatifve effect of the means
 
 _definition = """
-**Evaluate whether this user story is 'Conceptually Sound' based on its [Means] and [Ends]:**
-Conceptualy sound: The means expresses a feature and the ends expresses a rationale
-rationale: reasoning or justification behind a decision, action, or belief
+**Evaluate whether this user story is 'Conceptually Sound' based on its [Means] and [Ends]:**  
+conceptually sound: the [Means] expresses a system capability/feature (what the system does) and the [Ends] expresses a rationale/benefit (why it matters). Do not mix roles.
 1. **[Means] Check:**  
-    - Does the [Means] contain a **single, concrete action** the system can perform directly?  
-2. **[Ends] Check (If exist):**  
-    - Does [Ends] express a direct qualitative benefit or rationale of the means (e.g., easier, faster, more reliable)?”
-    - Does [Ends] avoid introducing another feature disguised as rationale ? (explicit hidden dependency) 
-    - Does [Ends] avoid assuming capabilities of the feature implied from the [Means]? (implicit hidden dependency, assumed features)
-Suggestion to fix: 
-    If [Means] contains multiple actions -> split into separate stories, or generalize if both logically collapse (e.g., Delete + Create -> Edit).
-    If [Ends] is vague or doesn’t show benefit -> rephrase as a direct rationale in scope of the means. 
-    If [Ends] contain assumed features of the means object and action remove it and change it as a general rationale.
-    If [Ends] sneaks in another feature -> remove it, and create a new story where that feature is the [Means].
+    - Does [Means] describe a **system capability/action** (feature) rather than a goal, benefit, or implementation detail?  
+    - Does [Means] avoid wording that belongs to rationale (e.g., “easily,” “faster,” “so that…”)?
+2. **[Ends] Check (if present):**  
+    - Does [Ends] express a **rationale/benefit** tied to the [Means] (why the capability matters)?  
+    - Does [Ends] avoid introducing **another feature** disguised as rationale? (explicit hidden dependency)  
+    - Does [Ends] avoid **assuming extra capabilities** not stated in [Means]? (implicit hidden dependency)
+**Suggestion to fix:**  
+- If [Means] is a benefit or goal → rewrite it as a **system capability/action**.  
+- If [Ends] is another feature → remove it and create a **separate story** where that feature is the [Means].  
+- If [Ends] assumes unstated capabilities → rephrase as a **pure rationale** or add separate stories for the missing capabilities.  
+- Note: multiple actions in [Means] are an **Atomic** issue, not a Conceptually-sound issue. Split only if you’re enforcing Atomic.
 """
 _in_format = """
 **User Story to Evaluate:**  

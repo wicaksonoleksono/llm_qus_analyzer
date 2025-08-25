@@ -10,27 +10,39 @@ from ..utils import analyze_set_pairwise, analyze_set_fullset, format_set_result
 # https://link.springer.com/article/10.1007/s00766-016-0250-x Based off the 4 rules of conflict free but we saw it through the semantic scope (Refer to this)
 _definition = """
 **Evaluate whether two user stories are 'Conflict-Free' based on their [Means], [Ends], and [Role]:**
+Conflict free : A user story should not be inconsistent with any other user story
 1. **[Means] and [Ends] Check:**  
-   - Do both stories have the same [Means] but contradictory [Ends]?  
-   - Do both stories have the same [Ends] but prescribe incompatible [Means]?  
-   - Does one story's [Ends] equal the other's [Means], creating an impossible or unsatisfied dependency?  
+   - Do both stories have the **same [Means]** but **contradictory [Ends]** (mutually exclusive outcomes)?  
+   - Do both stories have **different [Means]** toward the **same [Ends]**, where the means are **incompatible** (cannot coexist without inconsistency)?
+
 2. **[Means] Check:**  
-   - Do both stories describe the same feature on the same object but with incompatible SCOPE (e.g., self-only vs global)?  
-   - Do both stories describe the same feature on the same object but with incompatible STATE effects (e.g., temporary vs permanent)?  
+   - Do both stories specify the **same feature on the same object** but with **incompatible constraints** (e.g., self-only vs global)?  
+   - Are there **contradictory state effects** on the same object (e.g., permanent retention vs immediate deletion)?
+
 3. **[Role] and [Means] Check:**  
-   - Do different [Role]s demand outcomes, permissions, or constraints that cannot both be satisfied for the same [Means] and object?  
-4. **Empty [Ends] Check:**  
-   - If [Ends] are missing, can the implied purposes from the [Means] not both hold together? If so, they are in conflict.  
+   - Do different [Role]s impose **outcomes or permissions that cannot both be satisfied** for the same [Means]/object (true mutual exclusion)?
+
+4. **Out-of-scope for Conflict (do not flag here):**  
+   - **Dependency** (one story requires another) → track under **Independent**, not Conflict.  
+   - **Missing [Ends]** alone does not create a conflict; check via [Means]/constraints instead.
+
+**Suggestions to fix:**  
+- **Same [Means], contradictory [Ends]:** choose one policy, or split by **Role/Context** (e.g., Admin vs User); codify the rule and retire the losing story.  
+- **Different [Means], same [Ends] but incompatible:** define **precedence** or **mode** (feature flag, setting), or refactor into a single orchestrated [Means] with clear acceptance criteria.  
+- **Scope clash (self vs global):** parameterize scope; split into two stories with explicit scope constraints.  
+- **State-effect clash (retain vs delete):** define a lifecycle (e.g., soft-delete + retention); split actions and specify ordering/constraints.  
+- **Role-permission clash:** introduce a permission matrix; rewrite stories so each Role’s allowed [Means] is explicit.  
+- **Actually a dependency:** reclassify under **Independent**; add an explicit dependency note and delivery order.
+
 """
 
 _in_format = """
 **User Story to Evaluate:**  
-first user story
+id: {id1} user story
 - [Role]: {r1}
 - [Means]: {m1}
 - [Ends]: {e1}
-
-second user story 
+id: {id2} user story 
 - [Role]: {r2}
 - [Means]: {m2}
 - [Ends]: {e2}
@@ -54,20 +66,22 @@ _out_format = """
   }}
 ```
 """
-
 _all_set_definition = """
 **Evaluate whether multiple user stories are 'Conflict-Free' by checking for conflicts across the entire set:**
 1. **[Means] and [Ends] Check:**  
-   - Do any stories have the same [Means] but contradictory [Ends]?  
-   - Do any stories have the same [Ends] but prescribe incompatible [Means]?  
-   - Does one story's [Ends] equal another's [Means], creating an impossible or unsatisfied dependency?  
+   - Do any stories have the **same [Means]** but **contradictory [Ends]** (mutually exclusive outcomes)?  
+   - Do any stories have **different [Means]** toward the **same [Ends]**, where the means are **incompatible** (cannot coexist without inconsistency)?
+
 2. **[Means] Check:**  
-   - Do any stories describe the same feature on the same object but with incompatible scope (e.g., self-only vs global)?  
-   - Do any stories describe the same feature on the same object but with incompatible state effects (e.g., temporary vs permanent)?  
+   - Do any stories specify the **same feature on the same object** but with **incompatible constraints** (e.g., self-only vs global)?  
+   - Are there **contradictory state effects** on the same object (e.g., permanent retention vs immediate deletion)?
+
 3. **[Role] and [Means] Check:**  
-   - Do different [Role]s demand outcomes, permissions, or constraints that cannot both be satisfied for the same [Means] and object?  
-4. **Empty [Ends] Check:**  
-   - If [Ends] are missing, can the implied purposes from the [Means] not both hold together? If so, they are in conflict.  
+   - Do different [Role]s impose **outcomes or permissions that cannot both be satisfied** for the same [Means]/object (true mutual exclusion)?
+
+4. **Out-of-scope for Conflict (do not flag here):**  
+   - **Dependency** (one story requires another) → track under **Independent**, not Conflict.  
+   - **Missing [Ends]** alone does not create a conflict; check via [Means]/constraints instead.
 """
 
 _all_set_in_format = """
@@ -282,6 +296,8 @@ class ConflictFreeParserModel:
             raise ValueError("This parser is not in pairwise mode")
 
         values = {
+            "id1": component1.id,
+            "id2": component2.id,
             "r1": component1.role,
             "m1": component1.means,
             "e1": component1.ends,

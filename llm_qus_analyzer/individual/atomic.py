@@ -7,11 +7,11 @@ from ..chunker.models import QUSComponent
 from ..type import Violation
 
 _definition = """
-A user story should concern only one feature. 
+A user story should express only one feature. 
 """
 
 _in_format = """
-Given user story "{user_story}" and it [Means] "{means}".
+Given user story "{user_story}" and its [Means] "{means}".
 Without adding any context outside this user story, 
 please extract the individual and unique tasks explicitly mentioned from this [Means].
 """
@@ -169,7 +169,7 @@ class AtomicAnalyzer:
         if not means:
             return None, None
 
-        tasks, result = cls.__mt_parser.analyze_single(client, component, model_idx)
+        tasks, result = cls.__mt_parser.analyze_single(client, model_idx, component)
 
         if len(tasks) > 1:
             tmp = "\n".join([f"({i+1}) {task}" for i, task in enumerate(tasks)])

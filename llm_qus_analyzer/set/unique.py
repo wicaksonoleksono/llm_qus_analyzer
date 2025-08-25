@@ -7,7 +7,7 @@ from ..utils import analyze_set_pairwise, analyze_set_fullset, format_set_result
 from dataclasses import dataclass
 from typing import Any, Optional
 
-_semantic_definition = """
+_definition = """
 **Evaluate whether two user stories are 'Semantically Similar' despite different wording:**
 1. **Similar Action Check:**
    - Do both stories describe essentially the same action or functionality?
@@ -18,15 +18,18 @@ _semantic_definition = """
    - Are the end goals or results essentially identical?
 
 Note: Stories are semantically similar if they request the same thing using different words.
+**Suggestions to fix:**
+ - Concate the story into one 
+ 
 """
 
-_semantic_in_format = """
+_in_format = """
 **User Stories to Compare:**
-First story: "{story1}"
-Second story: "{story2}"
+id: {id1} story: "{story1}"
+id: {id2} story: "{story2}"
 """
 
-_semantic_out_format = """
+_out_format = """
 **Strictly follow this output format (JSON) without any other explanation:**
 - If not similar: `{{"valid": true}}`
 - If semantically similar:
@@ -147,7 +150,7 @@ class UniqueParserModel:
 
         if mode == "pairwise":
             self.__analyzer = LLMAnalyzer[UniqueVerdictData](key=self.key)
-            self.__analyzer.build_prompt(_semantic_definition, _semantic_in_format, _semantic_out_format)
+            self.__analyzer.build_prompt(_definition, _in_format, _out_format)
         else:  # fullset
             self.__analyzer = LLMAnalyzer[UniqueFullSetVerdictData](key=self.key)
             self.__analyzer.build_prompt(_all_set_definition, _all_set_in_format, _all_set_out_format)
@@ -273,6 +276,8 @@ class UniqueParserModel:
             raise ValueError("This parser is not in pairwise mode")
 
         values = {
+            "id1": component1.id,
+            "id2": component2.id,
             "story1": component1.text,
             "story2": component2.text,
         }
@@ -294,7 +299,7 @@ class UniqueParserModel:
             # Use component IDs if available, otherwise use placeholder values
             first_id = component1.id or "component_1"
             second_id = component2.id or "component_2"
-            
+
             pairwise_violations.append(
                 PairwiseViolation(
                     first_parts=first_parts,
@@ -402,7 +407,7 @@ class UniqueAnalyzer:
             # Use component IDs if available, otherwise use placeholder values
             first_id = component1.id or "component_1"
             second_id = component2.id or "component_2"
-            
+
             violations.append(
                 PairwiseViolation(
                     first_parts={"text"},
@@ -448,7 +453,7 @@ class UniqueAnalyzer:
     def analyze_full_set(
         cls, client: LLMClient, model_idx: int, components: list[QUSComponent]
     ) -> tuple[list[FullSetViolation], dict[str, LLMUsage]]:
-        """Analyzes all components for duplicates using single LLM call (batch processing).
+        """Analyzes all components for duplicates using heuristic-based detection.
 
         Args:
             client (LLMClient): LLM client for analysis.
@@ -458,11 +463,60 @@ class UniqueAnalyzer:
         Returns:
             Tuple containing list of full-set violations and LLM usage data.
         """
-        violations, usage = cls.__unique_parser_fullset.analyze_full_set(
-            client, model_idx, components
-        )
-        usage_dict = {cls.__unique_parser_fullset.key: usage} if usage else {}
-        return violations, usage_dict
+        violations = []
+
+        if len(components) < 2:
+            return violations, {}
+
+        # Group duplicates using heuristic text comparison
+        duplicate_groups = []
+        processed_indices = set()
+
+        for i, comp1 in enumerate(components):
+            if i in processed_indices:
+                continue
+
+            # Find all duplicates of this component
+            duplicate_indices = [i]
+
+            for j, comp2 in enumerate(components[i+1:], start=i+1):
+                if j in processed_indices:
+                    continue
+
+                if cls._is_full_duplicate(comp1, comp2):
+                    duplicate_indices.append(j)
+                    processed_indices.add(j)
+
+            # If we found duplicates, create a violation
+            if len(duplicate_indices) > 1:
+                duplicate_groups.append(duplicate_indices)
+                processed_indices.update(duplicate_indices)
+
+        # Create FullSetViolation for each duplicate group
+        for group_indices in duplicate_groups:
+            # Convert to 1-based indexing for story_ids (as expected by LLM format)
+            story_ids = [idx for idx in group_indices]  # Keep 0-based for internal use
+
+            # Create parts_per_story (all stories have "text" part for uniqueness)
+            parts_per_story = [{"text"} for _ in group_indices]
+
+            # Get the duplicate texts for description
+            duplicate_texts = [components[idx].text[:50] + "..." if len(components[idx].text) > 50
+                               else components[idx].text for idx in group_indices]
+
+            issue = f"Duplicate stories detected: {len(group_indices)} stories have identical or nearly identical content"
+            suggestion = f"Remove duplicate stories or merge them into a single story. Duplicates: {', '.join(f'Story {idx+1}' for idx in group_indices)}"
+
+            violations.append(
+                FullSetViolation(
+                    story_ids=story_ids,
+                    parts_per_story=parts_per_story,
+                    issue=issue,
+                    suggestion=suggestion
+                )
+            )
+
+        return violations, {}
 
     @classmethod
     def run(
