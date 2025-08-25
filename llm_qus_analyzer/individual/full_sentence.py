@@ -1,43 +1,42 @@
-from dataclasses import dataclass
-from typing import Any, Optional
-from ..utils import analyze_individual_with_llm
 from ..analyzer import LLMAnalyzer
 from ..client import LLMClient, LLMResult, LLMUsage
 from ..chunker.models import QUSComponent
 from ..type import Violation
-# Qualitative requirements the ends commuinicates the intended qualitatifve effect of the means
+from dataclasses import dataclass
+from typing import Any, Optional
+from ..utils import analyze_individual_with_llm
 
+
+# TODO:
+# Full sentence :
+#     is the scope clearly defined and bounded? (Clear object, clear action, clear Role)
+#     Cann development effort be reasonably estimated
+#     Does it avoid multiple hidden functionalities
+# if wf true
+# - Does it read as a complete, well-formed sentence rather than fragments or phrases?
+#
 _definition = """
-**Evaluate whether this user story is 'Conceptually Sound' based on its [Means] and [Ends]:**
-Conceptualy sound: The means expresses a feature and the ends expresses a rationale
-rationale: reasoning or justification behind a decision, action, or belief
-1. **[Means] Check:**  
-    - Does the [Means] contain a **single, concrete action** the system can perform directly?  
-2. **[Ends] Check (If exist):**  
-    - Does [Ends] express a direct qualitative benefit or rationale of the means (e.g., easier, faster, more reliable)?”
-    - Does [Ends] avoid introducing another feature disguised as rationale ? (explicit hidden dependency) 
-    - Does [Ends] avoid assuming capabilities of the feature implied from the [Means]? (implicit hidden dependency, assumed features)
-Suggestion to fix: 
-    If [Means] contains multiple actions -> split into separate stories, or generalize if both logically collapse (e.g., Delete + Create -> Edit).
-    If [Ends] is vague or doesn’t show benefit -> rephrase as a direct rationale in scope of the means. 
-    If [Ends] contain assumed features of the means object and action remove it and change it as a general rationale.
-    If [Ends] sneaks in another feature -> remove it, and create a new story where that feature is the [Means].
+**Evaluate whether this user story is a 'Full Sentence' based on grammatical correctness:**
+1. **[User_Story] Grammatical Check:**
+   - Does the user story follow proper grammatical structure and rules?
+   - Are there any spelling errors, typos, or punctuation mistakes?
+
 """
 _in_format = """
-**User Story to Evaluate:**  
-- [Means]: {means}
-- [Ends]: {ends}
+**User Story to Evaluate:**
+{user_story}
 """
+
 _out_format = """
-**Stricly follow this output format (JSON) without any other explanation:**  
-- If valid: `{{ "valid": true }}`  
-- If invalid:  
+**Strictly follow this output format (JSON) without any other explanation:**
+- If valid: `{{ "valid": true }}`
+- If invalid:
   ```json
   {{
       "valid": false,
       "violations": [
         {{
-            "part": "[Means]" or "[Ends]",
+            "part": "[user_story]",
             "issue": "Description of the flaw",
             "suggestion": "How to fix it"
         }}
@@ -49,47 +48,46 @@ _out_format = """
 
 
 @dataclass
-class CSVerdictData:
-    """Data class representing the verdict of a conceptual soundness analysis."""
+class FullSentenceVerdictData:
+    """Data class representing the verdict of a full sentence analysis."""
 
     valid: bool
-    """Boolean indicating whether the component is conceptually sound."""
+    """Boolean indicating whether the component is a full sentence."""
 
     violations: list[Violation]
     """List of Violation objects found in the analysis."""
 
 
 _PART_MAP = {
-    "[Means]": "means",
-    "[Ends]": "ends",
+    "[user_story]": "user_story",
 }
 
 
-class CSVerdictParserModel:
-    """Parser model for analyzing conceptual soundness of QUS components using LLM.
+class FullSentenceParserModel:
+    """Parser model for analyzing full sentence quality of user stories using LLM.
 
-    This class handles the parsing and analysis of QUS components to determine
-    if they are conceptually sound according to the defined criteria.
+    This class handles the parsing and analysis of user stories to determine
+    if they are grammatically correct and complete sentences.
     """
 
     def __init__(self):
         """Initializes the parser model with analyzer configuration."""
-        self.key = "conceptually-sound"
-        self.__analyzer = LLMAnalyzer[CSVerdictData](key=self.key)
+        self.key = "full-sentence"
+        self.__analyzer = LLMAnalyzer[FullSentenceVerdictData](key=self.key)
         self.__analyzer.build_prompt(_definition, _in_format, _out_format)
         self.__analyzer.build_parser(lambda raw: self.__parser(raw))
 
-    def __parser(self, raw_json: Any) -> CSVerdictData:
-        """Parses raw JSON output from LLM into structured CSVerdictData.
+    def __parser(self, raw_json: Any) -> FullSentenceVerdictData:
+        """Parses raw JSON output from LLM into structured data.
 
         Args:
             raw_json: Raw JSON output from the LLM analysis.
 
         Returns:
-            CSVerdictData: Containing the parsed validation results and violations.
+            FullSentenceVerdictData: Containing the parsed validation results and violations.
         """
         if not isinstance(raw_json, dict):
-            return CSVerdictData(False, [])
+            return FullSentenceVerdictData(False, [])
 
         valid = raw_json.get("valid", False)
         if isinstance(valid, str):
@@ -113,13 +111,12 @@ class CSVerdictParserModel:
                     )
         if not valid and len(violations) == 0:
             violations.append(default_vio)
-
-        return CSVerdictData(valid=valid, violations=violations)
+        return FullSentenceVerdictData(valid=valid, violations=violations)
 
     def analyze_single(
         self, client: LLMClient, model_idx: int, component: QUSComponent
     ) -> tuple[list[Violation], LLMResult | None]:
-        """Analyzes a single QUS component for conceptual soundness.
+        """Analyzes a single user story for full sentence quality.
 
         Args:
             client (LLMClient): LLMClient instance for making API calls.
@@ -129,16 +126,14 @@ class CSVerdictParserModel:
         Returns:
             Tuple containing list of violations and LLM result/usage data.
         """
-        if component.means is None:
-            return [], None
-        values = {"means": component.means, "ends": component.ends}
+        values = {"user_story": component.text}
         data, usage = self.__analyzer.run(client, model_idx, values)
         return data.violations, usage
 
     def analyze_list(
         self, client: LLMClient, model_idx: int, components: list[QUSComponent]
     ) -> list[tuple[list[str], LLMResult | None]]:
-        """Analyzes a list of QUS components for conceptual soundness.
+        """Analyzes a list of user stories for full sentence quality.
 
         Args:
             client (LLMClient): LLMClient instance for making API calls.
@@ -154,19 +149,19 @@ class CSVerdictParserModel:
         ]
 
 
-class ConceptuallySoundAnalyzer:
-    """Main analyzer class for conceptual soundness evaluation.
+class FullSentenceAnalyzer:
+    """Main analyzer class for full sentence evaluation.
 
-    Provides class methods for running conceptual soundness checks on QUS components.
+    Provides class methods for running full sentence checks on user stories.
     """
 
-    __cs_parser = CSVerdictParserModel()
+    __fs_parser = FullSentenceParserModel()
 
     @classmethod
     def __not_violated(
         cls, client: LLMClient, model_idx: int, component: QUSComponent
     ) -> tuple[list[Violation], Optional[LLMUsage]]:
-        """Checks if a component violates conceptual soundness rules.
+        """Checks if a user story violates full sentence rules.
 
         Args:
             client (LLMClient): LLMClient instance for making API calls.
@@ -176,11 +171,7 @@ class ConceptuallySoundAnalyzer:
         Returns:
             Tuple containing list of violations and LLM usage data.
         """
-        means = component.means
-        if not means:
-            return [], None
-
-        violations, result = cls.__cs_parser.analyze_single(
+        violations, result = cls.__fs_parser.analyze_single(
             client, model_idx, component
         )
         return violations, result
@@ -189,7 +180,7 @@ class ConceptuallySoundAnalyzer:
     def run(
         cls, client: LLMClient, model_idx: int, component: QUSComponent
     ) -> tuple[list[Violation], dict[str, LLMUsage]]:
-        """Runs the complete conceptual soundness analysis pipeline.
+        """Runs the complete full sentence analysis pipeline.
 
         Args:
             client (LLMClient): LLMClient instance for making API calls.
@@ -202,7 +193,7 @@ class ConceptuallySoundAnalyzer:
             - Dictionary of LLM usage statistics by task key
         """
         llm_checker = [cls.__not_violated]
-        task_keys = [cls.__cs_parser.key]
+        task_keys = [cls.__fs_parser.key]
         violations, usages = analyze_individual_with_llm(
             llm_checker, client, model_idx, component
         )

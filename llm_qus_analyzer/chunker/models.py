@@ -3,7 +3,6 @@ from typing import Any, Optional
 from ..analyzer import LLMAnalyzer
 from ..client import LLMClient, LLMUsage
 from .parser import Template, TemplateParser
-
 _definition = """
 By definition,
 [Role]: A stakeholder or persona that expresses the need. Typically, [Role] are taken from the softwares application domain.
@@ -20,7 +19,8 @@ Use that definition to get a better understanding about Quality User Story.
 _in_format = """
 Extract the [Role], [Means] and [Ends] from the following user story:
 "{user_story}"
-Also please expand all the short version of english verb like "i'm" into "i am", etc.
+Also please expand all gramatical contraction of english verb like "i'm" into "i am", etc.
+If there are quotes in the user story, keep them as part of the text - do not split or separate quoted content.
 **Please only display the single final answer without any explanation, fixing steps, or any redundant text.**
 """
 
@@ -31,11 +31,12 @@ _out_format = """
     "expanded": "Expanded user story",
     "component": {{
           "[Role]": "List of string",
-          "[Means]": "String or None if not exists",
+         "[Means]": "String or None if not exists",
           "[Ends]": "String or None if not exists"
     }}
 }}
 ```
+ALWAYS Use BRACKET FOR THE "[Role]", "[Means]" and "[Ends]"
 **Please only display the final answer without any explanation, description, or any redundant text.**
 """
 
@@ -75,6 +76,9 @@ class QUSComponent:
 
     template: Template
     """Templatized version of the user story."""
+
+    id: Optional[str] = None
+    """Optional unique identifier for the component."""
 
 
 class QUSChunkerModel:
@@ -116,17 +120,31 @@ class QUSChunkerModel:
             else:
                 role = [role]
         means = raw["component"]["[Means]"]
-        if isinstance(means, str):
+        if isinstance(means, list):
+            if not means:
+                # sy tambahkan eringatan kadang llm output nya list.
+                print("[SNAFU]: LLM returned empty array for [Means]")
+                raise ValueError("LLM returned empty array for [Means]")
+            print(f"[SNAFU]: LLM returned array for [Means]: {means}, taking first element")
+            means = means[0]
+        elif isinstance(means, str):
             if means.lower() == "none" or means == "":
                 means = None
+
         ends = raw["component"]["[Ends]"]
-        if isinstance(ends, str):
+        if isinstance(ends, list):
+            if not ends:
+                print("[SNAFU]: LLM returned empty array for [Ends]")
+                raise ValueError("LLM returned empty array for [Ends]")
+            print(f"[SNAFU]: LLM returned array for [Ends]: {ends}, taking first element")
+            ends = ends[0]
+        elif isinstance(ends, str):
             if ends.lower() == "none" or ends == "":
                 ends = None
         return QUSChunkData(expanded, role, means, ends)
 
     def analyze_single(
-        self, client: LLMClient, model_idx: int, user_story: str
+        self, client: LLMClient, model_idx: int, user_story: str, id: Optional[str] = None
     ) -> tuple[QUSComponent, LLMUsage]:
         """Analyzes a single user story into its components.
 
@@ -134,6 +152,7 @@ class QUSChunkerModel:
             client (LLMClient): The LLM client to use for analysis.
             model_idx (int): Index of the specific LLM model to use.
             user_story (str): The user story text to analyze.
+            id (Optional[str]): Optional unique identifier for the component.
 
         Returns:
             tuple[QUSComponent,LLMUsage]:
@@ -156,11 +175,12 @@ class QUSChunkerModel:
             means=data.means,
             ends=data.ends,
             template=template,
+            id=id,
         )
         return component, usage
 
     def analyze_list(
-        self, client: LLMClient, model_idx: int, user_stories: list[str]
+        self, client: LLMClient, model_idx: int, user_stories: list[str], ids: list[str] = None
     ) -> list[tuple[QUSComponent, LLMUsage]]:
         """Analyzes multiple user stories in batch.
 
@@ -168,12 +188,18 @@ class QUSChunkerModel:
             client: The LLM client to use for analysis.
             model_idx: Index of the specific LLM model to use.
             user_stories: List of user story texts to analyze.
+            ids: Optional list of IDs corresponding to the user stories.
 
         Returns:
             list[tuple[QUSComponent,LLMUsage]]:
                 List of analysis results (component, usage) for each input story.
         """
+        if ids is None:
+            ids = [None] * len(user_stories)
+        elif len(ids) != len(user_stories):
+            raise ValueError("Length of ids must match length of user_stories")
+
         return [
-            self.analyze_single(client, model_idx, user_story)
-            for user_story in user_stories
+            self.analyze_single(client, model_idx, user_story, id)
+            for user_story, id in zip(user_stories, ids)
         ]

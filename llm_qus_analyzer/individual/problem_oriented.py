@@ -1,27 +1,25 @@
-from dataclasses import dataclass
-from typing import Any, Optional
-from ..utils import analyze_individual_with_llm
 from ..analyzer import LLMAnalyzer
 from ..client import LLMClient, LLMResult, LLMUsage
 from ..chunker.models import QUSComponent
 from ..type import Violation
-# Qualitative requirements the ends commuinicates the intended qualitatifve effect of the means
-
+from dataclasses import dataclass
+from typing import Any, Optional
+from ..utils import analyze_individual_with_llm
 _definition = """
-**Evaluate whether this user story is 'Conceptually Sound' based on its [Means] and [Ends]:**
-Conceptualy sound: The means expresses a feature and the ends expresses a rationale
-rationale: reasoning or justification behind a decision, action, or belief
+**Evaluate whether this user story is 'Problem-Oriented' based on its [Means] and [Ends]:**  
+problem-oriented: focuses on describing the **user’s need/problem (what)** and **benefit (why)** without prescribing a **solution (how)**  
 1. **[Means] Check:**  
-    - Does the [Means] contain a **single, concrete action** the system can perform directly?  
+    - Does the [Means] describe only the **user’s problem/need** (what the user wants)?
+    - Does the [Means] avoid explicit solutions of the problem (e.g.,Technology, Algorithm, User Interface to use )?  
+    - Does the [Means] avoid implicit solution hints (describes *a way of doing it* instead of the problem e.g. Specific technology,ui or algorithm used)?  
 2. **[Ends] Check (If exist):**  
-    - Does [Ends] express a direct qualitative benefit or rationale of the means (e.g., easier, faster, more reliable)?”
-    - Does [Ends] avoid introducing another feature disguised as rationale ? (explicit hidden dependency) 
-    - Does [Ends] avoid assuming capabilities of the feature implied from the [Means]? (implicit hidden dependency, assumed features)
-Suggestion to fix: 
-    If [Means] contains multiple actions -> split into separate stories, or generalize if both logically collapse (e.g., Delete + Create -> Edit).
-    If [Ends] is vague or doesn’t show benefit -> rephrase as a direct rationale in scope of the means. 
-    If [Ends] contain assumed features of the means object and action remove it and change it as a general rationale.
-    If [Ends] sneaks in another feature -> remove it, and create a new story where that feature is the [Means].
+    - Does the [Ends] express a clear benefit or rationale of solving the problem (e.g., faster, easier, safer, compliant)?  
+    - Does the [Ends] avoid prescribing implementation outcomes (e.g., “so that a modal appears,” “so that it runs in Redis”)?  
+**Suggestion to fix:**  
+- If [Means] specifies UI, tech, or algorith -> restate only the **problem/need** and delete the Implementation.  
+- If [Means] Uses a implicit solution hints -> restate the problem and use a generic word
+- If [Ends] prescribes how -> replace with the **intended benefit**.  
+- If story mixes problem & solution -> split into separate stories (problem in user story, solution in acceptance criteria/design as a solution).  
 """
 _in_format = """
 **User Story to Evaluate:**  
@@ -43,15 +41,12 @@ _out_format = """
         }}
       ]
   }}
-  ```
-**Please only display the final answer without any explanation, description, or any redundant text.**
-"""
+  **Please only display the final answer without any explanation, description, or any redundant text.**
+  """
 
 
 @dataclass
-class CSVerdictData:
-    """Data class representing the verdict of a conceptual soundness analysis."""
-
+class POverdictData:
     valid: bool
     """Boolean indicating whether the component is conceptually sound."""
 
@@ -65,31 +60,24 @@ _PART_MAP = {
 }
 
 
-class CSVerdictParserModel:
-    """Parser model for analyzing conceptual soundness of QUS components using LLM.
-
-    This class handles the parsing and analysis of QUS components to determine
-    if they are conceptually sound according to the defined criteria.
-    """
-
+class POParserModel:
     def __init__(self):
-        """Initializes the parser model with analyzer configuration."""
-        self.key = "conceptually-sound"
-        self.__analyzer = LLMAnalyzer[CSVerdictData](key=self.key)
+        self.key = "problem-oriented"
+        self.__analyzer = LLMAnalyzer[POverdictData](key=self.key)
         self.__analyzer.build_prompt(_definition, _in_format, _out_format)
         self.__analyzer.build_parser(lambda raw: self.__parser(raw))
 
-    def __parser(self, raw_json: Any) -> CSVerdictData:
-        """Parses raw JSON output from LLM into structured CSVerdictData.
+    def __parser(self, raw_json: Any) -> POverdictData:
+        """Parses raw JSON output from LLM into structured data.
 
         Args:
             raw_json: Raw JSON output from the LLM analysis.
 
         Returns:
-            CSVerdictData: Containing the parsed validation results and violations.
+            POParserModel the parsed validation results and violations.
         """
         if not isinstance(raw_json, dict):
-            return CSVerdictData(False, [])
+            return POverdictData(False, [])
 
         valid = raw_json.get("valid", False)
         if isinstance(valid, str):
@@ -113,19 +101,16 @@ class CSVerdictParserModel:
                     )
         if not valid and len(violations) == 0:
             violations.append(default_vio)
-
-        return CSVerdictData(valid=valid, violations=violations)
+        return POverdictData(valid=valid, violations=violations)
 
     def analyze_single(
         self, client: LLMClient, model_idx: int, component: QUSComponent
     ) -> tuple[list[Violation], LLMResult | None]:
-        """Analyzes a single QUS component for conceptual soundness.
-
+        """Analyzes a single QUS component for problem oriented.
         Args:
             client (LLMClient): LLMClient instance for making API calls.
             model_idx (int): Index of the LLM model to use for analysis.
             component (QUSComponent): QUSComponent to analyze.
-
         Returns:
             Tuple containing list of violations and LLM result/usage data.
         """
@@ -138,7 +123,7 @@ class CSVerdictParserModel:
     def analyze_list(
         self, client: LLMClient, model_idx: int, components: list[QUSComponent]
     ) -> list[tuple[list[str], LLMResult | None]]:
-        """Analyzes a list of QUS components for conceptual soundness.
+        """Analyzes a list of QUS components for problem oriented.
 
         Args:
             client (LLMClient): LLMClient instance for making API calls.
@@ -154,19 +139,14 @@ class CSVerdictParserModel:
         ]
 
 
-class ConceptuallySoundAnalyzer:
-    """Main analyzer class for conceptual soundness evaluation.
-
-    Provides class methods for running conceptual soundness checks on QUS components.
-    """
-
-    __cs_parser = CSVerdictParserModel()
+class ProblemOrientedAnalyzer:
+    __po_parser = POParserModel()
 
     @classmethod
     def __not_violated(
         cls, client: LLMClient, model_idx: int, component: QUSComponent
     ) -> tuple[list[Violation], Optional[LLMUsage]]:
-        """Checks if a component violates conceptual soundness rules.
+        """Checks if a component violates problem oriented rules.
 
         Args:
             client (LLMClient): LLMClient instance for making API calls.
@@ -179,8 +159,7 @@ class ConceptuallySoundAnalyzer:
         means = component.means
         if not means:
             return [], None
-
-        violations, result = cls.__cs_parser.analyze_single(
+        violations, result = cls.__po_parser.analyze_single(
             client, model_idx, component
         )
         return violations, result
@@ -189,7 +168,7 @@ class ConceptuallySoundAnalyzer:
     def run(
         cls, client: LLMClient, model_idx: int, component: QUSComponent
     ) -> tuple[list[Violation], dict[str, LLMUsage]]:
-        """Runs the complete conceptual soundness analysis pipeline.
+        """Runs the complete problem oriented analysis pipeline.
 
         Args:
             client (LLMClient): LLMClient instance for making API calls.
@@ -202,7 +181,7 @@ class ConceptuallySoundAnalyzer:
             - Dictionary of LLM usage statistics by task key
         """
         llm_checker = [cls.__not_violated]
-        task_keys = [cls.__cs_parser.key]
+        task_keys = [cls.__po_parser.key]
         violations, usages = analyze_individual_with_llm(
             llm_checker, client, model_idx, component
         )

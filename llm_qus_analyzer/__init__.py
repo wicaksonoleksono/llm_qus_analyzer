@@ -7,7 +7,10 @@ from .individual import (
     AtomicAnalyzer,
     ConceptuallySoundAnalyzer,
 )
-from .set import UniformAnalyzer
+from .set import (UniformAnalyzer,
+                  ConflictFreeAnalyzer
+
+                  )
 
 __all__ = [
     "Settings",
@@ -18,4 +21,6 @@ __all__ = [
     "AtomicAnalyzer",
     "ConceptuallySoundAnalyzer",
     "UniformAnalyzer",
+    "ConflictFreeAnalyzer"
+
 ]

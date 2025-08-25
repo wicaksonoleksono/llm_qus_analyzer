@@ -1,37 +1,30 @@
-from dataclasses import dataclass
-from typing import Any, Optional
-from ..utils import analyze_individual_with_llm
+
+
 from ..analyzer import LLMAnalyzer
 from ..client import LLMClient, LLMResult, LLMUsage
 from ..chunker.models import QUSComponent
 from ..type import Violation
-# Qualitative requirements the ends commuinicates the intended qualitatifve effect of the means
-
+from dataclasses import dataclass
+from typing import Any, Optional
+from ..utils import analyze_individual_with_llm
 _definition = """
-**Evaluate whether this user story is 'Conceptually Sound' based on its [Means] and [Ends]:**
-Conceptualy sound: The means expresses a feature and the ends expresses a rationale
-rationale: reasoning or justification behind a decision, action, or belief
-1. **[Means] Check:**  
-    - Does the [Means] contain a **single, concrete action** the system can perform directly?  
-2. **[Ends] Check (If exist):**  
-    - Does [Ends] express a direct qualitative benefit or rationale of the means (e.g., easier, faster, more reliable)?”
-    - Does [Ends] avoid introducing another feature disguised as rationale ? (explicit hidden dependency) 
-    - Does [Ends] avoid assuming capabilities of the feature implied from the [Means]? (implicit hidden dependency, assumed features)
-Suggestion to fix: 
-    If [Means] contains multiple actions -> split into separate stories, or generalize if both logically collapse (e.g., Delete + Create -> Edit).
-    If [Ends] is vague or doesn’t show benefit -> rephrase as a direct rationale in scope of the means. 
-    If [Ends] contain assumed features of the means object and action remove it and change it as a general rationale.
-    If [Ends] sneaks in another feature -> remove it, and create a new story where that feature is the [Means].
+**Evaluate whether this user story is 'Estimatable'**
+1. [Means] check :
+    - Does the scope of the objective clearly defined and bounded? (clear object, clear action, Clear realation ship between means and role and ends)
+    - Can development effort be reasonably estimated?
+2. [Means] and [Ends] check:
+    - Does it contain multiple hidden functionalities?
 """
 _in_format = """
-**User Story to Evaluate:**  
+**User story to Evaluate:**
+- [Role]: {role}
 - [Means]: {means}
 - [Ends]: {ends}
 """
 _out_format = """
-**Stricly follow this output format (JSON) without any other explanation:**  
-- If valid: `{{ "valid": true }}`  
-- If invalid:  
+**Stricly follow this output format (JSON) without any other explanation:**
+- If valid: `{{ "valid": true }}`
+- If invalid:
   ```json
   {{
       "valid": false,
@@ -49,9 +42,7 @@ _out_format = """
 
 
 @dataclass
-class CSVerdictData:
-    """Data class representing the verdict of a conceptual soundness analysis."""
-
+class EstimatableVerdictData:
     valid: bool
     """Boolean indicating whether the component is conceptually sound."""
 
@@ -60,36 +51,30 @@ class CSVerdictData:
 
 
 _PART_MAP = {
+    "[Role]": "role",
     "[Means]": "means",
     "[Ends]": "ends",
 }
 
 
-class CSVerdictParserModel:
-    """Parser model for analyzing conceptual soundness of QUS components using LLM.
-
-    This class handles the parsing and analysis of QUS components to determine
-    if they are conceptually sound according to the defined criteria.
-    """
-
+class EstimatableParserModel:
     def __init__(self):
-        """Initializes the parser model with analyzer configuration."""
-        self.key = "conceptually-sound"
-        self.__analyzer = LLMAnalyzer[CSVerdictData](key=self.key)
+        self.key = "estimatable"
+        self.__analyzer = LLMAnalyzer[EstimatableVerdictData](key=self.key)
         self.__analyzer.build_prompt(_definition, _in_format, _out_format)
         self.__analyzer.build_parser(lambda raw: self.__parser(raw))
 
-    def __parser(self, raw_json: Any) -> CSVerdictData:
-        """Parses raw JSON output from LLM into structured CSVerdictData.
+    def __parser(self, raw_json: Any) -> EstimatableVerdictData:
+        """Parses raw JSON output from LLM into structured data.
 
         Args:
             raw_json: Raw JSON output from the LLM analysis.
 
         Returns:
-            CSVerdictData: Containing the parsed validation results and violations.
+            EstimatableVerdictData: Containing the parsed validation results and violations.
         """
         if not isinstance(raw_json, dict):
-            return CSVerdictData(False, [])
+            return EstimatableVerdictData(False, [])
 
         valid = raw_json.get("valid", False)
         if isinstance(valid, str):
@@ -113,13 +98,12 @@ class CSVerdictParserModel:
                     )
         if not valid and len(violations) == 0:
             violations.append(default_vio)
-
-        return CSVerdictData(valid=valid, violations=violations)
+        return EstimatableVerdictData(valid=valid, violations=violations)
 
     def analyze_single(
         self, client: LLMClient, model_idx: int, component: QUSComponent
     ) -> tuple[list[Violation], LLMResult | None]:
-        """Analyzes a single QUS component for conceptual soundness.
+        """Analyzes a single QUS component for estimatability.
 
         Args:
             client (LLMClient): LLMClient instance for making API calls.
@@ -131,14 +115,14 @@ class CSVerdictParserModel:
         """
         if component.means is None:
             return [], None
-        values = {"means": component.means, "ends": component.ends}
+        values = {"role": component.role, "means": component.means, "ends": component.ends}
         data, usage = self.__analyzer.run(client, model_idx, values)
         return data.violations, usage
 
     def analyze_list(
         self, client: LLMClient, model_idx: int, components: list[QUSComponent]
     ) -> list[tuple[list[str], LLMResult | None]]:
-        """Analyzes a list of QUS components for conceptual soundness.
+        """Analyzes a list of QUS components for estimatability.
 
         Args:
             client (LLMClient): LLMClient instance for making API calls.
@@ -154,19 +138,19 @@ class CSVerdictParserModel:
         ]
 
 
-class ConceptuallySoundAnalyzer:
-    """Main analyzer class for conceptual soundness evaluation.
+class EstimatableAnalyzer:
+    """Main analyzer class for estimatability evaluation.
 
-    Provides class methods for running conceptual soundness checks on QUS components.
+    Provides class methods for running estimatability checks on QUS components.
     """
 
-    __cs_parser = CSVerdictParserModel()
+    __estimatable_parser = EstimatableParserModel()
 
     @classmethod
     def __not_violated(
         cls, client: LLMClient, model_idx: int, component: QUSComponent
     ) -> tuple[list[Violation], Optional[LLMUsage]]:
-        """Checks if a component violates conceptual soundness rules.
+        """Checks if a component violates estimatability rules.
 
         Args:
             client (LLMClient): LLMClient instance for making API calls.
@@ -180,7 +164,7 @@ class ConceptuallySoundAnalyzer:
         if not means:
             return [], None
 
-        violations, result = cls.__cs_parser.analyze_single(
+        violations, result = cls.__estimatable_parser.analyze_single(
             client, model_idx, component
         )
         return violations, result
@@ -189,7 +173,7 @@ class ConceptuallySoundAnalyzer:
     def run(
         cls, client: LLMClient, model_idx: int, component: QUSComponent
     ) -> tuple[list[Violation], dict[str, LLMUsage]]:
-        """Runs the complete conceptual soundness analysis pipeline.
+        """Runs the complete estimatability analysis pipeline.
 
         Args:
             client (LLMClient): LLMClient instance for making API calls.
@@ -202,7 +186,7 @@ class ConceptuallySoundAnalyzer:
             - Dictionary of LLM usage statistics by task key
         """
         llm_checker = [cls.__not_violated]
-        task_keys = [cls.__cs_parser.key]
+        task_keys = [cls.__estimatable_parser.key]
         violations, usages = analyze_individual_with_llm(
             llm_checker, client, model_idx, component
         )
