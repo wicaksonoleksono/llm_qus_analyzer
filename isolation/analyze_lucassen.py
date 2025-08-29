@@ -13,10 +13,11 @@ from llm_qus_analyzer.chunker.models import QUSComponent
 from llm_qus_analyzer.chunker.parser import Template
 from llm_qus_analyzer.individual.atomic import AtomicAnalyzer
 from llm_qus_analyzer.individual.minimal import MinimalAnalyzer
-from llm_qus_analyzer.set.unique import UniqueAnalyzer
-from llm_qus_analyzer.set.conflict_free import ConflictFreeAnalyzer
+from llm_qus_analyzer.individual.well_form import WellFormAnalyzer
+from llm_qus_analyzer.set.uniform import UniformAnalyzer
 
 def create_component(chunk_data, story_id):
+    """Create QUSComponent from chunk data."""
     template = Template(
         text=chunk_data["template_data"]["text"],
         chunk=chunk_data["template_data"]["chunk"],
@@ -33,71 +34,41 @@ def create_component(chunk_data, story_id):
         original_text=chunk_data["original_story"]
     )
 
-def analyze_with_retry(analyzer, client, model_idx, *args, max_retries=5):
+def analyze_with_retry(analyzer_class, client, model_idx, *args, max_retries=5):
     """
     Analyze with exponential backoff retry logic for HTTP errors.
     
     Args:
-        analyzer: The analyzer instance (AtomicAnalyzer, MinimalAnalyzer, etc.)
+        analyzer_class: The analyzer class (AtomicAnalyzer, MinimalAnalyzer, etc.)
         client: The LLMClient instance
         model_idx: Index of the model to use
         *args: Arguments to pass to the analyzer method
         max_retries: Maximum number of retry attempts
     
     Returns:
-        tuple: (result, usage) if successful, (None, error_message) if failed
+        tuple: (result, None) if successful, (None, error_message) if failed
     """
     base_delay = 1  # Start with 1 second delay
     
-    # Determine which method to call based on the analyzer type
-    method = getattr(analyzer, 'run', None)
-    if method is None:
-        # For set analyzers, we use analyze_pairwise
-        method = getattr(analyzer, 'analyze_pairwise', None)
-    
-    if method is None:
-        return None, "Analyzer does not have a valid method to call"
-    
     for attempt in range(max_retries):
         try:
-            result = method(client, model_idx, *args)
-            return result
+            # Use class method run for all analyzers
+            result = analyzer_class.run(client, model_idx, *args)
+            return result, None
         except json.JSONDecodeError as e:
             error_msg = str(e)
             print(f"\n  JSON Decode Error:")
             print(f"    Error: {error_msg}")
             print(f"    Position: line {e.lineno} column {e.colno} (char {e.pos})")
-            # Try to get more context about what was being parsed
-            try:
-                # If the method stores the last response, we can inspect it
-                if hasattr(analyzer, 'last_response') and analyzer.last_response:
-                    print(f"    Last response snippet: {analyzer.last_response[:200]}...")
-            except:
-                pass
             return None, f"JSON parsing error: {error_msg}"
         except Exception as e:
             error_msg = str(e)
-            
-            # Print more detailed error information for debugging
-            print(f"\n  Detailed error info:")
-            print(f"    Error type: {type(e).__name__}")
-            print(f"    Error message: {error_msg}")
-            
-            # Special handling for the specific error we're seeing
-            if "Expecting value: line 1 column 2 (char 1)" in error_msg:
-                print(f"    This suggests an empty or malformed JSON response from the LLM")
-                try:
-                    # If the method stores the last response, we can inspect it
-                    if hasattr(analyzer, 'last_response') and analyzer.last_response:
-                        print(f"    Last response: {repr(analyzer.last_response[:100])}")
-                except:
-                    pass
             
             # Check if it's a rate limit or HTTP error that we should retry
             if any(http_error in error_msg.lower() for http_error in ['http', '429', '500', '502', '503', '504', 'timeout', 'connection']):
                 if attempt < max_retries - 1:  # Don't sleep on the last attempt
                     delay = base_delay * (2 ** attempt)  # Exponential backoff
-                    print(f" ⚠ HTTP error: {error_msg[:50]}... Retrying in {delay}s (attempt {attempt+1}/{max_retries})")
+                    print(f" ⚠ HTTP error: {error_msg} Retrying in {delay}s (attempt {attempt+1}/{max_retries})")
                     time.sleep(delay)
                     continue
             
@@ -107,15 +78,20 @@ def analyze_with_retry(analyzer, client, model_idx, *args, max_retries=5):
     # If we've exhausted all retries
     return None, f"Failed after {max_retries} attempts"
 
-def load_existing_results():
-    """Load existing results from lucassen_analysis.json if it exists."""
+
+
+def load_existing_results(output_dir):
+    """Load existing results from analysis.json if it exists."""
     try:
-        with open("lucassen_analysis.json", 'r') as f:
-            content = f.read()
-            if not content.strip():
-                print("Warning: lucassen_analysis.json is empty")
-                return {}
-            return json.loads(content)
+        results_file = output_dir / "analysis.json"
+        if results_file.exists():
+            with open(results_file, 'r') as f:
+                content = f.read()
+                if not content.strip():
+                    print(f"Warning: {results_file} is empty")
+                    return {}
+                return json.loads(content)
+        return {}
     except FileNotFoundError:
         return {}
     except json.JSONDecodeError as e:
@@ -123,50 +99,92 @@ def load_existing_results():
         print("Starting with fresh results...")
         return {}
 
-def save_results(results):
-    """Save results to lucassen_analysis.json."""
+def save_results(results, output_dir):
+    """Save results to analysis.json."""
     try:
-        with open("lucassen_analysis.json", 'w') as f:
+        output_dir.mkdir(parents=True, exist_ok=True)
+        results_file = output_dir / "analysis.json"
+        with open(results_file, 'w') as f:
             json.dump(results, f, indent=2)
     except Exception as e:
         print(f"Error saving results: {e}")
-        # Try to save a backup
-        try:
-            with open("lucassen_analysis_backup.json", 'w') as f:
-                json.dump(results, f, indent=2)
-            print("Saved backup to lucassen_analysis_backup.json")
-        except Exception as e2:
-            print(f"Error saving backup: {e2}")
 
-def main():
-    settings = Settings()
-    settings.configure_paths_and_load(".env", "models.yaml")
+def create_violations_table(analyzer_results, individual_analyzers, analyzer_name, output_dir):
+    """Create a CSV table with user stories and their violations."""
+    try:
+        output_dir.mkdir(parents=True, exist_ok=True)
+        csv_file = output_dir / f"{analyzer_name}_violations.csv"
+        
+        with open(csv_file, 'w', newline='') as f:
+            if analyzer_name in individual_analyzers:
+                # Individual analyzer format
+                f.write("User Story,Violations\n")
+                for result in analyzer_results:
+                    # Convert violations list to a string format
+                    violations_str = "; ".join([f"{v['issue']}" for v in result["violations"]])
+                    story = result["story"].replace('"', '""')
+                    f.write(f'"{story}","{violations_str}"\n')
+            else:
+                # Set analyzer format
+                f.write("Story1,Story2,Violations\n")
+                for result in analyzer_results:
+                    # Convert violations list to a string format
+                    violations_str = "; ".join([f"{v['issue']}" for v in result["violations"]])
+                    story1 = result["story1"].replace('"', '""')
+                    story2 = result["story2"].replace('"', '""')
+                    f.write(f'"{story1}","{story2}","{violations_str}"\n')
+        print(f"Created violations table: {csv_file}")
+    except Exception as e:
+        print(f"Error creating violations table: {e}")
+
+def analyze_model(settings, model_idx, model_name, chunks):
+    """Analyze chunks using a specific model."""
+    print(f"\nAnalyzing with model: {model_name}")
+    
+    # Create output directory for this model within lucassen
+    output_dir = Path("lucassen") / model_name.replace("/", "_").replace(" ", "_")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
     client = LLMClient(settings)
-    
-    with open("lucassen_chunks.json", 'r') as f:
-        chunks = json.load(f)
-    
-    individual_analyzers = {"atomic": AtomicAnalyzer, "minimal": MinimalAnalyzer}
-    set_analyzers = {"unique": UniqueAnalyzer, "conflict_free": ConflictFreeAnalyzer}
+    individual_analyzers = {"atomic": AtomicAnalyzer, "minimal": MinimalAnalyzer, "well-formed": WellFormAnalyzer}
+    set_analyzers = {"uniform": UniformAnalyzer}
     
     # Load existing results to avoid re-analyzing
-    results = load_existing_results()
+    results = load_existing_results(output_dir)
     
     # Individual analysis
     for name, analyzer in individual_analyzers.items():
-        # Skip if already analyzed
-        if name in results and results[name]:
-            print(f"Skipping {name} - already analyzed")
+        # Skip if already analyzed all chunks
+        if name in results and len(results[name]) >= len(chunks):
+            print(f"  Skipping {name} - already analyzed")
+            # Create violations table if it doesn't exist
+            violations_table_path = output_dir / f"{name}_violations.csv"
+            if not violations_table_path.exists():
+                create_violations_table(results[name], individual_analyzers, name, output_dir)
             continue
             
-        print(f"Analyzing {name}")
-        analyzer_results = []
-        errors = []
+        print(f"  Analyzing {name}")
+        analyzer_results = results.get(name, [])
+        errors = results.get(f"{name}_errors", [])
         
-        for i, (chunk_id, chunk_data) in enumerate(chunks.items()):
-            print(f"  {i+1}/{len(chunks)}", end="")
+        # Create a set of already analyzed story IDs
+        analyzed_story_ids = set(result["story_id"] for result in analyzer_results)
+        analyzed_story_ids.update(result["story_id"] for result in errors)
+        
+        # Process only unanalyzed chunks
+        unanalyzed_chunks = [(chunk_id, chunk_data) for chunk_id, chunk_data in chunks.items() 
+                            if chunk_id not in analyzed_story_ids]
+        
+        if not unanalyzed_chunks:
+            print(f"  Skipping {name} - all chunks already analyzed")
+            continue
+            
+        print(f"  Processing {len(unanalyzed_chunks)} unanalyzed chunks out of {len(chunks)} total")
+        
+        for i, (chunk_id, chunk_data) in enumerate(unanalyzed_chunks):
+            print(f"    {i+1}/{len(unanalyzed_chunks)}", end="")
             component = create_component(chunk_data, chunk_id)
-            result = analyze_with_retry(analyzer(), client, 1, component)
+            result = analyze_with_retry(analyzer, client, model_idx, component)
             
             if result[0] is not None:
                 violations, usage = result
@@ -183,115 +201,144 @@ def main():
                     "story": chunk_data["original_story"],
                     "error": result[1]
                 })
-                print(f" ✗ Error: {result[1][:50]}...")
+                print(f" ✗ Error: {result[1]}")
         
         results[name] = analyzer_results
         if errors:
             results[f"{name}_errors"] = errors
             
         # Save progress after each analyzer
-        save_results(results)
+        save_results(results, output_dir)
+        
+        # Create violations table
+        create_violations_table(analyzer_results, individual_analyzers, name, output_dir)
     
-    # Set pairwise analysis (commutative - only A:B, not B:A)
+    # Set analysis - Uniform only
     components = [create_component(chunk_data, chunk_id) for chunk_id, chunk_data in chunks.items()]
     
-    # Create sets of already analyzed pairs for each analyzer
-    analyzed_pairs = {}
-    for name in set_analyzers.keys():
-        if name in results and results[name]:
-            analyzed_pairs[name] = set(result["pair"] for result in results[name])
-        else:
-            analyzed_pairs[name] = set()
-        if f"{name}_errors" in results and results[f"{name}_errors"]:
-            analyzed_pairs[name].update(result["pair"] for result in results[f"{name}_errors"])
-    
     for name, analyzer in set_analyzers.items():
-        total_pairs = len(components) * (len(components) - 1) // 2
-        already_analyzed_count = len(analyzed_pairs[name])
+        print(f"  Analyzing {name} (template uniformity)")
         
-        if already_analyzed_count >= total_pairs:
-            print(f"Skipping {name} - already analyzed")
+        # Check if already analyzed
+        if name in results and len(results[name]) > 0:
+            print(f"  Skipping {name} - already analyzed")
+            violations_table_path = output_dir / f"{name}_violations.csv"
+            if not violations_table_path.exists():
+                if name not in results:
+                    results[name] = []
+                create_violations_table(results[name], individual_analyzers, name, output_dir)
             continue
-            
-        remaining_pairs = total_pairs - already_analyzed_count
-        print(f"Analyzing {name} (pairwise) - {remaining_pairs}/{total_pairs} pairs remaining")
         
-        # Initialize results for this analyzer if not present
-        if name not in results:
-            results[name] = []
-        if f"{name}_errors" not in results:
-            results[f"{name}_errors"] = []
+        # Process uniform analysis
+        try:
+            uniform_results = analyze_with_retry(analyzer, client, model_idx, components)
             
-        pair_count = 0
-        new_results = []
-        new_errors = []
-        
-        for i in range(len(components)):
-            for j in range(i + 1, len(components)):  # Triangle logic - only upper triangle
-                comp1, comp2 = components[i], components[j]
-                pair_id = f"{comp1.id}:{comp2.id}"
+            if uniform_results[0] is not None:
+                # UniformAnalyzer returns list of (violations, usage) tuples directly
+                component_results = uniform_results[0]
+                uniform_violations = []
                 
-                # Skip if already analyzed
-                if pair_id in analyzed_pairs[name]:
-                    continue
-                    
-                pair_count += 1
-                print(f"  {pair_count}/{remaining_pairs}", end="")
-                result = analyze_with_retry(analyzer(), client, 1, comp1, comp2)
+                # Process each component's result
+                for i, (violations, usage_dict) in enumerate(component_results):
+                    if violations:  # Only add if there are violations
+                        uniform_violations.append({
+                            "story_id": components[i].id,
+                            "story": components[i].original_text,
+                            "violations": [{"issue": v.issue, "suggestion": v.suggestion} for v in violations],
+                            "violation_count": len(violations)
+                        })
                 
-                if result[0] is not None:
-                    violations, usage = result
-                    new_results.append({
-                        "pair": pair_id,
-                        "story1": comp1.original_text,
-                        "story2": comp2.original_text,
-                        "violations": [{"issue": v.issue, "suggestion": v.suggestion} for v in violations],
-                        "violation_count": len(violations)
-                    })
-                    print(f" ✓ {len(violations)} violations")
-                else:
-                    new_errors.append({
-                        "pair": pair_id,
-                        "story1": comp1.original_text,
-                        "story2": comp2.original_text,
-                        "error": result[1]
-                    })
-                    print(f" ✗ Error: {result[1][:50]}...")
-        
-        # Add new results to existing results
-        results[name].extend(new_results)
-        results[f"{name}_errors"].extend(new_errors)
-        
-        # Save progress after each analyzer
-        save_results(results)
-    
-    # Create separate CSV per criteria
-    for name, analyzer_results in results.items():
-        # Skip error entries for CSV generation
-        if name.endswith("_errors"):
-            continue
+                results[name] = uniform_violations
+                print(f"  ✓ {len(uniform_violations)} stories with uniformity violations")
+            else:
+                results[f"{name}_errors"] = [{
+                    "error": uniform_results[1],
+                    "total_stories": len(components)
+                }]
+                print(f"  ✗ Error: {uniform_results[1]}")
+                
+            save_results(results, output_dir)
+            create_violations_table(results[name], individual_analyzers, name, output_dir)
             
-        with open(f"lucassen_{name}_violations.csv", 'w', newline='') as f:
-            if name in individual_analyzers:
-                f.write("User Story,Violations\n")
-                for result in analyzer_results:
-                    violations = ", ".join([v["issue"] for v in result["violations"]])
-                    story = result["story"].replace('"', '""')
-                    f.write(f'"{story}","{violations}"\n')
-            else:  # Set analyzers
-                f.write("Story1,Story2,Violations\n")
-                for result in analyzer_results:
-                    violations = ", ".join([v["issue"] for v in result["violations"]])
-                    story1 = result["story1"].replace('"', '""')
-                    story2 = result["story2"].replace('"', '""')
-                    f.write(f'"{story1}","{story2}","{violations}"\n')
+        except Exception as e:
+            error_msg = str(e)
+            results[f"{name}_errors"] = [{
+                "error": error_msg,
+                "total_stories": len(components)
+            }]
+            print(f"  ✗ Error: {error_msg}")
+            save_results(results, output_dir)
     
-    print(f"Done - {len([k for k in results.keys() if not k.endswith('_errors')])} criteria analyzed")
+    print(f"  Done with model {model_name}")
     
     # Print error summary
     error_count = sum([len(v) for k, v in results.items() if k.endswith('_errors')])
     if error_count > 0:
-        print(f"Total errors: {error_count}")
+        print(f"  Total errors for {model_name}: {error_count}")
+    
+    return results
+
+def load_chunks_from_lucassen():
+    """Load chunks from existing lucassen directory structure."""
+    lucassen_dir = Path("lucassen")
+    if not lucassen_dir.exists():
+        raise FileNotFoundError("lucassen directory not found")
+    
+    # Find the first model directory with chunks.json
+    for model_dir in lucassen_dir.iterdir():
+        if model_dir.is_dir():
+            chunks_file = model_dir / "chunks.json"
+            if chunks_file.exists():
+                try:
+                    with open(chunks_file, 'r') as f:
+                        chunks = json.load(f)
+                    print(f"Loaded {len(chunks)} chunks from {model_dir.name}")
+                    return chunks
+                except Exception as e:
+                    print(f"Error loading chunks from {model_dir.name}: {e}")
+                    continue
+    
+    raise FileNotFoundError("No valid chunks.json found in lucassen directory")
+
+def main():
+    settings = Settings()
+    settings.configure_paths_and_load("../.env", "models.yaml")
+    client = LLMClient(settings)
+    
+    chunks = load_chunks_from_lucassen()
+    
+    # Analyze with each model
+    all_results = {}
+    for model_idx, model_info in enumerate(client._LLMClient__model_info):
+        model_name = model_info.name
+        results = analyze_model(settings, model_idx, model_name, chunks)
+        all_results[model_name] = results
+    
+    # Create a combined summary file
+    summary = {}
+    for model_name, results in all_results.items():
+        # Count total violations across all analyzers
+        total_violations = 0
+        total_errors = 0
+        
+        for key, value in results.items():
+            if key.endswith('_errors'):
+                total_errors += len(value)
+            elif isinstance(value, list):
+                total_violations += len(value)
+        
+        summary[model_name] = {
+            "total_violations": total_violations,
+            "total_errors": total_errors
+        }
+    
+    with open("lucassen/analysis_summary.json", 'w') as f:
+        json.dump(summary, f, indent=2)
+    
+    print("\nAll models analyzed successfully!")
+    print("Summary:")
+    for model_name, stats in summary.items():
+        print(f"  {model_name}: {stats['total_violations']} violations, {stats['total_errors']} errors")
 
 if __name__ == "__main__":
     main()
