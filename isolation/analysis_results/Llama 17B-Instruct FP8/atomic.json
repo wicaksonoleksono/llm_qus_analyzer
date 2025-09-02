@@ -1,0 +1,666 @@
+[
+  {
+    "component_id": "story_1",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) see who last edited a record\n(2) see when a record was last edited",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.870999813079834,
+        "num_token_in": 156,
+        "num_token_out": 28
+      }
+    }
+  },
+  {
+    "component_id": "story_2",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.2815229892730713,
+        "num_token_in": 149,
+        "num_token_out": 19
+      }
+    }
+  },
+  {
+    "component_id": "story_3",
+    "violations": [
+      {
+        "parts": [
+          "role"
+        ],
+        "issue": "The [Role] is more than 1: cataloger, collections manager",
+        "suggestion": "Select one [Role] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 2.5400230884552,
+        "num_token_in": 156,
+        "num_token_out": 19
+      }
+    }
+  },
+  {
+    "component_id": "story_4",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.5551199913024902,
+        "num_token_in": 155,
+        "num_token_out": 18
+      }
+    }
+  },
+  {
+    "component_id": "story_5",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.7293107509613037,
+        "num_token_in": 157,
+        "num_token_out": 18
+      }
+    }
+  },
+  {
+    "component_id": "story_6",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.5211668014526367,
+        "num_token_in": 159,
+        "num_token_out": 18
+      }
+    }
+  },
+  {
+    "component_id": "story_7",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) authority lists are easily accessible\n(2) authority lists are contextually relevant",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.3640458583831787,
+        "num_token_in": 160,
+        "num_token_out": 31
+      }
+    }
+  },
+  {
+    "component_id": "story_8",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.504631519317627,
+        "num_token_in": 151,
+        "num_token_out": 17
+      }
+    }
+  },
+  {
+    "component_id": "story_9",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) see\n(2) hear\n(3) watch\n(4) read",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 8.146539211273193,
+        "num_token_in": 176,
+        "num_token_out": 23
+      }
+    }
+  },
+  {
+    "component_id": "story_10",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) see all components associated with an item on the create/update screen\n(2) hear all components associated with an item on the create/update screen\n(3) watch all components associated with an item on the create/update screen\n(4) read all components associated with an item on the create/update screen",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.2508955001831055,
+        "num_token_in": 181,
+        "num_token_out": 67
+      }
+    }
+  },
+  {
+    "component_id": "story_11",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) see all of the metadata for a record\n(2) editing it",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.2497658729553223,
+        "num_token_in": 177,
+        "num_token_out": 25
+      }
+    }
+  },
+  {
+    "component_id": "story_12",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.0479650497436523,
+        "num_token_in": 169,
+        "num_token_out": 15
+      }
+    }
+  },
+  {
+    "component_id": "story_13",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.740649938583374,
+        "num_token_in": 157,
+        "num_token_out": 16
+      }
+    }
+  },
+  {
+    "component_id": "story_14",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.1510186195373535,
+        "num_token_in": 167,
+        "num_token_out": 26
+      }
+    }
+  },
+  {
+    "component_id": "story_15",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.1494052410125732,
+        "num_token_in": 162,
+        "num_token_out": 22
+      }
+    }
+  },
+  {
+    "component_id": "story_16",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) map fields in inherited metadata to Duke Core fields\n(2) import a spreadsheet\n(3) create records",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.8667120933532715,
+        "num_token_in": 166,
+        "num_token_out": 37
+      }
+    }
+  },
+  {
+    "component_id": "story_17",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) import metadata from a DCP digitazation guide\n(2) create records from a DCP digitazation guide",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.9457769393920898,
+        "num_token_in": 160,
+        "num_token_out": 35
+      }
+    }
+  },
+  {
+    "component_id": "story_18",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) linking between items in the digital collections and EAD finding aids\n(2) bi-directional linking",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 2.2767794132232666,
+        "num_token_in": 161,
+        "num_token_out": 31
+      }
+    }
+  },
+  {
+    "component_id": "story_19",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) See inside this folder\n(2) EAD",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.0492160320281982,
+        "num_token_in": 182,
+        "num_token_out": 21
+      }
+    }
+  },
+  {
+    "component_id": "story_20",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.381389856338501,
+        "num_token_in": 150,
+        "num_token_out": 21
+      }
+    }
+  },
+  {
+    "component_id": "story_21",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.6114156246185303,
+        "num_token_in": 146,
+        "num_token_out": 15
+      }
+    }
+  },
+  {
+    "component_id": "story_22",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.276585340499878,
+        "num_token_in": 146,
+        "num_token_out": 16
+      }
+    }
+  },
+  {
+    "component_id": "story_23",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.5870339870452881,
+        "num_token_in": 162,
+        "num_token_out": 21
+      }
+    }
+  },
+  {
+    "component_id": "story_24",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) create Preservation Metadata\n(2) for a Component",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.5456395149230957,
+        "num_token_in": 146,
+        "num_token_out": 53
+      }
+    }
+  },
+  {
+    "component_id": "story_25",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.0835962295532227,
+        "num_token_in": 150,
+        "num_token_out": 21
+      }
+    }
+  },
+  {
+    "component_id": "story_26",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.5862865447998047,
+        "num_token_in": 150,
+        "num_token_out": 21
+      }
+    }
+  },
+  {
+    "component_id": "story_27",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.7339043617248535,
+        "num_token_in": 154,
+        "num_token_out": 16
+      }
+    }
+  },
+  {
+    "component_id": "story_28",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.6230483055114746,
+        "num_token_in": 160,
+        "num_token_out": 15
+      }
+    }
+  },
+  {
+    "component_id": "story_29",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) check-out groups of Components\n(2) check-in groups of Components",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.252565622329712,
+        "num_token_in": 148,
+        "num_token_out": 25
+      }
+    }
+  },
+  {
+    "component_id": "story_30",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) verify correctness of components\n(2) verify completeness of components",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.45621919631958,
+        "num_token_in": 156,
+        "num_token_out": 23
+      }
+    }
+  },
+  {
+    "component_id": "story_31",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.9148964881896973,
+        "num_token_in": 154,
+        "num_token_out": 17
+      }
+    }
+  },
+  {
+    "component_id": "story_32",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.7849016189575195,
+        "num_token_in": 153,
+        "num_token_out": 21
+      }
+    }
+  },
+  {
+    "component_id": "story_33",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.7057220935821533,
+        "num_token_in": 149,
+        "num_token_out": 21
+      }
+    }
+  },
+  {
+    "component_id": "story_34",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) save a record\n(2) without all of the required metadata",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 2.545182704925537,
+        "num_token_in": 174,
+        "num_token_out": 24
+      }
+    }
+  },
+  {
+    "component_id": "story_35",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.6993436813354492,
+        "num_token_in": 149,
+        "num_token_out": 21
+      }
+    }
+  },
+  {
+    "component_id": "story_36",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.559807538986206,
+        "num_token_in": 151,
+        "num_token_out": 22
+      }
+    }
+  },
+  {
+    "component_id": "story_37",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 2.993112325668335,
+        "num_token_in": 147,
+        "num_token_out": 20
+      }
+    }
+  },
+  {
+    "component_id": "story_38",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.1514475345611572,
+        "num_token_in": 141,
+        "num_token_out": 16
+      }
+    }
+  },
+  {
+    "component_id": "story_39",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.6374084949493408,
+        "num_token_in": 162,
+        "num_token_out": 20
+      }
+    }
+  },
+  {
+    "component_id": "story_40",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.9950604438781738,
+        "num_token_in": 149,
+        "num_token_out": 20
+      }
+    }
+  },
+  {
+    "component_id": "story_41",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) define Authorities\n(2) use Authorities for specific fields in a collection MD Schema",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.6186144351959229,
+        "num_token_in": 161,
+        "num_token_out": 27
+      }
+    }
+  },
+  {
+    "component_id": "story_42",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.0446107387542725,
+        "num_token_in": 153,
+        "num_token_out": 16
+      }
+    }
+  },
+  {
+    "component_id": "story_43",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.3244478702545166,
+        "num_token_in": 148,
+        "num_token_out": 21
+      }
+    }
+  },
+  {
+    "component_id": "story_44",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) save a record\n(2) check if the record has an identifier",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.9053797721862793,
+        "num_token_in": 171,
+        "num_token_out": 25
+      }
+    }
+  },
+  {
+    "component_id": "story_45",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 2.9592697620391846,
+        "num_token_in": 162,
+        "num_token_out": 14
+      }
+    }
+  },
+  {
+    "component_id": "story_46",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.471445083618164,
+        "num_token_in": 155,
+        "num_token_out": 19
+      }
+    }
+  },
+  {
+    "component_id": "story_47",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.0052626132965088,
+        "num_token_in": 158,
+        "num_token_out": 22
+      }
+    }
+  },
+  {
+    "component_id": "story_48",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) publish records\n(2) check if the record has a Title Identifier Type and Source",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.8713045120239258,
+        "num_token_in": 162,
+        "num_token_out": 33
+      }
+    }
+  }
+]

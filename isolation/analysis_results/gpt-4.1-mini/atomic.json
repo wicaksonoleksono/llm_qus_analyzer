@@ -1,0 +1,688 @@
+[
+  {
+    "component_id": "story_1",
+    "violations": [
+      {
+        "parts": [
+          "role"
+        ],
+        "issue": "The [Role] is more than 1: collection manager, cataloger",
+        "suggestion": "Select one [Role] that suitable to the user story, or separate it to the different user story."
+      },
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) see who last edited a record\n(2) see when the record was last edited",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.6216022968292236,
+        "num_token_in": 155,
+        "num_token_out": 32
+      }
+    }
+  },
+  {
+    "component_id": "story_2",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.8241138458251953,
+        "num_token_in": 151,
+        "num_token_out": 21
+      }
+    }
+  },
+  {
+    "component_id": "story_3",
+    "violations": [
+      {
+        "parts": [
+          "role"
+        ],
+        "issue": "The [Role] is more than 1: cataloger, collections manager",
+        "suggestion": "Select one [Role] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.6827592849731445,
+        "num_token_in": 154,
+        "num_token_out": 21
+      }
+    }
+  },
+  {
+    "component_id": "story_4",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.7988729476928711,
+        "num_token_in": 155,
+        "num_token_out": 21
+      }
+    }
+  },
+  {
+    "component_id": "story_5",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.8028478622436523,
+        "num_token_in": 156,
+        "num_token_out": 21
+      }
+    }
+  },
+  {
+    "component_id": "story_6",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.6280226707458496,
+        "num_token_in": 155,
+        "num_token_out": 17
+      }
+    }
+  },
+  {
+    "component_id": "story_7",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) authority lists to be easily accessible\n(2) authority lists to be contextually relevant",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.8953900337219238,
+        "num_token_in": 160,
+        "num_token_out": 32
+      }
+    }
+  },
+  {
+    "component_id": "story_8",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.9434406757354736,
+        "num_token_in": 150,
+        "num_token_out": 16
+      }
+    }
+  },
+  {
+    "component_id": "story_9",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) see the digital object I am cataloging\n(2) hear the digital object I am cataloging\n(3) watch the digital object I am cataloging\n(4) read the digital object I am cataloging",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.6625709533691406,
+        "num_token_in": 175,
+        "num_token_out": 57
+      }
+    }
+  },
+  {
+    "component_id": "story_10",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) see all components associated with an item on the create/update screen\n(2) hear all components associated with an item on the create/update screen\n(3) watch all components associated with an item on the create/update screen\n(4) read all components associated with an item on the create/update screen",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.3761236667633057,
+        "num_token_in": 178,
+        "num_token_out": 73
+      }
+    }
+  },
+  {
+    "component_id": "story_11",
+    "violations": [
+      {
+        "parts": [
+          "role"
+        ],
+        "issue": "The [Role] is more than 1: cataloger, collection manager",
+        "suggestion": "Select one [Role] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.131282091140747,
+        "num_token_in": 173,
+        "num_token_out": 27
+      }
+    }
+  },
+  {
+    "component_id": "story_12",
+    "violations": [
+      {
+        "parts": [
+          "role"
+        ],
+        "issue": "The [Role] is more than 1: cataloger, collection manager",
+        "suggestion": "Select one [Role] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.0442924499511719,
+        "num_token_in": 168,
+        "num_token_out": 24
+      }
+    }
+  },
+  {
+    "component_id": "story_13",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.8428199291229248,
+        "num_token_in": 156,
+        "num_token_out": 22
+      }
+    }
+  },
+  {
+    "component_id": "story_14",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.5601093769073486,
+        "num_token_in": 166,
+        "num_token_out": 27
+      }
+    }
+  },
+  {
+    "component_id": "story_15",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.8999059200286865,
+        "num_token_in": 161,
+        "num_token_out": 25
+      }
+    }
+  },
+  {
+    "component_id": "story_16",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) map fields in inherited metadata to Duke Core fields\n(2) import a spreadsheet\n(3) create records",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.1960115432739258,
+        "num_token_in": 165,
+        "num_token_out": 36
+      }
+    }
+  },
+  {
+    "component_id": "story_17",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) import metadata\n(2) create records from a DCP digitazation guide",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.789665937423706,
+        "num_token_in": 159,
+        "num_token_out": 31
+      }
+    }
+  },
+  {
+    "component_id": "story_18",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) link items in the digital collections to EAD finding aids\n(2) link EAD finding aids to items in the digital collections",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.2287957668304443,
+        "num_token_in": 162,
+        "num_token_out": 41
+      }
+    }
+  },
+  {
+    "component_id": "story_19",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) see the physical context of an Item in a digital collection\n(2) See inside this folder\n(3) EAD",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.004042387008667,
+        "num_token_in": 178,
+        "num_token_out": 39
+      }
+    }
+  },
+  {
+    "component_id": "story_20",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.8831448554992676,
+        "num_token_in": 150,
+        "num_token_out": 20
+      }
+    }
+  },
+  {
+    "component_id": "story_21",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.7203199863433838,
+        "num_token_in": 142,
+        "num_token_out": 14
+      }
+    }
+  },
+  {
+    "component_id": "story_22",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.7403731346130371,
+        "num_token_in": 145,
+        "num_token_out": 18
+      }
+    }
+  },
+  {
+    "component_id": "story_23",
+    "violations": [
+      {
+        "parts": [
+          "role"
+        ],
+        "issue": "The [Role] is more than 1: cataloger, collection manager",
+        "suggestion": "Select one [Role] that suitable to the user story, or separate it to the different user story."
+      },
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) use a grid style interface\n(2) use a spreadsheet style interface",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.9392640590667725,
+        "num_token_in": 161,
+        "num_token_out": 29
+      }
+    }
+  },
+  {
+    "component_id": "story_24",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.7457447052001953,
+        "num_token_in": 145,
+        "num_token_out": 18
+      }
+    }
+  },
+  {
+    "component_id": "story_25",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 3.0142998695373535,
+        "num_token_in": 149,
+        "num_token_out": 20
+      }
+    }
+  },
+  {
+    "component_id": "story_26",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) add one Component to an Item\n(2) add more than one Component to an Item",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.9943966865539551,
+        "num_token_in": 149,
+        "num_token_out": 33
+      }
+    }
+  },
+  {
+    "component_id": "story_27",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.7736608982086182,
+        "num_token_in": 153,
+        "num_token_out": 18
+      }
+    }
+  },
+  {
+    "component_id": "story_28",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.8420875072479248,
+        "num_token_in": 159,
+        "num_token_out": 22
+      }
+    }
+  },
+  {
+    "component_id": "story_29",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) check-out groups of Components\n(2) check-in groups of Components",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 2.5771446228027344,
+        "num_token_in": 147,
+        "num_token_out": 29
+      }
+    }
+  },
+  {
+    "component_id": "story_30",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) verify the correctness of components\n(2) verify the completeness of components",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.964228630065918,
+        "num_token_in": 156,
+        "num_token_out": 29
+      }
+    }
+  },
+  {
+    "component_id": "story_31",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.8429739475250244,
+        "num_token_in": 154,
+        "num_token_out": 20
+      }
+    }
+  },
+  {
+    "component_id": "story_32",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.7625353336334229,
+        "num_token_in": 155,
+        "num_token_out": 25
+      }
+    }
+  },
+  {
+    "component_id": "story_33",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.682363748550415,
+        "num_token_in": 148,
+        "num_token_out": 20
+      }
+    }
+  },
+  {
+    "component_id": "story_34",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.869574785232544,
+        "num_token_in": 168,
+        "num_token_out": 25
+      }
+    }
+  },
+  {
+    "component_id": "story_35",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.7681844234466553,
+        "num_token_in": 148,
+        "num_token_out": 20
+      }
+    }
+  },
+  {
+    "component_id": "story_36",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.4308254718780518,
+        "num_token_in": 150,
+        "num_token_out": 25
+      }
+    }
+  },
+  {
+    "component_id": "story_37",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.7410421371459961,
+        "num_token_in": 146,
+        "num_token_out": 19
+      }
+    }
+  },
+  {
+    "component_id": "story_38",
+    "violations": [
+      {
+        "parts": [
+          "role"
+        ],
+        "issue": "The [Role] is more than 1: Collection Manager, Sponsor",
+        "suggestion": "Select one [Role] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.6378810405731201,
+        "num_token_in": 140,
+        "num_token_out": 15
+      }
+    }
+  },
+  {
+    "component_id": "story_39",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.7014448642730713,
+        "num_token_in": 163,
+        "num_token_out": 26
+      }
+    }
+  },
+  {
+    "component_id": "story_40",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.9823145866394043,
+        "num_token_in": 148,
+        "num_token_out": 19
+      }
+    }
+  },
+  {
+    "component_id": "story_41",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.8685858249664307,
+        "num_token_in": 159,
+        "num_token_out": 29
+      }
+    }
+  },
+  {
+    "component_id": "story_42",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.0854425430297852,
+        "num_token_in": 152,
+        "num_token_out": 25
+      }
+    }
+  },
+  {
+    "component_id": "story_43",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.8819704055786133,
+        "num_token_in": 147,
+        "num_token_out": 23
+      }
+    }
+  },
+  {
+    "component_id": "story_44",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.9453713893890381,
+        "num_token_in": 171,
+        "num_token_out": 26
+      }
+    }
+  },
+  {
+    "component_id": "story_45",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.9452047348022461,
+        "num_token_in": 161,
+        "num_token_out": 30
+      }
+    }
+  },
+  {
+    "component_id": "story_46",
+    "violations": [],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.8431811332702637,
+        "num_token_in": 154,
+        "num_token_out": 18
+      }
+    }
+  },
+  {
+    "component_id": "story_47",
+    "violations": [
+      {
+        "parts": [
+          "role"
+        ],
+        "issue": "The [Role] is more than 1: cataloger, collection manager",
+        "suggestion": "Select one [Role] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 0.9449262619018555,
+        "num_token_in": 157,
+        "num_token_out": 25
+      }
+    }
+  },
+  {
+    "component_id": "story_48",
+    "violations": [
+      {
+        "parts": [
+          "means"
+        ],
+        "issue": "The [Means] contain more than 1 tasks:\n(1) publish records only when the record has a Title Identifier Type\n(2) publish records only when the record has a Source",
+        "suggestion": "Select one task in [Means] that suitable to the user story, or separate it to the different user story."
+      }
+    ],
+    "usage": {
+      "means-tasks": {
+        "duration": 1.1529603004455566,
+        "num_token_in": 161,
+        "num_token_out": 39
+      }
+    }
+  }
+]

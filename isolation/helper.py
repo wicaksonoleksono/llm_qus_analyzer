@@ -19,13 +19,24 @@ def chunk_stories_to_json(chunker,clients,user_stories, model_idx=0, story_ids=N
         for component, usage in results
     ]
 
+def _convert_to_serializable(obj):
+    """Convert non-serializable objects to serializable ones."""
+    if isinstance(obj, set):
+        return list(obj)
+    elif isinstance(obj, dict):
+        return {key: _convert_to_serializable(value) for key, value in obj.items()}
+    elif isinstance(obj, (list, tuple)):
+        return [_convert_to_serializable(item) for item in obj]
+    else:
+        return obj
+
 def analyze_individual_to_json(analyzer, client, model_idx, component):
     """Analyze single component with individual analyzer and return JSON-ready dict."""
     violations, usage_dict = analyzer.run(client, model_idx, component)
     return {
         'component_id': component.id or 'unknown',
-        'violations': [asdict(violation) for violation in violations],
-        'usage': {key: asdict(usage) for key, usage in usage_dict.items()}
+        'violations': [_convert_to_serializable(asdict(violation)) for violation in violations],
+        'usage': {key: _convert_to_serializable(asdict(usage)) for key, usage in usage_dict.items()}
     }
 
 def analyze_set_to_json(analyzer, client, model_idx, components):
@@ -38,8 +49,8 @@ def analyze_set_to_json(analyzer, client, model_idx, components):
         return [
             {
                 'component_id': components[i].id or f'component_{i}',
-                'violations': [asdict(violation) for violation in violations],
-                'usage': {key: asdict(usage) for key, usage in usage_dict.items()} if isinstance(usage_dict, dict) else {}
+                'violations': [_convert_to_serializable(asdict(violation)) for violation in violations],
+                'usage': {key: _convert_to_serializable(asdict(usage)) for key, usage in usage_dict.items()} if isinstance(usage_dict, dict) else {}
             }
             for i, (violations, usage_dict) in enumerate(result)
         ]
@@ -47,8 +58,8 @@ def analyze_set_to_json(analyzer, client, model_idx, components):
         # UniqueAnalyzer format: (violations, usage_dict) 
         violations, usage_dict = result
         return {
-            'violations': [asdict(violation) for violation in violations],
-            'usage': {key: asdict(usage) for key, usage in usage_dict.items()}
+            'violations': [_convert_to_serializable(asdict(violation)) for violation in violations],
+            'usage': {key: _convert_to_serializable(asdict(usage)) for key, usage in usage_dict.items()}
         }
     else:
         # Fallback for unknown format

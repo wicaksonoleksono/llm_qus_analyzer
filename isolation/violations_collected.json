@@ -1,0 +1,295 @@
+{
+  "deepseek-chat": {
+    "As a collection manager or cataloger I want to be able to see who last edited a record and when.": [
+      "Atomic"
+    ],
+    "As a collection manager I want to map fields in inherited metadata to Duke Core fields and import a spreadsheet and create records.": [
+      "Atomic"
+    ],
+    "As a cataloger I want to be able to see/hear/watch/read all components associated on the with an item on the create/update screen so I don't have to leave the form.": [
+      "Atomic",
+      "Minimal"
+    ],
+    "As a cataloger or collection manager I want to be able to edit an arbitrary number of Items at once so that I can make changes to all Items in a collection efficiently.": [
+      "Atomic"
+    ],
+    "As a DPD I want to verify the correctness and completeness of components so that I can ensure quality standards are met.": [
+      "Atomic"
+    ],
+    "As Collection Manager or Sponsor I want to describe the collection.": [
+      "Atomic"
+    ],
+    "As a cataloger or collection manager I want to be able to search for records based on all Duke Core fields.": [
+      "Atomic"
+    ],
+    "As a collection manager I want to import metadata and create records from a DCP digitazation guide.": [
+      "Atomic"
+    ],
+    "As a DPU I want to check-out/check-in groups of Components.": [
+      "Atomic",
+      "Minimal"
+    ],
+    "As a cataloger or collection manager I want to see all of the metadata for a record while I'm editing it so that I have the full context for the item I'm cataloging.": [
+      "Atomic"
+    ],
+    "As a cataloger I want authority lists to be easily accessible and contextually relevant so it is easy to use the authority.": [
+      "Atomic"
+    ],
+    "As a user I want to be able to save a record only when the record has an identifier so that we don't end up with a bunch of empty records in the collection.": [
+      "Atomic"
+    ],
+    "As a cataloger I want to be able to see/hear/watch/read the digital object I am cataloging so I don't have to move between multiple applications while I'm creating metadata.": [
+      "Atomic",
+      "Minimal"
+    ],
+    "As a cataloger or collection manager I want to be able to use a grid/spreadsheet style interface so I can edit Items quickly.": [
+      "Atomic",
+      "Minimal"
+    ],
+    "As a cataloger and a collections manager I want Trident to support Duke Core so that metadata is consistent between collections.": [
+      "Atomic"
+    ],
+    "As a End User I want to be able to see the physical context of an Item in a digital collection (i.e. See inside this folder; EAD)": [
+      "Minimal",
+      "Uniform"
+    ],
+    "As a Digital Production Developer (DPD) I want to group components that require digitization so that I can create \"digitizable units\".": [
+      "Minimal"
+    ],
+    "As a Digital Production User (DPU) I want to be able to create Components.": [
+      "Minimal",
+      "Uniform"
+    ]
+  },
+  "gpt-4.1-mini": {
+    "As a collection manager or cataloger I want to be able to see who last edited a record and when.": [
+      "Atomic"
+    ],
+    "As a collection manager I want to map fields in inherited metadata to Duke Core fields and import a spreadsheet and create records.": [
+      "Atomic"
+    ],
+    "As a End User I want to be able to see the physical context of an Item in a digital collection (i.e. See inside this folder; EAD)": [
+      "Atomic",
+      "Minimal"
+    ],
+    "As a cataloger I want to be able to see/hear/watch/read all components associated on the with an item on the create/update screen so I don't have to leave the form.": [
+      "Atomic",
+      "Minimal"
+    ],
+    "As a cataloger or collection manager I want to be able to edit an arbitrary number of Items at once so that I can make changes to all Items in a collection efficiently.": [
+      "Atomic"
+    ],
+    "As a DPU I want to add one or more Components to an Item.": [
+      "Atomic"
+    ],
+    "As a DPD I want to verify the correctness and completeness of components so that I can ensure quality standards are met.": [
+      "Atomic"
+    ],
+    "As Collection Manager or Sponsor I want to describe the collection.": [
+      "Atomic"
+    ],
+    "As a cataloger or collection manager I want to be able to search for records based on all Duke Core fields.": [
+      "Atomic"
+    ],
+    "As a user I want to be able to publish records only when the record has a Title Identifier Type and Source.": [
+      "Atomic"
+    ],
+    "As a collection manager I want to import metadata and create records from a DCP digitazation guide.": [
+      "Atomic"
+    ],
+    "As a DPU I want to check-out/check-in groups of Components.": [
+      "Atomic",
+      "Minimal"
+    ],
+    "As a cataloger or collection manager I want to see all of the metadata for a record while I'm editing it so that I have the full context for the item I'm cataloging.": [
+      "Atomic"
+    ],
+    "As a Archivist I want bi-directional linking between items in the digital collections and EAD finding aids.": [
+      "Atomic"
+    ],
+    "As a cataloger I want authority lists to be easily accessible and contextually relevant so it is easy to use the authority.": [
+      "Atomic"
+    ],
+    "As a cataloger I want to be able to see/hear/watch/read the digital object I am cataloging so I don't have to move between multiple applications while I'm creating metadata.": [
+      "Atomic",
+      "Minimal"
+    ],
+    "As a cataloger or collection manager I want to be able to use a grid/spreadsheet style interface so I can edit Items quickly.": [
+      "Atomic",
+      "Minimal"
+    ],
+    "As a cataloger and a collections manager I want Trident to support Duke Core so that metadata is consistent between collections.": [
+      "Atomic"
+    ],
+    "As a Digital Production Developer (DPD) I want to group components that require digitization so that I can create \"digitizable units\".": [
+      "Minimal"
+    ],
+    "As a Digital Production User (DPU) I want to be able to create Components.": [
+      "Minimal"
+    ]
+  },
+  "Mistral 7B-Instruct v0.3": {
+    "As a collection manager I want to map fields in inherited metadata to Duke Core fields and import a spreadsheet and create records.": [
+      "Atomic"
+    ],
+    "As a End User I want to be able to see the physical context of an Item in a digital collection (i.e. See inside this folder; EAD)": [
+      "Atomic",
+      "Minimal"
+    ],
+    "As a cataloger I want to be able to see/hear/watch/read all components associated on the with an item on the create/update screen so I don't have to leave the form.": [
+      "Atomic",
+      "Minimal"
+    ],
+    "As a user I want to be able to publish records only when the record has a Title Identifier Type and Source.": [
+      "Atomic"
+    ],
+    "As a cataloger I want to be able to save a record without all of the required metadata so that I can start a record with the metadata I have and come back to finish it later.": [
+      "Atomic"
+    ],
+    "As a user I want to be able to save a record only when the record has an identifier so that we don't end up with a bunch of empty records in the collection.": [
+      "Atomic"
+    ],
+    "As a cataloger I want to be able to see/hear/watch/read the digital object I am cataloging so I don't have to move between multiple applications while I'm creating metadata.": [
+      "Atomic"
+    ],
+    "As a cataloger or collection manager I want to be able to use a grid/spreadsheet style interface so I can edit Items quickly.": [
+      "Atomic",
+      "Minimal",
+      "Uniform"
+    ],
+    "As a cataloger and a collections manager I want Trident to support Duke Core so that metadata is consistent between collections.": [
+      "Atomic"
+    ],
+    "As a DPD I want to verify the correctness and completeness of components so that I can ensure quality standards are met.": [
+      "Atomic"
+    ],
+    "As a collection manager I want to import metadata and create records from a DCP digitazation guide.": [
+      "Atomic"
+    ],
+    "As a cataloger or collection manager I want to see all of the metadata for a record while I'm editing it so that I have the full context for the item I'm cataloging.": [
+      "Atomic"
+    ],
+    "As a collection manager or cataloger I want to be able to see who last edited a record and when.": [
+      "Atomic"
+    ],
+    "As a Metadata Librarian I want to define validation rules for specific fields in a collection.": [
+      "Atomic"
+    ],
+    "As a DPU I want to create Technical Metadata with for Component.": [
+      "Atomic"
+    ],
+    "As a DPU I want to check-out/check-in groups of Components.": [
+      "Atomic",
+      "Minimal"
+    ],
+    "As a User I want to monitor the progress of a digital collection project.": [
+      "Atomic"
+    ],
+    "As Collection Manager or Sponsor I want to describe the collection.": [
+      "Atomic",
+      "Uniform"
+    ],
+    "As a cataloger or collection manager I want to be able to edit an arbitrary number of Items at once so that I can make changes to all Items in a collection efficiently.": [
+      "Atomic",
+      "Uniform"
+    ],
+    "As a cataloger or collection manager I want to be able to search for records based on all Duke Core fields.": [
+      "Atomic"
+    ],
+    "As a DPU I want to create Preservation Metadata for a Component.": [
+      "Atomic",
+      "Minimal"
+    ],
+    "As a Archivist I want bi-directional linking between items in the digital collections and EAD finding aids.": [
+      "Atomic"
+    ],
+    "As a cataloger I want authority lists to be easily accessible and contextually relevant so it is easy to use the authority.": [
+      "Atomic"
+    ],
+    "As a Digital Production Developer (DPD) I want to group components that require digitization so that I can create \"digitizable units\".": [
+      "Minimal"
+    ],
+    "As a Digital Production User (DPU) I want to be able to create Components.": [
+      "Minimal",
+      "Uniform"
+    ],
+    "As a DPD I want to capture digitization statistics so that I can monitor Operator efficiency and make projections for future projects.": [
+      "Minimal"
+    ],
+    "As a collections manager I want to be able to repeat repeatable DC Fields so that I can enter all of the relevant metadata.": [
+      "Uniform"
+    ],
+    "As a collection manager I want to search for records based on status so I can track the progress of a collection.": [
+      "Uniform"
+    ]
+  },
+  "Llama 17B-Instruct FP8": {
+    "As a collection manager or cataloger I want to be able to see who last edited a record and when.": [
+      "Atomic"
+    ],
+    "As a collection manager I want to map fields in inherited metadata to Duke Core fields and import a spreadsheet and create records.": [
+      "Atomic"
+    ],
+    "As a End User I want to be able to see the physical context of an Item in a digital collection (i.e. See inside this folder; EAD)": [
+      "Atomic",
+      "Minimal",
+      "Uniform"
+    ],
+    "As a cataloger I want to be able to see/hear/watch/read all components associated on the with an item on the create/update screen so I don't have to leave the form.": [
+      "Atomic",
+      "Minimal",
+      "Uniform"
+    ],
+    "As a user I want to be able to publish records only when the record has a Title Identifier Type and Source.": [
+      "Atomic"
+    ],
+    "As a DPD I want to verify the correctness and completeness of components so that I can ensure quality standards are met.": [
+      "Atomic"
+    ],
+    "As a DPU I want to create Preservation Metadata for a Component.": [
+      "Atomic"
+    ],
+    "As a collection manager I want to import metadata and create records from a DCP digitazation guide.": [
+      "Atomic"
+    ],
+    "As a DPU I want to check-out/check-in groups of Components.": [
+      "Atomic",
+      "Minimal"
+    ],
+    "As a cataloger or collection manager I want to see all of the metadata for a record while I'm editing it so that I have the full context for the item I'm cataloging.": [
+      "Atomic"
+    ],
+    "As a Archivist I want bi-directional linking between items in the digital collections and EAD finding aids.": [
+      "Atomic"
+    ],
+    "As a cataloger I want authority lists to be easily accessible and contextually relevant so it is easy to use the authority.": [
+      "Atomic"
+    ],
+    "As a cataloger I want to be able to save a record without all of the required metadata so that I can start a record with the metadata I have and come back to finish it later.": [
+      "Atomic"
+    ],
+    "As a user I want to be able to save a record only when the record has an identifier so that we don't end up with a bunch of empty records in the collection.": [
+      "Atomic"
+    ],
+    "As a Metadata librarian I want to define Authorities to be used for specific fields in a collection MD Schema.": [
+      "Atomic"
+    ],
+    "As a cataloger I want to be able to see/hear/watch/read the digital object I am cataloging so I don't have to move between multiple applications while I'm creating metadata.": [
+      "Atomic",
+      "Minimal"
+    ],
+    "As a cataloger and a collections manager I want Trident to support Duke Core so that metadata is consistent between collections.": [
+      "Atomic"
+    ],
+    "As a Digital Production Developer (DPD) I want to group components that require digitization so that I can create \"digitizable units\".": [
+      "Minimal"
+    ],
+    "As a Digital Production User (DPU) I want to be able to create Components.": [
+      "Minimal",
+      "Uniform"
+    ],
+    "As a cataloger or collection manager I want to be able to use a grid/spreadsheet style interface so I can edit Items quickly.": [
+      "Minimal"
+    ]
+  }
+}

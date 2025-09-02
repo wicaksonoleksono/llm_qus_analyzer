@@ -6,7 +6,8 @@ sys.path.append(str(Path(__file__).parent.parent))
 from llm_qus_analyzer.individual import AtomicAnalyzer,MinimalAnalyzer,WellFormAnalyzer
 from llm_qus_analyzer.set import UniformAnalyzer,UniqueAnalyzer
 from llm_qus_analyzer import Settings, LLMClient
-from helper import analyze_individual_to_json, analyze_set_to_json, reconstruct_component_from_json
+from helper import analyze_individual_to_json, analyze_set_to_json, reconstruct_component_from_json, _convert_to_serializable
+from dataclasses import asdict
 
 # Initialize settings and client  
 setting = Settings()
@@ -16,7 +17,7 @@ setting.configure_paths_and_load(
 )
 client = LLMClient(from_settings=setting)
 individual_analyzers = {"atomic": AtomicAnalyzer, "minimal": MinimalAnalyzer, "well-formed": WellFormAnalyzer}
-set_analyzers = {"uniform": UniformAnalyzer, "unique": UniqueAnalyzer}
+set_analyzers = {"uniform": UniformAnalyzer}  # "unique": UniqueAnalyzer
 output_dir = Path("analysis_results")
 output_dir.mkdir(exist_ok=True)
 chunked_dir = Path("chunked_story") 
@@ -68,13 +69,7 @@ for chunked_file in chunked_dir.glob("*.json"):
             continue
             
         print(f"  Running {analyzer_name}...")
-        if analyzer_name == "unique":
-            result = analyze_set_to_json(
-                lambda client, model_idx, components: analyzer_class.run(client, model_idx, components, mode="fullset"),
-                client, model_idx, components
-            )
-        else:
-            result = analyze_set_to_json(analyzer_class, client, model_idx, components)
+        result = analyze_set_to_json(analyzer_class, client, model_idx, components)
         
         with open(output_file, 'w') as f:
             json.dump(result, f, indent=2)
