@@ -16,7 +16,9 @@ setting.configure_paths_and_load(
     model_config_path=Path('/home/wicaksonolxn/Documents/KJ/llm_qus_analyzer/isolation/models.yaml'),
 )
 client = LLMClient(from_settings=setting)
-individual_analyzers = {"atomic": AtomicAnalyzer, "minimal": MinimalAnalyzer, "well-formed": WellFormAnalyzer}
+# Separate rule-based analyzers from LLM-based analyzers
+rule_based_analyzers = {"minimal": MinimalAnalyzer, "well-formed": WellFormAnalyzer}
+llm_based_analyzers = {"atomic": AtomicAnalyzer}
 set_analyzers = {"uniform": UniformAnalyzer}  # "unique": UniqueAnalyzer
 output_dir = Path("analysis_results")
 output_dir.mkdir(exist_ok=True)
@@ -27,8 +29,11 @@ for chunked_file in chunked_dir.glob("*.json"):
     model_output_dir.mkdir(exist_ok=True)
     
     # Check if all analysis files already exist
-    all_analyzers = list(individual_analyzers.keys()) + list(set_analyzers.keys())
-    existing_files = [model_output_dir / f"{analyzer}.json" for analyzer in all_analyzers]
+    llm_analyzer_files = [model_output_dir / f"{analyzer}.json" for analyzer in llm_based_analyzers.keys()]
+    rule_based_dir = output_dir / "rule_based"
+    rule_based_dir.mkdir(exist_ok=True)
+    rule_based_files = [rule_based_dir / f"{analyzer}.json" for analyzer in rule_based_analyzers.keys()]
+    existing_files = llm_analyzer_files + rule_based_files
     
     if all(f.exists() for f in existing_files):
         print(f"Skipping {model_name} - all analysis files already exist")
@@ -47,8 +52,8 @@ for chunked_file in chunked_dir.glob("*.json"):
             model_idx = idx
             break
     
-    # Individual analyzers - process each component
-    for analyzer_name, analyzer_class in individual_analyzers.items():
+        # LLM-based analyzers - process each component per model
+    for analyzer_name, analyzer_class in llm_based_analyzers.items():
         output_file = model_output_dir / f"{analyzer_name}.json"
         if output_file.exists():
             print(f"  Skipping {analyzer_name} - already exists")
@@ -56,6 +61,26 @@ for chunked_file in chunked_dir.glob("*.json"):
             
         print(f"  Running {analyzer_name}...")
         results = [analyze_individual_to_json(analyzer_class, client, model_idx, component) 
+                  for component in components]
+        
+        with open(output_file, 'w') as f:
+            json.dump(results, f, indent=2)
+    
+    # Rule-based analyzers - process each component once (not per model)
+    # Create a shared directory for rule-based analyzer results
+    rule_based_dir = output_dir / "rule_based"
+    rule_based_dir.mkdir(exist_ok=True)
+    
+    for analyzer_name, analyzer_class in rule_based_analyzers.items():
+        output_file = rule_based_dir / f"{analyzer_name}.json"
+        # Skip if already exists
+        if output_file.exists():
+            print(f"  Skipping {analyzer_name} - already exists")
+            continue
+            
+        print(f"  Running {analyzer_name} (rule-based, model-independent)...")
+        # Use model_idx=0 since rule-based analyzers don't use the model
+        results = [analyze_individual_to_json(analyzer_class, client, 0, component) 
                   for component in components]
         
         with open(output_file, 'w') as f:

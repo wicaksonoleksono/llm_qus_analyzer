@@ -2,10 +2,8 @@ import json
 from typing import Any, Callable, Generic, TypeVar
 from langchain_core.prompts import ChatPromptTemplate
 from .client import LLMClient, LLMUsage
-
 T = TypeVar("T")
-
-
+system = "You are an expert in evaluating user stories according to the Quality User Story (QUS) framework."
 class LLMAnalyzer(Generic[T]):
     """A generic analyzer for processing and evaluating content using LLMs.
 
@@ -37,7 +35,7 @@ class LLMAnalyzer(Generic[T]):
             [
                 (
                     "system",
-                    "You are an expert in evaluating user stories according to the Quality User Story (QUS) framework.",
+                    system
                 ),
                 ("user", f"{definition}\n\n{in_format}\n\n{out_format}"),
             ]

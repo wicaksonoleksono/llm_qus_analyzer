@@ -69,9 +69,7 @@
     "Uniform"
   ],
   "As a Digital Production Developer (DPD) I want to group components that require digitization so that I can create \"digitizable units\".": [],
-  "As a DPU I want to check-out/check-in groups of Components.": [
-    "Atomic"
-  ],
+  "As a DPU I want to check-out/check-in groups of Components.": ["Atomic"],
   "As a DPD I want to verify the correctness and completeness of components so that I can ensure quality standards are met.": [],
   "As a DPD I want to capture digitization statistics so that I can monitor Operator efficiency and make projections for future projects.": [],
   "As a DPU I want Trident to create derivatives for me when I upload a Master.": [
@@ -101,6 +99,8 @@
   "As a collection manager I want to search for records based on status so I can track the progress of a collection.": [
     "Uniform"
   ],
-  "As a cataloger or collection manager I want to be able to search for records based on all Duke Core fields.": [],
+  "As a cataloger or collection manager I want to be able to search for records based on all Duke Core fields.": [
+    "Atomic"
+  ],
   "As a user I want to be able to publish records only when the record has a Title Identifier Type and Source.": []
 }

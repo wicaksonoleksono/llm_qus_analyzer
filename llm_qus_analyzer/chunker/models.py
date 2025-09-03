@@ -3,45 +3,50 @@ from typing import Any, Optional
 from ..analyzer import LLMAnalyzer
 from ..client import LLMClient, LLMUsage
 from .parser import Template, TemplateParser
-_definition = """
-By definition,
-[Role]: A stakeholder or persona that expresses the need. Typically, [Role] are taken from the softwares application domain.
-[Means]: The phrase or clause that describes the primary capability, action, or system behavior the [Role] wants to perform or see happen. It represents the core functional need of the user story, including any conditions (triggers or preconditions) that are directly tied to that need, indicating by 'when', 'where', etc.
-[Ends]: A direct value of the [Means] for the [Role] or explaining why the [Means] are requested or a dependency on other functionality of the [Means]
 
+
+input_format = """
+Expand all the contraction of english verb like "i'm" into "i am", etc, and 
+then extract the [Role], [Means] and [Ends] from the following user story:
+"{user_story}"
+**Please only display the single final answer without any explanation, fixing steps, or any redundant text.**
+"""
+output_format = """
+Your response must be a single, valid JSON object. 
+Do not include any text or formatting outside of the JSON structure.
+The JSON object should strictly conform to the following schema:
+- `expanded`: A string represent the expanded text of user story.
+- `component`: An object containing:
+  - `[Role]`: An array of string consist of all of the [Role] in the user story. If no [Role], then this should be an empty array `[]`.
+  - `[Means]`: A string represent the [Means] of the user story. If no [Means], then this should be `null`.
+  - `[Ends]`: A string represent the [Ends] of the user story. If no [Ends], then this should be `null`.
+"""
+cb_s = """
+Based on the Quality User Story (QUS) framework, a user story consists of three parts:
+[Role], [Means], and optionally [End].
+All of that parts is a substring obtained from user story text itself, not generated outside the text.
+"""
+cb_m = """
+Based on the Quality User Story (QUS) framework, a user story consists of three parts:
+[Role], [Means], and optionally [End]. By definition:
+- [Role]: defining what stakeholder or persona expresses the need.
+- [Means]: can be used to represent different types of requirements.
+- [End]: one or more of this parts explain why the [Means] are requested.
+All of that parts is a substring obtained from user story text itself, not generated outside the text.
+"""
+
+cb_l = """
+Based on the Quality User Story (QUS) framework, a user story consists of three parts:
+[Role], [Means], and optionally [End]. By definition:
+- [Role]: A stakeholder or persona that expresses the need. Typically, [Role] are taken from the softwares application domain.
+- [Means]: The phrase or clause that describes the primary capability, action, or system behavior the [Role] wants to perform or see happen. It represents the core functional need of the user story, including any conditions (triggers or preconditions) that are directly tied to that need, indicating by 'when', 'where', etc.
+- [Ends]: A direct value of the [Means] for the [Role] or explaining why the [Means] are requested or a dependency on other functionality of the [Means].
 Additionally,
 the [Role] can be the name of the persona acts as the role: Joe, Alice, and not a subject like I, you, they, etc.
 the [Means] should not start with a phrasal modal verb (or semi-modal verb), like "be able to", "want to" etc. Even though if [Role] is not exists, [Means] still can be exists.
 the [Ends] should start with a pronoun (if it exist) or verb, not a causal phrase such as "so that", "in order to", "to" etc, and not including any unnecessary text behind it.
-Use that definition to get a better understanding about Quality User Story. 
+Every [Role], [Means] and [Ends] must be **explicitly mentioned** or become a part or substring of the user story.
 """
-
-_in_format = """
-Extract the [Role], [Means] and [Ends] from the following user story:
-"{user_story}"
-Also please expand all gramatical contraction of english verb such as "i'm" into "i am", etc.
-If there are quotes in the user story, keep them as part of the text - do not split or separate quoted content.
-**Please only display the single final answer without any explanation, fixing steps, or any redundant text.**
-"""
-# menambahkan 1. If there are quotes in the user story, keep them as part of the text - do not split or separate quoted content. krn terkadang malah output list.
-# Menambahkan parsiung utk list .
-_out_format = """
-**Strictly follow this output format (JSON):**  
-```json
-{{
-    "expanded": "Expanded user story",
-    "component": {{
-          "[Role]": "List of string",
-         "[Means]": "String or None if not exists",
-          "[Ends]": "String or None if not exists"
-    }}
-}}
-```
-ALWAYS Use BRACKET FOR THE "[Role]", "[Means]" and "[Ends]"
-**Please only display the final answer without any explanation, description, or any redundant text.**
-"""
-
-
 @dataclass
 class QUSChunkData:
     """Container for the analyzed components of a user story."""
@@ -91,12 +96,11 @@ class QUSChunkerModel:
     Uses an LLM analyzer to identify roles, means, and ends components,
     then creates templates from the analyzed stories.
     """
-
     def __init__(self) -> None:
         """Initializes the chunker model with predefined prompts and parser."""
         self.key = "chunker"
         self.__analyzer = LLMAnalyzer[QUSChunkData](key=self.key)
-        self.__analyzer.build_prompt(_definition, _in_format, _out_format)
+        self.__analyzer.build_prompt(cb_l, input_format, output_format)
         self.__analyzer.build_parser(lambda raw: self.__parser(raw))
 
     def __parser(self, raw: Any) -> QUSChunkData:
@@ -206,3 +210,41 @@ class QUSChunkerModel:
             self.analyze_single(client, model_idx, user_story, id)
             for user_story, id in zip(user_stories, ids)
         ]
+
+# _in_format = """
+# Extract the [Role], [Means] and [Ends] from the following user story:
+# "{user_story}"
+# Also please expand all gramatical contraction of english verb such as "i'm" into "i am", etc.
+# If there are quotes in the user story, keep them as part of the text - do not split or separate quoted content.
+# **Please only display the single final answer without any explanation, fixing steps, or any redundant text.**
+# """
+# menambahkan 1. If there are quotes in the user story, keep them as part of the text - do not split or separate quoted content. krn terkadang malah output list.
+# Menambahkan parsiung utk list .
+# _out_format = """
+# **Strictly follow this output format (JSON):**  
+# ```json
+# {{
+#     "expanded": "Expanded user story",
+#     "component": {{
+#           "[Role]": "List of string",
+#          "[Means]": "String or None if not exists",
+#           "[Ends]": "String or None if not exists"
+#     }}
+# }}
+# ```
+# ALWAYS Use BRACKET FOR THE "[Role]", "[Means]" and "[Ends]"
+# **Please only display the final answer without any explanation, description, or any redundant text.**
+# """
+
+# _definition = """
+# By definition,
+# [Role]: A stakeholder or persona that expresses the need. Typically, [Role] are taken from the softwares application domain.
+# [Means]: The phrase or clause that describes the primary capability, action, or system behavior the [Role] wants to perform or see happen. It represents the core functional need of the user story, including any conditions (triggers or preconditions) that are directly tied to that need, indicating by 'when', 'where', etc.
+# [Ends]: A direct value of the [Means] for the [Role] or explaining why the [Means] are requested or a dependency on other functionality of the [Means]
+
+# Additionally,
+# the [Role] can be the name of the persona acts as the role: Joe, Alice, and not a subject like I, you, they, etc.
+# the [Means] should not start with a phrasal modal verb (or semi-modal verb), like "be able to", "want to" etc. Even though if [Role] is not exists, [Means] still can be exists.
+# the [Ends] should start with a pronoun (if it exist) or verb, not a causal phrase such as "so that", "in order to", "to" etc, and not including any unnecessary text behind it.
+# Use that definition to get a better understanding about Quality User Story. 
+# """

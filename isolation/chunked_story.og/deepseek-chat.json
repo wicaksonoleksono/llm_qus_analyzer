@@ -37,9 +37,9 @@
       "original_text": "As a collection manager or cataloger I want to be able to see who last edited a record and when."
     },
     "usage": {
-      "duration": 8.302936315536499,
-      "num_token_in": 616,
-      "num_token_out": 79
+      "duration": 6.956635236740112,
+      "num_token_in": 578,
+      "num_token_out": 80
     }
   },
   {
@@ -79,9 +79,9 @@
       "original_text": "As an end user I want to be able to search across all collections at once."
     },
     "usage": {
-      "duration": 5.65211033821106,
-      "num_token_in": 611,
-      "num_token_out": 54
+      "duration": 6.397485971450806,
+      "num_token_in": 573,
+      "num_token_out": 67
     }
   },
   {
@@ -123,8 +123,8 @@
       "original_text": "As a cataloger and a collections manager I want Trident to support Duke Core so that metadata is consistent between collections."
     },
     "usage": {
-      "duration": 7.599029541015625,
-      "num_token_in": 618,
+      "duration": 7.905100107192993,
+      "num_token_in": 580,
       "num_token_out": 85
     }
   },
@@ -166,9 +166,9 @@
       "original_text": "As a collections manager I want required DC fields to be enforced so that all records have values for all required DC fields."
     },
     "usage": {
-      "duration": 6.891464471817017,
-      "num_token_in": 618,
-      "num_token_out": 72
+      "duration": 7.420403957366943,
+      "num_token_in": 580,
+      "num_token_out": 84
     }
   },
   {
@@ -213,9 +213,9 @@
       "original_text": "As a collections manager I want to be able to repeat repeatable DC Fields so that I can enter all of the relevant metadata."
     },
     "usage": {
-      "duration": 6.67080545425415,
-      "num_token_in": 620,
-      "num_token_out": 72
+      "duration": 6.812405109405518,
+      "num_token_in": 582,
+      "num_token_out": 80
     }
   },
   {
@@ -260,9 +260,9 @@
       "original_text": "As a collection manager I want to be able to create controlled vocabularies so that they can be used as authority lists during metadata creation."
     },
     "usage": {
-      "duration": 7.098596811294556,
-      "num_token_in": 622,
-      "num_token_out": 75
+      "duration": 7.469640731811523,
+      "num_token_in": 584,
+      "num_token_out": 87
     }
   },
   {
@@ -302,9 +302,9 @@
       "original_text": "As a cataloger I want authority lists to be easily accessible and contextually relevant so it is easy to use the authority."
     },
     "usage": {
-      "duration": 6.735294818878174,
-      "num_token_in": 619,
-      "num_token_out": 76
+      "duration": 7.31097412109375,
+      "num_token_in": 581,
+      "num_token_out": 84
     }
   },
   {
@@ -346,18 +346,18 @@
       "original_text": "As a collection manager I want to use external authority lists so I they can be used during metadata creation."
     },
     "usage": {
-      "duration": 6.148674964904785,
-      "num_token_in": 615,
-      "num_token_out": 64
+      "duration": 6.493037462234497,
+      "num_token_in": 577,
+      "num_token_out": 76
     }
   },
   {
     "component": {
-      "text": "As a cataloger I want to be able to see hear watch read the digital object I am cataloging so I do not have to move between multiple applications while I am creating metadata.",
+      "text": "As a cataloger I want to be able to see/hear/watch/read the digital object I am cataloging so I do not have to move between multiple applications while I am creating metadata.",
       "role": [
         "cataloger"
       ],
-      "means": "see hear watch read the digital object I am cataloging",
+      "means": "see/hear/watch/read the digital object I am cataloging",
       "ends": "I do not have to move between multiple applications while I am creating metadata",
       "template": {
         "text": "As a {ROLE} I want to be able to {MEANS} so {ENDS}.",
@@ -392,18 +392,18 @@
       "original_text": "As a cataloger I want to be able to see/hear/watch/read the digital object I am cataloging so I don't have to move between multiple applications while I'm creating metadata."
     },
     "usage": {
-      "duration": 8.637978792190552,
-      "num_token_in": 633,
-      "num_token_out": 95
+      "duration": 8.649524450302124,
+      "num_token_in": 595,
+      "num_token_out": 111
     }
   },
   {
     "component": {
-      "text": "As a cataloger I want to be able to see hear watch read all components associated on the with an item on the create update screen so I do not have to leave the form.",
+      "text": "As a cataloger I want to be able to see/hear/watch/read all components associated with an item on the create/update screen so I do not have to leave the form.",
       "role": [
         "cataloger"
       ],
-      "means": "see hear watch read all components associated on the with an item on the create update screen",
+      "means": "see/hear/watch/read all components associated with an item on the create/update screen",
       "ends": "I do not have to leave the form",
       "template": {
         "text": "As a {ROLE} I want to be able to {MEANS} so {ENDS}.",
@@ -438,9 +438,9 @@
       "original_text": "As a cataloger I want to be able to see/hear/watch/read all components associated on the with an item on the create/update screen so I don't have to leave the form."
     },
     "usage": {
-      "duration": 9.178308963775635,
-      "num_token_in": 634,
-      "num_token_out": 107
+      "duration": 9.065620422363281,
+      "num_token_in": 596,
+      "num_token_out": 105
     }
   },
   {
@@ -483,9 +483,9 @@
       "original_text": "As a cataloger or collection manager I want to see all of the metadata for a record while I'm editing it so that I have the full context for the item I'm cataloging."
     },
     "usage": {
-      "duration": 8.704851150512695,
-      "num_token_in": 632,
-      "num_token_out": 112
+      "duration": 9.228978395462036,
+      "num_token_in": 594,
+      "num_token_out": 108
     }
   },
   {
@@ -496,9 +496,9 @@
         "collection manager"
       ],
       "means": "edit an arbitrary number of Items at once",
-      "ends": "make changes to all Items in a collection efficiently",
+      "ends": "I can make changes to all Items in a collection efficiently",
       "template": {
-        "text": "As a {ROLE} I want to be able to {MEANS} so that I can {ENDS}.",
+        "text": "As a {ROLE} I want to be able to {MEANS} so that {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -514,9 +514,7 @@
           ],
           "[ENDS]": [
             "[SCONJ]",
-            "[SCONJ]",
-            "[PRON]",
-            "[AUX]"
+            "[SCONJ]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -533,9 +531,9 @@
       "original_text": "As a cataloger or collection manager I want to be able to edit an arbitrary number of Items at once so that I can make changes to all Items in a collection efficiently."
     },
     "usage": {
-      "duration": 7.868698358535767,
-      "num_token_in": 629,
-      "num_token_out": 101
+      "duration": 7.891454696655273,
+      "num_token_in": 591,
+      "num_token_out": 103
     }
   },
   {
@@ -575,8 +573,8 @@
       "original_text": "As a collection manager I want each record to have a status so I can track the progress of the records in the collection."
     },
     "usage": {
-      "duration": 7.767471551895142,
-      "num_token_in": 619,
+      "duration": 8.033617496490479,
+      "num_token_in": 581,
       "num_token_out": 86
     }
   },
@@ -586,8 +584,8 @@
       "role": [
         "collection manager"
       ],
-      "means": "statuses include a status that flags a record as having a problem",
-      "ends": "we track issues as they arise",
+      "means": "statuses to include a status that flags a record as having a problem",
+      "ends": "we can track issues as they arise",
       "template": {
         "text": "As a {ROLE} I want {MEANS} so {ENDS}.",
         "chunk": {
@@ -617,9 +615,9 @@
       "original_text": "As a collection manager I want statuses to include a status that flags a record as having a problem so we can track issues as the arise."
     },
     "usage": {
-      "duration": 7.101046323776245,
-      "num_token_in": 623,
-      "num_token_out": 80
+      "duration": 7.792554616928101,
+      "num_token_in": 585,
+      "num_token_out": 94
     }
   },
   {
@@ -660,9 +658,9 @@
       "original_text": "As a cataloger I want Trident to support the UTF- character set so that I can use any character necessary when creating metadata."
     },
     "usage": {
-      "duration": 7.470134019851685,
-      "num_token_in": 621,
-      "num_token_out": 90
+      "duration": 8.034991025924683,
+      "num_token_in": 583,
+      "num_token_out": 86
     }
   },
   {
@@ -699,9 +697,9 @@
       "original_text": "As a collection manager I want to map fields in inherited metadata to Duke Core fields and import a spreadsheet and create records."
     },
     "usage": {
-      "duration": 6.646988868713379,
-      "num_token_in": 618,
-      "num_token_out": 71
+      "duration": 7.3747241497039795,
+      "num_token_in": 580,
+      "num_token_out": 85
     }
   },
   {
@@ -738,9 +736,9 @@
       "original_text": "As a collection manager I want to import metadata and create records from a DCP digitazation guide."
     },
     "usage": {
-      "duration": 6.1191723346710205,
-      "num_token_in": 615,
-      "num_token_out": 63
+      "duration": 7.810645580291748,
+      "num_token_in": 577,
+      "num_token_out": 73
     }
   },
   {
@@ -749,19 +747,17 @@
       "role": [
         "Archivist"
       ],
-      "means": "bi-directional linking between items in the digital collections and EAD finding aids",
+      "means": "want bi-directional linking between items in the digital collections and EAD finding aids",
       "ends": null,
       "template": {
-        "text": "As a {ROLE} I want bi-directional {MEANS}.",
+        "text": "As a {ROLE} I {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
             "[DET]"
           ],
           "[MEANS]": [
-            "[PRON]",
-            "[VERB]",
-            "[ADJ]"
+            "[PRON]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -777,9 +773,9 @@
       "original_text": "As a Archivist I want bi-directional linking between items in the digital collections and EAD finding aids."
     },
     "usage": {
-      "duration": 6.271160125732422,
-      "num_token_in": 616,
-      "num_token_out": 68
+      "duration": 7.854792594909668,
+      "num_token_in": 578,
+      "num_token_out": 83
     }
   },
   {
@@ -816,9 +812,9 @@
       "original_text": "As a End User I want to be able to see the physical context of an Item in a digital collection (i.e. See inside this folder; EAD)"
     },
     "usage": {
-      "duration": 8.556957006454468,
-      "num_token_in": 627,
-      "num_token_out": 99
+      "duration": 7.048834562301636,
+      "num_token_in": 589,
+      "num_token_out": 96
     }
   },
   {
@@ -854,9 +850,9 @@
       "original_text": "As a Collection Manager I want my collection to be discoverable in the Catalog."
     },
     "usage": {
-      "duration": 7.766813278198242,
-      "num_token_in": 610,
-      "num_token_out": 56
+      "duration": 6.517998933792114,
+      "num_token_in": 572,
+      "num_token_out": 70
     }
   },
   {
@@ -897,9 +893,9 @@
       "original_text": "As a Digital Production User (DPU) I want to be able to create Components."
     },
     "usage": {
-      "duration": 5.794849157333374,
-      "num_token_in": 612,
-      "num_token_out": 56
+      "duration": 7.464165449142456,
+      "num_token_in": 574,
+      "num_token_out": 70
     }
   },
   {
@@ -936,19 +932,19 @@
       "original_text": "As a DPU I want to create Technical Metadata with for Component."
     },
     "usage": {
-      "duration": 5.75856351852417,
-      "num_token_in": 608,
-      "num_token_out": 51
+      "duration": 6.2100138664245605,
+      "num_token_in": 570,
+      "num_token_out": 60
     }
   },
   {
     "component": {
-      "text": "As a cataloger or collection manager I want to be able to use a grid or spreadsheet style interface so I can edit Items quickly.",
+      "text": "As a cataloger or collection manager I want to be able to use a grid/spreadsheet style interface so I can edit Items quickly.",
       "role": [
         "cataloger",
         "collection manager"
       ],
-      "means": "use a grid or spreadsheet style interface",
+      "means": "use a grid/spreadsheet style interface",
       "ends": "I can edit Items quickly",
       "template": {
         "text": "As a {ROLE} I want to be able to {MEANS} so {ENDS}.",
@@ -983,9 +979,9 @@
       "original_text": "As a cataloger or collection manager I want to be able to use a grid/spreadsheet style interface so I can edit Items quickly."
     },
     "usage": {
-      "duration": 7.175807476043701,
-      "num_token_in": 622,
-      "num_token_out": 76
+      "duration": 7.242455005645752,
+      "num_token_in": 584,
+      "num_token_out": 90
     }
   },
   {
@@ -1022,9 +1018,9 @@
       "original_text": "As a DPU I want to create Preservation Metadata for a Component."
     },
     "usage": {
-      "duration": 6.166027069091797,
-      "num_token_in": 608,
-      "num_token_out": 51
+      "duration": 6.198001861572266,
+      "num_token_in": 570,
+      "num_token_out": 61
     }
   },
   {
@@ -1061,9 +1057,9 @@
       "original_text": "As a DPU I want to upload master surrogates to a Component."
     },
     "usage": {
-      "duration": 6.524935483932495,
-      "num_token_in": 610,
-      "num_token_out": 68
+      "duration": 6.92647385597229,
+      "num_token_in": 572,
+      "num_token_out": 69
     }
   },
   {
@@ -1100,9 +1096,9 @@
       "original_text": "As a DPU I want to add one or more Components to an Item."
     },
     "usage": {
-      "duration": 6.3179612159729,
-      "num_token_in": 610,
-      "num_token_out": 55
+      "duration": 6.947242259979248,
+      "num_token_in": 572,
+      "num_token_out": 65
     }
   },
   {
@@ -1143,21 +1139,21 @@
       "original_text": "As a DPU I want to create structural metadata for an Item so I can define the sequence of components."
     },
     "usage": {
-      "duration": 5.8104164600372314,
-      "num_token_in": 616,
-      "num_token_out": 67
+      "duration": 8.090133666992188,
+      "num_token_in": 578,
+      "num_token_out": 79
     }
   },
   {
     "component": {
-      "text": "As a Digital Production Developer (DPD) I want to group components that require digitization so that I can create digitizable units.",
+      "text": "As a Digital Production Developer (DPD) I want to group components that require digitization so that I can create \"digitizable units\".",
       "role": [
         "Digital Production Developer (DPD)"
       ],
       "means": "group components that require digitization",
-      "ends": "I can create digitizable units",
+      "ends": "I can create \"digitizable units\"",
       "template": {
-        "text": "As a {ROLE}) I want to {MEANS} so that {ENDS}.",
+        "text": "As a {ROLE}) I want to {MEANS} so that {ENDS}",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -1172,12 +1168,9 @@
           "[ENDS]": [
             "[SCONJ]",
             "[SCONJ]"
-          ],
-          "[APPENDIX]": [
-            "[PUNCT]"
           ]
         },
-        "tail": null,
+        "tail": "\".",
         "order": [
           "[ROLE]",
           "[MEANS]",
@@ -1188,8 +1181,8 @@
       "original_text": "As a Digital Production Developer (DPD) I want to group components that require digitization so that I can create \"digitizable units\"."
     },
     "usage": {
-      "duration": 7.4580981731414795,
-      "num_token_in": 623,
+      "duration": 7.305593729019165,
+      "num_token_in": 585,
       "num_token_out": 88
     }
   },
@@ -1227,9 +1220,9 @@
       "original_text": "As a DPU I want to check-out/check-in groups of Components."
     },
     "usage": {
-      "duration": 6.223681926727295,
-      "num_token_in": 610,
-      "num_token_out": 55
+      "duration": 6.526648998260498,
+      "num_token_in": 572,
+      "num_token_out": 69
     }
   },
   {
@@ -1271,9 +1264,9 @@
       "original_text": "As a DPD I want to verify the correctness and completeness of components so that I can ensure quality standards are met."
     },
     "usage": {
-      "duration": 7.338532209396362,
-      "num_token_in": 618,
-      "num_token_out": 82
+      "duration": 6.971741199493408,
+      "num_token_in": 580,
+      "num_token_out": 78
     }
   },
   {
@@ -1283,9 +1276,9 @@
         "DPD"
       ],
       "means": "capture digitization statistics",
-      "ends": "monitor Operator efficiency and make projections for future projects",
+      "ends": "I can monitor Operator efficiency and make projections for future projects",
       "template": {
-        "text": "As a {ROLE} I want to {MEANS} so that I can {ENDS}.",
+        "text": "As a {ROLE} I want to {MEANS} so that {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -1298,9 +1291,7 @@
           ],
           "[ENDS]": [
             "[SCONJ]",
-            "[SCONJ]",
-            "[PRON]",
-            "[AUX]"
+            "[SCONJ]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -1317,9 +1308,9 @@
       "original_text": "As a DPD I want to capture digitization statistics so that I can monitor Operator efficiency and make projections for future projects."
     },
     "usage": {
-      "duration": 8.482022523880005,
-      "num_token_in": 619,
-      "num_token_out": 72
+      "duration": 7.45868444442749,
+      "num_token_in": 581,
+      "num_token_out": 81
     }
   },
   {
@@ -1328,7 +1319,7 @@
       "role": [
         "DPU"
       ],
-      "means": "Trident create derivatives for me when I upload a Master",
+      "means": "Trident to create derivatives for me when I upload a Master",
       "ends": null,
       "template": {
         "text": "As a {ROLE} I want {MEANS}.",
@@ -1355,9 +1346,9 @@
       "original_text": "As a DPU I want Trident to create derivatives for me when I upload a Master."
     },
     "usage": {
-      "duration": 6.73852276802063,
-      "num_token_in": 613,
-      "num_token_out": 74
+      "duration": 6.596181631088257,
+      "num_token_in": 575,
+      "num_token_out": 72
     }
   },
   {
@@ -1394,9 +1385,9 @@
       "original_text": "As a User I want to monitor the progress of a digital collection project."
     },
     "usage": {
-      "duration": 5.911123514175415,
-      "num_token_in": 609,
-      "num_token_out": 54
+      "duration": 6.801477432250977,
+      "num_token_in": 571,
+      "num_token_out": 68
     }
   },
   {
@@ -1441,18 +1432,18 @@
       "original_text": "As a cataloger I want to be able to save a record without all of the required metadata so that I can start a record with the metadata I have and come back to finish it later."
     },
     "usage": {
-      "duration": 9.347071647644043,
-      "num_token_in": 633,
+      "duration": 9.588094234466553,
+      "num_token_in": 595,
       "num_token_out": 110
     }
   },
   {
     "component": {
-      "text": "As a user I want to see how many items have been digitized.",
+      "text": "As a user I want to see how many Items have been digitized.",
       "role": [
         "user"
       ],
-      "means": "see how many items have been digitized",
+      "means": "see how many Items have been digitized",
       "ends": null,
       "template": {
         "text": "As a {ROLE} I want to {MEANS}.",
@@ -1480,9 +1471,9 @@
       "original_text": "As a user I want to see how many Items have been digitized."
     },
     "usage": {
-      "duration": 7.797899961471558,
-      "num_token_in": 609,
-      "num_token_out": 53
+      "duration": 6.542032480239868,
+      "num_token_in": 571,
+      "num_token_out": 63
     }
   },
   {
@@ -1519,9 +1510,9 @@
       "original_text": "As a user I want to see how many digitized Items have been described."
     },
     "usage": {
-      "duration": 6.020472764968872,
-      "num_token_in": 610,
-      "num_token_out": 55
+      "duration": 6.928956985473633,
+      "num_token_in": 572,
+      "num_token_out": 69
     }
   },
   {
@@ -1558,9 +1549,9 @@
       "original_text": "As a user I want to see how many Items have been published."
     },
     "usage": {
-      "duration": 6.721639156341553,
-      "num_token_in": 608,
-      "num_token_out": 64
+      "duration": 7.227187156677246,
+      "num_token_in": 570,
+      "num_token_out": 65
     }
   },
   {
@@ -1597,9 +1588,9 @@
       "original_text": "As Collection Manager or Sponsor I want to describe the collection."
     },
     "usage": {
-      "duration": 5.312150955200195,
-      "num_token_in": 606,
-      "num_token_out": 50
+      "duration": 7.123832941055298,
+      "num_token_in": 568,
+      "num_token_out": 59
     }
   },
   {
@@ -1639,9 +1630,9 @@
       "original_text": "As a Preservation Librarian I want the relationship between masters and derivatives to be managed by the system so I don't have to."
     },
     "usage": {
-      "duration": 7.01151967048645,
-      "num_token_in": 620,
-      "num_token_out": 77
+      "duration": 7.455109119415283,
+      "num_token_in": 582,
+      "num_token_out": 85
     }
   },
   {
@@ -1678,9 +1669,9 @@
       "original_text": "As a Metadata Librarian I want to define the metadata schema for a collection."
     },
     "usage": {
-      "duration": 6.579371690750122,
-      "num_token_in": 610,
-      "num_token_out": 68
+      "duration": 7.157836198806763,
+      "num_token_in": 572,
+      "num_token_out": 69
     }
   },
   {
@@ -1717,9 +1708,9 @@
       "original_text": "As a Metadata librarian I want to define Authorities to be used for specific fields in a collection MD Schema."
     },
     "usage": {
-      "duration": 7.127187013626099,
-      "num_token_in": 615,
-      "num_token_out": 78
+      "duration": 7.214386940002441,
+      "num_token_in": 577,
+      "num_token_out": 79
     }
   },
   {
@@ -1756,9 +1747,9 @@
       "original_text": "As a Metadata Librarian I want to define validation rules for specific fields in a collection."
     },
     "usage": {
-      "duration": 6.0901477336883545,
-      "num_token_in": 612,
-      "num_token_out": 59
+      "duration": 6.5329670906066895,
+      "num_token_in": 574,
+      "num_token_out": 73
     }
   },
   {
@@ -1794,9 +1785,9 @@
       "original_text": "As a Metadata Librarian I want validation rules enforced when MD is submitted."
     },
     "usage": {
-      "duration": 5.839497804641724,
-      "num_token_in": 609,
-      "num_token_out": 54
+      "duration": 6.5440778732299805,
+      "num_token_in": 571,
+      "num_token_out": 64
     }
   },
   {
@@ -1806,9 +1797,9 @@
         "user"
       ],
       "means": "save a record only when the record has an identifier",
-      "ends": "do not end up with a bunch of empty records in the collection",
+      "ends": "we do not end up with a bunch of empty records in the collection",
       "template": {
-        "text": "As a {ROLE} I want to be able to {MEANS} so that we {ENDS}.",
+        "text": "As a {ROLE} I want to be able to {MEANS} so that {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -1824,8 +1815,7 @@
           ],
           "[ENDS]": [
             "[SCONJ]",
-            "[SCONJ]",
-            "[PRON]"
+            "[SCONJ]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -1842,9 +1832,9 @@
       "original_text": "As a user I want to be able to save a record only when the record has an identifier so that we don't end up with a bunch of empty records in the collection."
     },
     "usage": {
-      "duration": 8.713857412338257,
-      "num_token_in": 630,
-      "num_token_out": 102
+      "duration": 8.435905933380127,
+      "num_token_in": 592,
+      "num_token_out": 103
     }
   },
   {
@@ -1884,9 +1874,9 @@
       "original_text": "As a cataloger I want a list of all of the records I have access to so I can get to work quickly."
     },
     "usage": {
-      "duration": 7.190645933151245,
-      "num_token_in": 619,
-      "num_token_out": 75
+      "duration": 7.166571855545044,
+      "num_token_in": 581,
+      "num_token_out": 87
     }
   },
   {
@@ -1927,8 +1917,8 @@
       "original_text": "As a collection manager I want to search for records based on status so I can track the progress of a collection."
     },
     "usage": {
-      "duration": 7.476536750793457,
-      "num_token_in": 617,
+      "duration": 7.246108770370483,
+      "num_token_in": 579,
       "num_token_out": 81
     }
   },
@@ -1970,9 +1960,9 @@
       "original_text": "As a cataloger or collection manager I want to be able to search for records based on all Duke Core fields."
     },
     "usage": {
-      "duration": 6.525824308395386,
-      "num_token_in": 617,
-      "num_token_out": 68
+      "duration": 7.138638496398926,
+      "num_token_in": 579,
+      "num_token_out": 82
     }
   },
   {
@@ -2012,9 +2002,9 @@
       "original_text": "As a user I want to be able to publish records only when the record has a Title Identifier Type and Source."
     },
     "usage": {
-      "duration": 6.653343915939331,
-      "num_token_in": 617,
-      "num_token_out": 67
+      "duration": 7.675012588500977,
+      "num_token_in": 579,
+      "num_token_out": 81
     }
   }
 ]

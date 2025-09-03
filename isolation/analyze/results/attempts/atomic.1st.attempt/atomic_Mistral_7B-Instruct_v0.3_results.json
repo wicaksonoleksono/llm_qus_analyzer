@@ -1,0 +1,609 @@
+{
+  "model_info": {
+    "model_index": 1,
+    "model_name": "Mistral 7B-Instruct v0.3"
+  },
+  "total_stories": 48,
+  "correct_predictions": 31,
+  "false_positives": 17,
+  "false_negatives": 0,
+  "stories": {
+    "As a collection manager or cataloger I want to be able to see who last edited a record and when.": {
+      "ground_truth_has_atomic": true,
+      "detected_violations_count": 2,
+      "detected_violations": [
+        "The [Role] is more than 1: collection manager, cataloger",
+        "The [Means] contain more than 1 tasks:\n(1) see\n(2) who\n(3) last edited\n(4) a record\n(5) when"
+      ],
+      "result_type": "TRUE POSITIVE",
+      "usage": {
+        "duration": 0.798337459564209,
+        "num_token_in": 228,
+        "num_token_out": 32
+      }
+    },
+    "As an end user I want to be able to search across all collections at once.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) search\n(2) across\n(3) all\n(4) collections"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 1.1254541873931885,
+        "num_token_in": 221,
+        "num_token_out": 29
+      }
+    },
+    "As a cataloger and a collections manager I want Trident to support Duke Core so that metadata is consistent between collections.": {
+      "ground_truth_has_atomic": true,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Role] is more than 1: cataloger, collections manager"
+      ],
+      "result_type": "TRUE POSITIVE",
+      "usage": {
+        "duration": 1.1369266510009766,
+        "num_token_in": 228,
+        "num_token_out": 23
+      }
+    },
+    "As a collections manager I want required DC fields to be enforced so that all records have values for all required DC fields.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.5181605815887451,
+        "num_token_in": 230,
+        "num_token_out": 22
+      }
+    },
+    "As a collections manager I want to be able to repeat repeatable DC Fields so that I can enter all of the relevant metadata.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.5336353778839111,
+        "num_token_in": 231,
+        "num_token_out": 23
+      }
+    },
+    "As a collection manager I want to be able to create controlled vocabularies so that they can be used as authority lists during metadata creation.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.48116064071655273,
+        "num_token_in": 233,
+        "num_token_out": 23
+      }
+    },
+    "As a cataloger I want authority lists to be easily accessible and contextually relevant so it is easy to use the authority.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) make authority lists easily accessible\n(2) make authority lists contextually relevant"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 0.69228196144104,
+        "num_token_in": 233,
+        "num_token_out": 30
+      }
+    },
+    "As a collection manager I want to use external authority lists so I they can be used during metadata creation.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.6380658149719238,
+        "num_token_in": 223,
+        "num_token_out": 21
+      }
+    },
+    "As a cataloger I want to be able to see/hear/watch/read the digital object I am cataloging so I don't have to move between multiple applications while I'm creating metadata.": {
+      "ground_truth_has_atomic": true,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) see the digital object\n(2) hear the digital object\n(3) watch the digital object\n(4) read the digital object"
+      ],
+      "result_type": "TRUE POSITIVE",
+      "usage": {
+        "duration": 0.7010495662689209,
+        "num_token_in": 254,
+        "num_token_out": 40
+      }
+    },
+    "As a cataloger I want to be able to see/hear/watch/read all components associated on the with an item on the create/update screen so I don't have to leave the form.": {
+      "ground_truth_has_atomic": true,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) see\n(2) hear\n(3) watch\n(4) read"
+      ],
+      "result_type": "TRUE POSITIVE",
+      "usage": {
+        "duration": 0.6397304534912109,
+        "num_token_in": 262,
+        "num_token_out": 28
+      }
+    },
+    "As a cataloger or collection manager I want to see all of the metadata for a record while I'm editing it so that I have the full context for the item I'm cataloging.": {
+      "ground_truth_has_atomic": true,
+      "detected_violations_count": 2,
+      "detected_violations": [
+        "The [Role] is more than 1: cataloger, collection manager",
+        "The [Means] contain more than 1 tasks:\n(1) see\n(2) all of the metadata for a record\n(3) while I am editing it"
+      ],
+      "result_type": "TRUE POSITIVE",
+      "usage": {
+        "duration": 0.5734810829162598,
+        "num_token_in": 249,
+        "num_token_out": 34
+      }
+    },
+    "As a cataloger or collection manager I want to be able to edit an arbitrary number of Items at once so that I can make changes to all Items in a collection efficiently.": {
+      "ground_truth_has_atomic": true,
+      "detected_violations_count": 2,
+      "detected_violations": [
+        "The [Role] is more than 1: cataloger, collection manager",
+        "The [Means] contain more than 1 tasks:\n(1) edit\n(2) Items"
+      ],
+      "result_type": "TRUE POSITIVE",
+      "usage": {
+        "duration": 0.5360434055328369,
+        "num_token_in": 244,
+        "num_token_out": 21
+      }
+    },
+    "As a collection manager I want each record to have a status so I can track the progress of the records in the collection.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.49819469451904297,
+        "num_token_in": 229,
+        "num_token_out": 23
+      }
+    },
+    "As a collection manager I want statuses to include a status that flags a record as having a problem so we can track issues as the arise.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) include a status\n(2) flags a record as having a problem"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 0.5645084381103516,
+        "num_token_in": 240,
+        "num_token_out": 29
+      }
+    },
+    "As a cataloger I want Trident to support the UTF- character set so that I can use any character necessary when creating metadata.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.533998966217041,
+        "num_token_in": 236,
+        "num_token_out": 27
+      }
+    },
+    "As a collection manager I want to map fields in inherited metadata to Duke Core fields and import a spreadsheet and create records.": {
+      "ground_truth_has_atomic": true,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) map fields in inherited metadata to Duke Core fields\n(2) import a spreadsheet\n(3) create records"
+      ],
+      "result_type": "TRUE POSITIVE",
+      "usage": {
+        "duration": 0.6243689060211182,
+        "num_token_in": 240,
+        "num_token_out": 36
+      }
+    },
+    "As a collection manager I want to import metadata and create records from a DCP digitazation guide.": {
+      "ground_truth_has_atomic": true,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) import metadata\n(2) create records"
+      ],
+      "result_type": "TRUE POSITIVE",
+      "usage": {
+        "duration": 0.5603237152099609,
+        "num_token_in": 232,
+        "num_token_out": 23
+      }
+    },
+    "As a Archivist I want bi-directional linking between items in the digital collections and EAD finding aids.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) Link items in digital collections to EAD finding aids\n(2) Link EAD finding aids to items in digital collections"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 0.5499517917633057,
+        "num_token_in": 242,
+        "num_token_out": 41
+      }
+    },
+    "As a End User I want to be able to see the physical context of an Item in a digital collection (i.e. See inside this folder; EAD)": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.7301466464996338,
+        "num_token_in": 243,
+        "num_token_out": 28
+      }
+    },
+    "As a Collection Manager I want my collection to be discoverable in the Catalog.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.6653695106506348,
+        "num_token_in": 224,
+        "num_token_out": 26
+      }
+    },
+    "As a Digital Production User (DPU) I want to be able to create Components.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.47610926628112793,
+        "num_token_in": 220,
+        "num_token_out": 20
+      }
+    },
+    "As a DPU I want to create Technical Metadata with for Component.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) create Technical Metadata\n(2) for Component"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 0.47128772735595703,
+        "num_token_in": 220,
+        "num_token_out": 25
+      }
+    },
+    "As a cataloger or collection manager I want to be able to use a grid/spreadsheet style interface so I can edit Items quickly.": {
+      "ground_truth_has_atomic": true,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Role] is more than 1: cataloger, collection manager"
+      ],
+      "result_type": "TRUE POSITIVE",
+      "usage": {
+        "duration": 0.6838634014129639,
+        "num_token_in": 237,
+        "num_token_out": 26
+      }
+    },
+    "As a DPU I want to create Preservation Metadata for a Component.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.5515553951263428,
+        "num_token_in": 222,
+        "num_token_out": 22
+      }
+    },
+    "As a DPU I want to upload master surrogates to a Component.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.472827672958374,
+        "num_token_in": 222,
+        "num_token_out": 22
+      }
+    },
+    "As a DPU I want to add one or more Components to an Item.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) add\n(2) Components\n(3) to\n(4) an Item"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 0.5071969032287598,
+        "num_token_in": 224,
+        "num_token_out": 28
+      }
+    },
+    "As a DPU I want to create structural metadata for an Item so I can define the sequence of components.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.5585992336273193,
+        "num_token_in": 226,
+        "num_token_out": 23
+      }
+    },
+    "As a Digital Production Developer (DPD) I want to group components that require digitization so that I can create \"digitizable units\".": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) group components\n(2) create 'digitizable units'"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 0.6387383937835693,
+        "num_token_in": 235,
+        "num_token_out": 28
+      }
+    },
+    "As a DPU I want to check-out/check-in groups of Components.": {
+      "ground_truth_has_atomic": true,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) check-out groups of Components\n(2) check-in groups of Components"
+      ],
+      "result_type": "TRUE POSITIVE",
+      "usage": {
+        "duration": 0.6152622699737549,
+        "num_token_in": 228,
+        "num_token_out": 33
+      }
+    },
+    "As a DPD I want to verify the correctness and completeness of components so that I can ensure quality standards are met.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) verify the correctness\n(2) verify the completeness"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 0.5586502552032471,
+        "num_token_in": 233,
+        "num_token_out": 27
+      }
+    },
+    "As a DPD I want to capture digitization statistics so that I can monitor Operator efficiency and make projections for future projects.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.5338115692138672,
+        "num_token_in": 229,
+        "num_token_out": 21
+      }
+    },
+    "As a DPU I want Trident to create derivatives for me when I upload a Master.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) Trident creates derivatives\n(2) I upload a Master"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 0.5376622676849365,
+        "num_token_in": 230,
+        "num_token_out": 28
+      }
+    },
+    "As a User I want to monitor the progress of a digital collection project.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 1.2974491119384766,
+        "num_token_in": 221,
+        "num_token_out": 20
+      }
+    },
+    "As a cataloger I want to be able to save a record without all of the required metadata so that I can start a record with the metadata I have and come back to finish it later.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) save a record\n(2) save without all of the required metadata"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 0.5678799152374268,
+        "num_token_in": 246,
+        "num_token_out": 29
+      }
+    },
+    "As a user I want to see how many Items have been digitized.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) List digitized Items\n(2) Display count of digitized Items"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 0.6430480480194092,
+        "num_token_in": 223,
+        "num_token_out": 31
+      }
+    },
+    "As a user I want to see how many digitized Items have been described.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) List digitized Items\n(2) Count described Items"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 0.658447265625,
+        "num_token_in": 225,
+        "num_token_out": 28
+      }
+    },
+    "As a user I want to see how many Items have been published.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) List Items\n(2) Count Items"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 0.53460693359375,
+        "num_token_in": 221,
+        "num_token_out": 25
+      }
+    },
+    "As Collection Manager or Sponsor I want to describe the collection.": {
+      "ground_truth_has_atomic": true,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Role] is more than 1: Collection Manager, Sponsor"
+      ],
+      "result_type": "TRUE POSITIVE",
+      "usage": {
+        "duration": 0.470242977142334,
+        "num_token_in": 216,
+        "num_token_out": 21
+      }
+    },
+    "As a Preservation Librarian I want the relationship between masters and derivatives to be managed by the system so I don't have to.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 1.0786452293395996,
+        "num_token_in": 239,
+        "num_token_out": 26
+      }
+    },
+    "As a Metadata Librarian I want to define the metadata schema for a collection.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.5319252014160156,
+        "num_token_in": 223,
+        "num_token_out": 21
+      }
+    },
+    "As a Metadata librarian I want to define Authorities to be used for specific fields in a collection MD Schema.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) define Authorities\n(2) assign Authorities to specific fields in a collection MD Schema"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 0.7075235843658447,
+        "num_token_in": 237,
+        "num_token_out": 33
+      }
+    },
+    "As a Metadata Librarian I want to define validation rules for specific fields in a collection.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 1.119889259338379,
+        "num_token_in": 227,
+        "num_token_out": 20
+      }
+    },
+    "As a Metadata Librarian I want validation rules enforced when MD is submitted.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.5768258571624756,
+        "num_token_in": 224,
+        "num_token_out": 21
+      }
+    },
+    "As a user I want to be able to save a record only when the record has an identifier so that we don't end up with a bunch of empty records in the collection.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) save a record\n(2) check if record has an identifier"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 0.6996426582336426,
+        "num_token_in": 244,
+        "num_token_out": 28
+      }
+    },
+    "As a cataloger I want a list of all of the records I have access to so I can get to work quickly.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.4933443069458008,
+        "num_token_in": 234,
+        "num_token_out": 18
+      }
+    },
+    "As a collection manager I want to search for records based on status so I can track the progress of a collection.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 1,
+      "detected_violations": [
+        "The [Means] contain more than 1 tasks:\n(1) search for records\n(2) track the progress of a collection"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 0.5576310157775879,
+        "num_token_in": 227,
+        "num_token_out": 28
+      }
+    },
+    "As a cataloger or collection manager I want to be able to search for records based on all Duke Core fields.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 2,
+      "detected_violations": [
+        "The [Role] is more than 1: cataloger, collection manager",
+        "The [Means] contain more than 1 tasks:\n(1) search for records\n(2) access Duke Core fields"
+      ],
+      "result_type": "FALSE POSITIVE",
+      "usage": {
+        "duration": 0.7020604610443115,
+        "num_token_in": 230,
+        "num_token_out": 26
+      }
+    },
+    "As a user I want to be able to publish records only when the record has a Title Identifier Type and Source.": {
+      "ground_truth_has_atomic": false,
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "TRUE NEGATIVE",
+      "usage": {
+        "duration": 0.6969740390777588,
+        "num_token_in": 236,
+        "num_token_out": 19
+      }
+    }
+  },
+  "summary": {
+    "precision": 0.39285714285714285,
+    "recall": 1.0,
+    "f1": 0.5641025641025641,
+    "true_positives": 11,
+    "false_positives": 17,
+    "false_negatives": 0,
+    "true_negatives": 20
+  }
+}

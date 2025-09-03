@@ -8,18 +8,26 @@ from ..type import Violation
 
 _definition = """
 A user story should express only one feature. 
+
 """
 
 _in_format = """
 Given user story "{user_story}" and its [Means] "{means}".
 Without adding any context outside this user story, 
-please extract the individual and unique tasks explicitly mentioned from this [Means].
+Evaluate and extract the individual, unique tasks explicitly mentioned strictly from the [Means] section.
+
+- A task is indicated only by an explicit verb or a verb phrase applied to an object or objects.
+- Extract tasks only when a verb is present. (Nouns alone are not tasks.)
+- Do NOT treat adjectives or states (e.g., “relevant”, “available”, “visible”, “easy”) as tasks, even if listed alongside verbs.
+- If a phrase contains a verb + adjective, extract only the verb action; treat the adjective as a qualifier of that task and do not output it as a separate task.
+- Do NOT infer or invent actions not explicitly stated in the [Means].
+
 """
 
 _out_format = """
 **Strictly follow this output format (JSON):**  
 ```json
-{{
+{{  
     "tasks": "List of string"
 }}
 ```

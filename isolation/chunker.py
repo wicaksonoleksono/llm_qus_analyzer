@@ -18,16 +18,11 @@ output_dir = Path("chunked_story")
 output_dir.mkdir(exist_ok=True)
 for model_idx, model_name in enumerate(clients.names):
     output_file = output_dir / f"{model_name}.json"
-    
-    # Skip if already exists
     if output_file.exists():
         print(f"Skipping {model_name} - already exists at {output_file}")
         continue
-    
     print(f"Processing {model_name}...")
-    # Generate story IDs for proper component identification
     story_ids = [f"story_{i+1}" for i in range(len(data))]
-    
     results = chunk_stories_to_json(chunker, clients, data, model_idx=model_idx, story_ids=story_ids)
     with open(output_file, 'w') as f:
         json.dump(results, f, indent=2)

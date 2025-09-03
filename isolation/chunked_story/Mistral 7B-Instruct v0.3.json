@@ -3,25 +3,21 @@
     "component": {
       "text": "As a collection manager or cataloger, I am able to see who last edited a record and when.",
       "role": [
-        "Collection manager",
-        "Cataloger"
+        "collection manager",
+        "cataloger"
       ],
-      "means": "See who last edited a record and when",
-      "ends": "To know the last editor and the time of the edit",
+      "means": "I am able to see who last edited a record and when",
+      "ends": null,
       "template": {
-        "text": "As a {ROLE}, I am able {ENDS} {MEANS}.",
+        "text": "As a {ROLE}, {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
             "[DET]"
           ],
-          "[ENDS]": [
-            "[PUNCT]",
-            "[PRON]",
-            "[AUX]",
-            "[ADJ]"
+          "[MEANS]": [
+            "[PUNCT]"
           ],
-          "[MEANS]": [],
           "[APPENDIX]": [
             "[PUNCT]"
           ]
@@ -29,7 +25,6 @@
         "tail": null,
         "order": [
           "[ROLE]",
-          "[ENDS]",
           "[MEANS]"
         ]
       },
@@ -37,63 +32,21 @@
       "original_text": "As a collection manager or cataloger I want to be able to see who last edited a record and when."
     },
     "usage": {
-      "duration": 1.036738395690918,
-      "num_token_in": 638,
-      "num_token_out": 98
+      "duration": 11.434326410293579,
+      "num_token_in": 677,
+      "num_token_out": 84
     }
   },
   {
     "component": {
       "text": "As an end user, I want to search across all collections at once.",
       "role": [
-        "End user"
+        "end user"
       ],
       "means": "search across all collections at once",
-      "ends": "to search across all collections at once",
+      "ends": null,
       "template": {
-        "text": "As an {ROLE}, I want {ENDS} {MEANS}.",
-        "chunk": {
-          "[ROLE]": [
-            "[ADP]",
-            "[DET]"
-          ],
-          "[ENDS]": [
-            "[PUNCT]",
-            "[PRON]",
-            "[VERB]"
-          ],
-          "[MEANS]": [],
-          "[APPENDIX]": [
-            "[PUNCT]"
-          ]
-        },
-        "tail": null,
-        "order": [
-          "[ROLE]",
-          "[ENDS]",
-          "[MEANS]"
-        ]
-      },
-      "id": "story_2",
-      "original_text": "As an end user I want to be able to search across all collections at once."
-    },
-    "usage": {
-      "duration": 0.7912085056304932,
-      "num_token_in": 633,
-      "num_token_out": 82
-    }
-  },
-  {
-    "component": {
-      "text": "As a cataloger and a collections manager, I want Trident to support Duke Core so that metadata is consistent between collections.",
-      "role": [
-        "cataloger",
-        "collections manager"
-      ],
-      "means": "Trident to support Duke Core",
-      "ends": "metadata is consistent between collections",
-      "template": {
-        "text": "As a {ROLE}, I want {MEANS} so that {ENDS}.",
+        "text": "As an {ROLE}, I want to {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -102,11 +55,60 @@
           "[MEANS]": [
             "[PUNCT]",
             "[PRON]",
+            "[VERB]",
+            "[PART]"
+          ],
+          "[APPENDIX]": [
+            "[PUNCT]"
+          ]
+        },
+        "tail": null,
+        "order": [
+          "[ROLE]",
+          "[MEANS]"
+        ]
+      },
+      "id": "story_2",
+      "original_text": "As an end user I want to be able to search across all collections at once."
+    },
+    "usage": {
+      "duration": 0.8421051502227783,
+      "num_token_in": 672,
+      "num_token_out": 68
+    }
+  },
+  {
+    "component": {
+      "text": "As a cataloger and a collections manager, I am a cataloger and a collections manager. I want Trident to support Duke Core. Metadata is consistent between collections.",
+      "role": [
+        "cataloger",
+        "collections manager"
+      ],
+      "means": "Trident to support Duke Core",
+      "ends": "metadata is consistent between collections",
+      "template": {
+        "text": "As a {ROLE}, I am a cataloger and a collections manager. I want {MEANS}. {ENDS}.",
+        "chunk": {
+          "[ROLE]": [
+            "[ADP]",
+            "[DET]"
+          ],
+          "[MEANS]": [
+            "[PUNCT]",
+            "[PRON]",
+            "[AUX]",
+            "[DET]",
+            "[NOUN]",
+            "[CCONJ]",
+            "[DET]",
+            "[NOUN]",
+            "[NOUN]",
+            "[PUNCT]",
+            "[PRON]",
             "[VERB]"
           ],
           "[ENDS]": [
-            "[SCONJ]",
-            "[SCONJ]"
+            "[PUNCT]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -123,21 +125,21 @@
       "original_text": "As a cataloger and a collections manager I want Trident to support Duke Core so that metadata is consistent between collections."
     },
     "usage": {
-      "duration": 0.9500045776367188,
-      "num_token_in": 640,
-      "num_token_out": 95
+      "duration": 1.2797768115997314,
+      "num_token_in": 679,
+      "num_token_out": 99
     }
   },
   {
     "component": {
-      "text": "As a collections manager, I want the required DC fields to be enforced, so that all records have values for all required DC fields.",
+      "text": "As a collections manager, I am wanting required DC fields to be enforced so that all records have values for all required DC fields.",
       "role": [
         "collections manager"
       ],
       "means": "required DC fields to be enforced",
       "ends": "all records have values for all required DC fields",
       "template": {
-        "text": "As a {ROLE}, I want the {MEANS}, so that {ENDS}.",
+        "text": "As a {ROLE}, I am wanting {MEANS} so that {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -146,11 +148,10 @@
           "[MEANS]": [
             "[PUNCT]",
             "[PRON]",
-            "[VERB]",
-            "[DET]"
+            "[AUX]",
+            "[VERB]"
           ],
           "[ENDS]": [
-            "[PUNCT]",
             "[SCONJ]",
             "[SCONJ]"
           ],
@@ -169,21 +170,21 @@
       "original_text": "As a collections manager I want required DC fields to be enforced so that all records have values for all required DC fields."
     },
     "usage": {
-      "duration": 0.807304859161377,
-      "num_token_in": 641,
-      "num_token_out": 99
+      "duration": 0.9366986751556396,
+      "num_token_in": 680,
+      "num_token_out": 92
     }
   },
   {
     "component": {
-      "text": "As a collections manager, I want to be able to repeat repeatable DC Fields so that I can enter all of the relevant metadata.",
+      "text": "As a collections manager, I am able to repeat repeatable DC Fields so that I can enter all of the relevant metadata.",
       "role": [
         "collections manager"
       ],
       "means": "repeat repeatable DC Fields",
       "ends": "enter all of the relevant metadata",
       "template": {
-        "text": "As a {ROLE}, I want to be able to {MEANS} so that I can {ENDS}.",
+        "text": "As a {ROLE}, I am able to {MEANS} so that I can {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -192,8 +193,6 @@
           "[MEANS]": [
             "[PUNCT]",
             "[PRON]",
-            "[VERB]",
-            "[PART]",
             "[AUX]",
             "[ADJ]",
             "[PART]"
@@ -219,21 +218,21 @@
       "original_text": "As a collections manager I want to be able to repeat repeatable DC Fields so that I can enter all of the relevant metadata."
     },
     "usage": {
-      "duration": 0.9269273281097412,
-      "num_token_in": 643,
-      "num_token_out": 95
+      "duration": 0.8628942966461182,
+      "num_token_in": 682,
+      "num_token_out": 87
     }
   },
   {
     "component": {
-      "text": "As a collection manager, I want to create controlled vocabularies so that they can be used as authority lists during metadata creation.",
+      "text": "As a collection manager, I am able to create controlled vocabularies. They can be used as authority lists during metadata creation.",
       "role": [
         "collection manager"
       ],
       "means": "create controlled vocabularies",
-      "ends": "they can be used as authority lists during metadata creation",
+      "ends": "be used as authority lists during metadata creation",
       "template": {
-        "text": "As a {ROLE}, I want to {MEANS} so that {ENDS}.",
+        "text": "As a {ROLE}, I am able to {MEANS}. They can {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -242,12 +241,14 @@
           "[MEANS]": [
             "[PUNCT]",
             "[PRON]",
-            "[VERB]",
+            "[AUX]",
+            "[ADJ]",
             "[PART]"
           ],
           "[ENDS]": [
-            "[SCONJ]",
-            "[SCONJ]"
+            "[PUNCT]",
+            "[PRON]",
+            "[AUX]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -264,34 +265,28 @@
       "original_text": "As a collection manager I want to be able to create controlled vocabularies so that they can be used as authority lists during metadata creation."
     },
     "usage": {
-      "duration": 0.9528768062591553,
-      "num_token_in": 645,
-      "num_token_out": 97
+      "duration": 0.932748556137085,
+      "num_token_in": 684,
+      "num_token_out": 89
     }
   },
   {
     "component": {
-      "text": "As a cataloger, I want the authority lists to be easily accessible and contextually relevant so that it is easy for me to use the authority.",
+      "text": "As a cataloger, I am wanting authority lists to be easily accessible and contextually relevant so it is easy for me to use the authority.",
       "role": [
         "cataloger"
       ],
-      "means": "the authority lists to be easily accessible and contextually relevant",
-      "ends": "it is easy for me to use the authority",
+      "means": "I am wanting authority lists to be easily accessible and contextually relevant so it is easy for me to use the authority.",
+      "ends": null,
       "template": {
-        "text": "As a {ROLE}, I want {MEANS} so that {ENDS}.",
+        "text": "As a {ROLE}, {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
             "[DET]"
           ],
           "[MEANS]": [
-            "[PUNCT]",
-            "[PRON]",
-            "[VERB]"
-          ],
-          "[ENDS]": [
-            "[SCONJ]",
-            "[SCONJ]"
+            "[PUNCT]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -300,46 +295,37 @@
         "tail": null,
         "order": [
           "[ROLE]",
-          "[MEANS]",
-          "[ENDS]"
+          "[MEANS]"
         ]
       },
       "id": "story_7",
       "original_text": "As a cataloger I want authority lists to be easily accessible and contextually relevant so it is easy to use the authority."
     },
     "usage": {
-      "duration": 1.0346052646636963,
-      "num_token_in": 641,
-      "num_token_out": 104
+      "duration": 1.4458987712860107,
+      "num_token_in": 680,
+      "num_token_out": 99
     }
   },
   {
     "component": {
-      "text": "As a collection manager, I want to use external authority lists so that I can use them during metadata creation.",
+      "text": "As a collection manager, I am wanting to use external authority lists so they can be used during metadata creation.",
       "role": [
         "collection manager"
       ],
-      "means": "use external authority lists",
-      "ends": "use them during metadata creation",
+      "means": "I am wanting to use external authority lists",
+      "ends": "so they can be used during metadata creation",
       "template": {
-        "text": "As a {ROLE}, I want to {MEANS} so that I can {ENDS}.",
+        "text": "As a {ROLE}, {MEANS} {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
             "[DET]"
           ],
           "[MEANS]": [
-            "[PUNCT]",
-            "[PRON]",
-            "[VERB]",
-            "[PART]"
+            "[PUNCT]"
           ],
-          "[ENDS]": [
-            "[SCONJ]",
-            "[SCONJ]",
-            "[PRON]",
-            "[AUX]"
-          ],
+          "[ENDS]": [],
           "[APPENDIX]": [
             "[PUNCT]"
           ]
@@ -355,19 +341,19 @@
       "original_text": "As a collection manager I want to use external authority lists so I they can be used during metadata creation."
     },
     "usage": {
-      "duration": 0.8158900737762451,
-      "num_token_in": 637,
-      "num_token_out": 85
+      "duration": 0.8377273082733154,
+      "num_token_in": 676,
+      "num_token_out": 86
     }
   },
   {
     "component": {
-      "text": "As a cataloger, I want to see, hear, watch, or read the digital object I am cataloging so that I don't have to move between multiple applications while I'm creating metadata.",
+      "text": "As a cataloger, I want to see, hear, watch, or read the digital object I am cataloging so that I don't have to move between multiple applications while I am creating metadata.",
       "role": [
         "cataloger"
       ],
       "means": "see, hear, watch, or read the digital object I am cataloging",
-      "ends": "I don't have to move between multiple applications while I'm creating metadata",
+      "ends": "I don't have to move between multiple applications while I am creating metadata",
       "template": {
         "text": "As a {ROLE}, I want to {MEANS} so that {ENDS}.",
         "chunk": {
@@ -400,35 +386,30 @@
       "original_text": "As a cataloger I want to be able to see/hear/watch/read the digital object I am cataloging so I don't have to move between multiple applications while I'm creating metadata."
     },
     "usage": {
-      "duration": 0.9748930931091309,
-      "num_token_in": 659,
-      "num_token_out": 127
+      "duration": 1.0542545318603516,
+      "num_token_in": 698,
+      "num_token_out": 119
     }
   },
   {
     "component": {
-      "text": "As a cataloger, I want to see, hear, watch, or read all components associated with an item on the create/update screen so I don't have to leave the form.",
+      "text": "As a cataloger, I am able to see, hear, watch, and read all components associated with an item on the create/update screen so that I do not have to leave the form.",
       "role": [
         "cataloger"
       ],
-      "means": "see, hear, watch, or read all components associated with an item on the create/update screen",
-      "ends": "I don't have to leave the form",
+      "means": "I am able to see, hear, watch, and read all components associated with an item on the create/update screen",
+      "ends": "so that I do not have to leave the form",
       "template": {
-        "text": "As a {ROLE}, I want to {MEANS} so {ENDS}.",
+        "text": "As a {ROLE}, {MEANS} {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
             "[DET]"
           ],
           "[MEANS]": [
-            "[PUNCT]",
-            "[PRON]",
-            "[VERB]",
-            "[PART]"
+            "[PUNCT]"
           ],
-          "[ENDS]": [
-            "[SCONJ]"
-          ],
+          "[ENDS]": [],
           "[APPENDIX]": [
             "[PUNCT]"
           ]
@@ -444,8 +425,8 @@
       "original_text": "As a cataloger I want to be able to see/hear/watch/read all components associated on the with an item on the create/update screen so I don't have to leave the form."
     },
     "usage": {
-      "duration": 0.9501783847808838,
-      "num_token_in": 659,
+      "duration": 1.0765812397003174,
+      "num_token_in": 698,
       "num_token_out": 122
     }
   },
@@ -487,9 +468,9 @@
       "original_text": "As a cataloger or collection manager I want to see all of the metadata for a record while I'm editing it so that I have the full context for the item I'm cataloging."
     },
     "usage": {
-      "duration": 1.0156879425048828,
-      "num_token_in": 656,
-      "num_token_out": 127
+      "duration": 1.577681064605713,
+      "num_token_in": 695,
+      "num_token_out": 121
     }
   },
   {
@@ -499,27 +480,21 @@
         "cataloger",
         "collection manager"
       ],
-      "means": "edit an arbitrary number of Items at once",
-      "ends": "make changes to all Items in a collection efficiently",
+      "means": "I am able to edit an arbitrary number of Items at once",
+      "ends": "I can make changes to all Items in a collection efficiently",
       "template": {
-        "text": "As a {ROLE}, I am able to {MEANS} so that I can {ENDS}.",
+        "text": "As a {ROLE}, {MEANS} so that {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
             "[DET]"
           ],
           "[MEANS]": [
-            "[PUNCT]",
-            "[PRON]",
-            "[AUX]",
-            "[ADJ]",
-            "[PART]"
+            "[PUNCT]"
           ],
           "[ENDS]": [
             "[SCONJ]",
-            "[SCONJ]",
-            "[PRON]",
-            "[AUX]"
+            "[SCONJ]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -536,21 +511,21 @@
       "original_text": "As a cataloger or collection manager I want to be able to edit an arbitrary number of Items at once so that I can make changes to all Items in a collection efficiently."
     },
     "usage": {
-      "duration": 1.025672435760498,
-      "num_token_in": 653,
+      "duration": 1.0561180114746094,
+      "num_token_in": 692,
       "num_token_out": 113
     }
   },
   {
     "component": {
-      "text": "As a collection manager, I want each record to have a status so that I can track the progress of the records in the collection.",
+      "text": "As a collection manager, I am a collection manager who wants each record to have a status so that I can track the progress of the records in the collection.",
       "role": [
         "collection manager"
       ],
       "means": "each record to have a status",
       "ends": "I can track the progress of the records in the collection",
       "template": {
-        "text": "As a {ROLE}, I want {MEANS} so that {ENDS}.",
+        "text": "As a {ROLE}, I am a collection manager who wants {MEANS} so that {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -558,6 +533,11 @@
           ],
           "[MEANS]": [
             "[PUNCT]",
+            "[PRON]",
+            "[AUX]",
+            "[DET]",
+            "[NOUN]",
+            "[NOUN]",
             "[PRON]",
             "[VERB]"
           ],
@@ -580,21 +560,21 @@
       "original_text": "As a collection manager I want each record to have a status so I can track the progress of the records in the collection."
     },
     "usage": {
-      "duration": 0.8036463260650635,
-      "num_token_in": 641,
-      "num_token_out": 98
+      "duration": 1.014223337173462,
+      "num_token_in": 680,
+      "num_token_out": 97
     }
   },
   {
     "component": {
-      "text": "As a collection manager, I want the statuses to include a status that flags a record as having a problem so that we can track issues as they arise.",
+      "text": "As a collection manager, I am wanting statuses to include a status that flags a record as having a problem so that we can track issues as they arise.",
       "role": [
         "collection manager"
       ],
-      "means": "the statuses to include a status that flags a record as having a problem",
+      "means": "statuses to include a status that flags a record as having a problem",
       "ends": "so that we can track issues as they arise",
       "template": {
-        "text": "As a {ROLE}, I want {MEANS} {ENDS}.",
+        "text": "As a {ROLE}, I am wanting {MEANS} {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -603,6 +583,7 @@
           "[MEANS]": [
             "[PUNCT]",
             "[PRON]",
+            "[AUX]",
             "[VERB]"
           ],
           "[ENDS]": [],
@@ -621,21 +602,21 @@
       "original_text": "As a collection manager I want statuses to include a status that flags a record as having a problem so we can track issues as the arise."
     },
     "usage": {
-      "duration": 0.8760995864868164,
-      "num_token_in": 645,
-      "num_token_out": 110
+      "duration": 0.9550004005432129,
+      "num_token_in": 684,
+      "num_token_out": 103
     }
   },
   {
     "component": {
-      "text": "As a cataloger, I want Trident to support the UTF-8 character set so that I can use any character necessary when creating metadata.",
+      "text": "As a cataloger, I am a cataloger who wants Trident to support the UTF-8 character set so that I can use any character necessary when creating metadata.",
       "role": [
         "cataloger"
       ],
-      "means": "Trident supports the UTF-8 character set",
+      "means": "Trident to support the UTF-8 character set",
       "ends": "I can use any character necessary when creating metadata",
       "template": {
-        "text": "As a {ROLE}, I want {MEANS} so that {ENDS}.",
+        "text": "As a {ROLE}, I am a cataloger who wants {MEANS} so that {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -643,6 +624,10 @@
           ],
           "[MEANS]": [
             "[PUNCT]",
+            "[PRON]",
+            "[AUX]",
+            "[DET]",
+            "[NOUN]",
             "[PRON]",
             "[VERB]"
           ],
@@ -665,32 +650,28 @@
       "original_text": "As a cataloger I want Trident to support the UTF- character set so that I can use any character necessary when creating metadata."
     },
     "usage": {
-      "duration": 0.7963271141052246,
-      "num_token_in": 644,
+      "duration": 0.9044656753540039,
+      "num_token_in": 683,
       "num_token_out": 103
     }
   },
   {
     "component": {
-      "text": "As a collection manager, I am wanting to map fields in inherited metadata to Duke Core fields, import a spreadsheet, and create records.",
+      "text": "As a collection manager, I am mapping fields in inherited metadata to Duke Core fields, and I am importing a spreadsheet and creating records.",
       "role": [
         "collection manager"
       ],
-      "means": "map fields in inherited metadata to Duke Core fields, import a spreadsheet, create records",
+      "means": "I am mapping fields in inherited metadata to Duke Core fields, and I am importing a spreadsheet and creating records",
       "ends": null,
       "template": {
-        "text": "As a {ROLE}, I am wanting to {MEANS}.",
+        "text": "As a {ROLE}, {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
             "[DET]"
           ],
           "[MEANS]": [
-            "[PUNCT]",
-            "[PRON]",
-            "[AUX]",
-            "[VERB]",
-            "[PART]"
+            "[PUNCT]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -706,21 +687,21 @@
       "original_text": "As a collection manager I want to map fields in inherited metadata to Duke Core fields and import a spreadsheet and create records."
     },
     "usage": {
-      "duration": 0.8036208152770996,
-      "num_token_in": 641,
-      "num_token_out": 100
+      "duration": 0.8797197341918945,
+      "num_token_in": 680,
+      "num_token_out": 99
     }
   },
   {
     "component": {
-      "text": "As a collection manager, I am wanting to import metadata and create records from a DCP digitazation guide.",
+      "text": "As a collection manager, I am importing metadata and creating records from a DCP digitization guide.",
       "role": [
         "collection manager"
       ],
-      "means": "import metadata and create records from a DCP digitazation guide",
+      "means": "import metadata and create records from a DCP digitization guide",
       "ends": null,
       "template": {
-        "text": "As a {ROLE}, I am wanting to {MEANS}.",
+        "text": "As a {ROLE}, I am importing {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -730,8 +711,7 @@
             "[PUNCT]",
             "[PRON]",
             "[AUX]",
-            "[VERB]",
-            "[PART]"
+            "[VERB]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -747,21 +727,21 @@
       "original_text": "As a collection manager I want to import metadata and create records from a DCP digitazation guide."
     },
     "usage": {
-      "duration": 0.8165671825408936,
-      "num_token_in": 637,
-      "num_token_out": 91
+      "duration": 0.7424979209899902,
+      "num_token_in": 676,
+      "num_token_out": 80
     }
   },
   {
     "component": {
-      "text": "As an Archivist, I am wanting bi-directional linking between items in the digital collections and EAD finding aids.",
+      "text": "As a Archivist, I am a person who wants bi-directional linking between items in the digital collections and EAD finding aids.",
       "role": [
         "Archivist"
       ],
       "means": "bi-directional linking between items in the digital collections and EAD finding aids",
       "ends": null,
       "template": {
-        "text": "As an {ROLE}, I am wanting bi-directional {MEANS}.",
+        "text": "As a {ROLE}, I am a person who wants bi-directional {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -771,6 +751,9 @@
             "[PUNCT]",
             "[PRON]",
             "[AUX]",
+            "[DET]",
+            "[NOUN]",
+            "[PRON]",
             "[VERB]",
             "[ADJ]"
           ],
@@ -788,21 +771,21 @@
       "original_text": "As a Archivist I want bi-directional linking between items in the digital collections and EAD finding aids."
     },
     "usage": {
-      "duration": 0.8563623428344727,
-      "num_token_in": 642,
-      "num_token_out": 102
+      "duration": 0.810626745223999,
+      "num_token_in": 681,
+      "num_token_out": 97
     }
   },
   {
     "component": {
-      "text": "As the End User, I want to see the physical context of an Item in a digital collection (i.e. See inside this folder; EAD)",
+      "text": "As a End User, I want to be able to see the physical context of an Item in a digital collection (i.e. See inside this folder; EAD).",
       "role": [
         "End User"
       ],
-      "means": "See the physical context of an Item in a digital collection (i.e. See inside this folder; EAD)",
-      "ends": null,
+      "means": "be able to see the physical context of an Item in a digital collection",
+      "ends": "See inside this folder; EAD",
       "template": {
-        "text": "As the {ROLE}, I want to {MEANS}",
+        "text": "As a {ROLE}, I want to {MEANS} (i.e. {ENDS}",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -813,43 +796,52 @@
             "[PRON]",
             "[VERB]",
             "[PART]"
+          ],
+          "[ENDS]": [
+            "[PUNCT]",
+            "[ADV]",
+            "[PUNCT]"
           ]
         },
-        "tail": ")",
+        "tail": ").",
         "order": [
           "[ROLE]",
-          "[MEANS]"
+          "[MEANS]",
+          "[ENDS]"
         ]
       },
       "id": "story_19",
       "original_text": "As a End User I want to be able to see the physical context of an Item in a digital collection (i.e. See inside this folder; EAD)"
     },
     "usage": {
-      "duration": 1.5992252826690674,
-      "num_token_in": 650,
-      "num_token_out": 110
+      "duration": 0.9506518840789795,
+      "num_token_in": 689,
+      "num_token_out": 105
     }
   },
   {
     "component": {
-      "text": "As a Collection Manager, I am wanting my collection to be discoverable in the Catalog.",
+      "text": "As a Collection Manager, I am a Collection Manager who wants my collection to be in a state where it can be found in the Catalog.",
       "role": [
         "Collection Manager"
       ],
       "means": "my collection to be discoverable in the Catalog",
-      "ends": "my collection is discoverable in the Catalog",
+      "ends": null,
       "template": {
-        "text": "As a {ENDS} {ROLE}, I am wanting {MEANS}.",
+        "text": "As a {ROLE}, I am a Collection Manager who wants {MEANS}.",
         "chunk": {
-          "[ENDS]": [
+          "[ROLE]": [
             "[ADP]",
             "[DET]"
           ],
-          "[ROLE]": [],
           "[MEANS]": [
             "[PUNCT]",
             "[PRON]",
             "[AUX]",
+            "[DET]",
+            "[NOUN]",
+            "[NOUN]",
+            "[PRON]",
             "[VERB]"
           ],
           "[APPENDIX]": [
@@ -858,7 +850,6 @@
         },
         "tail": null,
         "order": [
-          "[ENDS]",
           "[ROLE]",
           "[MEANS]"
         ]
@@ -867,21 +858,21 @@
       "original_text": "As a Collection Manager I want my collection to be discoverable in the Catalog."
     },
     "usage": {
-      "duration": 0.937413215637207,
-      "num_token_in": 633,
-      "num_token_out": 92
+      "duration": 0.7376499176025391,
+      "num_token_in": 672,
+      "num_token_out": 86
     }
   },
   {
     "component": {
-      "text": "As a Digital Production User (DPU), I am able to create Components.",
+      "text": "As a Digital Production User (DPU), I am a user who wants to perform the action of creating Components.",
       "role": [
         "Digital Production User (DPU)"
       ],
-      "means": "create Components",
+      "means": "perform the action of creating Components",
       "ends": null,
       "template": {
-        "text": "As a {ROLE}), I am able to {MEANS}.",
+        "text": "As a {ROLE}), I am a user who wants to {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -892,7 +883,10 @@
             "[PUNCT]",
             "[PRON]",
             "[AUX]",
-            "[ADJ]",
+            "[DET]",
+            "[NOUN]",
+            "[PRON]",
+            "[VERB]",
             "[PART]"
           ],
           "[APPENDIX]": [
@@ -909,21 +903,21 @@
       "original_text": "As a Digital Production User (DPU) I want to be able to create Components."
     },
     "usage": {
-      "duration": 0.8169188499450684,
-      "num_token_in": 635,
-      "num_token_out": 81
+      "duration": 0.9639346599578857,
+      "num_token_in": 674,
+      "num_token_out": 84
     }
   },
   {
     "component": {
-      "text": "As a DPU, I am wanting to create Technical Metadata for a Component.",
+      "text": "As a Data Processing Unit (DPU), I am wanting to create Technical Metadata for a Component.",
       "role": [
-        "DPU"
+        "Data Processing Unit (DPU)"
       ],
-      "means": "create Technical Metadata for Component",
+      "means": "I am wanting to create Technical Metadata for a Component.",
       "ends": null,
       "template": {
-        "text": "As a {ROLE}, I am wanting to {MEANS}.",
+        "text": "As a {ROLE}), {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -931,10 +925,7 @@
           ],
           "[MEANS]": [
             "[PUNCT]",
-            "[PRON]",
-            "[AUX]",
-            "[VERB]",
-            "[PART]"
+            "[PUNCT]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -950,9 +941,9 @@
       "original_text": "As a DPU I want to create Technical Metadata with for Component."
     },
     "usage": {
-      "duration": 0.9266180992126465,
-      "num_token_in": 631,
-      "num_token_out": 78
+      "duration": 0.8319787979125977,
+      "num_token_in": 670,
+      "num_token_out": 86
     }
   },
   {
@@ -999,18 +990,70 @@
       "original_text": "As a cataloger or collection manager I want to be able to use a grid/spreadsheet style interface so I can edit Items quickly."
     },
     "usage": {
-      "duration": 0.801002025604248,
-      "num_token_in": 646,
-      "num_token_out": 101
+      "duration": 0.8616468906402588,
+      "num_token_in": 685,
+      "num_token_out": 95
     }
   },
   {
     "component": {
-      "text": "As a Digital Preservation Unit (DPU), I am wanting to create Preservation Metadata for a Component.",
+      "text": "As a Data Preservation Unit (DPU), I am a Data Preservation Unit that wants to perform the action of creating Preservation Metadata for a Component.",
       "role": [
-        "Digital Preservation Unit (DPU)"
+        "Data Preservation Unit (DPU)"
       ],
       "means": "create Preservation Metadata for a Component",
+      "ends": null,
+      "template": {
+        "text": "As a {ROLE}), I am a Data Preservation Unit that wants to perform the action of creating {MEANS}.",
+        "chunk": {
+          "[ROLE]": [
+            "[ADP]",
+            "[DET]"
+          ],
+          "[MEANS]": [
+            "[PUNCT]",
+            "[PUNCT]",
+            "[PRON]",
+            "[AUX]",
+            "[DET]",
+            "[NOUN]",
+            "[NOUN]",
+            "[NOUN]",
+            "[PRON]",
+            "[VERB]",
+            "[PART]",
+            "[VERB]",
+            "[DET]",
+            "[NOUN]",
+            "[SCONJ]",
+            "[VERB]"
+          ],
+          "[APPENDIX]": [
+            "[PUNCT]"
+          ]
+        },
+        "tail": null,
+        "order": [
+          "[ROLE]",
+          "[MEANS]"
+        ]
+      },
+      "id": "story_24",
+      "original_text": "As a DPU I want to create Preservation Metadata for a Component."
+    },
+    "usage": {
+      "duration": 0.8842382431030273,
+      "num_token_in": 671,
+      "num_token_out": 94
+    }
+  },
+  {
+    "component": {
+      "text": "As a Data Processing Unit (DPU), I am wanting to perform the action of uploading master surrogates to a Component.",
+      "role": [
+        "Data Processing Unit (DPU)"
+      ],
+      "means": "perform the action of uploading master surrogates to a Component",
       "ends": null,
       "template": {
         "text": "As a {ROLE}), I am wanting to {MEANS}.",
@@ -1037,25 +1080,25 @@
           "[MEANS]"
         ]
       },
-      "id": "story_24",
-      "original_text": "As a DPU I want to create Preservation Metadata for a Component."
+      "id": "story_25",
+      "original_text": "As a DPU I want to upload master surrogates to a Component."
     },
     "usage": {
-      "duration": 0.8857107162475586,
-      "num_token_in": 632,
-      "num_token_out": 93
+      "duration": 0.8975064754486084,
+      "num_token_in": 671,
+      "num_token_out": 94
     }
   },
   {
     "component": {
-      "text": "As a DPU, I am wanting to upload master surrogates to a Component.",
+      "text": "As a Data Processing Unit (DPU), I am wanting to add one or more Components to an Item.",
       "role": [
-        "DPU"
+        "Data Processing Unit (DPU)"
       ],
-      "means": "upload master surrogates to a Component",
+      "means": "add one or more Components to an Item",
       "ends": null,
       "template": {
-        "text": "As a {ROLE}, I am wanting to {MEANS}.",
+        "text": "As a {ROLE}), I am wanting to {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -1063,46 +1106,6 @@
           ],
           "[MEANS]": [
             "[PUNCT]",
-            "[PRON]",
-            "[AUX]",
-            "[VERB]",
-            "[PART]"
-          ],
-          "[APPENDIX]": [
-            "[PUNCT]"
-          ]
-        },
-        "tail": null,
-        "order": [
-          "[ROLE]",
-          "[MEANS]"
-        ]
-      },
-      "id": "story_25",
-      "original_text": "As a DPU I want to upload master surrogates to a Component."
-    },
-    "usage": {
-      "duration": 0.7264962196350098,
-      "num_token_in": 632,
-      "num_token_out": 81
-    }
-  },
-  {
-    "component": {
-      "text": "As a DPU, I am wanting to add one or more Components to an Item.",
-      "role": [
-        "DPU"
-      ],
-      "means": "add one or more Components to an Item",
-      "ends": null,
-      "template": {
-        "text": "As a {ROLE}, I am wanting to {MEANS}.",
-        "chunk": {
-          "[ROLE]": [
-            "[ADP]",
-            "[DET]"
-          ],
-          "[MEANS]": [
             "[PUNCT]",
             "[PRON]",
             "[AUX]",
@@ -1123,37 +1126,34 @@
       "original_text": "As a DPU I want to add one or more Components to an Item."
     },
     "usage": {
-      "duration": 0.8242697715759277,
-      "num_token_in": 633,
-      "num_token_out": 83
+      "duration": 0.748302698135376,
+      "num_token_in": 672,
+      "num_token_out": 86
     }
   },
   {
     "component": {
-      "text": "As a DPU, I am wanting to create structural metadata for an Item so I can define the sequence of components.",
+      "text": "As a Data Processing Unit (DPU), I am wanting to create structural metadata for an Item. I am doing this so I can define the sequence of components.",
       "role": [
-        "DPU"
+        "Data Processing Unit (DPU)"
       ],
-      "means": "create structural metadata for an Item",
-      "ends": "define the sequence of components",
+      "means": "create structural metadata for an Item and define the sequence of components",
+      "ends": "I can define the sequence of components",
       "template": {
-        "text": "As a {ROLE}, I am wanting to {MEANS} so I can {ENDS}.",
+        "text": "As a {ROLE}), {ENDS} am wanting to {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
             "[DET]"
           ],
-          "[MEANS]": [
+          "[ENDS]": [
             "[PUNCT]",
-            "[PRON]",
+            "[PUNCT]"
+          ],
+          "[MEANS]": [
             "[AUX]",
             "[VERB]",
             "[PART]"
-          ],
-          "[ENDS]": [
-            "[SCONJ]",
-            "[PRON]",
-            "[AUX]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -1162,29 +1162,29 @@
         "tail": null,
         "order": [
           "[ROLE]",
-          "[MEANS]",
-          "[ENDS]"
+          "[ENDS]",
+          "[MEANS]"
         ]
       },
       "id": "story_27",
       "original_text": "As a DPU I want to create structural metadata for an Item so I can define the sequence of components."
     },
     "usage": {
-      "duration": 0.8153421878814697,
-      "num_token_in": 638,
-      "num_token_out": 89
+      "duration": 2.0260815620422363,
+      "num_token_in": 677,
+      "num_token_out": 107
     }
   },
   {
     "component": {
-      "text": "As a Digital Production Developer (DPD), I am wanting to group components that require digitization so that I can create digitizable units.",
+      "text": "As a Digital Production Developer (DPD), I am a Digital Production Developer who wants to group components that require digitization. I want to group these components so that I can create digitizable units.",
       "role": [
         "Digital Production Developer (DPD)"
       ],
       "means": "group components that require digitization",
-      "ends": "create 'digitizable units'",
+      "ends": "create digitizable units",
       "template": {
-        "text": "As a {ROLE}), I am wanting to {MEANS} so that I can {ENDS}.",
+        "text": "As a {ROLE}), I am a Digital Production Developer who wants to {MEANS}. I want to group these components so that I can {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -1195,10 +1195,22 @@
             "[PUNCT]",
             "[PRON]",
             "[AUX]",
+            "[DET]",
+            "[ADJ]",
+            "[NOUN]",
+            "[NOUN]",
+            "[PRON]",
             "[VERB]",
             "[PART]"
           ],
           "[ENDS]": [
+            "[PUNCT]",
+            "[PRON]",
+            "[VERB]",
+            "[PART]",
+            "[VERB]",
+            "[DET]",
+            "[NOUN]",
             "[SCONJ]",
             "[SCONJ]",
             "[PRON]",
@@ -1219,21 +1231,21 @@
       "original_text": "As a Digital Production Developer (DPD) I want to group components that require digitization so that I can create \"digitizable units\"."
     },
     "usage": {
-      "duration": 0.832772970199585,
-      "num_token_in": 647,
-      "num_token_out": 102
+      "duration": 1.0115923881530762,
+      "num_token_in": 686,
+      "num_token_out": 107
     }
   },
   {
     "component": {
-      "text": "As a DPU, I am wanting to check-out/check-in groups of Components.",
+      "text": "As a Data Processing Unit (DPU), I am to perform the action of checking out or checking in groups of Components.",
       "role": [
-        "DPU"
+        "Data Processing Unit (DPU)"
       ],
-      "means": "check-out/check-in groups of Components",
+      "means": "perform the action of checking out or checking in groups of Components",
       "ends": null,
       "template": {
-        "text": "As a {ROLE}, I am wanting to {MEANS}.",
+        "text": "As a {ROLE}), I am to {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -1241,9 +1253,9 @@
           ],
           "[MEANS]": [
             "[PUNCT]",
+            "[PUNCT]",
             "[PRON]",
             "[AUX]",
-            "[VERB]",
             "[PART]"
           ],
           "[APPENDIX]": [
@@ -1260,38 +1272,32 @@
       "original_text": "As a DPU I want to check-out/check-in groups of Components."
     },
     "usage": {
-      "duration": 0.8383674621582031,
-      "num_token_in": 635,
-      "num_token_out": 87
+      "duration": 1.018428087234497,
+      "num_token_in": 674,
+      "num_token_out": 93
     }
   },
   {
     "component": {
-      "text": "As a Delivery Person DPD, I am wanting to verify the correctness and completeness of components so that I can ensure quality standards are met.",
+      "text": "As a Delivery Person DPD, I am to verify the correctness and completeness of components so that I can ensure quality standards are met.",
       "role": [
         "Delivery Person DPD"
       ],
-      "means": "verify the correctness and completeness of components",
-      "ends": "ensure quality standards are met",
+      "means": "I am to verify the correctness and completeness of components",
+      "ends": "I can ensure quality standards are met",
       "template": {
-        "text": "As a {ROLE}, I am wanting to {MEANS} so that I can {ENDS}.",
+        "text": "As a {ROLE}, {MEANS} so that {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
             "[DET]"
           ],
           "[MEANS]": [
-            "[PUNCT]",
-            "[PRON]",
-            "[AUX]",
-            "[VERB]",
-            "[PART]"
+            "[PUNCT]"
           ],
           "[ENDS]": [
             "[SCONJ]",
-            "[SCONJ]",
-            "[PRON]",
-            "[AUX]"
+            "[SCONJ]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -1308,21 +1314,21 @@
       "original_text": "As a DPD I want to verify the correctness and completeness of components so that I can ensure quality standards are met."
     },
     "usage": {
-      "duration": 0.8199193477630615,
-      "num_token_in": 642,
-      "num_token_out": 102
+      "duration": 0.9489951133728027,
+      "num_token_in": 681,
+      "num_token_out": 100
     }
   },
   {
     "component": {
-      "text": "As a Dispatcher (DPD), I am wanting to capture digitization statistics in order to monitor Operator efficiency and make projections for future projects.",
+      "text": "As a Dispatcher Person (DPD), I am wanting to capture digitization statistics. I am wanting to capture digitization statistics so that I can monitor Operator efficiency and make projections for future projects.",
       "role": [
-        "Dispatcher (DPD)"
+        "Dispatcher Person (DPD)"
       ],
-      "means": "capture digitization statistics",
-      "ends": "monitor Operator efficiency and make projections for future projects",
+      "means": "I am wanting to capture digitization statistics",
+      "ends": "I can monitor Operator efficiency and make projections for future projects",
       "template": {
-        "text": "As a {ROLE}), I am wanting to {MEANS} in order to {ENDS}.",
+        "text": "As a {ROLE}), I am wanting to capture digitization statistics. {MEANS} so that {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -1334,12 +1340,15 @@
             "[PRON]",
             "[AUX]",
             "[VERB]",
-            "[PART]"
+            "[PART]",
+            "[VERB]",
+            "[NOUN]",
+            "[NOUN]",
+            "[PUNCT]"
           ],
           "[ENDS]": [
             "[SCONJ]",
-            "[NOUN]",
-            "[PART]"
+            "[SCONJ]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -1356,21 +1365,21 @@
       "original_text": "As a DPD I want to capture digitization statistics so that I can monitor Operator efficiency and make projections for future projects."
     },
     "usage": {
-      "duration": 0.9896347522735596,
-      "num_token_in": 643,
-      "num_token_out": 105
+      "duration": 1.0273914337158203,
+      "num_token_in": 682,
+      "num_token_out": 117
     }
   },
   {
     "component": {
-      "text": "As a DPU, I want Trident to create derivatives for me when I upload a Master. I am.",
+      "text": "As a Data Processing Unit (DPU), I am wanting Trident to create derivatives for me when I, as a Data Processing Unit (DPU), am uploading a Master.",
       "role": [
-        "DPU"
+        "Data Processing Unit (DPU)"
       ],
-      "means": "Trident creates derivatives for me when I upload a Master",
+      "means": "Trident to create derivatives for me when I upload a Master.",
       "ends": null,
       "template": {
-        "text": "As a {ROLE}, I want {MEANS}. I am.",
+        "text": "As a {ROLE}), I am wanting {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -1378,13 +1387,12 @@
           ],
           "[MEANS]": [
             "[PUNCT]",
-            "[PRON]",
-            "[VERB]"
-          ],
-          "[APPENDIX]": [
             "[PUNCT]",
             "[PRON]",
             "[AUX]",
+            "[VERB]"
+          ],
+          "[APPENDIX]": [
             "[PUNCT]"
           ]
         },
@@ -1398,9 +1406,9 @@
       "original_text": "As a DPU I want Trident to create derivatives for me when I upload a Master."
     },
     "usage": {
-      "duration": 0.8900012969970703,
-      "num_token_in": 636,
-      "num_token_out": 91
+      "duration": 1.0204079151153564,
+      "num_token_in": 675,
+      "num_token_out": 106
     }
   },
   {
@@ -1409,21 +1417,17 @@
       "role": [
         "User"
       ],
-      "means": "monitor the progress of a digital collection project",
+      "means": "I am wanting to monitor the progress of a digital collection project",
       "ends": null,
       "template": {
-        "text": "As a {ROLE}, I am wanting to {MEANS}.",
+        "text": "As a {ROLE}, {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
             "[DET]"
           ],
           "[MEANS]": [
-            "[PUNCT]",
-            "[PRON]",
-            "[AUX]",
-            "[VERB]",
-            "[PART]"
+            "[PUNCT]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -1439,21 +1443,21 @@
       "original_text": "As a User I want to monitor the progress of a digital collection project."
     },
     "usage": {
-      "duration": 0.7268919944763184,
-      "num_token_in": 631,
-      "num_token_out": 79
+      "duration": 0.9443447589874268,
+      "num_token_in": 670,
+      "num_token_out": 75
     }
   },
   {
     "component": {
-      "text": "As a cataloger, I want to save a record without all of the required metadata so that I can start a record with the metadata I have and come back to finish it later.",
+      "text": "As a cataloger, I am able to save a record without all of the required metadata so that I can start a record with the metadata I have and come back to finish it later.",
       "role": [
         "cataloger"
       ],
       "means": "save a record without all of the required metadata",
       "ends": "I can start a record with the metadata I have and come back to finish it later",
       "template": {
-        "text": "As a {ROLE}, I want to {MEANS} so that {ENDS}.",
+        "text": "As a {ROLE}, I am able to {MEANS} so that {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -1462,7 +1466,8 @@
           "[MEANS]": [
             "[PUNCT]",
             "[PRON]",
-            "[VERB]",
+            "[AUX]",
+            "[ADJ]",
             "[PART]"
           ],
           "[ENDS]": [
@@ -1484,189 +1489,21 @@
       "original_text": "As a cataloger I want to be able to save a record without all of the required metadata so that I can start a record with the metadata I have and come back to finish it later."
     },
     "usage": {
-      "duration": 0.9548935890197754,
-      "num_token_in": 655,
-      "num_token_out": 117
+      "duration": 1.27620267868042,
+      "num_token_in": 694,
+      "num_token_out": 112
     }
   },
   {
     "component": {
-      "text": "As a user, I am wanting to see how many Items have been digitized.",
+      "text": "As a user, I am wanting to see how many items have been digitized.",
       "role": [
-        "User"
+        "user"
       ],
-      "means": "See how many Items have been digitized",
-      "ends": "to see the number of digitized Items",
+      "means": "see how many items have been digitized",
+      "ends": null,
       "template": {
-        "text": "As a {ROLE}, I am wanting {ENDS} {MEANS}.",
-        "chunk": {
-          "[ROLE]": [
-            "[ADP]",
-            "[DET]"
-          ],
-          "[ENDS]": [
-            "[PUNCT]",
-            "[PRON]",
-            "[AUX]",
-            "[VERB]"
-          ],
-          "[MEANS]": [],
-          "[APPENDIX]": [
-            "[PUNCT]"
-          ]
-        },
-        "tail": null,
-        "order": [
-          "[ROLE]",
-          "[ENDS]",
-          "[MEANS]"
-        ]
-      },
-      "id": "story_35",
-      "original_text": "As a user I want to see how many Items have been digitized."
-    },
-    "usage": {
-      "duration": 0.811091423034668,
-      "num_token_in": 632,
-      "num_token_out": 89
-    }
-  },
-  {
-    "component": {
-      "text": "As a user, I am wanting to see how many digitized Items have been described.",
-      "role": [
-        "User"
-      ],
-      "means": "See how many digitized Items have been described",
-      "ends": "to see the number of digitized Items that have been described",
-      "template": {
-        "text": "As a {ROLE}, I am wanting {ENDS} {MEANS}.",
-        "chunk": {
-          "[ROLE]": [
-            "[ADP]",
-            "[DET]"
-          ],
-          "[ENDS]": [
-            "[PUNCT]",
-            "[PRON]",
-            "[AUX]",
-            "[VERB]"
-          ],
-          "[MEANS]": [],
-          "[APPENDIX]": [
-            "[PUNCT]"
-          ]
-        },
-        "tail": null,
-        "order": [
-          "[ROLE]",
-          "[ENDS]",
-          "[MEANS]"
-        ]
-      },
-      "id": "story_36",
-      "original_text": "As a user I want to see how many digitized Items have been described."
-    },
-    "usage": {
-      "duration": 0.8737273216247559,
-      "num_token_in": 633,
-      "num_token_out": 95
-    }
-  },
-  {
-    "component": {
-      "text": "As a user, I am wanting to see how many Items have been published.",
-      "role": [
-        "User"
-      ],
-      "means": "see how many Items have been published",
-      "ends": "to see the number of published Items",
-      "template": {
-        "text": "As a {ROLE}, I am wanting {ENDS} {MEANS}.",
-        "chunk": {
-          "[ROLE]": [
-            "[ADP]",
-            "[DET]"
-          ],
-          "[ENDS]": [
-            "[PUNCT]",
-            "[PRON]",
-            "[AUX]",
-            "[VERB]"
-          ],
-          "[MEANS]": [],
-          "[APPENDIX]": [
-            "[PUNCT]"
-          ]
-        },
-        "tail": null,
-        "order": [
-          "[ROLE]",
-          "[ENDS]",
-          "[MEANS]"
-        ]
-      },
-      "id": "story_37",
-      "original_text": "As a user I want to see how many Items have been published."
-    },
-    "usage": {
-      "duration": 0.721508264541626,
-      "num_token_in": 631,
-      "num_token_out": 86
-    }
-  },
-  {
-    "component": {
-      "text": "As Collection Manager or Sponsor, I am wanting to describe the collection.",
-      "role": [
-        "Collection Manager",
-        "Sponsor"
-      ],
-      "means": "describe the collection",
-      "ends": "to describe the collection",
-      "template": {
-        "text": "As {ROLE}, I am wanting {ENDS} {MEANS}.",
-        "chunk": {
-          "[ROLE]": [
-            "[ADP]"
-          ],
-          "[ENDS]": [
-            "[PUNCT]",
-            "[PRON]",
-            "[AUX]",
-            "[VERB]"
-          ],
-          "[MEANS]": [],
-          "[APPENDIX]": [
-            "[PUNCT]"
-          ]
-        },
-        "tail": null,
-        "order": [
-          "[ROLE]",
-          "[ENDS]",
-          "[MEANS]"
-        ]
-      },
-      "id": "story_38",
-      "original_text": "As Collection Manager or Sponsor I want to describe the collection."
-    },
-    "usage": {
-      "duration": 0.9136762619018555,
-      "num_token_in": 630,
-      "num_token_out": 83
-    }
-  },
-  {
-    "component": {
-      "text": "As a Preservation Librarian, I want the system to manage the relationship between masters and derivatives so that I don't have to manage it.",
-      "role": [
-        "Preservation Librarian"
-      ],
-      "means": "the system to manage the relationship between masters and derivatives",
-      "ends": "I don't have to manage it",
-      "template": {
-        "text": "As a {ROLE}, I want {MEANS} so that {ENDS}.",
+        "text": "As a {ROLE}, I am wanting to {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -1675,11 +1512,174 @@
           "[MEANS]": [
             "[PUNCT]",
             "[PRON]",
+            "[AUX]",
+            "[VERB]",
+            "[PART]"
+          ],
+          "[APPENDIX]": [
+            "[PUNCT]"
+          ]
+        },
+        "tail": null,
+        "order": [
+          "[ROLE]",
+          "[MEANS]"
+        ]
+      },
+      "id": "story_35",
+      "original_text": "As a user I want to see how many Items have been digitized."
+    },
+    "usage": {
+      "duration": 0.8137001991271973,
+      "num_token_in": 671,
+      "num_token_out": 71
+    }
+  },
+  {
+    "component": {
+      "text": "As a user, I am wanting to see how many digitized Items have been described.",
+      "role": [
+        "user"
+      ],
+      "means": "see how many digitized Items have been described",
+      "ends": null,
+      "template": {
+        "text": "As a {ROLE}, I am wanting to {MEANS}.",
+        "chunk": {
+          "[ROLE]": [
+            "[ADP]",
+            "[DET]"
+          ],
+          "[MEANS]": [
+            "[PUNCT]",
+            "[PRON]",
+            "[AUX]",
+            "[VERB]",
+            "[PART]"
+          ],
+          "[APPENDIX]": [
+            "[PUNCT]"
+          ]
+        },
+        "tail": null,
+        "order": [
+          "[ROLE]",
+          "[MEANS]"
+        ]
+      },
+      "id": "story_36",
+      "original_text": "As a user I want to see how many digitized Items have been described."
+    },
+    "usage": {
+      "duration": 0.7722046375274658,
+      "num_token_in": 672,
+      "num_token_out": 75
+    }
+  },
+  {
+    "component": {
+      "text": "As a user, I am wanting to see how many items have been published.",
+      "role": [
+        "user"
+      ],
+      "means": "see how many items have been published",
+      "ends": null,
+      "template": {
+        "text": "As a {ROLE}, I am wanting to {MEANS}.",
+        "chunk": {
+          "[ROLE]": [
+            "[ADP]",
+            "[DET]"
+          ],
+          "[MEANS]": [
+            "[PUNCT]",
+            "[PRON]",
+            "[AUX]",
+            "[VERB]",
+            "[PART]"
+          ],
+          "[APPENDIX]": [
+            "[PUNCT]"
+          ]
+        },
+        "tail": null,
+        "order": [
+          "[ROLE]",
+          "[MEANS]"
+        ]
+      },
+      "id": "story_37",
+      "original_text": "As a user I want to see how many Items have been published."
+    },
+    "usage": {
+      "duration": 0.6831245422363281,
+      "num_token_in": 670,
+      "num_token_out": 69
+    }
+  },
+  {
+    "component": {
+      "text": "As a Collection Manager or Sponsor, I am to describe the collection.",
+      "role": [
+        "Collection Manager",
+        "Sponsor"
+      ],
+      "means": "to describe the collection",
+      "ends": null,
+      "template": {
+        "text": "As a {ROLE}, I am {MEANS}.",
+        "chunk": {
+          "[ROLE]": [
+            "[ADP]",
+            "[DET]"
+          ],
+          "[MEANS]": [
+            "[PUNCT]",
+            "[PRON]",
+            "[AUX]"
+          ],
+          "[APPENDIX]": [
+            "[PUNCT]"
+          ]
+        },
+        "tail": null,
+        "order": [
+          "[ROLE]",
+          "[MEANS]"
+        ]
+      },
+      "id": "story_38",
+      "original_text": "As Collection Manager or Sponsor I want to describe the collection."
+    },
+    "usage": {
+      "duration": 0.7203671932220459,
+      "num_token_in": 669,
+      "num_token_out": 72
+    }
+  },
+  {
+    "component": {
+      "text": "As a Preservation Librarian, I am wanting the relationship between masters and derivatives to be managed by the system so I do not have to manage it.",
+      "role": [
+        "Preservation Librarian"
+      ],
+      "means": "the relationship between masters and derivatives to be managed by the system",
+      "ends": "I do not have to manage it",
+      "template": {
+        "text": "As a {ROLE}, I am wanting {MEANS} so {ENDS}.",
+        "chunk": {
+          "[ROLE]": [
+            "[ADP]",
+            "[DET]"
+          ],
+          "[MEANS]": [
+            "[PUNCT]",
+            "[PRON]",
+            "[AUX]",
             "[VERB]"
           ],
           "[ENDS]": [
-            "[SCONJ]",
-            "[SCONJ]"
+            "[ADV]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -1696,9 +1696,9 @@
       "original_text": "As a Preservation Librarian I want the relationship between masters and derivatives to be managed by the system so I don't have to."
     },
     "usage": {
-      "duration": 1.002887487411499,
-      "num_token_in": 646,
-      "num_token_out": 108
+      "duration": 0.9040350914001465,
+      "num_token_in": 685,
+      "num_token_out": 104
     }
   },
   {
@@ -1707,20 +1707,17 @@
       "role": [
         "Metadata Librarian"
       ],
-      "means": "define the metadata schema for a collection",
+      "means": "I am defining the metadata schema for a collection.",
       "ends": null,
       "template": {
-        "text": "As a {ROLE}, I am defining {MEANS}.",
+        "text": "As a {ROLE}, {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
             "[DET]"
           ],
           "[MEANS]": [
-            "[PUNCT]",
-            "[PRON]",
-            "[AUX]",
-            "[VERB]"
+            "[PUNCT]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -1736,9 +1733,9 @@
       "original_text": "As a Metadata Librarian I want to define the metadata schema for a collection."
     },
     "usage": {
-      "duration": 0.8180994987487793,
-      "num_token_in": 634,
-      "num_token_out": 82
+      "duration": 0.8360512256622314,
+      "num_token_in": 673,
+      "num_token_out": 76
     }
   },
   {
@@ -1747,20 +1744,17 @@
       "role": [
         "Metadata librarian"
       ],
-      "means": "define Authorities for specific fields in a collection MD Schema",
-      "ends": "to use Authorities for specific fields in a collection MD Schema",
+      "means": "I am defining Authorities to be used for specific fields in a collection MD Schema.",
+      "ends": null,
       "template": {
-        "text": "As {ENDS} {ROLE}, I am defining {MEANS}.",
+        "text": "As a {ROLE}, {MEANS}.",
         "chunk": {
-          "[ENDS]": [
-            "[ADP]"
+          "[ROLE]": [
+            "[ADP]",
+            "[DET]"
           ],
-          "[ROLE]": [],
           "[MEANS]": [
-            "[PUNCT]",
-            "[PRON]",
-            "[AUX]",
-            "[VERB]"
+            "[PUNCT]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -1768,7 +1762,6 @@
         },
         "tail": null,
         "order": [
-          "[ENDS]",
           "[ROLE]",
           "[MEANS]"
         ]
@@ -1777,9 +1770,9 @@
       "original_text": "As a Metadata librarian I want to define Authorities to be used for specific fields in a collection MD Schema."
     },
     "usage": {
-      "duration": 0.9531264305114746,
-      "num_token_in": 641,
-      "num_token_out": 104
+      "duration": 0.8189246654510498,
+      "num_token_in": 680,
+      "num_token_out": 90
     }
   },
   {
@@ -1789,7 +1782,7 @@
         "Metadata Librarian"
       ],
       "means": "define validation rules for specific fields in a collection",
-      "ends": "to ensure data accuracy and consistency",
+      "ends": null,
       "template": {
         "text": "As a {ROLE}, I am defining {MEANS}.",
         "chunk": {
@@ -1817,18 +1810,18 @@
       "original_text": "As a Metadata Librarian I want to define validation rules for specific fields in a collection."
     },
     "usage": {
-      "duration": 0.9513874053955078,
-      "num_token_in": 636,
-      "num_token_out": 91
+      "duration": 0.7825069427490234,
+      "num_token_in": 675,
+      "num_token_out": 78
     }
   },
   {
     "component": {
-      "text": "As a Metadata Librarian, I am wanting validation rules to be enforced when metadata is submitted.",
+      "text": "As a Metadata Librarian, I am wanting validation rules to be enforced when Metadata is being submitted.",
       "role": [
         "Metadata Librarian"
       ],
-      "means": "validation rules enforced when MD is submitted",
+      "means": "validation rules to be enforced when Metadata is being submitted",
       "ends": null,
       "template": {
         "text": "As a {ROLE}, I am wanting {MEANS}.",
@@ -1857,21 +1850,21 @@
       "original_text": "As a Metadata Librarian I want validation rules enforced when MD is submitted."
     },
     "usage": {
-      "duration": 1.542281150817871,
-      "num_token_in": 634,
-      "num_token_out": 87
+      "duration": 0.7536370754241943,
+      "num_token_in": 673,
+      "num_token_out": 85
     }
   },
   {
     "component": {
-      "text": "As a user, I want to save a record when the record has an identifier to prevent empty records in the collection.",
+      "text": "As a user, I want to save a record when the record has an identifier so that we don't end up with a bunch of empty records in the collection.",
       "role": [
-        "User"
+        "user"
       ],
       "means": "save a record when the record has an identifier",
-      "ends": "to prevent empty records in the collection",
+      "ends": "we don't end up with a bunch of empty records in the collection",
       "template": {
-        "text": "As a {ROLE}, I want to {MEANS} {ENDS}.",
+        "text": "As a {ROLE}, I want to {MEANS} so that {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -1882,47 +1875,6 @@
             "[PRON]",
             "[VERB]",
             "[PART]"
-          ],
-          "[ENDS]": [],
-          "[APPENDIX]": [
-            "[PUNCT]"
-          ]
-        },
-        "tail": null,
-        "order": [
-          "[ROLE]",
-          "[MEANS]",
-          "[ENDS]"
-        ]
-      },
-      "id": "story_44",
-      "original_text": "As a user I want to be able to save a record only when the record has an identifier so that we don't end up with a bunch of empty records in the collection."
-    },
-    "usage": {
-      "duration": 1.008471965789795,
-      "num_token_in": 653,
-      "num_token_out": 93
-    }
-  },
-  {
-    "component": {
-      "text": "As a cataloger, I want a list of all the records I have access to so that I can get to work quickly.",
-      "role": [
-        "cataloger"
-      ],
-      "means": "a list of all the records I have access to",
-      "ends": "I can get to work quickly",
-      "template": {
-        "text": "As a {ROLE}, I want {MEANS} so that {ENDS}.",
-        "chunk": {
-          "[ROLE]": [
-            "[ADP]",
-            "[DET]"
-          ],
-          "[MEANS]": [
-            "[PUNCT]",
-            "[PRON]",
-            "[VERB]"
           ],
           "[ENDS]": [
             "[SCONJ]",
@@ -1939,25 +1891,25 @@
           "[ENDS]"
         ]
       },
-      "id": "story_45",
-      "original_text": "As a cataloger I want a list of all of the records I have access to so I can get to work quickly."
+      "id": "story_44",
+      "original_text": "As a user I want to be able to save a record only when the record has an identifier so that we don't end up with a bunch of empty records in the collection."
     },
     "usage": {
-      "duration": 0.8613090515136719,
-      "num_token_in": 641,
-      "num_token_out": 96
+      "duration": 1.0719528198242188,
+      "num_token_in": 692,
+      "num_token_out": 105
     }
   },
   {
     "component": {
-      "text": "As a collection manager, I am able to search for records based on status so I can track the progress of a collection.",
+      "text": "As a cataloger, I am a cataloger who wants a list of all of the records I have access to so I can get to work quickly.",
       "role": [
-        "collection manager"
+        "cataloger"
       ],
-      "means": "search for records based on status",
-      "ends": "track the progress of a collection",
+      "means": "want a list of all of the records I have access to",
+      "ends": "so I can get to work quickly",
       "template": {
-        "text": "As a {ROLE}, I am able to {MEANS} so I can {ENDS}.",
+        "text": "As a {ROLE}, I am a cataloger who wants {MEANS} {ENDS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
@@ -1967,13 +1919,52 @@
             "[PUNCT]",
             "[PRON]",
             "[AUX]",
-            "[ADJ]",
-            "[PART]"
+            "[DET]",
+            "[NOUN]",
+            "[PRON]",
+            "[VERB]"
+          ],
+          "[ENDS]": [],
+          "[APPENDIX]": [
+            "[PUNCT]"
+          ]
+        },
+        "tail": null,
+        "order": [
+          "[ROLE]",
+          "[MEANS]",
+          "[ENDS]"
+        ]
+      },
+      "id": "story_45",
+      "original_text": "As a cataloger I want a list of all of the records I have access to so I can get to work quickly."
+    },
+    "usage": {
+      "duration": 0.9055407047271729,
+      "num_token_in": 680,
+      "num_token_out": 98
+    }
+  },
+  {
+    "component": {
+      "text": "As a collection manager, I am searching for records based on status so I can track the progress of a collection.",
+      "role": [
+        "collection manager"
+      ],
+      "means": "I am searching for records based on status",
+      "ends": "I can track the progress of a collection",
+      "template": {
+        "text": "As a {ROLE}, {MEANS} so {ENDS}.",
+        "chunk": {
+          "[ROLE]": [
+            "[ADP]",
+            "[DET]"
+          ],
+          "[MEANS]": [
+            "[PUNCT]"
           ],
           "[ENDS]": [
-            "[SCONJ]",
-            "[PRON]",
-            "[AUX]"
+            "[SCONJ]"
           ],
           "[APPENDIX]": [
             "[PUNCT]"
@@ -1990,9 +1981,9 @@
       "original_text": "As a collection manager I want to search for records based on status so I can track the progress of a collection."
     },
     "usage": {
-      "duration": 0.8255770206451416,
-      "num_token_in": 639,
-      "num_token_out": 91
+      "duration": 0.7980778217315674,
+      "num_token_in": 678,
+      "num_token_out": 87
     }
   },
   {
@@ -2003,21 +1994,21 @@
         "collection manager"
       ],
       "means": "search for records based on all Duke Core fields",
-      "ends": "to find specific records",
+      "ends": null,
       "template": {
-        "text": "As a {ROLE}, I am able {ENDS} {MEANS}.",
+        "text": "As a {ROLE}, I am able to {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
             "[DET]"
           ],
-          "[ENDS]": [
+          "[MEANS]": [
             "[PUNCT]",
             "[PRON]",
             "[AUX]",
-            "[ADJ]"
+            "[ADJ]",
+            "[PART]"
           ],
-          "[MEANS]": [],
           "[APPENDIX]": [
             "[PUNCT]"
           ]
@@ -2025,7 +2016,6 @@
         "tail": null,
         "order": [
           "[ROLE]",
-          "[ENDS]",
           "[MEANS]"
         ]
       },
@@ -2033,32 +2023,32 @@
       "original_text": "As a cataloger or collection manager I want to be able to search for records based on all Duke Core fields."
     },
     "usage": {
-      "duration": 0.8095414638519287,
-      "num_token_in": 639,
-      "num_token_out": 93
+      "duration": 0.9465727806091309,
+      "num_token_in": 678,
+      "num_token_out": 82
     }
   },
   {
     "component": {
       "text": "As a user, I want to publish records when the record has a Title Identifier Type and Source.",
       "role": [
-        "User"
+        "user"
       ],
       "means": "publish records when the record has a Title Identifier Type and Source",
-      "ends": "to publish records",
+      "ends": null,
       "template": {
-        "text": "As a {ROLE}, I want {ENDS} {MEANS}.",
+        "text": "As a {ROLE}, I want to {MEANS}.",
         "chunk": {
           "[ROLE]": [
             "[ADP]",
             "[DET]"
           ],
-          "[ENDS]": [
+          "[MEANS]": [
             "[PUNCT]",
             "[PRON]",
-            "[VERB]"
+            "[VERB]",
+            "[PART]"
           ],
-          "[MEANS]": [],
           "[APPENDIX]": [
             "[PUNCT]"
           ]
@@ -2066,7 +2056,6 @@
         "tail": null,
         "order": [
           "[ROLE]",
-          "[ENDS]",
           "[MEANS]"
         ]
       },
@@ -2074,9 +2063,9 @@
       "original_text": "As a user I want to be able to publish records only when the record has a Title Identifier Type and Source."
     },
     "usage": {
-      "duration": 1.3946692943572998,
-      "num_token_in": 640,
-      "num_token_out": 90
+      "duration": 0.9188492298126221,
+      "num_token_in": 679,
+      "num_token_out": 80
     }
   }
 ]
