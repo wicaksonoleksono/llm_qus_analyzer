@@ -92,7 +92,7 @@ class LLMClient:
                 model=model.id,
                 temperature=0,
                 max_tokens=None,
-                # seed=42
+                seed=42
             )
             for model in used_config.llm_models
             if model.source in _model_inst

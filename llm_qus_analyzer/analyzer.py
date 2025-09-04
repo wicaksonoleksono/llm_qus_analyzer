@@ -53,15 +53,12 @@ class LLMAnalyzer(Generic[T]):
     def _extract_json(self, content: str) -> str:
         """Extract JSON from LLM response, handling markdown and extra text."""
         import re
-        
         # Remove markdown code blocks
         content = re.sub(r'```json\s*', '', content)
         content = re.sub(r'```\s*', '', content)
-        
         # Find JSON object boundaries
         brace_count = 0
         start_idx = -1
-        
         for i, char in enumerate(content):
             if char == '{':
                 if start_idx == -1:
@@ -71,7 +68,6 @@ class LLMAnalyzer(Generic[T]):
                 brace_count -= 1
                 if brace_count == 0 and start_idx != -1:
                     return content[start_idx:i+1]
-        
         # Fallback: return cleaned content if no proper JSON found
         return content.strip()
 

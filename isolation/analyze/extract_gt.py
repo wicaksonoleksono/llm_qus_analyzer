@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Extract ground truth from CSV and convert to JSON format with components."""
-
+# 
 import json
 import pandas as pd
 from pathlib import Path
@@ -65,24 +65,14 @@ def extract_ground_truth():
 
 if __name__ == "__main__":
     try:
-        # Extract and save
         gt_violations, gt_components = extract_ground_truth()
-        
-        # Save violations (existing format)
         with open('ground_truth_extracted.json', 'w') as f:
             json.dump(gt_violations, f, indent=2)
-        
-        # Save components (new format)
         with open('ground_truth_components.json', 'w') as f:
             json.dump(gt_components, f, indent=2)
-        
         print(f"Extracted ground truth for {len(gt_violations)} stories")
-        print("Saved violations to ground_truth_extracted.json")
-        print("Saved components to ground_truth_components.json")
-        
     except FileNotFoundError as e:
         print(f"Error: {e}")
-        print("Make sure ground_truth.csv exists in the parent directory")
     except Exception as e:
         print(f"Unexpected error: {e}")
         import traceback

@@ -148,9 +148,7 @@ class UniformAnalyzer:
         idx2 = cls.__get_index(temp2.order, token)
         chunk1 = temp1.chunk.get(token, [])
         chunk2 = temp2.chunk.get(token, [])
-        
         dist = 0.0
-        
         # Ensure components exist separately in templates
         if token == '[ENDS]':
             # ENDS is optional but should be consistently handled
@@ -170,7 +168,6 @@ class UniformAnalyzer:
             else:
                 # Compare template patterns for proper separation
                 dist = cls.__pos_distance(chunk1, chunk2)
-
         # Enforce proper component order in templates (ROLE -> MEANS -> ENDS)
         if idx1 is not None and idx2 is not None:
             if idx1 != idx2:
@@ -178,7 +175,6 @@ class UniformAnalyzer:
                 w1 = sum([(cls.__PUNCT_WEIGHT if c == cls.__PUNCT else 1) for c in chunk1])
                 w2 = sum([(cls.__PUNCT_WEIGHT if c == cls.__PUNCT else 1) for c in chunk2])
                 dist += max(w1, w2) * 0.8  # Order consistency penalty
-            
             # Ensure proper separation: ROLE should come before MEANS, MEANS before ENDS
             if token == '[ROLE]' and idx1 != 0:
                 dist += 1.0  # ROLE should be first in template
@@ -207,11 +203,9 @@ class UniformAnalyzer:
         total_distance = 0.0
         _temp1 = deepcopy(temp1)
         _temp2 = deepcopy(temp2)
-
         # Penalize tail mismatch
         if temp1.tail or temp2.tail:
             total_distance += 1
-
         # Check component existence
         total_distance += cls.__existence_handling(_temp1, _temp2, '[ROLE]')
         total_distance += cls.__existence_handling(_temp1, _temp2, '[MEANS]')
@@ -237,11 +231,9 @@ class UniformAnalyzer:
             tuple: (most_common_role_seps, most_common_means_seps, most_common_ends_seps)
         """
         from collections import Counter
-        
         role_counter = Counter()
         means_counter = Counter()
         ends_counter = Counter()
-        
         for template in templates:
             # Extract role separators
             role_chunk = template.chunk.get('[ROLE]', [])

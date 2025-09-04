@@ -24,6 +24,23 @@ Evaluate and extract the individual, unique tasks explicitly mentioned strictly 
 
 """
 
+_in_format_no_chunk = """
+Given user story "{user_story}"
+**Evaluate whether this user story is 'Atomic' based on its [Role] and [Means]:**
+- [Role]: A stakeholder or persona that expresses the need. Typically, [Role] are taken from the softwares application domain.
+- [Means]: The phrase or clause that describes the primary capability, action, or system behavior the [Role] wants to perform or see happen. It represents the core functional need of the user story, including any conditions (triggers or preconditions) that are directly tied to that need, indicating by 'when', 'where', etc.
+
+** [Role] check **
+- Does the [Role]  only contain  1 actors?
+** [Means] check **
+- Does the [Means] only contain a single action that represent a singular task 
+    A signular task is indicated only by explicit verb or  a verb phaase applied to an object(s)
+    Do not treat adjective or states (e.g.  )
+
+
+
+"""
+
 _out_format = """
 **Strictly follow this output format (JSON):**  
 ```json

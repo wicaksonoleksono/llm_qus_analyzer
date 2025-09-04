@@ -4,7 +4,6 @@ from ..analyzer import LLMAnalyzer
 from ..client import LLMClient, LLMUsage
 from .parser import Template, TemplateParser
 
-
 input_format = """
 Expand all the contraction of english verb like "i'm" into "i am", etc, and 
 then extract the [Role], [Means] and [Ends] from the following user story:
@@ -50,45 +49,37 @@ Every [Role], [Means] and [Ends] must be **explicitly mentioned** or become a pa
 @dataclass
 class QUSChunkData:
     """Container for the analyzed components of a user story."""
-
     expanded: str
     """The user story with all contractions expanded."""
-
     role: list[str]
     """List of identified role(s) in the user story."""
-
     means: Optional[str]
     """The identified means component, if present."""
-
     ends: Optional[str]
     """The identified ends component, if present."""
-
-
 @dataclass
 class QUSComponent:
     """Comprehensive representation of a parsed user story with template."""
-
     text: str
     """The expanded text of the user story."""
-
+    
     role: list[str]
     """List of identified role(s)."""
-
+    
     means: Optional[str]
     """The means component, if present."""
-
+    
     ends: Optional[str]
     """The ends component, if present."""
-
+    
     template: Template
     """Templatized version of the user story."""
-
+    
     id: Optional[str] = None
     """Optional unique identifier for the component."""
-
+    
     original_text: Optional[str] = None
     """The original user story text before expansion."""
-
 
 class QUSChunkerModel:
     """Model for analyzing and chunking user stories into components.
@@ -105,13 +96,10 @@ class QUSChunkerModel:
 
     def __parser(self, raw: Any) -> QUSChunkData:
         """Parses raw LLM output into structured type.
-
         Args:
             raw (Any): The raw JSON output from the LLM analyzer.
-
         Returns:
             QUSChunkData: Structured representation of the parsed components.
-
         Note:
             Handles various edge cases in the raw output including:
             - Normalizing role to always be a list
@@ -164,7 +152,6 @@ class QUSChunkerModel:
             tuple[QUSComponent,LLMUsage]:
                 - The fully parsed user story components
                 - The LLM usage object
-
         Note:
             The analysis pipeline:
             1. LLM extracts roles, means, and ends
@@ -210,41 +197,3 @@ class QUSChunkerModel:
             self.analyze_single(client, model_idx, user_story, id)
             for user_story, id in zip(user_stories, ids)
         ]
-
-# _in_format = """
-# Extract the [Role], [Means] and [Ends] from the following user story:
-# "{user_story}"
-# Also please expand all gramatical contraction of english verb such as "i'm" into "i am", etc.
-# If there are quotes in the user story, keep them as part of the text - do not split or separate quoted content.
-# **Please only display the single final answer without any explanation, fixing steps, or any redundant text.**
-# """
-# menambahkan 1. If there are quotes in the user story, keep them as part of the text - do not split or separate quoted content. krn terkadang malah output list.
-# Menambahkan parsiung utk list .
-# _out_format = """
-# **Strictly follow this output format (JSON):**  
-# ```json
-# {{
-#     "expanded": "Expanded user story",
-#     "component": {{
-#           "[Role]": "List of string",
-#          "[Means]": "String or None if not exists",
-#           "[Ends]": "String or None if not exists"
-#     }}
-# }}
-# ```
-# ALWAYS Use BRACKET FOR THE "[Role]", "[Means]" and "[Ends]"
-# **Please only display the final answer without any explanation, description, or any redundant text.**
-# """
-
-# _definition = """
-# By definition,
-# [Role]: A stakeholder or persona that expresses the need. Typically, [Role] are taken from the softwares application domain.
-# [Means]: The phrase or clause that describes the primary capability, action, or system behavior the [Role] wants to perform or see happen. It represents the core functional need of the user story, including any conditions (triggers or preconditions) that are directly tied to that need, indicating by 'when', 'where', etc.
-# [Ends]: A direct value of the [Means] for the [Role] or explaining why the [Means] are requested or a dependency on other functionality of the [Means]
-
-# Additionally,
-# the [Role] can be the name of the persona acts as the role: Joe, Alice, and not a subject like I, you, they, etc.
-# the [Means] should not start with a phrasal modal verb (or semi-modal verb), like "be able to", "want to" etc. Even though if [Role] is not exists, [Means] still can be exists.
-# the [Ends] should start with a pronoun (if it exist) or verb, not a causal phrase such as "so that", "in order to", "to" etc, and not including any unnecessary text behind it.
-# Use that definition to get a better understanding about Quality User Story. 
-# """
