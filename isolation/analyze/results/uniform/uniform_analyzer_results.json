@@ -160,6 +160,7 @@
       "violations": [
         "User story doesn't follow the common template pattern: \"[adp] [det], [pron] [verb] [part], [sconj] [sconj]\""
       ],
+
       "has_violations": true,
       "ground_truth_has_uniform": true,
       "detected_violations_count": 1,

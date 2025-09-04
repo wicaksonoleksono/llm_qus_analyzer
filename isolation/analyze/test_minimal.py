@@ -9,6 +9,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
 from llm_qus_analyzer.individual.minimal import MinimalAnalyzer
+from llm_qus_analyzer import Settings, LLMClient
 from llm_qus_analyzer.chunker.models import QUSComponent
 from llm_qus_analyzer.chunker.parser import Template
 
@@ -70,6 +71,14 @@ def test_minimal_analyzer():
     components = load_chunk_best()
     gt_violations = load_ground_truth_violations()
     
+    # Setup LLM client and analyzer
+    setting = Settings()
+    setting.configure_paths_and_load(
+        env_path=Path('../.env'),
+        model_config_path=Path('../models.yaml'),
+    )
+    clients = LLMClient(from_settings=setting)
+    
     # Find stories that exist in both datasets
     matched_stories = []
     for component in components:
@@ -83,128 +92,136 @@ def test_minimal_analyzer():
     output_dir = Path("results/minimal")
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    # Run test once since MinimalAnalyzer is rule-based
-    print(f"\n{'='*60}")
-    print("Testing MinimalAnalyzer (rule-based, no model required)")
-    print(f"{'='*60}")
-    
-    results = {
-        'analyzer_info': {
-            'analyzer_name': 'MinimalAnalyzer',
-            'analyzer_type': 'rule-based'
-        },
-        'total_stories': len(matched_stories),
-        'correct_predictions': 0,
-        'false_positives': 0,
-        'false_negatives': 0,
-        'stories': {},
-        'summary': {
-            'precision': 0.0,
-            'recall': 0.0,
-            'f1': 0.0
-        }
-    }
-    
-    for i, (story_text, component) in enumerate(matched_stories):
-        print(f"--- Story {i+1}/{len(matched_stories)} ---")
-        print(f"Text: {story_text[:80]}{'...' if len(story_text) > 80 else ''}")
+    # Test with all available models
+    for model_idx in range(clients.n_models):
+        model_name = clients.names[model_idx]
+        print(f"\n{'='*60}")
+        print(f"Testing MinimalAnalyzer with Model {model_idx}: {model_name}")
+        print(f"{'='*60}")
         
-        # Get ground truth for this story
-        gt_story_violations = gt_violations[story_text]
-        has_minimal_gt = 'Minimal' in gt_story_violations
-        
-        try:
-            # Convert raw dictionary to QUSComponent
-            qus_component = create_qus_component(component)
-            
-            # Run MinimalAnalyzer on single component
-            # Note: client and model_idx are ignored for MinimalAnalyzer
-            detected_violations, usage = MinimalAnalyzer.run(None, 0, qus_component)
-            has_minimal_detected = len(detected_violations) > 0
-            
-            # Compare results
-            if has_minimal_gt and has_minimal_detected:
-                results['correct_predictions'] += 1
-                result_type = "TRUE POSITIVE"
-            elif not has_minimal_gt and not has_minimal_detected:
-                results['correct_predictions'] += 1
-                result_type = "TRUE NEGATIVE"
-            elif has_minimal_detected and not has_minimal_gt:
-                results['false_positives'] += 1
-                result_type = "FALSE POSITIVE"
-            else:  # has_minimal_gt and not has_minimal_detected
-                results['false_negatives'] += 1
-                result_type = "FALSE NEGATIVE"
-            
-            print(f"Ground Truth: {'Minimal' if has_minimal_gt else 'No Minimal'}")
-            print(f"Detected: {len(detected_violations)} violations")
-            if detected_violations:
-                for v in detected_violations:
-                    print(f"  - {v.issue}")
-            print(f"Result: {result_type}")
-            
-            # Store results
-            results['stories'][story_text] = {
-                'ground_truth_has_minimal': has_minimal_gt,
-                'detected_violations_count': len(detected_violations),
-                'detected_violations': [v.issue for v in detected_violations],
-                'result_type': result_type
+        results = {
+            'analyzer_info': {
+                'analyzer_name': 'MinimalAnalyzer',
+                'analyzer_type': 'hybrid (rule-based + LLM abbreviation checking)',
+                'model_name': model_name,
+                'model_idx': model_idx
+            },
+            'total_stories': len(matched_stories),
+            'correct_predictions': 0,
+            'false_positives': 0,
+            'false_negatives': 0,
+            'stories': {},
+            'summary': {
+                'precision': 0.0,
+                'recall': 0.0,
+                'f1': 0.0
             }
-            
-        except Exception as e:
-            print(f"Error analyzing story: {e}")
-            results['stories'][story_text] = {'error': str(e)}
+        }
         
-        print("-" * 60)
+        for i, (story_text, component) in enumerate(matched_stories):
+            print(f"--- Story {i+1}/{len(matched_stories)} ---")
+            print(f"Text: {story_text[:80]}{'...' if len(story_text) > 80 else ''}")
+            
+            # Get ground truth for this story
+            gt_story_violations = gt_violations[story_text]
+            has_minimal_gt = 'Minimal' in gt_story_violations
+            
+            try:
+                # Convert raw dictionary to QUSComponent
+                qus_component = create_qus_component(component)
+                
+                # Run MinimalAnalyzer on single component with LLM client and specific model
+                detected_violations, _ = MinimalAnalyzer.run(clients, model_idx, qus_component)
+                has_minimal_detected = len(detected_violations) > 0
+                
+                # Compare results
+                if has_minimal_gt and has_minimal_detected:
+                    results['correct_predictions'] += 1
+                    result_type = "TRUE POSITIVE"
+                elif not has_minimal_gt and not has_minimal_detected:
+                    results['correct_predictions'] += 1
+                    result_type = "TRUE NEGATIVE"
+                elif has_minimal_detected and not has_minimal_gt:
+                    results['false_positives'] += 1
+                    result_type = "FALSE POSITIVE"
+                else:  # has_minimal_gt and not has_minimal_detected
+                    results['false_negatives'] += 1
+                    result_type = "FALSE NEGATIVE"
+                
+                print(f"Ground Truth: {'Minimal' if has_minimal_gt else 'No Minimal'}")
+                print(f"Detected: {len(detected_violations)} violations")
+                if detected_violations:
+                    for v in detected_violations:
+                        print(f"  - {v.issue}")
+                print(f"Result: {result_type}")
+                
+                # Store results
+                results['stories'][story_text] = {
+                    'ground_truth_has_minimal': has_minimal_gt,
+                    'detected_violations_count': len(detected_violations),
+                    'detected_violations': [v.issue for v in detected_violations],
+                    'result_type': result_type
+                }
+                
+            except Exception as e:
+                print(f"Error analyzing story: {e}")
+                results['stories'][story_text] = {'error': str(e)}
+            
+            print("-" * 60)
+        
+        # Calculate metrics for this model
+        tp = sum(1 for story in results['stories'].values() 
+                if story.get('result_type') == 'TRUE POSITIVE')
+        fp = results['false_positives']
+        fn = results['false_negatives']
+        tn = sum(1 for story in results['stories'].values() 
+                if story.get('result_type') == 'TRUE NEGATIVE')
+        
+        # Handle edge cases for precision and recall
+        # When tp=0 and fp=0, precision is 1 (no false positives)
+        # When tp=0 and fn=0, recall is 1 (no false negatives)
+        precision = 1.0 if (tp == 0 and fp == 0) else tp / (tp + fp) if (tp + fp) > 0 else 0
+        recall = 1.0 if (tp == 0 and fn == 0) else tp / (tp + fn) if (tp + fn) > 0 else 0
+        f1 = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
+        
+        # Special case: when all are true negatives, all metrics should be 1
+        if tp == 0 and fp == 0 and fn == 0:
+            precision = 1.0
+            recall = 1.0
+            f1 = 1.0
+        
+        results['summary']['precision'] = precision
+        results['summary']['recall'] = recall
+        results['summary']['f1'] = f1
+        results['summary']['true_positives'] = tp
+        results['summary']['false_positives'] = fp
+        results['summary']['false_negatives'] = fn
+        results['summary']['true_negatives'] = tn
+        
+        # Print summary for this model
+        print(f"\nMINIMAL ANALYZER SUMMARY - {model_name}")
+        print("=" * 60)
+        print(f"Stories tested: {len(matched_stories)}")
+        print(f"True Positives: {tp}")
+        print(f"False Positives: {fp}")
+        print(f"False Negatives: {fn}")
+        print(f"True Negatives: {tn}")
+        print(f"Precision: {precision:.3f}")
+        print(f"Recall: {recall:.3f}")
+        print(f"F1 Score: {f1:.3f}")
+        
+        # Save results for this model
+        model_filename = f"minimal_{model_name.replace(' ', '_').replace('/', '_')}_results.json"
+        output_file = output_dir / model_filename
+        
+        with open(output_file, 'w') as f:
+            json.dump(results, f, indent=2)
+        
+        print(f"\nResults saved to {output_file}")
     
-    # Calculate metrics
-    tp = sum(1 for story in results['stories'].values() 
-            if story.get('result_type') == 'TRUE POSITIVE')
-    fp = results['false_positives']
-    fn = results['false_negatives']
-    tn = sum(1 for story in results['stories'].values() 
-            if story.get('result_type') == 'TRUE NEGATIVE')
-    
-    # Handle edge cases for precision and recall
-    # When tp=0 and fp=0, precision is 1 (no false positives)
-    # When tp=0 and fn=0, recall is 1 (no false negatives)
-    precision = 1.0 if (tp == 0 and fp == 0) else tp / (tp + fp) if (tp + fp) > 0 else 0
-    recall = 1.0 if (tp == 0 and fn == 0) else tp / (tp + fn) if (tp + fn) > 0 else 0
-    f1 = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
-    
-    # Special case: when all are true negatives, all metrics should be 1
-    if tp == 0 and fp == 0 and fn == 0:
-        precision = 1.0
-        recall = 1.0
-        f1 = 1.0
-    
-    results['summary']['precision'] = precision
-    results['summary']['recall'] = recall
-    results['summary']['f1'] = f1
-    results['summary']['true_positives'] = tp
-    results['summary']['false_positives'] = fp
-    results['summary']['false_negatives'] = fn
-    results['summary']['true_negatives'] = tn
-    
-    # Print summary
-    print(f"\nMINIMAL ANALYZER SUMMARY")
-    print("=" * 60)
-    print(f"Stories tested: {len(matched_stories)}")
-    print(f"True Positives: {tp}")
-    print(f"False Positives: {fp}")
-    print(f"False Negatives: {fn}")
-    print(f"True Negatives: {tn}")
-    print(f"Precision: {precision:.3f}")
-    print(f"Recall: {recall:.3f}")
-    print(f"F1 Score: {f1:.3f}")
-    
-    # Save single results file
-    output_file = output_dir / "minimal_result.json"
-    
-    with open(output_file, 'w') as f:
-        json.dump(results, f, indent=2)
-    
-    print(f"\nResults saved to {output_file}")
+    print(f"\n{'='*60}")
+    print("ALL MODELS TESTED - Check results/minimal/ for individual model results")
+    print(f"{'='*60}")
 
 if __name__ == "__main__":
     try:

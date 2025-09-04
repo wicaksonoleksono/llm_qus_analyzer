@@ -11,24 +11,32 @@ sys.path.append(str(Path(__file__).parent.parent.parent))
 from llm_qus_analyzer.individual.well_form import WellFormAnalyzer
 from llm_qus_analyzer.chunker.models import QUSComponent
 from llm_qus_analyzer.chunker.parser import Template
-
+_end={
+    "deepseek",
+    "gpt",
+    "llama",
+    "mistral"
+}
 def load_chunk_best():
     """Load best quality chunked data."""
-    chunk_file = Path("chunked_story/chunk_best.json")
+    all_components = []
     
-    with open(chunk_file, 'r') as f:
-        raw_chunks = json.load(f)
+    for j in _end:
+        chunk_file = Path(f"chunked_story/chunk_{j}.json")
+        
+        with open(chunk_file, 'r') as f:
+            raw_chunks = json.load(f)
+        
+        # Extract components and convert to QUSComponent format
+        for item in raw_chunks:
+            if 'component' in item:
+                comp_data = item['component']
+                # Add model source info
+                comp_data['model_source'] = j
+                all_components.append(comp_data)
     
-    # Extract components and convert to QUSComponent format
-    components = []
-    for item in raw_chunks:
-        if 'component' in item:
-            comp_data = item['component']
-            # Convert to expected format for analyzer
-            components.append(comp_data)
-    
-    print(f"Loaded {len(components)} components for violation testing")
-    return components
+    print(f"Loaded {len(all_components)} components from {len(_end)} models for violation testing")
+    return all_components
 
 def load_ground_truth_violations():
     """Load ground truth violation labels."""
@@ -198,13 +206,70 @@ def test_wellform_analyzer():
     print(f"Recall: {recall:.3f}")
     print(f"F1 Score: {f1:.3f}")
     
-    # Save single results file
-    output_file = output_dir / "wellform_result.json"
+    # Save results by model
+    for model in _end:
+        model_results = {
+            'analyzer_info': results['analyzer_info'],
+            'model_source': model,
+            'total_stories': 0,
+            'correct_predictions': 0,
+            'false_positives': 0,
+            'false_negatives': 0,
+            'stories': {},
+            'summary': {'precision': 0.0, 'recall': 0.0, 'f1': 0.0}
+        }
+        
+        # Filter stories by model
+        for story_text, story_data in results['stories'].items():
+            if any(comp.get('model_source') == model for comp in components 
+                   if comp.get('original_text', comp.get('text', '')) == story_text):
+                model_results['stories'][story_text] = story_data
+                model_results['total_stories'] += 1
+                if story_data.get('result_type') in ['TRUE POSITIVE', 'TRUE NEGATIVE']:
+                    model_results['correct_predictions'] += 1
+                elif story_data.get('result_type') == 'FALSE POSITIVE':
+                    model_results['false_positives'] += 1
+                elif story_data.get('result_type') == 'FALSE NEGATIVE':
+                    model_results['false_negatives'] += 1
+        
+        # Calculate model-specific metrics
+        tp = sum(1 for story in model_results['stories'].values() 
+                if story.get('result_type') == 'TRUE POSITIVE')
+        fp = model_results['false_positives']
+        fn = model_results['false_negatives']
+        tn = sum(1 for story in model_results['stories'].values() 
+                if story.get('result_type') == 'TRUE NEGATIVE')
+        
+        precision = 1.0 if (tp == 0 and fp == 0) else tp / (tp + fp) if (tp + fp) > 0 else 0
+        recall = 1.0 if (tp == 0 and fn == 0) else tp / (tp + fn) if (tp + fn) > 0 else 0
+        f1 = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
+        
+        if tp == 0 and fp == 0 and fn == 0:
+            precision = 1.0
+            recall = 1.0
+            f1 = 1.0
+        
+        model_results['summary']['precision'] = precision
+        model_results['summary']['recall'] = recall
+        model_results['summary']['f1'] = f1
+        model_results['summary']['true_positives'] = tp
+        model_results['summary']['false_positives'] = fp
+        model_results['summary']['false_negatives'] = fn
+        model_results['summary']['true_negatives'] = tn
+        
+        # Save model-specific results
+        output_file = output_dir / f"wellform_{model}_results.json"
+        with open(output_file, 'w') as f:
+            json.dump(model_results, f, indent=2)
+        
+        print(f"Results for {model} saved to {output_file}")
     
+    # Also save combined results
+    output_file = output_dir / "wellform_combined_results.json"
     with open(output_file, 'w') as f:
         json.dump(results, f, indent=2)
     
-    print(f"\nResults saved to {output_file}")
+    print(f"\nCombined results saved to {output_file}")
 
 if __name__ == "__main__":
     try:

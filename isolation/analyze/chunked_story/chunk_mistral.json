@@ -1,0 +1,722 @@
+[
+  {
+    "component": {
+      "text": "As a collection manager or cataloger, I am a collection manager or cataloger who wants to be able to see who last edited a record and when.",
+      "role": ["collection manager", "cataloger"],
+      "means": "be able to see who last edited a record and when",
+      "ends": null,
+      "id": "story_1",
+      "original_text": "As a collection manager or cataloger I want to be able to see who last edited a record and when."
+    },
+    "usage": {
+      "duration": 1.0080654621124268,
+      "num_token_in": 658.0,
+      "num_token_out": 82.0
+    }
+  },
+  {
+    "component": {
+      "text": "As an end user, I am wanting to be able to perform a search across all collections at once.",
+      "role": ["end user"],
+      "means": "perform a search across all collections at once",
+      "ends": null,
+      "id": "story_2",
+      "original_text": "As an end user I want to be able to search across all collections at once."
+    },
+    "usage": {
+      "duration": 0.9266860485076904,
+      "num_token_in": 653.0,
+      "num_token_out": 65.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a cataloger and a collections manager, I am a cataloger and I am a collections manager. I want Trident to have the capability to support Duke Core. Metadata is consistent between collections.",
+      "role": ["cataloger", "collections manager"],
+      "means": "Trident to have the capability to support Duke Core",
+      "ends": "Metadata is consistent between collections",
+      "id": "story_3",
+      "original_text": "As a cataloger and a collections manager I want Trident to support Duke Core so that metadata is consistent between collections."
+    },
+    "usage": {
+      "duration": 1.2061436176300049,
+      "num_token_in": 660.0,
+      "num_token_out": 98.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a collections manager, I am wanting required DC fields to be enforced so that all records have values for all required DC fields.",
+      "role": ["collections manager"],
+      "means": "required DC fields to be enforced",
+      "ends": "all records have values for all required DC fields",
+      "id": "story_4",
+      "original_text": "As a collections manager I want required DC fields to be enforced so that all records have values for all required DC fields."
+    },
+    "usage": {
+      "duration": 0.8950331211090088,
+      "num_token_in": 661.0,
+      "num_token_out": 81.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a collections manager, I am able to repeat repeatable DC Fields so that I can enter all of the relevant metadata.",
+      "role": ["collections manager"],
+      "means": "repeat repeatable DC Fields",
+      "ends": "enter all of the relevant metadata",
+      "id": "story_5",
+      "original_text": "As a collections manager I want to be able to repeat repeatable DC Fields so that I can enter all of the relevant metadata."
+    },
+    "usage": {
+      "duration": 1.3311245441436768,
+      "num_token_in": 663.0,
+      "num_token_out": 76.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a collection manager, I am able to create controlled vocabularies. These controlled vocabularies can be used as authority lists during metadata creation.",
+      "role": ["collection manager"],
+      "means": "create controlled vocabularies",
+      "ends": "used as authority lists during metadata creation",
+      "id": "story_6",
+      "original_text": "As a collection manager I want to be able to create controlled vocabularies so that they can be used as authority lists during metadata creation."
+    },
+    "usage": {
+      "duration": 1.1795144081115725,
+      "num_token_in": 665.0,
+      "num_token_out": 82.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a cataloger, I am wanting authority lists to be easily accessible and contextually relevant so that it is easy for me to use the authority.",
+      "role": ["cataloger"],
+      "means": "I am wanting authority lists to be easily accessible and contextually relevant",
+      "ends": "so that it is easy for me to use the authority",
+      "id": "story_7",
+      "original_text": "As a cataloger I want authority lists to be easily accessible and contextually relevant so it is easy to use the authority."
+    },
+    "usage": {
+      "duration": 1.2072045803070068,
+      "num_token_in": 661.0,
+      "num_token_out": 91.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a collection manager, I am wanting to use external authority lists so that I can use them during metadata creation.",
+      "role": ["collection manager"],
+      "means": "I am wanting to use external authority lists",
+      "ends": "so that I can use them during metadata creation",
+      "id": "story_8",
+      "original_text": "As a collection manager I want to use external authority lists so I they can be used during metadata creation."
+    },
+    "usage": {
+      "duration": 0.963449001312256,
+      "num_token_in": 657.0,
+      "num_token_out": 77.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a cataloger, I am able to see, hear, watch, and read the digital object that I am cataloging so that I do not have to move between multiple applications while I am creating metadata.",
+      "role": ["cataloger"],
+      "means": "I am able to see, hear, watch, and read the digital object that I am cataloging",
+      "ends": "so that I do not have to move between multiple applications while I am creating metadata",
+      "id": "story_9",
+      "original_text": "As a cataloger I want to be able to see/hear/watch/read the digital object I am cataloging so I don't have to move between multiple applications while I'm creating metadata."
+    },
+    "usage": {
+      "duration": 1.0533676147460938,
+      "num_token_in": 679.0,
+      "num_token_out": 115.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a cataloger, I am able to see, hear, watch, and read all components associated with an item on the create or update screen so that I do not have to leave the form.",
+      "role": ["cataloger"],
+      "means": "I am able to see, hear, watch, and read all components associated with an item on the create or update screen",
+      "ends": "so that I do not have to leave the form",
+      "id": "story_10",
+      "original_text": "As a cataloger I want to be able to see/hear/watch/read all components associated on the with an item on the create/update screen so I don't have to leave the form."
+    },
+    "usage": {
+      "duration": 1.0857627391815186,
+      "num_token_in": 679.0,
+      "num_token_out": 111.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a cataloger or collection manager, I am editing a record and I want to see all of the metadata for the record so that I have the full context for the item I am cataloging.",
+      "role": ["cataloger", "collection manager"],
+      "means": "I am editing a record and I want to see all of the metadata for the record",
+      "ends": "I have the full context for the item I am cataloging",
+      "id": "story_11",
+      "original_text": "As a cataloger or collection manager I want to see all of the metadata for a record while I'm editing it so that I have the full context for the item I'm cataloging."
+    },
+    "usage": {
+      "duration": 1.3227148056030271,
+      "num_token_in": 676.0,
+      "num_token_out": 110.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a cataloger or collection manager, I am able to edit an arbitrary number of Items at once so that I can make changes to all Items in a collection efficiently.",
+      "role": ["cataloger", "collection manager"],
+      "means": "edit an arbitrary number of Items at once",
+      "ends": "make changes to all Items in a collection efficiently",
+      "id": "story_12",
+      "original_text": "As a cataloger or collection manager I want to be able to edit an arbitrary number of Items at once so that I can make changes to all Items in a collection efficiently."
+    },
+    "usage": {
+      "duration": 24.55649209022522,
+      "num_token_in": 673.0,
+      "num_token_out": 96.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a collection manager, I am wanting each record to have a status so that I can be tracking the progress of the records in the collection.",
+      "role": ["collection manager"],
+      "means": "each record to have a status",
+      "ends": "I can be tracking the progress of the records in the collection",
+      "id": "story_13",
+      "original_text": "As a collection manager I want each record to have a status so I can track the progress of the records in the collection."
+    },
+    "usage": {
+      "duration": 1.4821410179138184,
+      "num_token_in": 661.0,
+      "num_token_out": 84.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a collection manager, I am wanting statuses to include a status that flags a record as having a problem, so that we can track issues as they arise.",
+      "role": ["collection manager"],
+      "means": "statuses to include a status that flags a record as having a problem",
+      "ends": "so that we can track issues as they arise",
+      "id": "story_14",
+      "original_text": "As a collection manager I want statuses to include a status that flags a record as having a problem so we can track issues as the arise."
+    },
+    "usage": {
+      "duration": 1.2612764835357666,
+      "num_token_in": 665.0,
+      "num_token_out": 93.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a cataloger, I am a person who wants Trident to support the UTF-8 character set. I want this so that I can use any character necessary when creating metadata.",
+      "role": ["cataloger"],
+      "means": "Trident to support the UTF-8 character set",
+      "ends": "I can use any character necessary when creating metadata",
+      "id": "story_15",
+      "original_text": "As a cataloger I want Trident to support the UTF- character set so that I can use any character necessary when creating metadata."
+    },
+    "usage": {
+      "duration": 1.0480597019195557,
+      "num_token_in": 664.0,
+      "num_token_out": 95.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a collection manager, I am wanting to map fields in inherited metadata to Duke Core fields, and I am wanting to import a spreadsheet and create records.",
+      "role": ["collection manager"],
+      "means": "map fields in inherited metadata to Duke Core fields, import a spreadsheet and create records",
+      "ends": null,
+      "id": "story_16",
+      "original_text": "As a collection manager I want to map fields in inherited metadata to Duke Core fields and import a spreadsheet and create records."
+    },
+    "usage": {
+      "duration": 1.5027804374694824,
+      "num_token_in": 661.0,
+      "num_token_out": 87.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a collection manager, I am wanting to import metadata and create records from a DCP digitization guide.",
+      "role": ["collection manager"],
+      "means": "import metadata and create records from a DCP digitization guide",
+      "ends": null,
+      "id": "story_17",
+      "original_text": "As a collection manager I want to import metadata and create records from a DCP digitazation guide."
+    },
+    "usage": {
+      "duration": 1.0227749347686768,
+      "num_token_in": 657.0,
+      "num_token_out": 70.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Archivist, I am wanting bi-directional linking between items in the digital collections and EAD finding aids.",
+      "role": ["Archivist"],
+      "means": "bi-directional linking between items in the digital collections and EAD finding aids",
+      "ends": null,
+      "id": "story_18",
+      "original_text": "As a Archivist I want bi-directional linking between items in the digital collections and EAD finding aids."
+    },
+    "usage": {
+      "duration": 1.4559030532836914,
+      "num_token_in": 662.0,
+      "num_token_out": 83.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a End User, I am able to see the physical context of an Item in a digital collection (i.e. See inside this folder; EAD).",
+      "role": ["End User"],
+      "means": "I am able to see the physical context of an Item in a digital collection",
+      "ends": "See inside this folder; EAD",
+      "id": "story_19",
+      "original_text": "As a End User I want to be able to see the physical context of an Item in a digital collection (i.e. See inside this folder; EAD)"
+    },
+    "usage": {
+      "duration": 0.9936809539794922,
+      "num_token_in": 670.0,
+      "num_token_out": 93.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Collection Manager, I am wanting my collection to be discoverable in the Catalog.",
+      "role": ["Collection Manager"],
+      "means": "my collection to be discoverable in the Catalog",
+      "ends": null,
+      "id": "story_20",
+      "original_text": "As a Collection Manager I want my collection to be discoverable in the Catalog."
+    },
+    "usage": {
+      "duration": 0.824134111404419,
+      "num_token_in": 653.0,
+      "num_token_out": 65.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Digital Production User (DPU), I am a user who wants to have the capability to perform an action. The action is to create Components.",
+      "role": ["Digital Production User (DPU)"],
+      "means": "have the capability to perform an action. The action is to create Components",
+      "ends": null,
+      "id": "story_21",
+      "original_text": "As a Digital Production User (DPU) I want to be able to create Components."
+    },
+    "usage": {
+      "duration": 1.5894408226013184,
+      "num_token_in": 655.0,
+      "num_token_out": 91.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Data Processing Unit (DPU), I am wanting to create Technical Metadata for a Component.",
+      "role": ["Data Processing Unit (DPU)"],
+      "means": "I am wanting to create Technical Metadata for a Component.",
+      "ends": null,
+      "id": "story_22",
+      "original_text": "As a DPU I want to create Technical Metadata with for Component."
+    },
+    "usage": {
+      "duration": 2.3088297843933105,
+      "num_token_in": 651.0,
+      "num_token_out": 77.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a cataloger or collection manager, I am able to use a grid/spreadsheet style interface so that I can edit Items quickly.",
+      "role": ["cataloger", "collection manager"],
+      "means": "use a grid/spreadsheet style interface",
+      "ends": "edit Items quickly",
+      "id": "story_23",
+      "original_text": "As a cataloger or collection manager I want to be able to use a grid/spreadsheet style interface so I can edit Items quickly."
+    },
+    "usage": {
+      "duration": 0.9973773956298828,
+      "num_token_in": 666.0,
+      "num_token_out": 84.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Data Preservation Unit (DPU), I am wanting to create Preservation Metadata for a Component.",
+      "role": ["Data Preservation Unit (DPU)"],
+      "means": "create Preservation Metadata for a Component",
+      "ends": null,
+      "id": "story_24",
+      "original_text": "As a DPU I want to create Preservation Metadata for a Component."
+    },
+    "usage": {
+      "duration": 2.257218599319458,
+      "num_token_in": 652.0,
+      "num_token_out": 73.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Data Processing Unit (DPU), I am wanting to perform the action of uploading master surrogates to a Component.",
+      "role": ["Data Processing Unit (DPU)"],
+      "means": "upload master surrogates to a Component",
+      "ends": null,
+      "id": "story_25",
+      "original_text": "As a DPU I want to upload master surrogates to a Component."
+    },
+    "usage": {
+      "duration": 1.0944430828094482,
+      "num_token_in": 652.0,
+      "num_token_out": 78.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Data Processing Unit (DPU), I am wanting to add one or more Components to an Item.",
+      "role": ["Data Processing Unit (DPU)"],
+      "means": "add one or more Components to an Item",
+      "ends": null,
+      "id": "story_26",
+      "original_text": "As a DPU I want to add one or more Components to an Item."
+    },
+    "usage": {
+      "duration": 0.8931155204772949,
+      "num_token_in": 653.0,
+      "num_token_out": 75.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Data Processing Unit (DPU), I am wanting to create structural metadata for an Item. I am doing this so that I can define the sequence of components.",
+      "role": ["Data Processing Unit (DPU)"],
+      "means": "create structural metadata for an Item",
+      "ends": "define the sequence of components",
+      "id": "story_27",
+      "original_text": "As a DPU I want to create structural metadata for an Item so I can define the sequence of components."
+    },
+    "usage": {
+      "duration": 1.4085566997528076,
+      "num_token_in": 658.0,
+      "num_token_out": 89.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Digital Production Developer (DPD), I am wanting to group components that require digitization so that I can create digitizable units.",
+      "role": ["Digital Production Developer (DPD)"],
+      "means": "I am wanting to group components that require digitization",
+      "ends": "so that I can create digitizable units",
+      "id": "story_28",
+      "original_text": "As a Digital Production Developer (DPD) I want to group components that require digitization so that I can create \"digitizable units\"."
+    },
+    "usage": {
+      "duration": 1.6077115535736084,
+      "num_token_in": 667.0,
+      "num_token_out": 91.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Data Processing Unit (DPU), I am wanting to perform the action of checking-out or checking-in groups of Components.",
+      "role": ["Data Processing Unit (DPU)"],
+      "means": "performing the action of checking-out or checking-in groups of Components",
+      "ends": null,
+      "id": "story_29",
+      "original_text": "As a DPU I want to check-out/check-in groups of Components."
+    },
+    "usage": {
+      "duration": 1.1294784545898438,
+      "num_token_in": 655.0,
+      "num_token_out": 90.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Delivery Person DPD, I am wanting to verify the correctness and completeness of components so that I can ensure quality standards are being met.",
+      "role": ["Delivery Person DPD"],
+      "means": "I am wanting to verify the correctness and completeness of components",
+      "ends": "I can ensure quality standards are being met",
+      "id": "story_30",
+      "original_text": "As a DPD I want to verify the correctness and completeness of components so that I can ensure quality standards are met."
+    },
+    "usage": {
+      "duration": 1.070695400238037,
+      "num_token_in": 662.0,
+      "num_token_out": 93.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Dispatcher, I am a person who wants to capture digitization statistics. I want to capture these statistics so that I can monitor Operator efficiency and make projections for future projects.",
+      "role": ["Dispatcher"],
+      "means": "capture digitization statistics",
+      "ends": "monitor Operator efficiency and make projections for future projects",
+      "id": "story_31",
+      "original_text": "As a DPD I want to capture digitization statistics so that I can monitor Operator efficiency and make projections for future projects."
+    },
+    "usage": {
+      "duration": 1.1613078117370603,
+      "num_token_in": 663.0,
+      "num_token_out": 92.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Data Processing Unit (DPU), I am a Data Processing Unit (DPU) who wants Trident to create derivatives for me. I am a Data Processing Unit (DPU) who wants this to happen when I upload a Master.",
+      "role": ["Data Processing Unit (DPU)"],
+      "means": "Trident to create derivatives for me when I upload a Master.",
+      "ends": null,
+      "id": "story_32",
+      "original_text": "As a DPU I want Trident to create derivatives for me when I upload a Master."
+    },
+    "usage": {
+      "duration": 1.255967378616333,
+      "num_token_in": 656.0,
+      "num_token_out": 109.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a User, I am wanting to monitor the progress of a digital collection project.",
+      "role": ["User"],
+      "means": "monitor the progress of a digital collection project",
+      "ends": null,
+      "id": "story_33",
+      "original_text": "As a User I want to monitor the progress of a digital collection project."
+    },
+    "usage": {
+      "duration": 1.1261646747589111,
+      "num_token_in": 651.0,
+      "num_token_out": 60.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a cataloger, I am able to save a record without all of the required metadata so that I can start a record with the metadata I have and come back to finish it later.",
+      "role": ["cataloger"],
+      "means": "save a record without all of the required metadata",
+      "ends": "I can start a record with the metadata I have and come back to finish it later",
+      "id": "story_34",
+      "original_text": "As a cataloger I want to be able to save a record without all of the required metadata so that I can start a record with the metadata I have and come back to finish it later."
+    },
+    "usage": {
+      "duration": 1.0736355781555176,
+      "num_token_in": 675.0,
+      "num_token_out": 101.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a user, I am wanting to see how many items have been digitized.",
+      "role": ["user"],
+      "means": "see how many items have been digitized",
+      "ends": null,
+      "id": "story_35",
+      "original_text": "As a user I want to see how many Items have been digitized."
+    },
+    "usage": {
+      "duration": 2.8491733074188232,
+      "num_token_in": 652.0,
+      "num_token_out": 62.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a user, I am wanting to see how many items that have been digitized have been described.",
+      "role": ["user"],
+      "means": "see how many digitized Items have been described",
+      "ends": null,
+      "id": "story_36",
+      "original_text": "As a user I want to see how many digitized Items have been described."
+    },
+    "usage": {
+      "duration": 1.1999459266662598,
+      "num_token_in": 653.0,
+      "num_token_out": 68.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a user, I am wanting to see how many items have been published.",
+      "role": ["user"],
+      "means": "see how many items have been published",
+      "ends": null,
+      "id": "story_37",
+      "original_text": "As a user I want to see how many Items have been published."
+    },
+    "usage": {
+      "duration": 0.7770216464996338,
+      "num_token_in": 651.0,
+      "num_token_out": 60.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Collection Manager or Sponsor, I am wanting to describe the collection.",
+      "role": ["Collection Manager", "Sponsor"],
+      "means": "I am wanting to describe the collection.",
+      "ends": null,
+      "id": "story_38",
+      "original_text": "As Collection Manager or Sponsor I want to describe the collection."
+    },
+    "usage": {
+      "duration": 0.9876554012298584,
+      "num_token_in": 650.0,
+      "num_token_out": 65.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Preservation Librarian, I am wanting the relationship between masters and derivatives to be managed by the system so I do not have to manage it.",
+      "role": ["Preservation Librarian"],
+      "means": "the relationship between masters and derivatives to be managed by the system",
+      "ends": "I do not have to manage it",
+      "id": "story_39",
+      "original_text": "As a Preservation Librarian I want the relationship between masters and derivatives to be managed by the system so I don't have to."
+    },
+    "usage": {
+      "duration": 1.146884202957153,
+      "num_token_in": 666.0,
+      "num_token_out": 93.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Metadata Librarian, I am wanting to define the metadata schema for a collection.",
+      "role": ["Metadata Librarian"],
+      "means": "define the metadata schema for a collection",
+      "ends": null,
+      "id": "story_40",
+      "original_text": "As a Metadata Librarian I want to define the metadata schema for a collection."
+    },
+    "usage": {
+      "duration": 1.1919114589691162,
+      "num_token_in": 654.0,
+      "num_token_out": 65.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Metadata librarian, I am wanting to define Authorities to be used for specific fields in a collection MD Schema.",
+      "role": ["Metadata librarian"],
+      "means": "define Authorities to be used for specific fields in a collection MD Schema",
+      "ends": null,
+      "id": "story_41",
+      "original_text": "As a Metadata librarian I want to define Authorities to be used for specific fields in a collection MD Schema."
+    },
+    "usage": {
+      "duration": 0.9316043853759766,
+      "num_token_in": 661.0,
+      "num_token_out": 81.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Metadata Librarian, I am wanting to define validation rules for specific fields in a collection.",
+      "role": ["Metadata Librarian"],
+      "means": "define validation rules for specific fields in a collection",
+      "ends": null,
+      "id": "story_42",
+      "original_text": "As a Metadata Librarian I want to define validation rules for specific fields in a collection."
+    },
+    "usage": {
+      "duration": 1.2506110668182373,
+      "num_token_in": 656.0,
+      "num_token_out": 71.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a Metadata Librarian, I am wanting validation rules to be enforced when I am submitting Metadata.",
+      "role": ["Metadata Librarian"],
+      "means": "validation rules to be enforced when submitting Metadata",
+      "ends": null,
+      "id": "story_43",
+      "original_text": "As a Metadata Librarian I want validation rules enforced when MD is submitted."
+    },
+    "usage": {
+      "duration": 1.1885864734649658,
+      "num_token_in": 654.0,
+      "num_token_out": 76.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a user, I am wanting to be able to save a record when the record has an identifier so that we do not end up with a bunch of empty records in the collection.",
+      "role": ["user"],
+      "means": "be able to save a record when the record has an identifier",
+      "ends": "we do not end up with a bunch of empty records in the collection",
+      "id": "story_44",
+      "original_text": "As a user I want to be able to save a record only when the record has an identifier so that we don't end up with a bunch of empty records in the collection."
+    },
+    "usage": {
+      "duration": 0.911625862121582,
+      "num_token_in": 673.0,
+      "num_token_out": 99.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a cataloger, I am a person who wants a list of all of the records that I have access to. I want this list so I can get to work quickly.",
+      "role": ["cataloger"],
+      "means": "I want a list of all of the records that I have access to",
+      "ends": "I can get to work quickly",
+      "id": "story_45",
+      "original_text": "As a cataloger I want a list of all of the records I have access to so I can get to work quickly."
+    },
+    "usage": {
+      "duration": 1.2962970733642578,
+      "num_token_in": 661.0,
+      "num_token_out": 93.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a collection manager, I am wanting to search for records based on status so that I can be tracking the progress of a collection.",
+      "role": ["collection manager"],
+      "means": "search for records based on status",
+      "ends": "track the progress of a collection",
+      "id": "story_46",
+      "original_text": "As a collection manager I want to search for records based on status so I can track the progress of a collection."
+    },
+    "usage": {
+      "duration": 0.8690552711486816,
+      "num_token_in": 659.0,
+      "num_token_out": 76.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a cataloger or collection manager, I am able to search for records based on all Duke Core fields.",
+      "role": ["cataloger", "collection manager"],
+      "means": "search for records based on all Duke Core fields",
+      "ends": null,
+      "id": "story_47",
+      "original_text": "As a cataloger or collection manager I want to be able to search for records based on all Duke Core fields."
+    },
+    "usage": {
+      "duration": 1.2307443618774414,
+      "num_token_in": 659.0,
+      "num_token_out": 71.0
+    }
+  },
+  {
+    "component": {
+      "text": "As a user, I am expressing the need to have the capability to perform an action only when the record I am dealing with has a Title Identifier Type and Source.",
+      "role": ["user"],
+      "means": "I am expressing the need to have the capability to perform an action only when the record has a Title Identifier Type and Source.",
+      "ends": null,
+      "id": "story_48",
+      "original_text": "As a user I want to be able to publish records only when the record has a Title Identifier Type and Source."
+    },
+    "usage": {
+      "duration": 1.2739043235778809,
+      "num_token_in": 660.0,
+      "num_token_out": 96.0
+    }
+  }
+]
