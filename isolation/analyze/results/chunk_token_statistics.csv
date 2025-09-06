@@ -1,4 +1,0 @@
-Metric,Type,Min,Max,Median,Mean,Std,Count
-Input Tokens,Tokens,579.000,606.000,590.000,589.917,7.019,48
-Output Tokens,Tokens,52.000,100.000,69.000,69.646,13.103,48
-Durations,Duration (seconds),1.264,13.563,1.992,3.080,2.722,48
