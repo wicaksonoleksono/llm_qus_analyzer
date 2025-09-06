@@ -4,8 +4,8 @@
     "model_name": "Mistral 7B-Instruct v0.3"
   },
   "total_stories": 48,
-  "correct_predictions": 41,
-  "false_positives": 7,
+  "correct_predictions": 40,
+  "false_positives": 8,
   "false_negatives": 0,
   "stories": {
     "As a collection manager or cataloger I want to be able to see who last edited a record and when.": {
@@ -16,7 +16,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.7405362129211426,
+        "duration": 0.6979570388793945,
         "num_token_in": 330,
         "num_token_out": 18
       }
@@ -29,7 +29,7 @@
       ],
       "result_type": "FALSE POSITIVE",
       "usage": {
-        "duration": 0.5351665019989014,
+        "duration": 1.112731695175171,
         "num_token_in": 323,
         "num_token_out": 29
       }
@@ -42,7 +42,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 1.1506679058074951,
+        "duration": 0.6462993621826172,
         "num_token_in": 330,
         "num_token_out": 23
       }
@@ -53,7 +53,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.8886516094207764,
+        "duration": 0.7375247478485107,
         "num_token_in": 332,
         "num_token_out": 22
       }
@@ -64,7 +64,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6025469303131104,
+        "duration": 0.7358715534210205,
         "num_token_in": 333,
         "num_token_out": 23
       }
@@ -75,7 +75,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6441512107849121,
+        "duration": 0.6377520561218262,
         "num_token_in": 335,
         "num_token_out": 23
       }
@@ -88,7 +88,7 @@
       ],
       "result_type": "FALSE POSITIVE",
       "usage": {
-        "duration": 0.48735690116882324,
+        "duration": 0.7423300743103027,
         "num_token_in": 335,
         "num_token_out": 29
       }
@@ -99,7 +99,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.4673178195953369,
+        "duration": 0.9061880111694336,
         "num_token_in": 325,
         "num_token_out": 18
       }
@@ -112,7 +112,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.5168445110321045,
+        "duration": 1.0138516426086426,
         "num_token_in": 356,
         "num_token_out": 28
       }
@@ -125,7 +125,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.5534384250640869,
+        "duration": 1.120819330215454,
         "num_token_in": 364,
         "num_token_out": 28
       }
@@ -138,7 +138,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.5350980758666992,
+        "duration": 0.4383728504180908,
         "num_token_in": 351,
         "num_token_out": 18
       }
@@ -152,7 +152,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.5366451740264893,
+        "duration": 0.531306266784668,
         "num_token_in": 346,
         "num_token_out": 21
       }
@@ -163,7 +163,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6553168296813965,
+        "duration": 0.5345909595489502,
         "num_token_in": 331,
         "num_token_out": 20
       }
@@ -174,7 +174,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6200947761535645,
+        "duration": 0.5353705883026123,
         "num_token_in": 342,
         "num_token_out": 22
       }
@@ -185,7 +185,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5178108215332031,
+        "duration": 0.7409458160400391,
         "num_token_in": 338,
         "num_token_out": 27
       }
@@ -198,7 +198,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.554375171661377,
+        "duration": 0.740880012512207,
         "num_token_in": 342,
         "num_token_out": 29
       }
@@ -211,7 +211,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.5137097835540771,
+        "duration": 0.6380364894866943,
         "num_token_in": 334,
         "num_token_out": 23
       }
@@ -224,7 +224,7 @@
       ],
       "result_type": "FALSE POSITIVE",
       "usage": {
-        "duration": 1.069976568222046,
+        "duration": 0.5242102146148682,
         "num_token_in": 344,
         "num_token_out": 24
       }
@@ -235,7 +235,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5357840061187744,
+        "duration": 0.5000784397125244,
         "num_token_in": 345,
         "num_token_out": 28
       }
@@ -246,7 +246,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5356707572937012,
+        "duration": 1.0945284366607666,
         "num_token_in": 326,
         "num_token_out": 22
       }
@@ -257,7 +257,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5294694900512695,
+        "duration": 0.6686379909515381,
         "num_token_in": 322,
         "num_token_out": 20
       }
@@ -268,7 +268,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5416240692138672,
+        "duration": 1.023271083831787,
         "num_token_in": 322,
         "num_token_out": 21
       }
@@ -281,7 +281,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.4344604015350342,
+        "duration": 0.6278824806213379,
         "num_token_in": 339,
         "num_token_out": 18
       }
@@ -292,7 +292,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5344023704528809,
+        "duration": 0.7362658977508545,
         "num_token_in": 324,
         "num_token_out": 22
       }
@@ -303,7 +303,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5357418060302734,
+        "duration": 0.5700685977935791,
         "num_token_in": 324,
         "num_token_out": 18
       }
@@ -316,7 +316,7 @@
       ],
       "result_type": "FALSE POSITIVE",
       "usage": {
-        "duration": 0.5358142852783203,
+        "duration": 0.6136417388916016,
         "num_token_in": 326,
         "num_token_out": 27
       }
@@ -327,7 +327,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.48041296005249023,
+        "duration": 0.5013604164123535,
         "num_token_in": 328,
         "num_token_out": 23
       }
@@ -340,7 +340,7 @@
       ],
       "result_type": "FALSE POSITIVE",
       "usage": {
-        "duration": 0.5288069248199463,
+        "duration": 0.9793469905853271,
         "num_token_in": 337,
         "num_token_out": 32
       }
@@ -353,7 +353,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.5461151599884033,
+        "duration": 0.535369873046875,
         "num_token_in": 330,
         "num_token_out": 25
       }
@@ -364,7 +364,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.4791691303253174,
+        "duration": 0.5787363052368164,
         "num_token_in": 335,
         "num_token_out": 18
       }
@@ -375,7 +375,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.492154598236084,
+        "duration": 0.6467926502227783,
         "num_token_in": 331,
         "num_token_out": 21
       }
@@ -386,7 +386,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5946428775787354,
+        "duration": 0.7979874610900879,
         "num_token_in": 332,
         "num_token_out": 22
       }
@@ -397,7 +397,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.8964283466339111,
+        "duration": 0.6323416233062744,
         "num_token_in": 323,
         "num_token_out": 18
       }
@@ -408,7 +408,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6786291599273682,
+        "duration": 0.6389622688293457,
         "num_token_in": 348,
         "num_token_out": 20
       }
@@ -419,7 +419,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.424407958984375,
+        "duration": 0.5346629619598389,
         "num_token_in": 325,
         "num_token_out": 18
       }
@@ -430,7 +430,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.41559839248657227,
+        "duration": 0.4577174186706543,
         "num_token_in": 327,
         "num_token_out": 18
       }
@@ -441,7 +441,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6346349716186523,
+        "duration": 0.6139771938323975,
         "num_token_in": 323,
         "num_token_out": 18
       }
@@ -454,7 +454,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.4954094886779785,
+        "duration": 0.6329994201660156,
         "num_token_in": 318,
         "num_token_out": 19
       }
@@ -467,7 +467,7 @@
       ],
       "result_type": "FALSE POSITIVE",
       "usage": {
-        "duration": 0.518657922744751,
+        "duration": 0.5408720970153809,
         "num_token_in": 341,
         "num_token_out": 28
       }
@@ -478,7 +478,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.4177672863006592,
+        "duration": 0.4233591556549072,
         "num_token_in": 325,
         "num_token_out": 18
       }
@@ -489,7 +489,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.41800999641418457,
+        "duration": 0.6491870880126953,
         "num_token_in": 339,
         "num_token_out": 18
       }
@@ -500,7 +500,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6119265556335449,
+        "duration": 0.4321272373199463,
         "num_token_in": 329,
         "num_token_out": 18
       }
@@ -511,7 +511,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5020434856414795,
+        "duration": 0.6410484313964844,
         "num_token_in": 326,
         "num_token_out": 21
       }
@@ -522,7 +522,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.4785945415496826,
+        "duration": 1.9691517353057861,
         "num_token_in": 346,
         "num_token_out": 20
       }
@@ -533,7 +533,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5106828212738037,
+        "duration": 0.5382866859436035,
         "num_token_in": 336,
         "num_token_out": 18
       }
@@ -546,20 +546,20 @@
       ],
       "result_type": "FALSE POSITIVE",
       "usage": {
-        "duration": 0.6901400089263916,
+        "duration": 0.7540178298950195,
         "num_token_in": 329,
         "num_token_out": 25
       }
     },
     "As a cataloger or collection manager I want to be able to search for records based on all Duke Core fields.": {
-      "ground_truth_has_atomic": true,
+      "ground_truth_has_atomic": false,
       "detected_violations_count": 1,
       "detected_violations": [
         "The [Role] is more than 1: cataloger, collection manager"
       ],
-      "result_type": "TRUE POSITIVE",
+      "result_type": "FALSE POSITIVE",
       "usage": {
-        "duration": 0.7457401752471924,
+        "duration": 0.5199663639068604,
         "num_token_in": 332,
         "num_token_out": 20
       }
@@ -570,18 +570,18 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5097460746765137,
+        "duration": 0.5033535957336426,
         "num_token_in": 338,
         "num_token_out": 19
       }
     }
   },
   "summary": {
-    "precision": 0.631578947368421,
+    "precision": 0.5789473684210527,
     "recall": 1.0,
-    "f1": 0.7741935483870968,
-    "true_positives": 12,
-    "false_positives": 7,
+    "f1": 0.7333333333333334,
+    "true_positives": 11,
+    "false_positives": 8,
     "false_negatives": 0,
     "true_negatives": 29
   }

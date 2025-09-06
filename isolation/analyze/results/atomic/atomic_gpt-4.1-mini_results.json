@@ -4,8 +4,8 @@
     "model_name": "gpt-4.1-mini"
   },
   "total_stories": 48,
-  "correct_predictions": 48,
-  "false_positives": 0,
+  "correct_predictions": 47,
+  "false_positives": 1,
   "false_negatives": 0,
   "stories": {
     "As a collection manager or cataloger I want to be able to see who last edited a record and when.": {
@@ -16,7 +16,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 1.1260385513305664,
+        "duration": 0.8858897686004639,
         "num_token_in": 282,
         "num_token_out": 13
       }
@@ -27,7 +27,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.9423601627349854,
+        "duration": 0.7744746208190918,
         "num_token_in": 275,
         "num_token_out": 13
       }
@@ -40,7 +40,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.9458253383636475,
+        "duration": 0.830155611038208,
         "num_token_in": 282,
         "num_token_out": 15
       }
@@ -51,7 +51,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.9396207332611084,
+        "duration": 0.676652193069458,
         "num_token_in": 282,
         "num_token_out": 14
       }
@@ -62,7 +62,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.9511749744415283,
+        "duration": 0.679389476776123,
         "num_token_in": 283,
         "num_token_out": 13
       }
@@ -73,7 +73,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.9453554153442383,
+        "duration": 0.9034144878387451,
         "num_token_in": 285,
         "num_token_out": 17
       }
@@ -84,7 +84,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.835355281829834,
+        "duration": 0.9458048343658447,
         "num_token_in": 286,
         "num_token_out": 18
       }
@@ -95,7 +95,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.8507540225982666,
+        "duration": 0.8427596092224121,
         "num_token_in": 277,
         "num_token_out": 16
       }
@@ -108,7 +108,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 1.1516551971435547,
+        "duration": 1.1508336067199707,
         "num_token_in": 302,
         "num_token_out": 41
       }
@@ -121,7 +121,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 1.6740443706512451,
+        "duration": 1.8665688037872314,
         "num_token_in": 308,
         "num_token_out": 81
       }
@@ -134,9 +134,9 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.9692397117614746,
+        "duration": 1.0322644710540771,
         "num_token_in": 303,
-        "num_token_out": 25
+        "num_token_out": 23
       }
     },
     "As a cataloger or collection manager I want to be able to edit an arbitrary number of Items at once so that I can make changes to all Items in a collection efficiently.": {
@@ -147,7 +147,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.7741985321044922,
+        "duration": 0.8580455780029297,
         "num_token_in": 295,
         "num_token_out": 13
       }
@@ -158,7 +158,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6699693202972412,
+        "duration": 0.7415223121643066,
         "num_token_in": 283,
         "num_token_out": 13
       }
@@ -169,9 +169,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 1.255960464477539,
+        "duration": 0.7405312061309814,
         "num_token_in": 292,
-        "num_token_out": 27
+        "num_token_out": 13
       }
     },
     "As a cataloger I want Trident to support the UTF- character set so that I can use any character necessary when creating metadata.": {
@@ -180,7 +180,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.840010404586792,
+        "duration": 0.842750072479248,
         "num_token_in": 288,
         "num_token_out": 13
       }
@@ -193,7 +193,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 1.0467519760131836,
+        "duration": 1.1508522033691406,
         "num_token_in": 292,
         "num_token_out": 36
       }
@@ -206,7 +206,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 1.245330810546875,
+        "duration": 0.87422776222229,
         "num_token_in": 286,
         "num_token_out": 23
       }
@@ -217,7 +217,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.9529407024383545,
+        "duration": 0.7315430641174316,
         "num_token_in": 289,
         "num_token_out": 14
       }
@@ -228,9 +228,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.7404646873474121,
+        "duration": 0.8202545642852783,
         "num_token_in": 296,
-        "num_token_out": 17
+        "num_token_out": 13
       }
     },
     "As a Collection Manager I want my collection to be discoverable in the Catalog.": {
@@ -239,7 +239,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 2.466569185256958,
+        "duration": 0.6710901260375977,
         "num_token_in": 276,
         "num_token_out": 15
       }
@@ -250,7 +250,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6531400680541992,
+        "duration": 0.9767806529998779,
         "num_token_in": 272,
         "num_token_out": 14
       }
@@ -261,7 +261,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6966392993927002,
+        "duration": 0.8633260726928711,
         "num_token_in": 272,
         "num_token_out": 18
       }
@@ -274,7 +274,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.7854647636413574,
+        "duration": 0.645195484161377,
         "num_token_in": 288,
         "num_token_out": 13
       }
@@ -285,7 +285,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.8423142433166504,
+        "duration": 0.8539917469024658,
         "num_token_in": 272,
         "num_token_out": 18
       }
@@ -296,7 +296,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.9473385810852051,
+        "duration": 0.9455478191375732,
         "num_token_in": 276,
         "num_token_out": 20
       }
@@ -307,7 +307,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 1.5000958442687988,
+        "duration": 0.8445868492126465,
         "num_token_in": 276,
         "num_token_out": 17
       }
@@ -318,7 +318,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.9847989082336426,
+        "duration": 0.6757211685180664,
         "num_token_in": 280,
         "num_token_out": 15
       }
@@ -329,9 +329,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 1.067762851715088,
+        "duration": 0.8055782318115234,
         "num_token_in": 286,
-        "num_token_out": 18
+        "num_token_out": 14
       }
     },
     "As a DPU I want to check-out/check-in groups of Components.": {
@@ -342,7 +342,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 1.2550806999206543,
+        "duration": 0.7784831523895264,
         "num_token_in": 274,
         "num_token_out": 29
       }
@@ -353,7 +353,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.9438886642456055,
+        "duration": 0.9504919052124023,
         "num_token_in": 283,
         "num_token_out": 17
       }
@@ -364,9 +364,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.7970681190490723,
+        "duration": 0.6060214042663574,
         "num_token_in": 281,
-        "num_token_out": 13
+        "num_token_out": 16
       }
     },
     "As a DPU I want Trident to create derivatives for me when I upload a Master.": {
@@ -375,7 +375,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6150455474853516,
+        "duration": 0.7265756130218506,
         "num_token_in": 282,
         "num_token_out": 14
       }
@@ -386,7 +386,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.9116580486297607,
+        "duration": 0.63869309425354,
         "num_token_in": 275,
         "num_token_out": 13
       }
@@ -397,9 +397,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.9539883136749268,
+        "duration": 0.7452316284179688,
         "num_token_in": 300,
-        "num_token_out": 19
+        "num_token_out": 13
       }
     },
     "As a user I want to see how many Items have been digitized.": {
@@ -408,7 +408,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6602036952972412,
+        "duration": 0.6346979141235352,
         "num_token_in": 275,
         "num_token_out": 13
       }
@@ -419,7 +419,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.8117513656616211,
+        "duration": 0.9454693794250488,
         "num_token_in": 277,
         "num_token_out": 13
       }
@@ -430,7 +430,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.750544548034668,
+        "duration": 0.7404775619506836,
         "num_token_in": 273,
         "num_token_out": 13
       }
@@ -443,7 +443,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.7299153804779053,
+        "duration": 0.7407126426696777,
         "num_token_in": 267,
         "num_token_out": 13
       }
@@ -454,7 +454,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.9455528259277344,
+        "duration": 0.8338401317596436,
         "num_token_in": 289,
         "num_token_out": 14
       }
@@ -465,7 +465,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.8602187633514404,
+        "duration": 0.821230411529541,
         "num_token_in": 275,
         "num_token_out": 13
       }
@@ -476,9 +476,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.7018201351165771,
+        "duration": 1.1808240413665771,
         "num_token_in": 286,
-        "num_token_out": 18
+        "num_token_out": 14
       }
     },
     "As a Metadata Librarian I want to define validation rules for specific fields in a collection.": {
@@ -487,7 +487,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.9028236865997314,
+        "duration": 0.7411611080169678,
         "num_token_in": 279,
         "num_token_out": 15
       }
@@ -498,7 +498,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 1.1114163398742676,
+        "duration": 0.7407245635986328,
         "num_token_in": 274,
         "num_token_out": 14
       }
@@ -509,7 +509,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.946845531463623,
+        "duration": 0.8351778984069824,
         "num_token_in": 298,
         "num_token_out": 19
       }
@@ -520,7 +520,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.825660228729248,
+        "duration": 0.8509917259216309,
         "num_token_in": 288,
         "num_token_out": 15
       }
@@ -531,20 +531,20 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.636582612991333,
+        "duration": 1.0493824481964111,
         "num_token_in": 281,
         "num_token_out": 15
       }
     },
     "As a cataloger or collection manager I want to be able to search for records based on all Duke Core fields.": {
-      "ground_truth_has_atomic": true,
+      "ground_truth_has_atomic": false,
       "detected_violations_count": 1,
       "detected_violations": [
         "The [Role] is more than 1: cataloger, collection manager"
       ],
-      "result_type": "TRUE POSITIVE",
+      "result_type": "FALSE POSITIVE",
       "usage": {
-        "duration": 0.8552007675170898,
+        "duration": 0.7414834499359131,
         "num_token_in": 284,
         "num_token_out": 15
       }
@@ -555,18 +555,18 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.7284858226776123,
+        "duration": 0.8426709175109863,
         "num_token_in": 288,
         "num_token_out": 18
       }
     }
   },
   "summary": {
-    "precision": 1.0,
+    "precision": 0.9166666666666666,
     "recall": 1.0,
-    "f1": 1.0,
-    "true_positives": 12,
-    "false_positives": 0,
+    "f1": 0.9565217391304348,
+    "true_positives": 11,
+    "false_positives": 1,
     "false_negatives": 0,
     "true_negatives": 36
   }

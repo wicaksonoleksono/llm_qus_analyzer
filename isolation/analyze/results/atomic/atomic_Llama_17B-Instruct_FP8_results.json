@@ -4,9 +4,9 @@
     "model_name": "Llama 17B-Instruct FP8"
   },
   "total_stories": 48,
-  "correct_predictions": 47,
-  "false_positives": 1,
-  "false_negatives": 0,
+  "correct_predictions": 45,
+  "false_positives": 2,
+  "false_negatives": 1,
   "stories": {
     "As a collection manager or cataloger I want to be able to see who last edited a record and when.": {
       "ground_truth_has_atomic": true,
@@ -16,9 +16,9 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 1.8339123725891113,
+        "duration": 1.8586559295654297,
         "num_token_in": 283,
-        "num_token_out": 50
+        "num_token_out": 76
       }
     },
     "As an end user I want to be able to search across all collections at once.": {
@@ -27,7 +27,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.8453295230865479,
+        "duration": 0.6342651844024658,
         "num_token_in": 276,
         "num_token_out": 19
       }
@@ -40,9 +40,9 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 1.6809544563293457,
+        "duration": 0.636286735534668,
         "num_token_in": 283,
-        "num_token_out": 64
+        "num_token_out": 14
       }
     },
     "As a collections manager I want required DC fields to be enforced so that all records have values for all required DC fields.": {
@@ -51,9 +51,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.9900407791137695,
+        "duration": 0.7660996913909912,
         "num_token_in": 283,
-        "num_token_out": 15
+        "num_token_out": 18
       }
     },
     "As a collections manager I want to be able to repeat repeatable DC Fields so that I can enter all of the relevant metadata.": {
@@ -62,7 +62,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6303830146789551,
+        "duration": 1.2723491191864014,
         "num_token_in": 284,
         "num_token_out": 18
       }
@@ -73,7 +73,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 2.829023599624634,
+        "duration": 0.6034271717071533,
         "num_token_in": 286,
         "num_token_out": 18
       }
@@ -86,7 +86,7 @@
       ],
       "result_type": "FALSE POSITIVE",
       "usage": {
-        "duration": 0.7001137733459473,
+        "duration": 0.9495155811309814,
         "num_token_in": 287,
         "num_token_out": 22
       }
@@ -97,7 +97,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6385090351104736,
+        "duration": 0.790684700012207,
         "num_token_in": 278,
         "num_token_out": 17
       }
@@ -110,20 +110,18 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.8455307483673096,
+        "duration": 0.830848217010498,
         "num_token_in": 303,
         "num_token_out": 35
       }
     },
     "As a cataloger I want to be able to see/hear/watch/read all components associated on the with an item on the create/update screen so I don't have to leave the form.": {
       "ground_truth_has_atomic": true,
-      "detected_violations_count": 1,
-      "detected_violations": [
-        "The [Means] contain more than 1 tasks:\n(1) see all components\n(2) hear all components\n(3) watch all components\n(4) read all components"
-      ],
-      "result_type": "TRUE POSITIVE",
+      "detected_violations_count": 0,
+      "detected_violations": [],
+      "result_type": "FALSE NEGATIVE",
       "usage": {
-        "duration": 1.2498490810394287,
+        "duration": 0.789740800857544,
         "num_token_in": 309,
         "num_token_out": 31
       }
@@ -136,9 +134,9 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.5819981098175049,
+        "duration": 0.5861456394195557,
         "num_token_in": 304,
-        "num_token_out": 14
+        "num_token_out": 15
       }
     },
     "As a cataloger or collection manager I want to be able to edit an arbitrary number of Items at once so that I can make changes to all Items in a collection efficiently.": {
@@ -149,7 +147,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.796647310256958,
+        "duration": 0.5896117687225342,
         "num_token_in": 296,
         "num_token_out": 14
       }
@@ -160,7 +158,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6213572025299072,
+        "duration": 0.5386853218078613,
         "num_token_in": 284,
         "num_token_out": 14
       }
@@ -171,7 +169,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5526752471923828,
+        "duration": 0.6354830265045166,
         "num_token_in": 294,
         "num_token_out": 14
       }
@@ -182,22 +180,22 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 1.5045239925384521,
+        "duration": 0.5344505310058594,
         "num_token_in": 289,
-        "num_token_out": 85
+        "num_token_out": 14
       }
     },
     "As a collection manager I want to map fields in inherited metadata to Duke Core fields and import a spreadsheet and create records.": {
       "ground_truth_has_atomic": true,
       "detected_violations_count": 1,
       "detected_violations": [
-        "The [Means] contain more than 1 tasks:\n(1) map fields\n(2) import a spreadsheet\n(3) create records"
+        "The [Means] contain more than 1 tasks:\n(1) map fields in inherited metadata to Duke Core fields\n(2) import a spreadsheet\n(3) create records"
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 1.6152124404907227,
+        "duration": 1.150012493133545,
         "num_token_in": 293,
-        "num_token_out": 24
+        "num_token_out": 31
       }
     },
     "As a collection manager I want to import metadata and create records from a DCP digitazation guide.": {
@@ -208,7 +206,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.6938562393188477,
+        "duration": 0.9471824169158936,
         "num_token_in": 287,
         "num_token_out": 19
       }
@@ -219,7 +217,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5822241306304932,
+        "duration": 0.6414685249328613,
         "num_token_in": 288,
         "num_token_out": 15
       }
@@ -230,9 +228,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.4814622402191162,
+        "duration": 0.6115565299987793,
         "num_token_in": 297,
-        "num_token_out": 14
+        "num_token_out": 24
       }
     },
     "As a Collection Manager I want my collection to be discoverable in the Catalog.": {
@@ -241,7 +239,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5909197330474854,
+        "duration": 0.5352365970611572,
         "num_token_in": 277,
         "num_token_out": 16
       }
@@ -252,7 +250,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.4712855815887451,
+        "duration": 0.763599157333374,
         "num_token_in": 273,
         "num_token_out": 15
       }
@@ -263,7 +261,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 1.1122980117797852,
+        "duration": 0.7624831199645996,
         "num_token_in": 273,
         "num_token_out": 16
       }
@@ -276,7 +274,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.6383264064788818,
+        "duration": 0.5628089904785156,
         "num_token_in": 289,
         "num_token_out": 21
       }
@@ -287,7 +285,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6390562057495117,
+        "duration": 0.652268648147583,
         "num_token_in": 273,
         "num_token_out": 19
       }
@@ -298,7 +296,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6380493640899658,
+        "duration": 0.8227541446685791,
         "num_token_in": 277,
         "num_token_out": 21
       }
@@ -309,7 +307,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.7390820980072021,
+        "duration": 1.1225316524505615,
         "num_token_in": 277,
         "num_token_out": 18
       }
@@ -320,7 +318,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5350055694580078,
+        "duration": 0.4820551872253418,
         "num_token_in": 281,
         "num_token_out": 16
       }
@@ -331,7 +329,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 1.0509617328643799,
+        "duration": 0.574528694152832,
         "num_token_in": 287,
         "num_token_out": 15
       }
@@ -344,7 +342,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.8450741767883301,
+        "duration": 0.638185977935791,
         "num_token_in": 275,
         "num_token_out": 25
       }
@@ -355,7 +353,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6286890506744385,
+        "duration": 0.6384298801422119,
         "num_token_in": 283,
         "num_token_out": 20
       }
@@ -366,7 +364,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.6438238620758057,
+        "duration": 0.5365383625030518,
         "num_token_in": 281,
         "num_token_out": 17
       }
@@ -377,7 +375,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.7082645893096924,
+        "duration": 0.5347201824188232,
         "num_token_in": 283,
         "num_token_out": 14
       }
@@ -388,7 +386,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.8753883838653564,
+        "duration": 0.7409696578979492,
         "num_token_in": 276,
         "num_token_out": 21
       }
@@ -399,7 +397,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.7404201030731201,
+        "duration": 0.6369278430938721,
         "num_token_in": 301,
         "num_token_out": 16
       }
@@ -410,7 +408,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5359909534454346,
+        "duration": 0.6387367248535156,
         "num_token_in": 276,
         "num_token_out": 14
       }
@@ -421,7 +419,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 1.7647333145141602,
+        "duration": 0.6250295639038086,
         "num_token_in": 278,
         "num_token_out": 14
       }
@@ -432,7 +430,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 1.048039436340332,
+        "duration": 1.0613555908203125,
         "num_token_in": 274,
         "num_token_out": 14
       }
@@ -445,7 +443,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 0.5441930294036865,
+        "duration": 0.6381645202636719,
         "num_token_in": 268,
         "num_token_out": 16
       }
@@ -456,7 +454,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.63059401512146,
+        "duration": 0.5360908508300781,
         "num_token_in": 290,
         "num_token_out": 14
       }
@@ -467,9 +465,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5691170692443848,
+        "duration": 0.6199195384979248,
         "num_token_in": 276,
-        "num_token_out": 20
+        "num_token_out": 17
       }
     },
     "As a Metadata librarian I want to define Authorities to be used for specific fields in a collection MD Schema.": {
@@ -478,7 +476,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 1.0321736335754395,
+        "duration": 0.7586004734039307,
         "num_token_in": 288,
         "num_token_out": 15
       }
@@ -489,7 +487,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.9266114234924316,
+        "duration": 0.5610015392303467,
         "num_token_in": 280,
         "num_token_out": 16
       }
@@ -500,7 +498,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5577781200408936,
+        "duration": 0.47743940353393555,
         "num_token_in": 275,
         "num_token_out": 15
       }
@@ -511,7 +509,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.9940564632415771,
+        "duration": 0.5687787532806396,
         "num_token_in": 299,
         "num_token_out": 16
       }
@@ -522,7 +520,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.875694751739502,
+        "duration": 0.6400792598724365,
         "num_token_in": 289,
         "num_token_out": 14
       }
@@ -533,20 +531,20 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5370388031005859,
+        "duration": 0.5332458019256592,
         "num_token_in": 282,
         "num_token_out": 16
       }
     },
     "As a cataloger or collection manager I want to be able to search for records based on all Duke Core fields.": {
-      "ground_truth_has_atomic": true,
+      "ground_truth_has_atomic": false,
       "detected_violations_count": 1,
       "detected_violations": [
         "The [Role] is more than 1: cataloger, collection manager"
       ],
-      "result_type": "TRUE POSITIVE",
+      "result_type": "FALSE POSITIVE",
       "usage": {
-        "duration": 0.4920966625213623,
+        "duration": 0.6519317626953125,
         "num_token_in": 285,
         "num_token_out": 16
       }
@@ -557,19 +555,19 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 0.5774924755096436,
+        "duration": 1.8300073146820068,
         "num_token_in": 289,
         "num_token_out": 15
       }
     }
   },
   "summary": {
-    "precision": 0.9230769230769231,
-    "recall": 1.0,
-    "f1": 0.9600000000000001,
-    "true_positives": 12,
-    "false_positives": 1,
-    "false_negatives": 0,
+    "precision": 0.8333333333333334,
+    "recall": 0.9090909090909091,
+    "f1": 0.8695652173913043,
+    "true_positives": 10,
+    "false_positives": 2,
+    "false_negatives": 1,
     "true_negatives": 35
   }
 }

@@ -99,8 +99,6 @@
   "As a collection manager I want to search for records based on status so I can track the progress of a collection.": [
     "Uniform"
   ],
-  "As a cataloger or collection manager I want to be able to search for records based on all Duke Core fields.": [
-    "Atomic"
-  ],
+  "As a cataloger or collection manager I want to be able to search for records based on all Duke Core fields.": [],
   "As a user I want to be able to publish records only when the record has a Title Identifier Type and Source.": []
 }

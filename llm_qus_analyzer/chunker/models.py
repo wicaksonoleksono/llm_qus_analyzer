@@ -10,6 +10,7 @@ then extract the [Role], [Means] and [Ends] from the following user story:
 "{user_story}"
 **Please only display the single final answer without any explanation, fixing steps, or any redundant text.**
 """
+
 output_format = """
 Your response must be a single, valid JSON object. 
 Do not include any text or formatting outside of the JSON structure.
@@ -19,19 +20,6 @@ The JSON object should strictly conform to the following schema:
   - `[Role]`: An array of string consist of all of the [Role] in the user story. If no [Role], then this should be an empty array `[]`.
   - `[Means]`: A string represent the [Means] of the user story. If no [Means], then this should be `null`.
   - `[Ends]`: A string represent the [Ends] of the user story. If no [Ends], then this should be `null`.
-"""
-cb_s = """
-Based on the Quality User Story (QUS) framework, a user story consists of three parts:
-[Role], [Means], and optionally [End].
-All of that parts is a substring obtained from user story text itself, not generated outside the text.
-"""
-cb_m = """
-Based on the Quality User Story (QUS) framework, a user story consists of three parts:
-[Role], [Means], and optionally [End]. By definition:
-- [Role]: defining what stakeholder or persona expresses the need.
-- [Means]: can be used to represent different types of requirements.
-- [End]: one or more of this parts explain why the [Means] are requested.
-All of that parts is a substring obtained from user story text itself, not generated outside the text.
 """
 
 cb_l = """
@@ -46,6 +34,7 @@ the [Means] should not start with a phrasal modal verb (or semi-modal verb), lik
 the [Ends] should start with a pronoun (if it exist) or verb, not a causal phrase such as "so that", "in order to", "to" etc, and not including any unnecessary text behind it.
 Every [Role], [Means] and [Ends] must be **explicitly mentioned** or become a part or substring of the user story.
 """
+
 @dataclass
 class QUSChunkData:
     """Container for the analyzed components of a user story."""
@@ -57,6 +46,7 @@ class QUSChunkData:
     """The identified means component, if present."""
     ends: Optional[str]
     """The identified ends component, if present."""
+
 @dataclass
 class QUSComponent:
     """Comprehensive representation of a parsed user story with template."""
@@ -118,13 +108,11 @@ class QUSChunkerModel:
         means = raw["component"]["[Means]"]
         if isinstance(means, list):
             if not means:
-                # sy tambahkan ini kadang llm output nya list.
                 raise ValueError("LLM returned empty array for [Means]")
             means = means[0]
         elif isinstance(means, str):
             if means.lower() == "none" or means == "":
                 means = None
-
         ends = raw["component"]["[Ends]"]
         if isinstance(ends, list):
             if not ends:

@@ -37,11 +37,7 @@ def build_and_save_templates():
     """Use the chunker to build proper templates for all user stories and save them."""
     print("BUILDING AND SAVING TEMPLATES WITH CHUNKER")
     print("=" * 60)
-    
-    # Load user stories
     user_stories, story_ids = load_user_stories()
-    
-    # Setup LLM client and chunker
     setting = Settings()
     setting.configure_paths_and_load(
         env_path=Path('../.env'),
@@ -54,12 +50,8 @@ def build_and_save_templates():
     model_idx = 0
     
     print(f"Processing {len(user_stories)} user stories with chunker...")
-    
-    # Process all user stories with the chunker to build templates
     try:
         results = chunker.analyze_list(clients, model_idx, user_stories, story_ids)
-        
-        # Convert components to serializable format
         serializable_components = []
         for component, usage in results:
             component_dict = {

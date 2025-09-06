@@ -13,23 +13,36 @@ from llm_qus_analyzer import Settings, LLMClient
 from llm_qus_analyzer.chunker.models import QUSComponent
 from llm_qus_analyzer.chunker.parser import Template
 
-def load_chunk_best():
-    """Load best quality chunked data."""
-    chunk_file = Path("chunked_story/chunk_best.json")
+_end = {
+    "deepseek",
+    "gpt", 
+    "llama",
+    "mistral"
+}
+
+def load_chunk_per_model():
+    """Load chunked data per model separately."""
+    models_data = {}
     
-    with open(chunk_file, 'r') as f:
-        raw_chunks = json.load(f)
+    for j in _end:
+        chunk_file = Path(f"chunked_story/chunk_{j}.json")
+        
+        with open(chunk_file, 'r') as f:
+            raw_chunks = json.load(f)
+        
+        # Extract components and convert to QUSComponent format
+        model_components = []
+        for item in raw_chunks:
+            if 'component' in item:
+                comp_data = item['component']
+                # Add model source info
+                comp_data['model_source'] = j
+                model_components.append(comp_data)
+        
+        models_data[j] = model_components
+        print(f"Loaded {len(model_components)} components from {j} model")
     
-    # Extract components and convert to QUSComponent format
-    components = []
-    for item in raw_chunks:
-        if 'component' in item:
-            comp_data = item['component']
-            # Convert to expected format for analyzer
-            components.append(comp_data)
-    
-    print(f"Loaded {len(components)} components for violation testing")
-    return components
+    return models_data
 
 def load_ground_truth_violations():
     """Load ground truth violation labels."""
@@ -68,7 +81,7 @@ def test_minimal_analyzer():
     print("=" * 60)
     
     # Load data
-    components = load_chunk_best()
+    models_data = load_chunk_per_model()
     gt_violations = load_ground_truth_violations()
     
     # Setup LLM client and analyzer
@@ -79,9 +92,13 @@ def test_minimal_analyzer():
     )
     clients = LLMClient(from_settings=setting)
     
-    # Find stories that exist in both datasets
+    # Find stories that exist in both datasets - combine all models
+    all_components = []
+    for model_name, components in models_data.items():
+        all_components.extend(components)
+    
     matched_stories = []
-    for component in components:
+    for component in all_components:
         original_text = component.get('original_text', component.get('text', ''))
         if original_text in gt_violations:
             matched_stories.append((original_text, component))
@@ -120,7 +137,7 @@ def test_minimal_analyzer():
         
         for i, (story_text, component) in enumerate(matched_stories):
             print(f"--- Story {i+1}/{len(matched_stories)} ---")
-            print(f"Text: {story_text[:80]}{'...' if len(story_text) > 80 else ''}")
+            print(f"Text: {story_text}")
             
             # Get ground truth for this story
             gt_story_violations = gt_violations[story_text]

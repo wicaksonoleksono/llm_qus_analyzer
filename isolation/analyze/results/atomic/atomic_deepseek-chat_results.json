@@ -4,8 +4,8 @@
     "model_name": "deepseek-chat"
   },
   "total_stories": 48,
-  "correct_predictions": 46,
-  "false_positives": 2,
+  "correct_predictions": 45,
+  "false_positives": 3,
   "false_negatives": 0,
   "stories": {
     "As a collection manager or cataloger I want to be able to see who last edited a record and when.": {
@@ -17,7 +17,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 5.931042194366455,
+        "duration": 4.354002237319946,
         "num_token_in": 279,
         "num_token_out": 16
       }
@@ -28,9 +28,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.1514644622802734,
+        "duration": 3.2357709407806396,
         "num_token_in": 272,
-        "num_token_out": 7
+        "num_token_out": 9
       }
     },
     "As a cataloger and a collections manager I want Trident to support Duke Core so that metadata is consistent between collections.": {
@@ -41,7 +41,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 3.180177927017212,
+        "duration": 3.469876527786255,
         "num_token_in": 279,
         "num_token_out": 9
       }
@@ -52,9 +52,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 4.570093870162964,
+        "duration": 3.6059367656707764,
         "num_token_in": 279,
-        "num_token_out": 10
+        "num_token_out": 11
       }
     },
     "As a collections manager I want to be able to repeat repeatable DC Fields so that I can enter all of the relevant metadata.": {
@@ -63,9 +63,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.837005138397217,
+        "duration": 3.9172921180725098,
         "num_token_in": 280,
-        "num_token_out": 11
+        "num_token_out": 9
       }
     },
     "As a collection manager I want to be able to create controlled vocabularies so that they can be used as authority lists during metadata creation.": {
@@ -74,7 +74,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.222013235092163,
+        "duration": 3.60618257522583,
         "num_token_in": 282,
         "num_token_out": 9
       }
@@ -85,7 +85,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.3917417526245117,
+        "duration": 3.4123189449310303,
         "num_token_in": 284,
         "num_token_out": 11
       }
@@ -96,7 +96,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.238037586212158,
+        "duration": 3.599123954772949,
         "num_token_in": 274,
         "num_token_out": 10
       }
@@ -109,9 +109,9 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 4.021986722946167,
+        "duration": 3.5428924560546875,
         "num_token_in": 301,
-        "num_token_out": 16
+        "num_token_out": 18
       }
     },
     "As a cataloger I want to be able to see/hear/watch/read all components associated on the with an item on the create/update screen so I don't have to leave the form.": {
@@ -122,7 +122,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 4.063454627990723,
+        "duration": 4.366497993469238,
         "num_token_in": 309,
         "num_token_out": 26
       }
@@ -135,9 +135,9 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 4.358914613723755,
+        "duration": 3.936917543411255,
         "num_token_in": 300,
-        "num_token_out": 16
+        "num_token_out": 14
       }
     },
     "As a cataloger or collection manager I want to be able to edit an arbitrary number of Items at once so that I can make changes to all Items in a collection efficiently.": {
@@ -148,7 +148,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 3.3689184188842773,
+        "duration": 3.8027520179748535,
         "num_token_in": 292,
         "num_token_out": 9
       }
@@ -159,7 +159,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.2346129417419434,
+        "duration": 3.2080583572387695,
         "num_token_in": 280,
         "num_token_out": 9
       }
@@ -170,7 +170,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 2.752149820327759,
+        "duration": 3.7096471786499023,
         "num_token_in": 291,
         "num_token_out": 9
       }
@@ -181,7 +181,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.403505802154541,
+        "duration": 3.790438175201416,
         "num_token_in": 285,
         "num_token_out": 9
       }
@@ -194,7 +194,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 4.063052654266357,
+        "duration": 4.014900207519531,
         "num_token_in": 289,
         "num_token_out": 19
       }
@@ -207,7 +207,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 3.6634361743927,
+        "duration": 4.452263116836548,
         "num_token_in": 283,
         "num_token_out": 14
       }
@@ -218,7 +218,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 2.994046688079834,
+        "duration": 3.5058181285858154,
         "num_token_in": 286,
         "num_token_out": 9
       }
@@ -229,7 +229,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.6207950115203857,
+        "duration": 3.199131727218628,
         "num_token_in": 293,
         "num_token_out": 9
       }
@@ -240,9 +240,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.184387683868408,
+        "duration": 3.9149816036224365,
         "num_token_in": 273,
-        "num_token_out": 8
+        "num_token_out": 10
       }
     },
     "As a Digital Production User (DPU) I want to be able to create Components.": {
@@ -251,9 +251,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.6096508502960205,
+        "duration": 3.197505235671997,
         "num_token_in": 269,
-        "num_token_out": 9
+        "num_token_out": 8
       }
     },
     "As a DPU I want to create Technical Metadata with for Component.": {
@@ -262,7 +262,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.6062824726104736,
+        "duration": 3.9148194789886475,
         "num_token_in": 269,
         "num_token_out": 11
       }
@@ -275,7 +275,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 3.3006038665771484,
+        "duration": 3.319697856903076,
         "num_token_in": 285,
         "num_token_out": 9
       }
@@ -286,7 +286,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.722310781478882,
+        "duration": 3.843712091445923,
         "num_token_in": 269,
         "num_token_out": 11
       }
@@ -297,9 +297,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.1583871841430664,
+        "duration": 3.6605844497680664,
         "num_token_in": 273,
-        "num_token_out": 13
+        "num_token_out": 11
       }
     },
     "As a DPU I want to add one or more Components to an Item.": {
@@ -308,9 +308,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.8405048847198486,
+        "duration": 3.503842830657959,
         "num_token_in": 273,
-        "num_token_out": 8
+        "num_token_out": 11
       }
     },
     "As a DPU I want to create structural metadata for an Item so I can define the sequence of components.": {
@@ -319,9 +319,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.785611391067505,
+        "duration": 3.6083903312683105,
         "num_token_in": 277,
-        "num_token_out": 11
+        "num_token_out": 9
       }
     },
     "As a Digital Production Developer (DPD) I want to group components that require digitization so that I can create \"digitizable units\".": {
@@ -330,7 +330,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.88897967338562,
+        "duration": 3.709862470626831,
         "num_token_in": 283,
         "num_token_out": 10
       }
@@ -343,7 +343,7 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 6.81467342376709,
+        "duration": 4.123748779296875,
         "num_token_in": 273,
         "num_token_out": 20
       }
@@ -356,9 +356,9 @@
       ],
       "result_type": "FALSE POSITIVE",
       "usage": {
-        "duration": 3.3270325660705566,
+        "duration": 3.727963924407959,
         "num_token_in": 280,
-        "num_token_out": 14
+        "num_token_out": 16
       }
     },
     "As a DPD I want to capture digitization statistics so that I can monitor Operator efficiency and make projections for future projects.": {
@@ -367,9 +367,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 2.99487566947937,
+        "duration": 3.986621618270874,
         "num_token_in": 279,
-        "num_token_out": 10
+        "num_token_out": 13
       }
     },
     "As a DPU I want Trident to create derivatives for me when I upload a Master.": {
@@ -380,7 +380,7 @@
       ],
       "result_type": "FALSE POSITIVE",
       "usage": {
-        "duration": 3.9070253372192383,
+        "duration": 4.029349327087402,
         "num_token_in": 279,
         "num_token_out": 15
       }
@@ -391,7 +391,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.5074360370635986,
+        "duration": 3.3000972270965576,
         "num_token_in": 273,
         "num_token_out": 10
       }
@@ -402,7 +402,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.6072049140930176,
+        "duration": 3.5450308322906494,
         "num_token_in": 297,
         "num_token_out": 9
       }
@@ -413,9 +413,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.171278238296509,
+        "duration": 3.5163633823394775,
         "num_token_in": 272,
-        "num_token_out": 7
+        "num_token_out": 9
       }
     },
     "As a user I want to see how many digitized Items have been described.": {
@@ -424,7 +424,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.0110716819763184,
+        "duration": 3.350355386734009,
         "num_token_in": 274,
         "num_token_out": 9
       }
@@ -435,7 +435,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.2067179679870605,
+        "duration": 4.119723320007324,
         "num_token_in": 270,
         "num_token_out": 9
       }
@@ -448,9 +448,9 @@
       ],
       "result_type": "TRUE POSITIVE",
       "usage": {
-        "duration": 3.420006513595581,
+        "duration": 2.9930624961853027,
         "num_token_in": 264,
-        "num_token_out": 9
+        "num_token_out": 7
       }
     },
     "As a Preservation Librarian I want the relationship between masters and derivatives to be managed by the system so I don't have to.": {
@@ -459,9 +459,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.019622802734375,
+        "duration": 3.128472089767456,
         "num_token_in": 286,
-        "num_token_out": 9
+        "num_token_out": 7
       }
     },
     "As a Metadata Librarian I want to define the metadata schema for a collection.": {
@@ -470,7 +470,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.5671608448028564,
+        "duration": 3.267181873321533,
         "num_token_in": 272,
         "num_token_out": 9
       }
@@ -481,7 +481,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.350438356399536,
+        "duration": 3.506685733795166,
         "num_token_in": 283,
         "num_token_out": 10
       }
@@ -492,9 +492,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.2488648891448975,
+        "duration": 3.4660346508026123,
         "num_token_in": 276,
-        "num_token_out": 11
+        "num_token_out": 9
       }
     },
     "As a Metadata Librarian I want validation rules enforced when MD is submitted.": {
@@ -503,7 +503,7 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.5048789978027344,
+        "duration": 3.5447826385498047,
         "num_token_in": 271,
         "num_token_out": 10
       }
@@ -514,9 +514,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 4.462298154830933,
+        "duration": 3.506932258605957,
         "num_token_in": 295,
-        "num_token_out": 11
+        "num_token_out": 9
       }
     },
     "As a cataloger I want a list of all of the records I have access to so I can get to work quickly.": {
@@ -525,9 +525,9 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.235069990158081,
+        "duration": 3.583986759185791,
         "num_token_in": 285,
-        "num_token_out": 8
+        "num_token_out": 10
       }
     },
     "As a collection manager I want to search for records based on status so I can track the progress of a collection.": {
@@ -536,22 +536,22 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 3.8201868534088135,
+        "duration": 3.6298656463623047,
         "num_token_in": 278,
         "num_token_out": 11
       }
     },
     "As a cataloger or collection manager I want to be able to search for records based on all Duke Core fields.": {
-      "ground_truth_has_atomic": true,
+      "ground_truth_has_atomic": false,
       "detected_violations_count": 1,
       "detected_violations": [
         "The [Role] is more than 1: cataloger, collection manager"
       ],
-      "result_type": "TRUE POSITIVE",
+      "result_type": "FALSE POSITIVE",
       "usage": {
-        "duration": 3.3233754634857178,
+        "duration": 2.7965407371520996,
         "num_token_in": 281,
-        "num_token_out": 11
+        "num_token_out": 9
       }
     },
     "As a user I want to be able to publish records only when the record has a Title Identifier Type and Source.": {
@@ -560,18 +560,18 @@
       "detected_violations": [],
       "result_type": "TRUE NEGATIVE",
       "usage": {
-        "duration": 4.556024074554443,
+        "duration": 3.4976391792297363,
         "num_token_in": 286,
         "num_token_out": 11
       }
     }
   },
   "summary": {
-    "precision": 0.8571428571428571,
+    "precision": 0.7857142857142857,
     "recall": 1.0,
-    "f1": 0.923076923076923,
-    "true_positives": 12,
-    "false_positives": 2,
+    "f1": 0.88,
+    "true_positives": 11,
+    "false_positives": 3,
     "false_negatives": 0,
     "true_negatives": 34
   }
