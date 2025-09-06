@@ -1,0 +1,536 @@
+{
+  "total_stories": 48,
+  "statistics": {
+    "true_positives": 18,
+    "false_positives": 0,
+    "false_negatives": 0,
+    "true_negatives": 30,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0
+  },
+  "detailed_results": [
+    {
+      "story_id": 1,
+      "original_text": "As a collection manager or cataloger I want to be able to see who last edited a record and when.",
+      "template": "As a {ROLE} I want to be able to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 2,
+      "original_text": "As an end user I want to be able to search across all collections at once.",
+      "template": "As an {ROLE} I want to be able to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 3,
+      "original_text": "As a cataloger and a collections manager I want Trident to support Duke Core so that metadata is consistent between collections.",
+      "template": "As a {ROLE} I want {MEANS} so that {ENDS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 4,
+      "original_text": "As a collections manager I want required DC fields to be enforced so that all records have values for all required DC fields.",
+      "template": "As a {ROLE} I want {MEANS} so that {ENDS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 5,
+      "original_text": "As a collections manager I want to be able to repeat repeatable DC Fields so that I can enter all of the relevant metadata.",
+      "template": "As a {ROLE} I want to be able to {MEANS} so that {ENDS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 6,
+      "original_text": "As a collection manager I want to be able to create controlled vocabularies so that they can be used as authority lists during metadata creation.",
+      "template": "As a {ROLE} I want to be able to {MEANS} so that {ENDS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 7,
+      "original_text": "As a cataloger I want authority lists to be easily accessible and contextually relevant so it is easy to use the authority.",
+      "template": "As a {ROLE} I want {MEANS} so {ENDS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 8,
+      "original_text": "As a collection manager I want to use external authority lists so I they can be used during metadata creation.",
+      "template": "As a {ROLE} I want to {MEANS} so I {ENDS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 9,
+      "original_text": "As a cataloger I want to be able to see/hear/watch/read the digital object I am cataloging so I don't have to move between multiple applications while I'm creating metadata.",
+      "template": "As a {ROLE} I want to be able to {MEANS} so {ENDS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 10,
+      "original_text": "As a cataloger I want to be able to see/hear/watch/read all components associated on the with an item on the create/update screen so I don't have to leave the form.",
+      "template": "As a {ROLE} I want to be able to {MEANS} so {ENDS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 11,
+      "original_text": "As a cataloger or collection manager I want to see all of the metadata for a record while I'm editing it so that I have the full context for the item I'm cataloging.",
+      "template": "As a {ROLE} I want to {MEANS} so that {ENDS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 12,
+      "original_text": "As a cataloger or collection manager I want to be able to edit an arbitrary number of Items at once so that I can make changes to all Items in a collection efficiently.",
+      "template": "As a {ROLE} I want to be able to {MEANS} so that {ENDS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 13,
+      "original_text": "As a collection manager I want each record to have a status so I can track the progress of the records in the collection.",
+      "template": "As a {ROLE} I want {MEANS} so {ENDS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 14,
+      "original_text": "As a collection manager I want statuses to include a status that flags a record as having a problem so we can track issues as the arise.",
+      "template": "As a {ROLE} I want {MEANS} so {ENDS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 15,
+      "original_text": "As a cataloger I want Trident to support the UTF- character set so that I can use any character necessary when creating metadata.",
+      "template": "As a {ROLE} I want {MEANS} so that {ENDS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 16,
+      "original_text": "As a collection manager I want to map fields in inherited metadata to Duke Core fields and import a spreadsheet and create records.",
+      "template": "As a {ROLE} I want to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 17,
+      "original_text": "As a collection manager I want to import metadata and create records from a DCP digitazation guide.",
+      "template": "As a {ROLE} I want to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 18,
+      "original_text": "As a Archivist I want bi-directional linking between items in the digital collections and EAD finding aids.",
+      "template": "As a {ROLE} I want bi-directional {MEANS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 19,
+      "original_text": "As a End User I want to be able to see the physical context of an Item in a digital collection (i.e. See inside this folder; EAD)",
+      "template": "As a {ROLE} I want to be able to {MEANS}",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 20,
+      "original_text": "As a Collection Manager I want my collection to be discoverable in the Catalog.",
+      "template": "As a {ROLE} I want {MEANS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 21,
+      "original_text": "As a Digital Production User (DPU) I want to be able to create Components.",
+      "template": "As a {ROLE} I want to be able to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 22,
+      "original_text": "As a DPU I want to create Technical Metadata with for Component.",
+      "template": "As a {ROLE} I want to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 23,
+      "original_text": "As a cataloger or collection manager I want to be able to use a grid/spreadsheet style interface so I can edit Items quickly.",
+      "template": "As a {ROLE} I want to be able to {MEANS} so {ENDS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 24,
+      "original_text": "As a DPU I want to create Preservation Metadata for a Component.",
+      "template": "As a {ROLE} I want to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 25,
+      "original_text": "As a DPU I want to upload master surrogates to a Component.",
+      "template": "As a {ROLE} I want to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 26,
+      "original_text": "As a DPU I want to add one or more Components to an Item.",
+      "template": "As a {ROLE} I want to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 27,
+      "original_text": "As a DPU I want to create structural metadata for an Item so I can define the sequence of components.",
+      "template": "As a {ROLE} I want to {MEANS} so {ENDS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 28,
+      "original_text": "As a Digital Production Developer (DPD) I want to group components that require digitization so that I can create \"digitizable units\".",
+      "template": "As a {ROLE} I want to {MEANS} so that {ENDS}",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 29,
+      "original_text": "As a DPU I want to check-out/check-in groups of Components.",
+      "template": "As a {ROLE} I want to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 30,
+      "original_text": "As a DPD I want to verify the correctness and completeness of components so that I can ensure quality standards are met.",
+      "template": "As a {ROLE} I want to {MEANS} so that {ENDS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 31,
+      "original_text": "As a DPD I want to capture digitization statistics so that I can monitor Operator efficiency and make projections for future projects.",
+      "template": "As a {ROLE} I want to {MEANS} so that {ENDS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 32,
+      "original_text": "As a DPU I want Trident to create derivatives for me when I upload a Master.",
+      "template": "As a {ROLE} I want {MEANS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 33,
+      "original_text": "As a User I want to monitor the progress of a digital collection project.",
+      "template": "As a {ROLE} I want to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 34,
+      "original_text": "As a cataloger I want to be able to save a record without all of the required metadata so that I can start a record with the metadata I have and come back to finish it later.",
+      "template": "As a {ROLE} I want to be able to {MEANS} so that {ENDS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 35,
+      "original_text": "As a user I want to see how many Items have been digitized.",
+      "template": "As a {ROLE} I want to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 36,
+      "original_text": "As a user I want to see how many digitized Items have been described.",
+      "template": "As a {ROLE} I want to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 37,
+      "original_text": "As a user I want to see how many Items have been published.",
+      "template": "As a {ROLE} I want to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 38,
+      "original_text": "As Collection Manager or Sponsor I want to describe the collection.",
+      "template": "As {ROLE} I want to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 39,
+      "original_text": "As a Preservation Librarian I want the relationship between masters and derivatives to be managed by the system so I don't have to.",
+      "template": "As a {ROLE} I want {MEANS} so {ENDS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 40,
+      "original_text": "As a Metadata Librarian I want to define the metadata schema for a collection.",
+      "template": "As a {ROLE} I want to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 41,
+      "original_text": "As a Metadata librarian I want to define Authorities to be used for specific fields in a collection MD Schema.",
+      "template": "As a {ROLE} I want to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 42,
+      "original_text": "As a Metadata Librarian I want to define validation rules for specific fields in a collection.",
+      "template": "As a {ROLE} I want to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 43,
+      "original_text": "As a Metadata Librarian I want validation rules enforced when MD is submitted.",
+      "template": "As a {ROLE} I want {MEANS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 44,
+      "original_text": "As a user I want to be able to save a record only when the record has an identifier so that we don't end up with a bunch of empty records in the collection.",
+      "template": "As a {ROLE} I want to be able to {MEANS} so that {ENDS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 45,
+      "original_text": "As a cataloger I want a list of all of the records I have access to so I can get to work quickly.",
+      "template": "As a {ROLE} I want {MEANS} so {ENDS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 46,
+      "original_text": "As a collection manager I want to search for records based on status so I can track the progress of a collection.",
+      "template": "As a {ROLE} I want to {MEANS} so {ENDS}.",
+      "has_violations": true,
+      "ground_truth_uniform": true,
+      "result_type": "TRUE_POSITIVE",
+      "violations": [
+        {
+          "issue": "User story doesn't follow the common template pattern: \"As a {ROLE} I want to {MEANS}.\"",
+          "suggestion": "Consider reformatting with proper component separation: \"\""
+        }
+      ]
+    },
+    {
+      "story_id": 47,
+      "original_text": "As a cataloger or collection manager I want to be able to search for records based on all Duke Core fields.",
+      "template": "As a {ROLE} I want to be able to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    },
+    {
+      "story_id": 48,
+      "original_text": "As a user I want to be able to publish records only when the record has a Title Identifier Type and Source.",
+      "template": "As a {ROLE} I want to be able to {MEANS}.",
+      "has_violations": false,
+      "ground_truth_uniform": false,
+      "result_type": "TRUE_NEGATIVE",
+      "violations": []
+    }
+  ]
+}
