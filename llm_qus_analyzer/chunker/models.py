@@ -5,8 +5,10 @@ from ..client import LLMClient, LLMUsage
 from .parser import Template, TemplateParser
 
 input_format = """
-Expand all the contraction of english verb like "i'm" into "i am", etc, and 
-then extract the [Role], [Means] and [Ends] from the following user story:
+Expand every English verb contraction into its full form without changing tense, aspect, or meaning. 
+Only replace the contracted token with its literal expansion, and do not modify any other words. For example, 
+“I’m” becomes “I am” and “don’t” becomes “do not”. Words that are not contractions must remain exactly the same, 
+so “I want” stays “I want” and “I would” stays “I would”.
 "{user_story}"
 **Please only display the single final answer without any explanation, fixing steps, or any redundant text.**
 """

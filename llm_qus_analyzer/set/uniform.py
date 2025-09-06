@@ -267,6 +267,26 @@ class UniformAnalyzer:
         return [most_common_role], [most_common_means], [most_common_ends]
 
     @classmethod
+    def __find_most_common_template_text(cls, templates: list[Template]) -> str:
+        """Finds the most common template text structure.
+        
+        Args:
+            templates (list[Template]): List of templates to analyze
+            
+        Returns:
+            str: Most common template text pattern
+        """
+        from collections import Counter
+        template_counter = Counter()
+        
+        for template in templates:
+            template_counter[template.text] += 1
+        
+        if template_counter:
+            return template_counter.most_common(1)[0][0]
+        return ""
+
+    @classmethod
     def __generate_violation_data(cls, text_template: str, component: QUSComponent) -> Violation:
         """Generates violation details for template deviations with proper component separation.
 
@@ -328,9 +348,8 @@ class UniformAnalyzer:
         templates = [comp.template for comp in components]
         if not templates:
             return [([], {}) for _ in components]
-
-        # Find most common separators following chunker logic
         common_role_seps, common_means_seps, common_ends_seps = cls.__find_most_common_separators(templates)
+        most_common_template_text = cls.__find_most_common_template_text(templates)
         
         results = []
         for comp in components:
@@ -371,7 +390,18 @@ class UniformAnalyzer:
             
             # Generate violation if any component doesn't match
             if not (role_ok and means_ok and ends_ok):
-                expected_template = f"{common_role_seps[0] if common_role_seps else '[ROLE]'}, {common_means_seps[0] if common_means_seps else '[MEANS]'}, {common_ends_seps[0] if common_ends_seps else '[ENDS]'}"
+                # Use actual template text, handle optional ENDS
+                expected_template = most_common_template_text
+                
+                # If current story has no ENDS but template includes ENDS, strip ENDS part
+                if not comp.ends and "{ENDS}" in expected_template:
+                    # Remove ENDS and trailing connectors (so that, in order to, etc.)
+                    ends_patterns = [" so that {ENDS}", " in order to {ENDS}", " to {ENDS}", ", {ENDS}"]
+                    for pattern in ends_patterns:
+                        if pattern in expected_template:
+                            expected_template = expected_template.replace(pattern, "")
+                            break
+                
                 violation = cls.__generate_violation_data(expected_template, comp)
                 violations.append(violation)
             

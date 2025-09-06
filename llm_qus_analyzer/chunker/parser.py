@@ -75,7 +75,7 @@ class TemplateParser:
     """
     __reserve_pos = ["[ROLE]", "[MEANS]", "[ENDS]"]
     """Special POS tags for components"""
-    __valid_chars = [".","(",")","\\","'","\""]
+    __valid_chars = ["."]
     """Allowed non-alphanumeric characters"""
 
     @classmethod
