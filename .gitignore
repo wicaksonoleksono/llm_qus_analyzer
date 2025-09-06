@@ -211,3 +211,4 @@ __marimo__/
 plan.md
 conflict_free_pair.json
 ./llm_qus_analyzer/isolation
+./isolation
